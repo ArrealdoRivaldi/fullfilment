@@ -65,24 +65,27 @@
         ]
       },
       options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'PS'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Month'
-            }
-          }
-        }
+  responsive: true,
+  maintainAspectRatio: false, // Memungkinkan untuk mengontrol ukuran secara manual
+  aspectRatio: 2, // Rasio lebar terhadap tinggi
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'Fallout to Ps'
       }
-    });
+    },
+    x: {
+      title: {
+        display: true,
+        text: 'Month'
+      }
+    }
+  }
+} 
+    }
+  );
 
     // Fetch data from JSON and create charts
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
