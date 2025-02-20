@@ -19,7 +19,7 @@
       google.charts.setOnLoadCallback(loadData);
 
       function loadData() {
-        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/FBB/refs/heads/main/data%20fallout.json')
+        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
           .then(response => response.json())
           .then(data => {
             processData(data);
