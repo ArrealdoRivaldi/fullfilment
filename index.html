@@ -1,85 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-  <div id="dashboard_div">
-    <div id="filter_div" style="margin-bottom: 20px;"></div>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chart Cards</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Scatter Plot Card -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="text-center font-semibold text-lg">Company Performance</h2>
+      <canvas id="scatterChart"></canvas>
+      <p class="text-center text-blue-600 font-bold mt-4">Animations</p>
+    </div>
+
+    <!-- Pie Chart Card -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="text-center font-semibold text-lg">My Daily Activities</h2>
+      <canvas id="pieChart"></canvas>
+      <p class="text-center text-blue-600 font-bold mt-4">Pie Chart</p>
+    </div>
+
+    <!-- Bar Chart Card -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="text-center font-semibold text-lg">Materials Comparison</h2>
+      <canvas id="barChart"></canvas>
+      <p class="text-center text-blue-600 font-bold mt-4">Column Chart</p>
+    </div>
   </div>
+
+  <script>
+    // Scatter Chart
+    const scatterCtx = document.getElementById('scatterChart').getContext('2d');
+    new Chart(scatterCtx, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Company Performance',
+          data: Array.from({length: 15}, () => ({x: Math.random() * 100, y: Math.random() * 100})),
+          backgroundColor: 'rgba(54, 162, 235, 0.7)'
+        }]
+      },
+      options: {
+        scales: {
+          x: {beginAtZero: true},
+          y: {beginAtZero: true}
+        }
+      }
+    });
+
+    // Pie Chart
+    const pieCtx = document.getElementById('pieChart').getContext('2d');
+    new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Work', 'Eat', 'Commute', 'Sleep'],
+        datasets: [{
+          data: [45.5, 10, 8.1, 36.4],
+          backgroundColor: ['#36A2EB', '#FF6384', '#FF9F40', '#4BC0C0']
+        }]
+      }
+    });
+
+    // Bar Chart
+    const barCtx = document.getElementById('barChart').getContext('2d');
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Copper', 'Silver', 'Gold', 'Platinum'],
+        datasets: [{
+          label: 'Materials',
+          data: [9, 11, 20, 23],
+          backgroundColor: ['#B87333', '#C0C0C0', '#FFD700', '#E5E4E2']
+        }]
+      },
+      options: {
+        scales: {
+          y: {beginAtZero: true}
+        }
+      }
+    });
+  </script>
 </body>
 </html>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart', 'controls']});
-      google.charts.setOnLoadCallback(loadData);
-
-      function loadData() {
-        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
-          .then(response => response.json())
-          .then(data => {
-            processData(data);
-          })
-          .catch(error => console.error('Error fetching data:', error));
-      }
-
-      function processData(jsonData) {
-        var processedData = [['Region', 'Count']];
-        var regionCounts = {};
-
-        jsonData.forEach(entry => {
-          var region = entry.region;
-          if (regionCounts[region]) {
-            regionCounts[region]++;
-          } else {
-            regionCounts[region] = 1;
-          }
-        });
-
-        for (var region in regionCounts) {
-          processedData.push([region, regionCounts[region]]);
-        }
-
-        drawDashboard(processedData);
-      }
-
-      function drawDashboard(dataArray) {
-        var data = google.visualization.arrayToDataTable(dataArray);
-
-        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
-
-        var categoryFilter = new google.visualization.ControlWrapper({
-          controlType: 'CategoryFilter',
-          containerId: 'filter_div',
-          options: {
-            filterColumnIndex: 0,
-            ui: {
-              label: 'Pilih Region:',
-              allowTyping: false,
-              allowMultiple: true
-            }
-          }
-        });
-
-        var pieChart = new google.visualization.ChartWrapper({
-          chartType: 'PieChart',
-          containerId: 'chart_div',
-          options: { title: 'Distribution of Regions' }
-        });
-
-        dashboard.bind(categoryFilter, pieChart);
-        dashboard.draw(data);
-      }
-    </script>
