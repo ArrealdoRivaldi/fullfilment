@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chart Cards</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Tambahkan plugin chartjs-plugin-datalabels -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-8">
@@ -29,6 +31,7 @@
     </div>
 
   </div>
+
   <script>
     // Combo Chart
     const comboCtx = document.getElementById('comboChart').getContext('2d');
@@ -36,23 +39,29 @@
       data: {
         labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         datasets: [
-            {
+          {
             type: 'bar',
             label: 'Register',
             backgroundColor: '#36A2EB',
-            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null]
+            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null],
+            barPercentage: 0.6,   // Memperbesar lebar bar
+            categoryPercentage: 0.6
           },
           {
             type: 'bar',
             label: 'Put In Service',
             backgroundColor: '#FF6384',
-            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null]
+            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null],
+            barPercentage: 0.6,
+            categoryPercentage: 0.6
           },
           {
             type: 'bar',
             label: 'Target PS',
             backgroundColor: '#FF9F40',
-            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
+            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338],
+            barPercentage: 0.6,
+            categoryPercentage: 0.6
           },
           {
             type: 'line',
@@ -60,15 +69,39 @@
             borderColor: '#4BC0C0',
             borderWidth: 2,
             fill: false,
-            data: [15.835 / 20.595 * 100, 9.546 / 12.778 * 100]
+            data: [
+              (15.835 / 20.595 * 100).toFixed(2),
+              (9.546 / 12.778 * 100).toFixed(2),
+              null, null, null, null, null, null, null, null, null, null
+            ]
           }
         ]
       },
       options: {
         responsive: true,
+        plugins: {
+          // Aktifkan plugin datalabels
+          datalabels: {
+            // Tampilkan label di atas bar
+            display: (context) => {
+              // Hanya tampilkan label untuk dataset bar (bukan line)
+              return context.dataset.type === 'bar' && context.dataset.data[context.dataIndex] !== null;
+            },
+            align: 'end',
+            anchor: 'end',
+            formatter: (value) => {
+              // Pastikan null tidak ditampilkan
+              return value !== null ? value.toFixed(2) : '';
+            },
+            font: {
+              size: 12
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
+            suggestedMax: 40, // Skala Y lebih tinggi agar data terlihat jelas
             title: {
               display: true,
               text: 'Cups'
@@ -81,44 +114,46 @@
             }
           }
         }
-      }
+      },
+      // Registrasi plugin datalabels
+      plugins: [ChartDataLabels]
     });
 
     // Fetch data from JSON and create charts
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
       .then(response => response.json())
       .then(data => {
-      const labels = ['(Blanks)', 'Cancel', 'FALLOUT', 'PS', 'PT2', 'PT3', 'Stay Fallout'];
-      const counts = {
-        '(Blanks)': 0,
-        'Cancel': 0,
-        'FALLOUT': 0,
-        'PS': 0,
-        'PT2': 0,
-        'PT3': 0,
-        'Stay Fallout': 0
-      };
+        const labels = ['(Blanks)', 'Cancel', 'FALLOUT', 'PS', 'PT2', 'PT3', 'Stay Fallout'];
+        const counts = {
+          '(Blanks)': 0,
+          'Cancel': 0,
+          'FALLOUT': 0,
+          'PS': 0,
+          'PT2': 0,
+          'PT3': 0,
+          'Stay Fallout': 0
+        };
 
-      data.forEach(item => {
-        if (!item['Status House Keeping']) {
-        counts['(Blanks)']++;
-        } else {
-        counts[item['Status House Keeping']]++;
-        }
-      });
+        data.forEach(item => {
+          if (!item['Status House Keeping']) {
+            counts['(Blanks)']++;
+          } else {
+            counts[item['Status House Keeping']]++;
+          }
+        });
 
-      // Pie Chart
-      const pieCtx = document.getElementById('pieChart').getContext('2d');
-      new Chart(pieCtx, {
-        type: 'pie',
-        data: {
-        labels: labels,
-        datasets: [{
-          data: Object.values(counts),
-          backgroundColor: ['#36A2EB', '#FF6384', '#FF9F40', '#4BC0C0', '#9966FF', '#FFCD56', '#C9CBCF']
-        }]
-        }
-      });
+        // Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        new Chart(pieCtx, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: Object.values(counts),
+              backgroundColor: ['#36A2EB', '#FF6384', '#FF9F40', '#4BC0C0', '#9966FF', '#FFCD56', '#C9CBCF']
+            }]
+          }
+        });
       })
       .catch(error => console.error('Error fetching data:', error));
 
