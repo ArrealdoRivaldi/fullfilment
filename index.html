@@ -10,15 +10,14 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-8">
-   <!-- Combo Chart Card -->
-   <div class="bg-white rounded-2xl shadow-lg p-4">
-    <h2 class="text-center font-semibold text-lg">PS Trend Monthly</h2>
-    <canvas id="comboChart"></canvas>
-  </div>
-
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-   
+    <!-- Combo Chart Card -->
+    <div class="bg-white rounded-2xl shadow-lg p-4">
+      <h2 class="text-center font-semibold text-lg">PS Trend Monthly</h2>
+      <canvas id="comboChart"></canvas>
+    </div>
+
     <!-- Pie Chart Card -->
     <div class="bg-white rounded-2xl shadow-lg p-4">
       <h2 class="text-center font-semibold text-lg">Status House Keeping NOP</h2>
@@ -38,7 +37,7 @@
     const comboCtx = document.getElementById('comboChart').getContext('2d');
     new Chart(comboCtx, {
       data: {
-        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+        labels: ['Januari', 'Februari'],
         datasets: [
           {
             type: 'bar',
