@@ -16,23 +16,22 @@
       <canvas id="comboChart"></canvas>
     </div>
 
-    <!-- Pie Chart Card -->
-    <div class="bg-white rounded-2xl shadow-lg p-4">
-      <h2 class="text-center font-semibold text-lg">Status House Keeping NOP</h2>
-      <canvas id="pieChart"></canvas>
-    </div>
-
-    <!-- Bar Chart Card -->
-    <div class="bg-white rounded-2xl shadow-lg p-4">
-      <h2 class="text-center font-semibold text-lg">Materials</h2>
-      <canvas id="barChart"></canvas>
-    </div>
+   <!-- Combo Chart Card -->
+   <div class="bg-white rounded-2xl shadow-lg p-4">
+    <h2 class="text-center font-semibold text-lg">PS Trend Monthly</h2>
+    <canvas id="comboChart1"></canvas>
+  </div>
 
     <div class="bg-white rounded-2xl shadow-lg p-4">
       <h2 class="text-center font-semibold text-lg">Trend Fallout Monthly</h2>
-      <canvas id="comboChart1"></canvas>
+      <canvas id="comboChart2"></canvas>
     </div>
 
+  <!-- Pie Chart Card -->
+  <div class="bg-white rounded-2xl shadow-lg p-4">
+    <h2 class="text-center font-semibold text-lg">Status House Keeping NOP</h2>
+    <canvas id="pieChart"></canvas>
+  </div>
   </div>
   
   <script>
@@ -131,6 +130,60 @@
    // Combo Chart
    const comboCtx1 = document.getElementById('comboChart1').getContext('2d');
     new Chart(comboCtx1, {
+      data: {
+        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+        datasets: [
+            {
+            type: 'bar',
+            label: 'Register',
+            backgroundColor: '#36A2EB',
+            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null]
+          },
+          {
+            type: 'bar',
+            label: 'Put In Service',
+            backgroundColor: '#FF6384',
+            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null]
+          },
+          {
+            type: 'bar',
+            label: 'Target PS',
+            backgroundColor: '#FF9F40',
+            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
+          },
+          {
+            type: 'line',
+            label: 'PS/REG',
+            borderColor: '#4BC0C0',
+            borderWidth: 2,
+            fill: false,
+            data: [15.835 / 20.595 * 100, 9.546 / 12.778 * 100]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Reg To PS'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
+            }
+          }
+        }
+      }
+    });
+
+    // Combo Chart
+   const comboCtx2 = document.getElementById('comboChart2').getContext('2d');
+    new Chart(comboCtx2, {
       data: {
         labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         datasets: [
