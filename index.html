@@ -16,18 +16,18 @@
       <p class="text-center text-blue-600 font-bold mt-4">Combo Chart</p>
     </div>
 
-    <!-- Bar Chart Card -->
+    <!-- Bar Chart Card 
     <div class="bg-white rounded-2xl shadow-lg p-4">
       <h2 class="text-center font-semibold text-lg">Materials Comparisons</h2>
       <canvas id="barChart"></canvas>
       <p class="text-center text-blue-600 font-bold mt-4">Column Chart</p>
-    </div>
+    </div>-->
 
-    <div class="bg-white rounded-2xl shadow-lg p-4">
+    <!-- <div class="bg-white rounded-2xl shadow-lg p-4">
       <h2 class="text-center font-semibold text-lg">Materials Comparisons</h2>
       <canvas id="anotherBarChart"></canvas>
       <p class="text-center text-blue-600 font-bold mt-4">Column Chart</p>
-    </div>
+    </div> -->
 
       <!-- Pie Chart Card -->
       <div class="bg-white rounded-2xl shadow-lg p-4">
@@ -35,13 +35,13 @@
         <canvas id="pieChart"></canvas>
       </div>
 
-  
+      
   <script>
     // Combo Chart
     const comboCtx = document.getElementById('comboChart').getContext('2d');
     new Chart(comboCtx, {
       data: {
-        labels: ['Januari', 'Februari'],
+        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         datasets: [
           {
             type: 'bar',
