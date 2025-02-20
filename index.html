@@ -9,16 +9,16 @@
 </head>
 <body class="bg-gray-100 p-8">
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Scatter Plot Card -->
+    <!-- Combo Chart Card -->
     <div class="bg-white rounded-2xl shadow-lg p-4">
-      <h2 class="text-center font-semibold text-lg">Company Performance</h2>
-      <canvas id="scatterChart"></canvas>
-      <p class="text-center text-blue-600 font-bold mt-4">Animations</p>
+      <h2 class="text-center font-semibold text-lg">Monthly Coffee Production by Country</h2>
+      <canvas id="comboChart"></canvas>
+      <p class="text-center text-blue-600 font-bold mt-4">Combo Chart</p>
     </div>
 
     <!-- Pie Chart Card -->
     <div class="bg-white rounded-2xl shadow-lg p-4">
-      <h2 class="text-center font-semibold text-lg">My Daily Actiavities</h2>
+      <h2 class="text-center font-semibold text-lg">My Daily Activities</h2>
       <canvas id="pieChart"></canvas>
       <p class="text-center text-blue-600 font-bold mt-4">Pie Chart</p>
     </div>
@@ -32,21 +32,56 @@
   </div>
 
   <script>
-    // Scatter Chart
-    const scatterCtx = document.getElementById('scatterChart').getContext('2d');
-    new Chart(scatterCtx, {
-      type: 'scatter',
+    // Combo Chart
+    const comboCtx = document.getElementById('comboChart').getContext('2d');
+    new Chart(comboCtx, {
       data: {
-        datasets: [{
-          label: 'Company Performance',
-          data: Array.from({length: 15}, () => ({x: Math.random() * 100, y: Math.random() * 100})),
-          backgroundColor: 'rgba(54, 162, 235, 0.7)'
-        }]
+        labels: ['2004/05', '2005/06', '2006/07', '2007/08', '2008/09'],
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Brazil',
+            backgroundColor: '#36A2EB',
+            data: [1000, 1100, 1050, 950, 1020]
+          },
+          {
+            type: 'bar',
+            label: 'Colombia',
+            backgroundColor: '#FF6384',
+            data: [800, 850, 870, 890, 910]
+          },
+          {
+            type: 'bar',
+            label: 'Vietnam',
+            backgroundColor: '#FF9F40',
+            data: [900, 920, 940, 970, 980]
+          },
+          {
+            type: 'line',
+            label: 'Average Production',
+            borderColor: '#4BC0C0',
+            borderWidth: 2,
+            fill: false,
+            data: [900, 957, 953, 937, 970]
+          }
+        ]
       },
       options: {
+        responsive: true,
         scales: {
-          x: {beginAtZero: true},
-          y: {beginAtZero: true}
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Cups'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
+            }
+          }
         }
       }
     });
