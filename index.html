@@ -40,19 +40,19 @@
             type: 'bar',
             label: 'Register',
             backgroundColor: '#36A2EB',
-            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null]
+            data: [20595, 12778, null, null, null, null, null, null, null, null, null, null]
           },
             {
             type: 'bar',
             label: 'Put In Service',
             backgroundColor: '#FF6384',
-            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null]
+            data: [15835, 9546, null, null, null, null, null, null, null, null, null, null]
           },
           {
             type: 'bar',
             label: 'Target PS',
             backgroundColor: '#FF9F40',
-            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
+            data: [18498, 19226, 18729, 16759, 18727, 19055, 23505, 23533, 22408, 22578, 21893, 21338]
           },
           {
             type: 'line',
@@ -60,18 +60,24 @@
             borderColor: '#4BC0C0',
             borderWidth: 2,
             fill: false,
-            data: [15.835 / 20.595 * 100, 9.546 / 12.778 * 100]
+            data: [15835 / 20595 * 100, 9546 / 12778 * 100]
           }
         ]
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             beginAtZero: true,
             title: {
               display: true,
               text: 'PS TO REG'
+            },
+            ticks: {
+              callback: function(value) {
+                return value.toLocaleString();
+              }
             }
           },
           x: {
@@ -83,6 +89,7 @@
         }
       }
     });
+  </script>
 
     // Fetch data from JSON and create charts
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
