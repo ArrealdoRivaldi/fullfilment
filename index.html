@@ -5,10 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chart Cards</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Tambahkan plugin chartjs-plugin-datalabels -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-8">
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
     <!-- Combo Chart Card -->
     <div class="bg-white rounded-2xl shadow-lg p-4">
@@ -37,23 +39,29 @@
       data: {
         labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         datasets: [
-            {
+          {
             type: 'bar',
             label: 'Register',
             backgroundColor: '#36A2EB',
-            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null]
+            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null],
+            barPercentage: 0.6,   // Memperbesar lebar bar
+            categoryPercentage: 0.6
           },
           {
             type: 'bar',
             label: 'Put In Service',
             backgroundColor: '#FF6384',
-            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null]
+            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null],
+            barPercentage: 0.6,
+            categoryPercentage: 0.6
           },
           {
             type: 'bar',
             label: 'Target PS',
             backgroundColor: '#FF9F40',
-            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
+            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338],
+            barPercentage: 0.6,
+            categoryPercentage: 0.6
           },
           {
             type: 'line',
@@ -61,18 +69,42 @@
             borderColor: '#4BC0C0',
             borderWidth: 2,
             fill: false,
-            data: [15.835 / 20.595 * 100, 9.546 / 12.778 * 100]
+            data: [
+              (15.835 / 20.595 * 100).toFixed(2),
+              (9.546 / 12.778 * 100).toFixed(2),
+              null, null, null, null, null, null, null, null, null, null
+            ]
           }
         ]
       },
       options: {
         responsive: true,
+        plugins: {
+          // Aktifkan plugin datalabels
+          datalabels: {
+            // Tampilkan label di atas bar
+            display: (context) => {
+              // Hanya tampilkan label untuk dataset bar (bukan line)
+              return context.dataset.type === 'bar' && context.dataset.data[context.dataIndex] !== null;
+            },
+            align: 'end',
+            anchor: 'end',
+            formatter: (value) => {
+              // Pastikan null tidak ditampilkan
+              return value !== null ? value.toFixed(2) : '';
+            },
+            font: {
+              size: 12
+            }
+          }
+        },
         scales: {
           y: {
             beginAtZero: true,
+            suggestedMax: 40, // Skala Y lebih tinggi agar data terlihat jelas
             title: {
               display: true,
-              text: 'Cups'
+              text: 'Reg To PS'
             }
           },
           x: {
@@ -82,7 +114,9 @@
             }
           }
         }
-      }
+      },
+      // Registrasi plugin datalabels
+      plugins: [ChartDataLabels]
     });
 
     // Fetch data from JSON and create charts
