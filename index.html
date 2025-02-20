@@ -65,27 +65,24 @@
         ]
       },
       options: {
-  responsive: true,
-  maintainAspectRatio: false, // Memungkinkan untuk mengontrol ukuran secara manual
-  aspectRatio: 2, // Rasio lebar terhadap tinggi
-  scales: {
-    y: {
-      beginAtZero: true,
-      title: {
-        display: true,
-        text: 'Fallout to Ps'
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Cups'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
+            }
+          }
+        }
       }
-    },
-    x: {
-      title: {
-        display: true,
-        text: 'Month'
-      }
-    }
-  }
-} 
-    }
-  );
+    });
 
     // Fetch data from JSON and create charts
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
