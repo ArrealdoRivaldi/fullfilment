@@ -36,50 +36,50 @@
       data: {
       labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
       datasets: [
-        {
-        type: 'bar',
-        label: 'Register',
-        backgroundColor: '#36A2EB',
-        data: [205950, 127780, null, null, null, null, null, null, null, null, null, null]
-        },
-        {
-        type: 'bar',
-        label: 'Put In Service',
-        backgroundColor: '#FF6384',
-        data: [158350, 95460, null , null, null, null, null, null, null, null, null, null]
-        },
-        {
-        type: 'bar',
-        label: 'Target PS',
-        backgroundColor: '#FF9F40',
-        data: [184980, 192260, 187290, 167590, 187270, 190550, 235050, 235330, 224080, 225780, 218930, 213380]
-        },
-        {
-        type: 'line',
-        label: 'Average Production',
-        borderColor: '#4BC0C0',
-        borderWidth: 2,
-        fill: false,
-        data: [158350 / 205950 * 100, 95460 / 127780 * 100]
-        }
+      {
+      type: 'bar',
+      label: 'Register',
+      backgroundColor: '#36A2EB',
+      data: [205950, 127780, null, null, null, null, null, null, null, null, null, null]
+      },
+      {
+      type: 'bar',
+      label: 'Put In Service',
+      backgroundColor: '#FF6384',
+      data: [158350, 95460, null , null, null, null, null, null, null, null, null, null]
+      },
+      {
+      type: 'bar',
+      label: 'Target PS',
+      backgroundColor: '#FF9F40',
+      data: [184980, 192260, 187290, 167590, 187270, 190550, 235050, 235330, 224080, 225780, 218930, 213380]
+      },
+      {
+      type: 'line',
+      label: 'Average Production',
+      borderColor: '#4BC0C0',
+      borderWidth: 2,
+      fill: false,
+      data: [158350 / 205950 * 100, 95460 / 127780 * 100, null, null, null, null, null, null, null, null, null, null]
+      }
       ]
       },
       options: {
       responsive: true,
       scales: {
-        y: {
-        beginAtZero: true,
-        title: {
-          display: true,
-          text: 'Units (in ten thousands)'
-        }
-        },
-        x: {
-        title: {
-          display: true,
-          text: 'Month'
-        }
-        }
+      y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: 'Units (in ten thousands)'
+      }
+      },
+      x: {
+      title: {
+        display: true,
+        text: 'Month'
+      }
+      }
       }
       }
     });
