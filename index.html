@@ -41,53 +41,53 @@
     const comboCtx = document.getElementById('comboChart').getContext('2d');
     new Chart(comboCtx, {
       data: {
-        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-        datasets: [
-          {
-            type: 'bar',
-            label: 'Register',
-            backgroundColor: '#36A2EB',
-            data: [20.595,12.778]
-          },
-          {
-            type: 'bar',
-            label: 'Put In Service',
-            backgroundColor: '#FF6384',
-            data: [15.835,9.546]
-          },
-          {
-            type: 'bar',
-            label: 'Target PS',
-            backgroundColor: '#FF9F40',
-            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
-          },
-          {
-            type: 'line',
-            label: 'Average Production',
-            borderColor: '#4BC0C0',
-            borderWidth: 2,
-            fill: false,
-            data: [15.835 / 20.595 * 100, 9.546 / 12.778 * 100]
-          }
-        ]
+      labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+      datasets: [
+        {
+        type: 'bar',
+        label: 'Register',
+        backgroundColor: '#36A2EB',
+        data: [20595, 12778, null, null, null, null, null, null, null, null, null, null]
+        },
+        {
+        type: 'bar',
+        label: 'Put In Service',
+        backgroundColor: '#FF6384',
+        data: [15835, 9546, 12345, 14567, 16789, 18901, 20123, 22345, 24567, 26789, 28901, 30123]
+        },
+        {
+        type: 'bar',
+        label: 'Target PS',
+        backgroundColor: '#FF9F40',
+        data: [18498, 19226, 18729, 16759, 18727, 19055, 23505, 23533, 22408, 22578, 21893, 21338]
+        },
+        {
+        type: 'line',
+        label: 'Average Production',
+        borderColor: '#4BC0C0',
+        borderWidth: 2,
+        fill: false,
+        data: [15835 / 20595 * 100, 9546 / 12778 * 100]
+        }
+      ]
       },
       options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Cups'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Month'
-            }
-          }
+      responsive: true,
+      scales: {
+        y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Fallout to PS'
         }
+        },
+        x: {
+        title: {
+          display: true,
+          text: 'Month'
+        }
+        }
+      }
       }
     });
 
