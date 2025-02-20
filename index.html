@@ -16,12 +16,6 @@
       <p class="text-center text-blue-600 font-bold mt-4">Combo Chart</p>
     </div>
 
-    <!-- Pie Chart Card -->
-    <div class="bg-white rounded-2xl shadow-lg p-4">
-      <h2 class="text-center font-semibold text-lg">Status House Keeping</h2>
-      <canvas id="pieChart"></canvas>
-    </div>
-
     <!-- Bar Chart Card -->
     <div class="bg-white rounded-2xl shadow-lg p-4">
       <h2 class="text-center font-semibold text-lg">Materials Comparisons</h2>
@@ -34,31 +28,35 @@
       <p class="text-center text-blue-600 font-bold mt-4">Column Chart</p>
     </div>
   </div>
-
+      <!-- Pie Chart Card -->
+      <div class="bg-white rounded-2xl shadow-lg p-4">
+        <h2 class="text-center font-semibold text-lg">Status House Keeping NOP</h2>
+        <canvas id="pieChart"></canvas>
+      </div>
   <script>
     // Combo Chart
     const comboCtx = document.getElementById('comboChart').getContext('2d');
     new Chart(comboCtx, {
       data: {
-        labels: ['2004/05', '2005/06', '2006/07', '2007/08', '2008/09'],
+        labels: ['Januari', 'Februari'],
         datasets: [
           {
             type: 'bar',
-            label: 'Brazil',
+            label: 'Register',
             backgroundColor: '#36A2EB',
-            data: [1000, 1100, 1050, 950, 1020]
+            data: [20.595,12.778]
           },
           {
             type: 'bar',
-            label: 'Colombia',
+            label: 'Put In Service',
             backgroundColor: '#FF6384',
-            data: [800, 850, 870, 890, 910]
+            data: [15.835,9.546]
           },
           {
             type: 'bar',
-            label: 'Vietnam',
+            label: 'Target PS',
             backgroundColor: '#FF9F40',
-            data: [900, 920, 940, 970, 980]
+            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
           },
           {
             type: 'line',
@@ -66,7 +64,7 @@
             borderColor: '#4BC0C0',
             borderWidth: 2,
             fill: false,
-            data: [900, 957, 953, 937, 970]
+            data: data.map(item => item['Put In Service'] / item['Register'])
           }
         ]
       },
