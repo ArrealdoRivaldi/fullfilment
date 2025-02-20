@@ -13,68 +13,7 @@
       name="description"
       content="High-performance HTML based website template."
     />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart', 'controls']});
-      google.charts.setOnLoadCallback(loadData);
-
-      function loadData() {
-        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
-          .then(response => response.json())
-          .then(data => {
-            processData(data);
-          })
-          .catch(error => console.error('Error fetching data:', error));
-      }
-
-      function processData(jsonData) {
-        var processedData = [['Region', 'Count']];
-        var regionCounts = {};
-
-        jsonData.forEach(entry => {
-          var region = entry.region;
-          if (regionCounts[region]) {
-            regionCounts[region]++;
-          } else {
-            regionCounts[region] = 1;
-          }
-        });
-
-        for (var region in regionCounts) {
-          processedData.push([region, regionCounts[region]]);
-        }
-
-        drawDashboard(processedData);
-      }
-
-      function drawDashboard(dataArray) {
-        var data = google.visualization.arrayToDataTable(dataArray);
-
-        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
-
-        var categoryFilter = new google.visualization.ControlWrapper({
-          controlType: 'CategoryFilter',
-          containerId: 'filter_div',
-          options: {
-            filterColumnIndex: 0,
-            ui: {
-              label: 'Pilih Region:',
-              allowTyping: false,
-              allowMultiple: true
-            }
-          }
-        });
-
-        var pieChart = new google.visualization.ChartWrapper({
-          chartType: 'PieChart',
-          containerId: 'chart_div',
-          options: { title: 'Distribution of Regions' }
-        });
-
-        dashboard.bind(categoryFilter, pieChart);
-        dashboard.draw(data);
-      }
-    </script>
+    <
   </head>
   <body>
     <h1>Vercel HTML Starter</h1>
@@ -160,3 +99,65 @@ x-frame-options: DENY</code></pre>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
   </div>
 </html>
+script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'controls']});
+      google.charts.setOnLoadCallback(loadData);
+
+      function loadData() {
+        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
+          .then(response => response.json())
+          .then(data => {
+            processData(data);
+          })
+          .catch(error => console.error('Error fetching data:', error));
+      }
+
+      function processData(jsonData) {
+        var processedData = [['Region', 'Count']];
+        var regionCounts = {};
+
+        jsonData.forEach(entry => {
+          var region = entry.region;
+          if (regionCounts[region]) {
+            regionCounts[region]++;
+          } else {
+            regionCounts[region] = 1;
+          }
+        });
+
+        for (var region in regionCounts) {
+          processedData.push([region, regionCounts[region]]);
+        }
+
+        drawDashboard(processedData);
+      }
+
+      function drawDashboard(dataArray) {
+        var data = google.visualization.arrayToDataTable(dataArray);
+
+        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard_div'));
+
+        var categoryFilter = new google.visualization.ControlWrapper({
+          controlType: 'CategoryFilter',
+          containerId: 'filter_div',
+          options: {
+            filterColumnIndex: 0,
+            ui: {
+              label: 'Pilih Region:',
+              allowTyping: false,
+              allowMultiple: true
+            }
+          }
+        });
+
+        var pieChart = new google.visualization.ChartWrapper({
+          chartType: 'PieChart',
+          containerId: 'chart_div',
+          options: { title: 'Distribution of Regions' }
+        });
+
+        dashboard.bind(categoryFilter, pieChart);
+        dashboard.draw(data);
+      }
+    </script>
