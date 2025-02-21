@@ -39,9 +39,9 @@
       .then(response => response.json())
       .then(data => {
       const labels = [...new Set(data.map(item => item.Bulan))];
-      const Re = data.map(item => item.Re);
-      const DataPS = data.map(item => item.PS);
-      const Target_PS = data.map(item => item['Target PS']);
+      const Re = labels.map(label => data.filter(item => item.Bulan === label).reduce((sum, item) => sum + item.Re, 0));
+      const DataPS = labels.map(label => data.filter(item => item.Bulan === label).reduce((sum, item) => sum + item.PS, 0));
+      const Target_PS = Re.map((value, index) => (DataPS[index] / value) * 100);
       
 
 
