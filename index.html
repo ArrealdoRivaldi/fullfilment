@@ -39,24 +39,9 @@
       .then(response => response.json())
       .then(data => {
       const labels = [...new Set(data.map(item => item.Bulan))];
-      const groupedData = labels.map(label => {
-        const filteredData = data.filter(item => item.Bulan === label);
-        const sumRe = filteredData.reduce((sum, item) => sum + item.Re, 0);
-        const sumDataPS = filteredData.reduce((sum, item) => sum + item.PS, 0);
-        const sumTargetPS = filteredData.reduce((sum, item) => sum + item['Target PS'], 0);
-        return {
-          label,
-          sumRe,
-          sumDataPS,
-          sumTargetPS,
-          regToPS: sumDataPS / sumRe * 100
-        };
-      });
-
-      const Re = groupedData.map(item => item.sumRe);
-      const DataPS = groupedData.map(item => item.sumDataPS);
-      const Target_PS = groupedData.map(item => item.sumTargetPS);
-      const Reg_to_PS = groupedData.map(item => item.regToPS);
+      const Re = data.map(item => item.Re);
+      const DataPS = data.map(item => item.PS);
+      const Target_PS = data.map(item => item['Target PS']);
       
 
 
@@ -89,7 +74,7 @@
           borderColor: '#4BC0C0',
           borderWidth: 2,
           fill: false,
-          data: Reg_to_PS
+          data: Target_PS
           }
         ]
         },
