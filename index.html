@@ -41,6 +41,7 @@
       const labels = [...new Set(data.map(item => item.Bulan))];
       const Re = labels.map(label => data.filter(item => item.Bulan === label).reduce((sum, item) => sum + item.Re, 0));
       const DataPS = labels.map(label => data.filter(item => item.Bulan === label).reduce((sum, item) => sum + item.PS, 0));
+      const DataTarget = labels.map(label => data.filter(item => item.Bulan === label).reduce((sum, item) => sum + item['Target PS'], 0));
       const Target_PS = DataPS/Re*100;
       
 
@@ -66,7 +67,7 @@
           type: 'bar',
           label: 'Target PS',
           backgroundColor: '#FF9F40',
-          data: Target_PS
+          data: DataTarget
           },
           {
           type: 'line',
