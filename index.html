@@ -38,11 +38,21 @@
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json')
       .then(response => response.json())
       .then(data => {
-      const labels = data.map(item => item.Bulan);
-      const registerData = data.map(item => parseFloat(item.Re));
-      const psData = data.map(item => parseFloat(item.PS));
-      const targetPSData = data.map(item => parseFloat(item['Target PS']));
-      const psRegData = data.map(item => parseFloat(item['PS']) / parseFloat(item['Re']) * 100);
+      const labels = [...new Set(data.map(item => item.Bulan))];
+      const registerData = labels.map(label => {
+        return data.filter(item => item.Bulan === label).reduce((sum, item) => sum + parseFloat(item.Re), 0);
+      });
+      const psData = labels.map(label => {
+        return data.filter(item => item.Bulan === label).reduce((sum, item) => sum + parseFloat(item.PS), 0);
+      });
+      const targetPSData = labels.map(label => {
+        return data.filter(item => item.Bulan === label).reduce((sum, item) => sum + parseFloat(item['Target PS']), 0);
+      });
+      const psRegData = labels.map(label => {
+        const totalRe = data.filter(item => item.Bulan === label).reduce((sum, item) => sum + parseFloat(item.Re), 0);
+        const totalPS = data.filter(item => item.Bulan === label).reduce((sum, item) => sum + parseFloat(item.PS), 0);
+        return (totalPS / totalRe) * 100;
+      });
 
       const comboCtx = document.getElementById('comboChart').getContext('2d');
       new Chart(comboCtx, {
