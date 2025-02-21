@@ -38,11 +38,15 @@
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json')
       .then(response => response.json())
       .then(data => {
-      const labels = data.map(item => item.Bulan);
-      const registerData = data.map(item => parseFloat(item.Re));
-      const psData = data.map(item => parseFloat(item.PS));
-      const targetPSData = data.map(item => parseFloat(item['Target PS']));
-      const psRegData = data.map(item => parseFloat(item['PS']) / parseFloat(item['Re']) * 100);
+      const labels = [...new Set(data.map(item => item.Bulan))];
+      const NOP = data.map(item => item.NOP);
+      const Re = data.map(item => item.Re);
+      const DataPS = data.map(item => item.PS);
+      const Reg_to_PS = data.map(item => item['Reg To PS']);
+      const Target_PS = data.map(item => item['Target PS']);
+      const Achievement_PS = data.map(item => item['Achievement PS']);
+      
+
 
       const comboCtx = document.getElementById('comboChart').getContext('2d');
       new Chart(comboCtx, {
@@ -53,19 +57,19 @@
           type: 'bar',
           label: 'Register',
           backgroundColor: '#36A2EB',
-          data: registerData
+          data: Re
           },
           {
           type: 'bar',
           label: 'Put In Service',
           backgroundColor: '#FF6384',
-          data: psData
+          data: DataPS
           },
           {
           type: 'bar',
           label: 'Target PS',
           backgroundColor: '#FF9F40',
-          data: targetPSData
+          data: Target_PS
           },
           {
           type: 'line',
@@ -73,7 +77,7 @@
           borderColor: '#4BC0C0',
           borderWidth: 2,
           fill: false,
-          data: psRegData
+          data: Reg_to_PS
           }
         ]
         },
