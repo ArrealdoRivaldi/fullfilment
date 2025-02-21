@@ -35,82 +35,72 @@
   
   <script>
     // Combo Chart
-    import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+    fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json')
+      .then(response => response.json())
+      .then(data => {
+      const labels = [...new Set(data.map(item => item.Bulan))];
+      const NOP = data.map(item => item.NOP);
+      const Re = data.map(item => item.Re);
+      const DataPS = data.map(item => item.PS);
+      const Target_PS = data.map(item => item['Target PS']);
 
-async function fetchData() {
-  const response = await fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json');
-  return await response.json();
-}
+      
 
-async function createComboChart() {
-  const data = await fetchData();
 
-  // Prepare data
-  const months = ['Januari', 'Februari'];
-  const totalRe = {};
-  const totalPS = {};
-
-  months.forEach(month => {
-    totalRe[month] = 0;
-    totalPS[month] = 0;
-  });
-
-  data.forEach(item => {
-    if (months.includes(item.Bulan) && item.NOP === 'KALIMANTAN') {
-      totalRe[item.Bulan] = parseInt(item.Re);
-      totalPS[item.Bulan] = parseInt(item.PS);
-    }
-  });
-
-  const ctx = document.getElementById('comboChart2').getContext('2d');
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: months,
-      datasets: [
-        {
+      const comboCtx = document.getElementById('comboChart').getContext('2d');
+      new Chart(comboCtx, {
+        data: {
+        labels: labels,
+        datasets: [
+          {
           type: 'bar',
-          label: 'Total Re',
-          data: months.map(month => totalRe[month]),
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        },
-        {
+          label: 'Register',
+          backgroundColor: '#36A2EB',
+          data: Re
+          },
+          {
+          type: 'bar',
+          label: 'Put In Service',
+          backgroundColor: '#FF6384',
+          data: DataPS
+          },
+          {
+          type: 'bar',
+          label: 'Target PS',
+          backgroundColor: '#FF9F40',
+          data: Target_PS
+          },
+          {
           type: 'line',
-          label: 'Total PS',
-          data: months.map(month => totalPS[month]),
-          borderColor: 'rgba(255, 99, 132, 1)',
-          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          label: 'PS/REG',
+          borderColor: '#4BC0C0',
           borderWidth: 2,
-          tension: 0.4
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top'
+          fill: false,
+          data: Reg_to_PS
+          }
+        ]
         },
-        title: {
-          display: true,
-          text: 'Fallout Trend Monthly'
+        options: {
+        responsive: true,
+        scales: {
+          y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Reg To PS'
+          }
+          },
+          x: {
+          title: {
+            display: true,
+            text: 'Month'
+          }
+          }
         }
-      },
-      scales: {
-        y: {
-          beginAtZero: true
         }
-      }
-    }
-  });
-}
-
-// Initialize the chart
-createComboChart();
-
+      });
+      })
+      .catch(error => console.error('Error fetching data:', error));
 
     // Fetch data from JSON and create charts
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
