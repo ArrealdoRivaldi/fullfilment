@@ -41,7 +41,7 @@
       const labels = [...new Set(data.map(item => item.Bulan))];
       const Re = labels.map(label => data.filter(item => item.Bulan === label).reduce((sum, item) => sum + item.Re, 0));
       const DataPS = labels.map(label => data.filter(item => item.Bulan === label).reduce((sum, item) => sum + item.PS, 0));
-      const Target_PS = Re.map((value, index) => (DataPS[index] / value) * 100);
+      const Target_PS = DataPS.map((value, index) => (value / Re[index]) * 100);
       
 
 
