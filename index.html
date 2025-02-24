@@ -1,93 +1,70 @@
 <!DOCTYPE html>
-<html> 
-  <head> 
-    <meta charset="utf-8" />
-    <title>Dashboard Combo Chart</title>
+<html>
+  <head>
+    <title>Combo Chart Google</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <style>
-      .dashboard-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 20px;
-      }
-      .chart-item {
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 8px;
-        background-color: #fafafa;
-      }
-    </style>
     <script type="text/javascript">
-      // Load Google Charts dengan paket corechart untuk ComboChart
-      google.charts.load('current', { packages: ['corechart'] });
-      google.charts.setOnLoadCallback(drawCharts);
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
-      function drawCharts() {
+      function drawChart() {
         fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json')
           .then(response => response.json())
           .then(data => {
-            // Menyusun data untuk Combo Chart 1
-            const comboData1 = [['Bulan', 'Re', 'Ps', 'TargetPs', 'Ps/Re']];
-            data.forEach(item => {
-              const psRe = parseFloat((item.Ps / item.Re * 100).toFixed(2));
-              comboData1.push([item.Bulan, item.Re, item.Ps, item.TargetPs, psRe]);
+            const monthlyData = {};
+
+            data.forEach(entry => {
+              const month = entry.Bulan;
+              if (!monthlyData[month]) {
+                monthlyData[month] = { Re: 0, PS: 0, TargetPS: 0 };
+              }
+              monthlyData[month].Re += parseInt(entry.Re);
+              monthlyData[month].PS += parseInt(entry.PS);
+              monthlyData[month].TargetPS += parseInt(entry.TargetPS);
             });
 
-            var comboOptions1 = {
-              title: 'Penjualan vs Target (Combo Chart)',
+            const dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Bulan');
+            dataTable.addColumn('number', 'Re');
+            dataTable.addColumn('number', 'PS');
+            dataTable.addColumn('number', 'TargetPS');
+            dataTable.addColumn('number', 'PS/Re');
+
+            for (const [month, values] of Object.entries(monthlyData)) {
+              const psReRatio = values.Re !== 0 ? values.PS / values.Re : 0;
+              dataTable.addRow([month, values.Re, values.PS, values.TargetPS, psReRatio]);
+            }
+
+            const options = {
+              title: 'Combo Chart Bulanan',
+              vAxis: {title: 'Jumlah'},
+              hAxis: {title: 'Bulan'},
               seriesType: 'bars',
-              // Mengatur kolom TargetPs (indeks 3) dan Ps/Re (indeks 4) sebagai garis
-              series: { 3: { type: 'line' }, 4: { type: 'line' } },
-              legend: { position: 'bottom' }
+              series: {3: {type: 'line'}},
+              height: 400
             };
 
-            var comboChart1 = new google.visualization.ComboChart(document.getElementById('combo_chart1'));
-            comboChart1.draw(google.visualization.arrayToDataTable(comboData1), comboOptions1);
+            const chart = new google.visualization.ComboChart(document.getElementById('combo_chart1'));
+            chart.draw(dataTable, options);
           })
           .catch(error => console.error('Error fetching data:', error));
-
-        // --- Combo Chart 2 ---
-        var comboData2 = google.visualization.arrayToDataTable([
-          ['Bulan', 'Pendapatan', 'Rata-rata'],
-          ['Jan', 400, 450],
-          ['Feb', 460, 450],
-          ['Mar', 1120, 450],
-          ['Apr', 540, 450]
-        ]);
-        var comboOptions2 = {
-          title: 'Pendapatan Bulanan vs Rata-rata (Combo Chart)',
-          seriesType: 'bars',
-          series: { 1: { type: 'line' } },
-          legend: { position: 'bottom' }
-        };
-        var comboChart2 = new google.visualization.ComboChart(document.getElementById('combo_chart2'));
-        comboChart2.draw(comboData2, comboOptions2);
-
-        // --- Combo Chart 3 ---
-        var comboData3 = google.visualization.arrayToDataTable([
-          ['Kategori', 'Penjualan', 'Pertumbuhan'],
-          ['Elektronik', 45, 50],
-          ['Pakaian', 26, 30],
-          ['Makanan', 29, 35]
-        ]);
-        var comboOptions3 = {
-          title: 'Penjualan per Kategori vs Pertumbuhan (Combo Chart)',
-          seriesType: 'bars',
-          series: { 1: { type: 'line' } },
-          legend: { position: 'bottom' }
-        };
-        var comboChart3 = new google.visualization.ComboChart(document.getElementById('combo_chart3'));
-        comboChart3.draw(comboData3, comboOptions3);
       }
     </script>
+    <style>
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 16px;
+        margin: 16px;
+        width: 600px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Dashboard Combo Chart</h1>
-    <div class="dashboard-container">
-      <div class="chart-item" id="combo_chart1" style="width: 100%; height: 300px;"></div>
-      <div class="chart-item" id="combo_chart2" style="width: 100%; height: 300px;"></div>
-      <div class="chart-item" id="combo_chart3" style="width: 100%; height: 300px;"></div>
+    <div class="card">
+      <h3>Combo Chart 1</h3>
+      <div id="combo_chart1"></div>
     </div>
   </body>
 </html>
