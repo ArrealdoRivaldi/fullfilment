@@ -4,143 +4,143 @@
         "NOP": "Balikpapan",
         "Re": "4747",
         "PS": "2730",
-        "Reg to PS": "57.51%",
-        "Target PS": "2946",
-        "Achievement PS": "93%"
+        "RegToPS": "57.51%",
+        "TargetPS": "2946",
+        "AchievementPS": "93%"
     },
     {
         "Bulan": "Januari",
         "NOP": "Banjarmasin",
         "Re": "4691",
         "PS": "3668",
-        "Reg to PS": "78.19%",
-        "Target PS": "4295",
-        "Achievement PS": "85%"
+        "RegToPS": "78.19%",
+        "TargetPS": "4295",
+        "AchievementPS": "85%"
     },
     {
         "Bulan": "Januari",
         "NOP": "Palangkaraya",
         "Re": "1893",
         "PS": "1497",
-        "Reg to PS": "79.08%",
-        "Target PS": "1740",
-        "Achievement PS": "86%"
+        "RegToPS": "79.08%",
+        "TargetPS": "1740",
+        "AchievementPS": "86%"
     },
     {
         "Bulan": "Januari",
         "NOP": "Pangkalan Bun",
         "Re": "3196",
         "PS": "2246",
-        "Reg to PS": "70.28%",
-        "Target PS": "2010",
-        "Achievement PS": "112%"
+        "RegToPS": "70.28%",
+        "TargetPS": "2010",
+        "AchievementPS": "112%"
     },
     {
         "Bulan": "Januari",
         "NOP": "Pontianak",
         "Re": "6171",
         "PS": "3394",
-        "Reg to PS": "55.00%",
-        "Target PS": "3414",
-        "Achievement PS": "99%"
+        "RegToPS": "55.00%",
+        "TargetPS": "3414",
+        "AchievementPS": "99%"
     },
     {
         "Bulan": "Januari",
         "NOP": "Samarinda",
         "Re": "4094",
         "PS": "2563",
-        "Reg to PS": "62.60%",
-        "Target PS": "2712",
-        "Achievement PS": "95%"
+        "RegToPS": "62.60%",
+        "TargetPS": "2712",
+        "AchievementPS": "95%"
     },
     {
         "Bulan": "Januari",
         "NOP": "Tarakan",
         "Re": "2176",
         "PS": "1368",
-        "Reg to PS": "62.87%",
-        "Target PS": "1381",
-        "Achievement PS": "99%"
+        "RegToPS": "62.87%",
+        "TargetPS": "1381",
+        "AchievementPS": "99%"
     },
     {
         "Bulan": "Januari",
         "NOP": "KALIMANTAN",
         "Re": "26968",
         "PS": "17466",
-        "Reg to PS": "64.77%",
-        "Target PS": "18498",
-        "Achievement PS": "94%"
+        "RegToPS": "64.77%",
+        "TargetPS": "18498",
+        "AchievementPS": "94%"
     },
     {
         "Bulan": "Februari",
         "NOP": "Balikpapan",
         "Re": "3545",
         "PS": "1766",
-        "Reg to PS": "49.82%",
-        "Target PS": "3062",
-        "Achievement PS": "58%"
+        "RegToPS": "49.82%",
+        "TargetPS": "3062",
+        "AchievementPS": "58%"
     },
     {
         "Bulan": "Februari",
         "NOP": "Banjarmasin",
         "Re": "3357",
         "PS": "2443",
-        "Reg to PS": "72.77%",
-        "Target PS": "4464",
-        "Achievement PS": "55%"
+        "RegToPS": "72.77%",
+        "TargetPS": "4464",
+        "AchievementPS": "55%"
     },
     {
         "Bulan": "Februari",
         "NOP": "Palangkaraya",
         "Re": "1242",
         "PS": "970",
-        "Reg to PS": "78.10%",
-        "Target PS": "1809",
-        "Achievement PS": "54%"
+        "RegToPS": "78.10%",
+        "TargetPS": "1809",
+        "AchievementPS": "54%"
     },
     {
         "Bulan": "Februari",
         "NOP": "Pangkalan Bun",
         "Re": "1904",
         "PS": "1117",
-        "Reg to PS": "58.67%",
-        "Target PS": "2089",
-        "Achievement PS": "53%"
+        "RegToPS": "58.67%",
+        "TargetPS": "2089",
+        "AchievementPS": "53%"
     },
     {
         "Bulan": "Februari",
         "NOP": "Pontianak",
         "Re": "4333",
         "PS": "2112",
-        "Reg to PS": "48.74%",
-        "Target PS": "3548",
-        "Achievement PS": "60%"
+        "RegToPS": "48.74%",
+        "TargetPS": "3548",
+        "AchievementPS": "60%"
     },
     {
         "Bulan": "Februari",
         "NOP": "Samarinda",
         "Re": "3096",
         "PS": "1512",
-        "Reg to PS": "48.84%",
-        "Target PS": "2819",
-        "Achievement PS": "54%"
+        "RegToPS": "48.84%",
+        "TargetPS": "2819",
+        "AchievementPS": "54%"
     },
     {
         "Bulan": "Februari",
         "NOP": "Tarakan",
         "Re": "1956",
         "PS": "995",
-        "Reg to PS": "50.87%",
-        "Target PS": "1436",
-        "Achievement PS": "69%"
+        "RegToPS": "50.87%",
+        "TargetPS": "1436",
+        "AchievementPS": "69%"
     },
     {
         "Bulan": "Februari",
         "NOP": "KALIMANTAN",
         "Re": "19433",
         "PS": "10915",
-        "Reg to PS": "56.17%",
-        "Target PS": "19226",
-        "Achievement PS": "57%"
+        "RegToPS": "56.17%",
+        "TargetPS": "19226",
+        "AchievementPS": "57%"
     }
 ]
