@@ -74,7 +74,7 @@
       });
 
    // Combo Chart
-   const comboCtx1 = document.getElementById('comboChart').getContext('2d');
+   const comboCtx = document.getElementById('comboChart').getContext('2d');
 
     fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json')
       .then(response => response.json())
@@ -85,7 +85,7 @@
           return monthData ? monthData.totalRe : null;
         });
 
-        new Chart(comboCtx1, {
+        new Chart(comboCtx, {
           data: {
             labels: labels,
             datasets: [
