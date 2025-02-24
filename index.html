@@ -27,20 +27,23 @@
         fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json')
           .then(response => response.json())
           .then(data => {
-        const comboData1 = [['Bulan', 'Re', 'Ps', 'TargetPs', 'Ps/Re']];
-        data.forEach(item => {
-          const psRe = parseFloat((item.Ps / item.Re * 100).toFixed(2));
-          comboData1.push([item.Bulan, item.Re, item.Ps, item.TargetPs, psRe]);
-        });
+            // Menyusun data untuk Combo Chart 1
+            const comboData1 = [['Bulan', 'Re', 'Ps', 'TargetPs', 'Ps/Re']];
+            data.forEach(item => {
+              const psRe = parseFloat((item.Ps / item.Re * 100).toFixed(2));
+              comboData1.push([item.Bulan, item.Re, item.Ps, item.TargetPs, psRe]);
+            });
 
-        var comboOptions1 = {
-          title: 'Penjualan vs Target (Combo Chart)',
-          seriesType: 'bars',
-          series: { 2: { type: 'line' }, 3: { type: 'line' } },
-          legend: { position: 'bottom' }
-        };
-        var comboChart1 = new google.visualization.ComboChart(document.getElementById('combo_chart1'));
-        comboChart1.draw(google.visualization.arrayToDataTable(comboData1), comboOptions1);
+            var comboOptions1 = {
+              title: 'Penjualan vs Target (Combo Chart)',
+              seriesType: 'bars',
+              // Mengatur kolom TargetPs (indeks 3) dan Ps/Re (indeks 4) sebagai garis
+              series: { 3: { type: 'line' }, 4: { type: 'line' } },
+              legend: { position: 'bottom' }
+            };
+
+            var comboChart1 = new google.visualization.ComboChart(document.getElementById('combo_chart1'));
+            comboChart1.draw(google.visualization.arrayToDataTable(comboData1), comboOptions1);
           })
           .catch(error => console.error('Error fetching data:', error));
 
