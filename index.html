@@ -16,7 +16,7 @@
             data.forEach(entry => {
               const month = entry.Bulan;
               if (!monthlyData[month]) {
-                monthlyData[month] = { Re: 0, PS: 0, TargetPS: 0 };
+          monthlyData[month] = { Re: 0, PS: 0, TargetPS: 0 };
               }
               monthlyData[month].Re += parseInt(entry.Re);
               monthlyData[month].PS += parseInt(entry.PS);
@@ -28,10 +28,10 @@
             dataTable.addColumn('number', 'Re');
             dataTable.addColumn('number', 'PS');
             dataTable.addColumn('number', 'TargetPS');
-            dataTable.addColumn('number', 'PS/Re');
+            dataTable.addColumn('number', 'PS/Re (%)');
 
             for (const [month, values] of Object.entries(monthlyData)) {
-              const psReRatio = values.Re !== 0 ? values.PS / values.Re : 0;
+              const psReRatio = values.Re !== 0 ? (values.PS / values.Re) * 100 : 0;
               dataTable.addRow([month, values.Re, values.PS, values.TargetPS, psReRatio]);
             }
 
