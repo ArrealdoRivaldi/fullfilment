@@ -24,22 +24,25 @@
       google.charts.setOnLoadCallback(drawCharts);
 
       function drawCharts() {
-        // --- Combo Chart 1 ---
-        var comboData1 = google.visualization.arrayToDataTable([
-          ['Tahun', 'Penjualan', 'Target'],
-          ['2019', 1000, 900],
-          ['2020', 1170, 1150],
-          ['2021', 660, 800],
-          ['2022', 1030, 1020]
-        ]);
+        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/MonthlyPS.json')
+          .then(response => response.json())
+          .then(data => {
+        const comboData1 = [['Bulan', 'Re', 'Ps', 'TargetPs', 'Ps/Re']];
+        data.forEach(item => {
+          const psRe = (item.Ps / item.Re * 100).toFixed(2) + '%';
+          comboData1.push([item.Bulan, item.Re, item.Ps, item.TargetPs, psRe]);
+        });
+
         var comboOptions1 = {
           title: 'Penjualan vs Target (Combo Chart)',
           seriesType: 'bars',
-          series: { 1: { type: 'line' } },
+          series: { 3: { type: 'line' } },
           legend: { position: 'bottom' }
         };
         var comboChart1 = new google.visualization.ComboChart(document.getElementById('combo_chart1'));
-        comboChart1.draw(comboData1, comboOptions1);
+        comboChart1.draw(google.visualization.arrayToDataTable(comboData1), comboOptions1);
+          })
+          .catch(error => console.error('Error fetching data:', error));
 
         // --- Combo Chart 2 ---
         var comboData2 = google.visualization.arrayToDataTable([
