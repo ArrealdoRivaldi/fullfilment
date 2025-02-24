@@ -1,185 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chart Cards</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 p-8">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Combo Chart Card -->
-        <div class="bg-white rounded-2xl shadow-lg p-4">
-          <h2 class="text-center font-semibold text-lg">PS Trend Monthly</h2>
-          <canvas id="comboChart"></canvas>
-        </div>
-
-      <!-- Combo Chart Card -->
-      <div class="bg-white rounded-2xl shadow-lg p-4">
-        <h2 class="text-center font-semibold text-lg">PS Trend Daily</h2>
-        <canvas id="comboChart1"></canvas>
-      </div>
-
-        <div class="bg-white rounded-2xl shadow-lg p-4">
-          <h2 class="text-center font-semibold text-lg">Fallout Trend Monthly</h2>
-          <canvas id="comboChart2"></canvas>
-        </div>
-      <!-- Pie Chart Card -->
-      <div class="bg-white rounded-2xl shadow-lg p-4">
-        <h2 class="text-center font-semibold text-lg">Status House Keeping NOP</h2>
-        <canvas id="pieChart"></canvas>
-      </div>
-
-  </div>
-  
-  <script>
-    
-    // Fetch data from JSON and create charts
-    fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/data%20fallout.json')
-      .then(response => response.json())
-      .then(data => {
-      const labels = ['(Blanks)', 'Cancel', 'FALLOUT', 'PS', 'PT2', 'PT3', 'Stay Fallout'];
-      const counts = {
-        '(Blanks)': 0,
-        'Cancel': 0,
-        'FALLOUT': 0,
-        'PS': 0,
-        'PT2': 0,
-        'PT3': 0,
-        'Stay Fallout': 0
-      };
-
-      data.forEach(item => {
-        if (!item['Status House Keeping']) {
-        counts['(Blanks)']++;
-        } else {
-        counts[item['Status House Keeping']]++;
-        }
-      });
-
-      // Pie Chart
-      const pieCtx = document.getElementById('pieChart').getContext('2d');
-      new Chart(pieCtx, {
-        type: 'pie',
-        data: {
-        labels: labels,
-        datasets: [{
-          data: Object.values(counts),
-          backgroundColor: ['#36A2EB', '#FF6384', '#FF9F40', '#4BC0C0', '#9966FF', '#FFCD56', '#C9CBCF']
-        }]
-        }
-      });
-      })
-      .catch(error => console.error('Error fetching data:', error));
-
-   // Combo Chart
-   const comboCtx = document.getElementById('comboChart1').getContext('2d');
-    new Chart(comboCtx, {
-      data: {
-        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-        datasets: [
-            {
-            type: 'bar',
-            label: 'Register',
-            backgroundColor: '#36A2EB',
-            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null]
-          },
-          {
-            type: 'bar',
-            label: 'Put In Service',
-            backgroundColor: '#FF6384',
-            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null]
-          },
-          {
-            type: 'bar',
-            label: 'Target PS',
-            backgroundColor: '#FF9F40',
-            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
-          },
-          {
-            type: 'line',
-            label: 'PS/REG',
-            borderColor: '#4BC0C0',
-            borderWidth: 2,
-            fill: false,
-            data: [15.835 / 20.595 * 100, 9.546 / 12.778 * 100]
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Reg To PS'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Month'
-            }
-          }
-        }
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Dashboard Chart</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+      .dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
       }
-    });
-
-    // Combo Chart
-   const comboCtx2 = document.getElementById('comboChart2').getContext('2d');
-    new Chart(comboCtx2, {
-      data: {
-        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-        datasets: [
-            {
-            type: 'bar',
-            label: 'Register',
-            backgroundColor: '#36A2EB',
-            data: [20.595, 12.778, null, null, null, null, null, null, null, null, null, null]
-          },
-          {
-            type: 'bar',
-            label: 'Put In Service',
-            backgroundColor: '#FF6384',
-            data: [15.835, 9.546, null, null, null, null, null, null, null, null, null, null]
-          },
-          {
-            type: 'bar',
-            label: 'Target PS',
-            backgroundColor: '#FF9F40',
-            data: [18.498, 19.226, 18.729, 16.759, 18.727, 19.055, 23.505, 23.533, 22.408, 22.578, 21.893, 21.338]
-          },
-          {
-            type: 'line',
-            label: 'PS/REG',
-            borderColor: '#4BC0C0',
-            borderWidth: 2,
-            fill: false,
-            data: [15.835 / 20.595 * 100, 9.546 / 12.778 * 100]
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'Reg To PS'
-            }
-          },
-          x: {
-            title: {
-              display: true,
-              text: 'Month'
-            }
-          }
-        }
+      .chart-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #fafafa;
       }
-    });
-  </script>
-</body>
+    </style>
+    <script type="text/javascript">
+      // Load Google Charts
+      google.charts.load('current', { packages: ['corechart'] });
+      google.charts.setOnLoadCallback(drawCharts);
+
+      function drawCharts() {
+        // --- Line Chart ---
+        var lineData = google.visualization.arrayToDataTable([
+          ['Tahun', 'Penjualan'],
+          ['2019', 1000],
+          ['2020', 1170],
+          ['2021', 660],
+          ['2022', 1030]
+        ]);
+        var lineOptions = {
+          title: 'Penjualan Tahunan (Line Chart)',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+        var lineChart = new google.visualization.LineChart(document.getElementById('line_chart'));
+        lineChart.draw(lineData, lineOptions);
+
+        // --- Pie Chart ---
+        var pieData = google.visualization.arrayToDataTable([
+          ['Kategori', 'Persentase'],
+          ['Elektronik', 45],
+          ['Pakaian', 26],
+          ['Makanan', 29]
+        ]);
+        var pieOptions = {
+          title: 'Distribusi Penjualan (Pie Chart)'
+        };
+        var pieChart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+        pieChart.draw(pieData, pieOptions);
+
+        // --- Bar Chart ---
+        var barData = google.visualization.arrayToDataTable([
+          ['Bulan', 'Pendapatan'],
+          ['Jan', 400],
+          ['Feb', 460],
+          ['Mar', 1120],
+          ['Apr', 540]
+        ]);
+        var barOptions = {
+          title: 'Pendapatan Bulanan (Bar Chart)',
+          legend: { position: 'none' }
+        };
+        var barChart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
+        barChart.draw(barData, barOptions);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Dashboard Chart</h1>
+    <div class="dashboard-container">
+      <div class="chart-item" id="line_chart" style="width: 100%; height: 300px;"></div>
+      <div class="chart-item" id="pie_chart" style="width: 100%; height: 300px;"></div>
+      <div class="chart-item" id="bar_chart" style="width: 100%; height: 300px;"></div>
+    </div>
+  </body>
 </html>
