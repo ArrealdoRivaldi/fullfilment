@@ -63,15 +63,6 @@
         "AchievementPS": "99%"
     },
     {
-        "Bulan": "Januari",
-        "NOP": "KALIMANTAN",
-        "Re": "26968",
-        "PS": "17466",
-        "RegToPS": "64.77%",
-        "TargetPS": "18498",
-        "AchievementPS": "94%"
-    },
-    {
         "Bulan": "Februari",
         "NOP": "Balikpapan",
         "Re": "3545",
@@ -133,14 +124,5 @@
         "RegToPS": "50.87%",
         "TargetPS": "1436",
         "AchievementPS": "69%"
-    },
-    {
-        "Bulan": "Februari",
-        "NOP": "KALIMANTAN",
-        "Re": "19433",
-        "PS": "10915",
-        "RegToPS": "56.17%",
-        "TargetPS": "19226",
-        "AchievementPS": "57%"
     }
 ]
