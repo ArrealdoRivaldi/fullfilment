@@ -20,7 +20,7 @@
               }
               monthlyData[month].Re += parseInt(entry.Re);
               monthlyData[month].PS += parseInt(entry.PS);
-              monthlyData[month].TargetPS += parseInt(entry.TargetPS);
+              monthlyData[month].TargetPS += Math.round(parseFloat(entry.TargetPS));
             });
 
             const dataTable = new google.visualization.DataTable();
