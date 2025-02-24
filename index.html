@@ -6,7 +6,7 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-
+  
       function drawChart() {
         fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/main/MonthlyPS.json')
           .then(response => response.json())
