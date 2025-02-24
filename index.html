@@ -29,7 +29,7 @@
           .then(data => {
         const comboData1 = [['Bulan', 'Re', 'Ps', 'TargetPs', 'Ps/Re']];
         data.forEach(item => {
-          const psRe = (item.Ps / item.Re * 100).toFixed(2) + '%';
+          const psRe = parseFloat((item.Ps / item.Re * 100).toFixed(2));
           comboData1.push([item.Bulan, item.Re, item.Ps, item.TargetPs, psRe]);
         });
 
