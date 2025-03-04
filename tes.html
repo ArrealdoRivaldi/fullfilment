@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Report fullfilment</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function parseDate(dateStr) {
+        const [day, monthStr, year] = dateStr.split('-');
+        const monthMap = {
+            'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+            'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+        };
+        return new Date(2000 + parseInt(year), monthMap[monthStr], parseInt(day));
+    }
+
+      function drawChart(selectedMonth) {
+
+        // Chart 1
+        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/main/MonthlyPS.json')
+          .then(response => response.json())
+          .then(data => {
+            const monthlyData = {};
+
+            data.forEach(entry => {
+              const month = entry.Bulan;
+              if (!monthlyData[month]) {
+          monthlyData[month] = { Re: 0, PS: 0, TargetPS: 0 };
+              }
+              monthlyData[month].Re += parseInt(entry.Re, 10);
+              monthlyData[month].PS += parseInt(entry.PS, 10);
+              monthlyData[month].TargetPS += Math.round(parseFloat(entry.TargetPS));
+            });
+
+            const dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Bulan');
+            dataTable.addColumn('number', 'Re');
+            dataTable.addColumn({ type: 'string', role: 'annotation' }); // Label Re
+            dataTable.addColumn('number', 'PS');
+            dataTable.addColumn({ type: 'string', role: 'annotation' }); // Label PS
+            dataTable.addColumn('number', 'TargetPS');
+            dataTable.addColumn({ type: 'string', role: 'annotation' }); // Label TargetPS
+            dataTable.addColumn('number', 'PS/Re (%)');
+            dataTable.addColumn({ type: 'string', role: 'annotation' }); // Label PS/Re
+
+            for (const [month, values] of Object.entries(monthlyData)) {
+              const psReRatio = values.Re !== 0 ? (values.PS / values.Re) * 100 : 0;
+              dataTable.addRow([
+          month, 
+          values.Re, `${values.Re}`,  // Annotation Re
+          values.PS, `${values.PS}`,  // Annotation PS
+          values.TargetPS, `${values.TargetPS}`,  // Annotation TargetPS
+          psReRatio, `${psReRatio.toFixed(2)}%`  // Annotation PS/Re
+              ]);
+            }
+
+            const options = {
+              title: 'PS Trend Monthly',
+              vAxes: {
+          0: {title: 'Jumlah'},
+          1: {title: 'PS/Re (%)', format: 'decimal', minValue: 0}
+              },
+              hAxis: {title: 'Bulan'},
+              seriesType: 'bars',
+              series: {
+          0: {targetAxisIndex: 0},
+          1: {targetAxisIndex: 0},
+          2: {targetAxisIndex: 0},
+          3: {type: 'line', targetAxisIndex: 1, lineWidth: 3, color: '#00FF00', pointSize: 5}
+              },
+              height: 400,
+              annotations: { textStyle: { fontSize: 12, bold: true, color: '#000' } } // Menampilkan angka Re, PS, TargetPS, dan PS/Re
+            };
+
+            const chart = new google.visualization.ComboChart(document.getElementById('combo_chart1'));
+            chart.draw(dataTable, options);
+          })
+          .catch(error => console.error('Error fetching MonthlyPS data:', error));
+
+        // Chart 2
+        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Daily.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched Daily Data:', data);
+                const dailyData = {};
+                const monthMap = {
+                    'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+                    'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+                };
+                const filterMonth = monthMap[selectedMonth];
+
+                data.forEach(entry => {
+                    const date = parseDate(entry.Date);
+                    if (date.getMonth() === filterMonth) {
+                        const day = date.getDate().toString();
+                        if (!dailyData[day]) {
+                            dailyData[day] = { Re: 0, PS: 0 };
+                        }
+                        dailyData[day].Re += parseInt(entry.RE, 10);
+                        dailyData[day].PS += parseInt(entry.PS, 10);
+                    }
+                });
+
+                console.log('Processed Daily Data:', dailyData);
+
+                const dataTable = new google.visualization.DataTable();
+                dataTable.addColumn('string', 'Tanggal');
+                dataTable.addColumn('number', 'Re');
+                dataTable.addColumn({ type: 'string', role: 'annotation' });
+                dataTable.addColumn('number', 'PS');
+                dataTable.addColumn({ type: 'string', role: 'annotation' });
+                dataTable.addColumn('number', 'PS/Re (%)');
+                dataTable.addColumn({ type: 'string', role: 'annotation' });
+
+                for (const [day, values] of Object.entries(dailyData)) {
+                    const psReRatio = values.Re !== 0 ? (values.PS / values.Re) * 100 : 0;
+                    dataTable.addRow([
+                        day,
+                        values.Re, `${values.Re}`,
+                        values.PS, `${values.PS}`,
+                        psReRatio, `${psReRatio.toFixed(2)}%`
+                    ]);
+                }
+
+                console.log('DataTable for Chart:', dataTable);
+
+                const options = {
+                    title: `PS Trend Daily - ${selectedMonth}`,
+                    vAxes: {
+                        0: { title: 'Jumlah' },
+                        1: { title: 'PS/Re (%)', format: 'decimal', minValue: 0 }
+                    },
+                    hAxis: { title: 'Tanggal' },
+                    seriesType: 'bars',
+                    series: {
+                        0: { targetAxisIndex: 0 },
+                        1: { targetAxisIndex: 0 },
+                        2: { type: 'line', targetAxisIndex: 1, lineWidth: 3, color: '#FF0000', pointSize: 5 }
+                    },
+                    height: 400,
+                    annotations: { textStyle: { fontSize: 12, bold: true, color: '#000' } }
+                };
+
+                const chart = new google.visualization.ComboChart(document.getElementById('combo_chart2'));
+                chart.draw(dataTable, options);
+            })
+            .catch(error => console.error('Error fetching Daily data:', error));
+
+        // Chart 3
+        fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Fallout.json')
+          .then(response => response.json())
+          .then(data => {
+            const monthlyData = new Map();
+
+            // Process data
+            data.forEach(entry => {
+              const date = new Date(entry.provi_ts);
+              const month = date.toLocaleString('default', { month: 'long' });
+              const year = date.getFullYear();
+              const monthYear = `${month} ${year}`;
+
+              if (!monthlyData.has(monthYear)) {
+                monthlyData.set(monthYear, { Fallout: 0, FTPS: 0 });
+              }
+
+              const values = monthlyData.get(monthYear);
+              values.Fallout += 1;
+              if (entry["Status "] === 'PS') {
+                values.FTPS += 1;
+              }
+            });
+            // Sort data by date
+            const sortedMonths = [...monthlyData.keys()].sort((a, b) => {
+              const dateA = new Date(a.split(' ')[1], new Date(Date.parse(a.split(' ')[0] + " 1, 2000")).getMonth());
+              const dateB = new Date(b.split(' ')[1], new Date(Date.parse(b.split(' ')[0] + " 1, 2000")).getMonth());
+              return dateA - dateB;
+            });
+            // Prepare data for Google Charts
+            const dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Bulan');
+            dataTable.addColumn('number', 'Fallout');
+            dataTable.addColumn({ type: 'string', role: 'annotation' }); // Label Fallout
+            dataTable.addColumn('number', 'FTPS');
+            dataTable.addColumn({ type: 'string', role: 'annotation' }); // Label FTPS
+            dataTable.addColumn('number', 'Achievement (%)');
+            dataTable.addColumn({ type: 'string', role: 'annotation' }); // Label Achievement
+            sortedMonths.forEach(monthYear => {
+              const values = monthlyData.get(monthYear);
+              const achievement = values.Fallout !== 0 ? ((values.FTPS / values.Fallout) * 100).toFixed(2) : 0.00;
+              dataTable.addRow([
+                monthYear, 
+                values.Fallout || 0.001, `${values.Fallout}`,  // Annotation Fallout
+                values.FTPS || 0.001, `${values.FTPS}`,        // Annotation FTPS
+                parseFloat(achievement), `${achievement}%`     // Annotation Achievement
+              ]);
+            });
+            // Chart options
+            const options = {
+              title: 'Trend Fallout To PS',
+              vAxes: {
+                0: { title: 'Jumlah' },
+                1: { title: 'Achievement (%)', format: '#,##0.00%' } // Format persen dengan 2 digit desimal
+              },
+              hAxis: { title: 'Bulan' },
+              seriesType: 'bars',
+              series: {
+                0: { targetAxisIndex: 0 },
+                1: { targetAxisIndex: 0 },
+                2: { type: 'line', targetAxisIndex: 1, lineWidth: 3, color: '#0000FF', pointSize: 5 }
+              },
+              height: 400,
+              annotations: { textStyle: { fontSize: 12, bold: true, color: '#000' } }, // Menampilkan angka Fallout, FTPS, dan Achievement
+              tooltip: { isHtml: true } // Memastikan tooltip tetap muncul
+            };
+            const chart = new google.visualization.ComboChart(document.getElementById('combo_chart3'));
+            chart.draw(dataTable, options);
+          })
+          .catch(error => console.error('Error fetching Fallout data:', error));
+          
+        // Chart 4
+          fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Fallout.json')
+          .then(response => response.json())
+          .then(data => {
+            const statusCount = {};
+
+            data.forEach(entry => {
+              const date = new Date(entry.provi_ts);
+              const month = date.getMonth(); // 1 = Februari
+              if (month === 1) {
+                const status = entry["Status "] || "Unknown";
+                statusCount[status] = (statusCount[status] || 0) + 1;
+              }
+            });
+
+            const dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('string', 'Status');
+            dataTable.addColumn('number', 'Jumlah');
+            dataTable.addColumn({type: 'string', role: 'style'});
+            dataTable.addColumn({type: 'string', role: 'annotation'});
+
+            const colors = ["#4285F4", "#DB4437", "#F4B400", "#0F9D58", "#AB47BC", "#00ACC1", "#FF7043"];
+            let colorIndex = 0;
+
+            for (const [status, count] of Object.entries(statusCount)) {
+              dataTable.addRow([status, count, `color: ${colors[colorIndex % colors.length]}`, count.toString()]);
+              colorIndex++;
+            }
+
+            const options = {
+              title: 'Distribusi Status - Februari',
+              chartArea: { width: '60%' },
+              hAxis: { title: 'Jumlah', minValue: 0 },
+              vAxis: { title: 'Status' },
+              bars: 'horizontal',
+              height: 400,
+              legend: { position: 'none' }
+            };
+
+            const chart = new google.visualization.BarChart(document.getElementById('combo_chart4'));
+            chart.draw(dataTable, options);
+          })
+          .catch(error => console.error('Error fetching data:', error));
+      }
+    </script>
+
+    <style>
+      .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 16px;
+        margin: 16px;
+      }
+      table {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #004466;
+            color: white;
+        }
+        .red { color: red; }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+        }
+        .modal-content select, .modal-content button {
+            margin: 10px;
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Pilihan data  -->
+    <button onclick="openModal()">Open Filter</button>
+<div id="filterModal" class="modal">
+    <div class="modal-content">
+        <h2>Filter Data</h2>
+        <div>
+            <label>Select Month</label>
+            <select id="monthSelect">
+                <option value="Jan">January</option>
+                <option value="Feb">February</option>
+                <option value="Mar">March</option>
+                <option value="Apr">April</option>
+                <option value="May">May</option>
+                <option value="Jun">June</option>
+                <option value="Jul">July</option>
+                <option value="Aug">August</option>
+                <option value="Sep">September</option>
+                <option value="Oct">October</option>
+                <option value="Nov">November</option>
+                <option value="Dec">December</option>
+            </select>
+        </div>
+        <div>
+            <label>Select NOP</label>
+            <select id="nopSelect">
+                <option value="Balikpapan">Balikpapan</option>
+                <option value="Banjarmasin">Banjarmasin</option>
+                <option value="Palangkaraya">Palangkaraya</option>
+                <option value="Pangkalan Bun">Pangkalan Bun</option>
+                <option value="Pontianak">Pontianak</option>
+                <option value="Samarinda">Samarinda</option>
+                <option value="Tarakan">Tarakan</option>
+            </select>
+        </div>
+        <button onclick="applyFilter()">Apply Filter</button>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+    <!-- Data chart and table  -->
+    <div class="card">
+      <h3>PS Trend Monthly PS</h3>
+      <div id="combo_chart1"></div>
+      <table id="data-table">
+        <thead>
+        <tr>
+        <th>NOP</th>
+        <th>Re</th>
+        <th>PS</th>
+        <th>Reg to PS</th>
+        <th>Target PS</th>
+        <th>Achievement PS</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="summary-points">
+      <h3>Summary Points</h3>
+      <ul>
+        <li>Achievement PS for Kalimantan is <span id="achievement-ps"></span> of the target.</li>
+        <li>The highest Achievement PS is achieved by <span id="highest-achievement-ps"></span>, while the lowest is <span id="lowest-achievement-ps"></span>.</li>
+        <li>The average PS/RE is <span id="average-ps-re"></span>.</li>
+        <li>The best Reg to PS ratio is achieved by <span id="best-reg-to-ps"></span>, while the lowest is <span id="lowest-reg-to-ps"></span>.</li>
+        <li>The highest total PS comes from <span id="highest-total-ps"></span>, and the lowest is from <span id="lowest-total-ps"></span>.</li>
+      </ul>
+    </div>
+    </div>
+
+    <div class="card">
+      <h3>PS Trend daily</h3>  
+      <div id="combo_chart2"></div>
+    </div>
+
+    <div class="card">
+      <h3>Fallout Trend Each month</h3>
+      <div id="combo_chart3"></div>
+    </div>
+
+    <div class="card">
+      <h3>Fallout Trend in month by status</h3>
+      <div id="combo_chart4"></div>
+    </div>
+
+    <div class="card">
+      <h3>Distribusi Nop Fallout Status</h3>
+      <table id="data-table1">
+        <thead>
+        <tr>
+        <th>NOP</th>
+        <th>PS</th>
+        <th>PT2</th>
+        <th>PT3</th>
+        <th>Reorder</th>
+        <th>Revoke</th>
+        <th>Stay Fallout</th>
+        <th>Cancel</th>
+        <th>Offering Orbit</th>
+        <th>NY Feedback</th>
+        <th>Grand Total</th>
+        <th>Ach PS</th>
+        <th>Ach PT2</th>
+        <th>Ach PT3</th>
+        <th>Ach Reorder</th>
+        <th>Ach Revoke</th>
+        <th>Ach Stay Fallout</th>
+        <th>Ach Cancel</th>
+        <th>Ach Offering Orbit</th>
+        <th>Ach NY Feedback</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Distribusi  symptom fallout status </h3>
+      <table id="data-table2">
+        <thead>
+        <tr>
+        <th>Symptom</th>
+        <th>PS</th>
+        <th>PT2</th>
+        <th>PT3</th>
+        <th>Reorder</th>
+        <th>Revoke</th>
+        <th>Stay Fallout</th>
+        <th>Offering Orbit</th>
+        <th>Cancel</th>
+        <th>NY Feedback</th>
+        <th>Grand Total</th>
+        <th>Ach PS</th>
+        <th>Ach PT2</th>
+        <th>Ach PT3</th>
+        <th>Ach Reorder</th>
+        <th>Ach Revoke</th>
+        <th>Ach Stay Fallout</th>
+        <th>Ach Offering Orbit</th>
+        <th>Ach Cancel</th>
+        <th>Ach NY Feedback</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Distribusi symptom fallout aging</h3>
+      <table id="data-table3">
+        <thead>
+        <tr>
+        <th>Symptom</th>
+        <th>1-3 Hari</th>
+        <th>4-7 Hari</th>
+        <th>8-14 Hari</th>
+        <th>> 14 Hari</th>
+        <th>Grand Total</th>  
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script>
+      // Fungsi untuk mengambil dan memfilter data
+    async function fetchData(selectedMonth) {
+        const response = await fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/main/MonthlyPS.json');
+        const data = await response.json();
+
+        const filteredData = data.filter(item => item.Bulan === selectedMonth);
+
+        let totalRe = 0, totalPS = 0, totalTargetPS = 0;
+        let tableBody = document.querySelector("#data-table tbody");
+        tableBody.innerHTML = "";
+
+        filteredData.forEach(item => {
+            totalRe += parseInt(item.Re);
+            totalPS += parseInt(item.PS);
+            totalTargetPS += Math.round(parseFloat(item.TargetPS));
+
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${item.NOP}</td>
+                    <td>${item.Re}</td>
+                    <td>${item.PS}</td>
+                    <td class="${(item.RegToPS < (totalPS / totalRe * 100).toFixed(2)) ? 'red' : ''}">${item.RegToPS}</td>
+                    <td>${item.TargetPS}</td>
+                    <td class="${(item.AchievementPS < (totalPS / totalTargetPS * 100).toFixed(2)) ? 'red' : ''}">${item.AchievementPS}</td>
+                </tr>
+            `;
+        });
+
+        let regToPS = (totalPS / totalRe * 100).toFixed(2) + "%";
+        let achievementPS = (totalPS / totalTargetPS * 100).toFixed(2) + "%";
+
+        tableBody.innerHTML += `
+            <tr>
+                <td><strong>KALIMANTAN</strong></td>
+                <td><strong>${totalRe}</strong></td>
+                <td><strong>${totalPS}</strong></td>
+                <td><strong>${regToPS}</strong></td>
+                <td><strong>${totalTargetPS}</strong></td>
+                <td><strong>${achievementPS}</strong></td>
+            </tr>
+        `;
+
+        updateSummaryPoints(filteredData, achievementPS);
+    }
+
+    // Fungsi untuk memperbarui summary points
+    function updateSummaryPoints(filteredData, achievementPS) {
+        const totalRe = parseInt(document.querySelector("#data-table tbody tr:last-child td:nth-child(2) strong").textContent);
+        const totalPS = parseInt(document.querySelector("#data-table tbody tr:last-child td:nth-child(3) strong").textContent);
+        const totalTargetPS = parseInt(document.querySelector("#data-table tbody tr:last-child td:nth-child(5) strong").textContent);
+        const regToPS = document.querySelector("#data-table tbody tr:last-child td:nth-child(4) strong").textContent;
+
+        const rows = document.querySelectorAll("#data-table tbody tr:not(:last-child)");
+        let highestAchievementPS = { NOP: '', value: 0 };
+        let lowestAchievementPS = { NOP: '', value: Infinity };
+        let highestTotalPS = { NOP: '', value: 0 };
+        let lowestTotalPS = { NOP: '', value: Infinity };
+        let bestRegToPS = { NOP: '', value: 0 };
+        let lowestRegToPS = { NOP: '', value: Infinity };
+        let totalPSRE = 0;
+
+        rows.forEach(row => {
+            const NOP = row.children[0].textContent;
+            const PS = parseInt(row.children[2].textContent);
+            const Re = parseInt(row.children[1].textContent);
+            const currentAchievementPS = parseFloat(row.children[5].textContent.replace('%', ''));
+            const currentRegToPS = parseFloat(row.children[3].textContent.replace('%', ''));
+
+            if (currentAchievementPS > highestAchievementPS.value) {
+                highestAchievementPS = { NOP, value: currentAchievementPS };
+            }
+            if (currentAchievementPS < lowestAchievementPS.value) {
+                lowestAchievementPS = { NOP, value: currentAchievementPS };
+            }
+            if (PS > highestTotalPS.value) {
+                highestTotalPS = { NOP, value: PS };
+            }
+            if (PS < lowestTotalPS.value) {
+                lowestTotalPS = { NOP, value: PS };
+            }
+            if (currentRegToPS > bestRegToPS.value) {
+                bestRegToPS = { NOP, value: currentRegToPS };
+            }
+            if (currentRegToPS < lowestRegToPS.value) {
+                lowestRegToPS = { NOP, value: currentRegToPS };
+            }
+            totalPSRE += currentRegToPS;
+        });
+
+        const averagePSRE = rows.length > 0 ? (totalPSRE / rows.length).toFixed(2) + "%" : "0%";
+
+        document.getElementById('achievement-ps').textContent = achievementPS;
+        document.getElementById('highest-achievement-ps').textContent = highestAchievementPS.NOP || '-';
+        document.getElementById('lowest-achievement-ps').textContent = lowestAchievementPS.NOP || '-';
+        document.getElementById('average-ps-re').textContent = averagePSRE;
+        document.getElementById('best-reg-to-ps').textContent = bestRegToPS.NOP || '-';
+        document.getElementById('lowest-reg-to-ps').textContent = lowestRegToPS.NOP || '-';
+        document.getElementById('highest-total-ps').textContent = highestTotalPS.NOP || '-';
+        document.getElementById('lowest-total-ps').textContent = lowestTotalPS.NOP || '-';
+    }
+    </script>
+
+    <script>
+      async function fetchFalloutData() {
+      const response = await fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Fallout.json');
+      const data = await response.json();
+      const nops = ["BALIKPAPAN", "BANJARMASIN", "PALANGKARAYA", "PANGKALAN BUN", "PONTIANAK","SAMARINDA", "TARAKAN"];
+      const statusCategories = ["PS", "PT2", "PT3", "Reorder", "Revoke", "Stay Fallout", "Cancel", "Offering Orbit"];
+      const tableBody = document.querySelector("#data-table1 tbody");
+
+      if (!tableBody) {
+        console.error("Elemen tbody tidak ditemukan!");
+        return;
+      }
+
+      tableBody.innerHTML = "";
+
+      let kalimantanTotals = statusCategories.reduce((acc, status) => {
+        acc[status] = 0;
+        return acc;
+      }, {});
+      kalimantanTotals["NY Feedback"] = 0;
+      kalimantanTotals["Grand Total"] = 0;
+
+      nops.forEach(nop => {
+        const nopData = data.filter(item => item.branch === nop);
+
+        const statusCounts = statusCategories.reduce((acc, status) => {
+          acc[status] = nopData.filter(item => item["Status "]?.trim() === status).length;
+          return acc;
+        }, {});
+
+        const nyFeedbackCount = nopData.filter(item => !item["Status "] || item["Status "].trim() === "").length;
+
+        const grandTotal = Object.values(statusCounts).reduce((sum, count) => sum + count, 0) + nyFeedbackCount;
+
+        Object.keys(statusCounts).forEach(status => {
+          kalimantanTotals[status] += statusCounts[status];
+        });
+        kalimantanTotals["NY Feedback"] += nyFeedbackCount;
+        kalimantanTotals["Grand Total"] += grandTotal;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${nop}</td>
+          <td>${statusCounts["PS"] || 0}</td>
+          <td>${statusCounts["PT2"] || 0}</td>
+          <td>${statusCounts["PT3"] || 0}</td>
+          <td>${statusCounts["Reorder"] || 0}</td>
+          <td>${statusCounts["Revoke"] || 0}</td>
+          <td>${statusCounts["Stay Fallout"] || 0}</td>
+          <td>${statusCounts["Cancel"] || 0}</td>
+          <td>${statusCounts["Offering Orbit"] || 0}</td>
+          <td>${nyFeedbackCount}</td>
+          <td>${grandTotal}</td>
+          <td>${((statusCounts["PS"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((statusCounts["PT2"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((statusCounts["PT3"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((statusCounts["Reorder"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((statusCounts["Revoke"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((statusCounts["Stay Fallout"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((statusCounts["Cancel"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((statusCounts["Offering Orbit"] / grandTotal) * 100).toFixed(2)}%</td>
+          <td>${((nyFeedbackCount / grandTotal) * 100).toFixed(2)}%</td>
+        `;
+        tableBody.appendChild(row);
+        });
+
+        const kalimantanRow = document.createElement("tr");
+        kalimantanRow.innerHTML = `
+        <td><strong>KALIMANTAN</strong></td>
+        <td><strong>${kalimantanTotals["PS"]}</strong></td>
+        <td><strong>${kalimantanTotals["PT2"]}</strong></td>
+        <td><strong>${kalimantanTotals["PT3"]}</strong></td>
+        <td><strong>${kalimantanTotals["Reorder"]}</strong></td>
+        <td><strong>${kalimantanTotals["Revoke"]}</strong></td>
+        <td><strong>${kalimantanTotals["Stay Fallout"]}</strong></td>
+        <td><strong>${kalimantanTotals["Cancel"]}</strong></td>
+        <td><strong>${kalimantanTotals["Offering Orbit"]}</strong></td>
+        <td><strong>${kalimantanTotals["NY Feedback"]}</strong></td>
+        <td><strong>${kalimantanTotals["Grand Total"]}</strong></td>
+        <td><strong>${((kalimantanTotals["PS"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["PT2"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["PT3"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["Reorder"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["Revoke"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["Stay Fallout"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["Cancel"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["Offering Orbit"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        <td><strong>${((kalimantanTotals["NY Feedback"] / kalimantanTotals["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+        `;
+        tableBody.appendChild(kalimantanRow);
+      }
+      fetchFalloutData();
+    </script>
+
+    <script>
+    async function fetchFalloutData1() {
+      const response = await fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Fallout.json');
+      const data = await response.json();
+      const symptomList = ["Kendala Izin", "Kendala Jalur/Rute Tarikan", "Kendala NTE/Device", "ODP BELUM GO LIVE", "ODP Full", "ODP Jauh", "ODP tidak ditemukan", "ODP Unspec"];
+      const statusCategories = ["PS", "PT2", "PT3", "Reorder", "Revoke", "Stay Fallout", "Cancel", "Offering Orbit"];
+      const tableBody = document.querySelector("#data-table2 tbody");
+
+      if (!tableBody) {
+      console.error("Elemen tbody tidak ditemukan!");
+      return;
+      }
+
+      tableBody.innerHTML = "";
+
+      let grandTotal = statusCategories.reduce((acc, status) => {
+      acc[status] = 0;
+      return acc;
+      }, {});
+      grandTotal["NY Feedback"] = 0;
+      grandTotal["Grand Total"] = 0;
+
+      symptomList.forEach(symptom => {
+      const symptomData = data.filter(item => item.symptom === symptom);
+
+      const statusCounts = statusCategories.reduce((acc, status) => {
+        acc[status] = symptomData.filter(item => item["Status "]?.trim() === status).length;
+        return acc;
+      }, {});
+
+      const nyFeedbackCount = symptomData.filter(item => !item["Status "] || item["Status "].trim() === "").length;
+
+      const grandTotalCount = Object.values(statusCounts).reduce((sum, count) => sum + count, 0) + nyFeedbackCount;
+
+      Object.keys(statusCounts).forEach(status => {
+        grandTotal[status] += statusCounts[status];
+      });
+      grandTotal["NY Feedback"] += nyFeedbackCount;
+      grandTotal["Grand Total"] += grandTotalCount;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${symptom}</td>
+        <td>${statusCounts["PS"] || 0}</td>
+        <td>${statusCounts["PT2"] || 0}</td>
+        <td>${statusCounts["PT3"] || 0}</td>
+        <td>${statusCounts["Reorder"] || 0}</td>
+        <td>${statusCounts["Revoke"] || 0}</td>
+        <td>${statusCounts["Stay Fallout"] || 0}</td>
+        <td>${statusCounts["Offering Orbit"] || 0}</td>
+        <td>${statusCounts["Cancel"] || 0}</td>
+        <td>${nyFeedbackCount}</td>
+        <td>${grandTotalCount}</td>
+        <td>${((statusCounts["PS"] / grandTotalCount) * 100).toFixed(2)}%</td>
+        <td>${((statusCounts["PT2"] / grandTotalCount) * 100).toFixed(2)}%</td>
+        <td>${((statusCounts["PT3"] / grandTotalCount) * 100).toFixed(2)}%</td>
+        <td>${((statusCounts["Reorder"] / grandTotalCount) * 100).toFixed(2)}%</td>
+        <td>${((statusCounts["Revoke"] / grandTotalCount) * 100).toFixed(2)}%</td>
+        <td>${((statusCounts["Stay Fallout"] / grandTotalCount) * 100).toFixed(2)}%</td>
+         <td>${((statusCounts["Offering Orbit"] / grandTotalCount) * 100).toFixed(2)}%</td>
+        <td>${((statusCounts["Cancel"] / grandTotalCount) * 100).toFixed(2)}%</td>
+        <td>${((nyFeedbackCount / grandTotalCount) * 100).toFixed(2)}%</td>
+      `;
+      tableBody.appendChild(row);
+      });
+
+      const grandTotalRow = document.createElement("tr");
+      grandTotalRow.innerHTML = `
+      <td><strong>GRAND TOTAL</strong></td>
+      <td><strong>${grandTotal["PS"]}</strong></td>
+      <td><strong>${grandTotal["PT2"]}</strong></td>
+      <td><strong>${grandTotal["PT3"]}</strong></td>
+      <td><strong>${grandTotal["Reorder"]}</strong></td>
+      <td><strong>${grandTotal["Revoke"]}</strong></td>
+      <td><strong>${grandTotal["Stay Fallout"]}</strong></td>
+      <td><strong>${grandTotal["Offering Orbit"]}</strong></td>
+      <td><strong>${grandTotal["Cancel"]}</strong></td>
+      <td><strong>${grandTotal["NY Feedback"]}</strong></td>
+      <td><strong>${grandTotal["Grand Total"]}</strong></td>
+      <td><strong>${((grandTotal["PS"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["PT2"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["PT3"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["Reorder"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["Revoke"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["Stay Fallout"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["Offering Orbit"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["Cancel"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      <td><strong>${((grandTotal["NY Feedback"] / grandTotal["Grand Total"]) * 100).toFixed(2)}%</strong></td>
+      `;
+      tableBody.appendChild(grandTotalRow);
+    }
+    fetchFalloutData1();
+    </script>
+
+<script>
+  async function fetchFalloutData2() {
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Fallout.json');
+      const data = await response.json();
+
+      console.log('Fetched Fallout Data:', data); // Debugging: cek apakah data masuk
+
+      const symptomList = [
+        "Kendala Izin", "Kendala Jalur/Rute Tarikan", "Kendala NTE/Device",
+        "ODP BELUM GO LIVE", "ODP Full", "ODP Jauh", "ODP tidak ditemukan", "ODP Unspec"
+      ];
+      
+      const agingCategories = ["1-3 hari", "4-7 hari", "8-14 hari", ">14 hari"];
+      const tableBody = document.querySelector("#data-table3 tbody");
+
+      if (!tableBody) {
+        console.error("Elemen tbody tidak ditemukan!");
+        return;
+      }
+
+      tableBody.innerHTML = "";
+
+      let grandTotal = {};
+      agingCategories.forEach(category => {
+        grandTotal[category] = 0;
+      });
+      grandTotal["Grand Total"] = 0;
+
+      symptomList.forEach(symptom => {
+        const symptomData = data.filter(item => item.symptom?.trim().toLowerCase() === symptom.toLowerCase());
+        console.log(`Data untuk ${symptom}:`, symptomData); // Debugging: lihat apakah symptom terbaca
+
+        let agingCounts = {};
+        agingCategories.forEach(category => {
+          agingCounts[category] = symptomData.filter(item => 
+            item["Aging Fallout "]?.trim().toLowerCase() === category.toLowerCase()).length;
+        });
+
+        const grandTotalCount = Object.values(agingCounts).reduce((sum, count) => sum + count, 0);
+
+        agingCategories.forEach(category => {
+          grandTotal[category] += agingCounts[category];
+        });
+        grandTotal["Grand Total"] += grandTotalCount;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${symptom}</td>
+          <td>${agingCounts["1-3 hari"] || 0}</td>
+          <td>${agingCounts["4-7 hari"] || 0}</td>
+          <td>${agingCounts["8-14 hari"] || 0}</td>
+          <td>${agingCounts[">14 hari"] || 0}</td>
+          <td>${grandTotalCount}</td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      const grandTotalRow = document.createElement("tr");
+      grandTotalRow.innerHTML = `
+        <td><strong>GRAND TOTAL</strong></td>
+        <td><strong>${grandTotal["1-3 hari"]}</strong></td>
+        <td><strong>${grandTotal["4-7 hari"]}</strong></td>
+        <td><strong>${grandTotal["8-14 hari"]}</strong></td>
+        <td><strong>${grandTotal[">14 hari"]}</strong></td>
+        <td><strong>${grandTotal["Grand Total"]}</strong></td>
+      `;
+      tableBody.appendChild(grandTotalRow);
+
+    } catch (error) {
+      console.error('Error fetching Fallout data:', error);
+    }
+  }
+
+  fetchFalloutData2();
+</script>
+<script>
+       function applyFilter() {
+        const selectedMonth = document.getElementById('monthSelect').value;
+        drawChart(selectedMonth);
+        closeModal(); // Tutup modal setelah filter diterapkan
+    }
+
+    // Fungsi untuk membuka modal
+    function openModal() {
+        document.getElementById('filterModal').style.display = 'block';
+    }
+
+    // Fungsi untuk menutup modal
+    function closeModal() {
+        document.getElementById('filterModal').style.display = 'none';
+    }
+
+    // Gambar chart pertama kali dengan bulan saat ini
+    const currentMonth = new Date().getMonth();
+    const monthNames = ['Jan', 'Februari', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    drawChart(monthNames[currentMonth]);
+        
+    </script>
+
+  </body>
+</html>
