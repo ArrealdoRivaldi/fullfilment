@@ -4,9 +4,9 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['Category', 'Reg', { role: 'annotation' }, 'PS', { role: 'annotation' }, 'Target PS', { role: 'annotation' }, 'PS/Reg', { role: 'annotation' }],
-        ['1', 27, '27', 17, '17', 18, '18', 0.6477 * 60, '64.77%'],
-        ['2', 26, '26', 16, '16', 19, '19', 0.6097 * 60, '60.97%'],
-        ['3', 7, '7', 5, '5', 19, '19', 0.6434 * 60, '64.34%'],
+        ['1', 27, '27', 17, '17', 18, '18', 0.6477 * 80, '64.77%'],
+        ['2', 26, '26', 16, '16', 19, '19', 0.6097 * 80, '60.97%'],
+        ['3', 7, '7', 5, '5', 19, '19', 0.6434 * 80, '64.34%'],
     ]);
 
     var options = {
