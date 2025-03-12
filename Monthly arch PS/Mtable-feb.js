@@ -1,39 +1,38 @@
-google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-
-function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        ['Category', 'Reg', { role: 'annotation' }, 'PS', { role: 'annotation' }, 'Target PS', { role: 'annotation' }, 'PS/Reg', { role: 'annotation' }],
-        ['1', 27, '27', 17, '17', 18, '18', 0.6477 * 80, '64.77%'],
-        ['2', 26, '26', 16, '16', 19, '19', 0.6097 * 80, '60.97%'],
-        ['3', 7, '7', 5, '5', 19, '19', 0.6434 * 80, '64.34%'],
-    ]);
-
-    var options = {
-        title: '',
-        vAxes: {
-            0: {title: 'Thousands'},
-            1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 70}}
-        },
-        hAxis: {title: ''},
-        seriesType: 'bars',
-        series: {
-            3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
-        },
-        annotations: {
-            alwaysOutside: true,
-            highContrast: true,
-            textStyle: {
-                fontSize: 12,
-                color: '#000',
-                bold: true
-            }
-        },
-        legend: { position: 'bottom' },
-        colors: ['#e67e22', '#1a237e', '#b0bec5'],
-        chartArea: {width: '70%', height: '70%'}
-    };
-
-    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+async function fetchData() {
+    try {
+        const response = await fetch("https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Monthly%20arch%20PS/Februari.json");
+        const data = await response.json();
+        generateTable(data);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+    }
 }
+
+function generateTable(data) {
+    let table = `<table border="1" style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <th>NOP</th>
+            <th>Re</th>
+            <th>PS</th>
+            <th>Reg to PS</th>
+            <th>Target PS</th>
+            <th>Achievement PS</th>
+        </tr>`;
+    
+    data.forEach(row => {
+        table += `<tr>
+            <td>${row.NOP}</td>
+            <td>${row.Re}</td>
+            <td>${row.PS}</td>
+            <td style="color: ${parseFloat(row["Reg to PS"].replace('%', '')) < 65 ? 'red' : 'black'}">${row["Reg to PS"]}</td>
+            <td>${row["Target PS"]}</td>
+            <td>${row["Achievement PS "]}</td>
+        </tr>`;
+    });
+
+    table += `</table>`;
+
+    document.getElementById("card_table").innerHTML = table;
+}
+
+fetchData();
