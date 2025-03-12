@@ -26,7 +26,7 @@ function generateTable(data) {
             <td>${row.PS}</td>
             <td style="color: ${parseFloat(row["Reg to PS"].replace('%', '')) < 65 ? 'red' : 'black'}">${row["Reg to PS"]}</td>
             <td>${row["Target PS"]}</td>
-            <td>${row["Achievement PS"]}</td>
+            <td>${row["Achievement PS "]}</td>
         </tr>`;
     });
 
