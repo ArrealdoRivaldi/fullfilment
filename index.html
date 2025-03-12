@@ -1,29 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Combo Chart Google</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="chart.js"></script>
     <script type="text/javascript" src="MTable.js"></script>
     <style>
-      .card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        padding: 16px;
-        margin: 16px;
-        width: 600px;
-      }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 16px;
+            margin: 16px;
+            width: 600px;
+        }
+        .filter-container {
+            margin: 16px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+    <div class="filter-container">
+        <label for="monthFilter">Select Month:</label>
+        <select id="monthFilter" onchange="filterData()">
+            <option value="">All Months</option>
+            <option value="Januari">January</option>
+            <option value="Februari">February</option>
+            <option value="Maret">March</option>
+            <option value="April">April</option>
+            <option value="Mei">May</option>
+            <option value="Juni">June</option>
+            <option value="Juli">July</option>
+            <option value="Agustus">August</option>
+            <option value="September">September</option>
+            <option value="Oktober">October</option>
+            <option value="November">November</option>
+            <option value="Desember">December</option>
+        </select>
+        
+        <label for="cityFilter">Select City:</label>
+        <select id="cityFilter" onchange="filterData()">
+            <option value="">All Cities</option>
+            <option value="Balikpapan">Balikpapan</option>
+            <option value="Banjarmasin">Banjarmasin</option>
+            <option value="Palangkaraya">Palangkaraya</option>
+            <option value="Pangkalan Bun">Pangkalan Bun</option>
+            <option value="Pontianak">Pontianak</option>
+            <option value="Samarinda">Samarinda</option>
+            <option value="Tarakan">Tarakan</option>
+        </select>
+    </div>
+
     <div class="card">
-      <h3>Chart Trend Ach Monthly</h3>
-      <div id="chart_div"></div>
+        <h3>Chart Trend Ach Monthly</h3>
+        <div id="chart_div"></div>
     </div>
     <div class="card">
-      <h3>Data Table</h3>
-      <div id="card_table"></div>
+        <h3>Data Monthly</h3>
+        <div id="card_table"></div>
     </div>
-  </body>
+
+    <script>
+        function filterData() {
+            let month = document.getElementById("monthFilter").value;
+            let city = document.getElementById("cityFilter").value;
+            console.log("Filtering data for:", month, city);
+            // Panggil fungsi filter yang sesuai di chart.js atau MTable.js
+        }
+    </script>
+</body>
 </html>
