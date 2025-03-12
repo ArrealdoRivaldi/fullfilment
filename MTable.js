@@ -9,7 +9,7 @@ async function fetchData() {
 }
 
 function generateTable(data) {
-    let table = `<table border="1">
+    let table = `<table border="1" style="width: 100%; border-collapse: collapse;">
         <tr>
             <th>NOP</th>
             <th>Re</th>
@@ -29,9 +29,10 @@ function generateTable(data) {
             <td>${row["Achievement PS"]}</td>
         </tr>`;
     });
-    
+
     table += `</table>`;
-    document.body.innerHTML = table;
+
+    document.getElementById("card_table").innerHTML = table;
 }
 
 fetchData();
