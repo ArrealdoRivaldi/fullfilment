@@ -1,7 +1,7 @@
 [
     {
         "order_id": "AOb0250114053535289178fe0",
-        "sto_co ": "SER ",
+        "sto_co": "SER ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/10/2025 8:57",
@@ -15,7 +15,7 @@
     },
     {
         "order_id": "AOb02502230910225964f0840",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/3/2025 16:40",
@@ -29,7 +29,7 @@
     },
     {
         "order_id": "AOb0250223092007903478c50",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/1/2025 11:13",
@@ -43,7 +43,7 @@
     },
     {
         "order_id": "AOb0250225104034418b72b20",
-        "sto_co ": "AMT ",
+        "sto_co": "AMT ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/1/2025 11:17",
@@ -57,7 +57,7 @@
     },
     {
         "order_id": "AOb0250226070620462be8470",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/1/2025 10:56",
@@ -71,7 +71,7 @@
     },
     {
         "order_id": "AOb0250226094107918950840",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 16:16",
@@ -85,7 +85,7 @@
     },
     {
         "order_id": "AOb0250227012823591fa9420",
-        "sto_co ": "LAB ",
+        "sto_co": "LAB ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/2/2025 7:28",
@@ -99,7 +99,7 @@
     },
     {
         "order_id": "AOb0250227080845030054730",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 16:49",
@@ -113,7 +113,7 @@
     },
     {
         "order_id": "AOb0250227095520354b1c320",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 9:26",
@@ -127,7 +127,7 @@
     },
     {
         "order_id": "AOb0250227124552370601df0",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/2/2025 8:26",
@@ -141,7 +141,7 @@
     },
     {
         "order_id": "AOb0250228021841415248ea0",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/2/2025 8:49",
@@ -155,7 +155,7 @@
     },
     {
         "order_id": "AOb0250228023405768cee710",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 14:51",
@@ -169,7 +169,7 @@
     },
     {
         "order_id": "AOb0250228072648947a282b0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/1/2025 18:47",
@@ -183,7 +183,7 @@
     },
     {
         "order_id": "AOb02502280855448417c98b0",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 16:05",
@@ -197,7 +197,7 @@
     },
     {
         "order_id": "AOb02502281015522589a9550",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 14:09",
@@ -211,7 +211,7 @@
     },
     {
         "order_id": "AOb0250228120743109fee4b0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 17:20",
@@ -225,7 +225,7 @@
     },
     {
         "order_id": "AOb0250301040111954c41ec0",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 16:21",
@@ -239,7 +239,7 @@
     },
     {
         "order_id": "AOb02503010637259529f8570",
-        "sto_co ": "MBD ",
+        "sto_co": "MBD ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 14:40",
@@ -253,7 +253,7 @@
     },
     {
         "order_id": "AOb0250301093659197aca970",
-        "sto_co ": "ANJ ",
+        "sto_co": "ANJ ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 16:42",
@@ -267,7 +267,7 @@
     },
     {
         "order_id": "AOb025030112583492057e750",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 14:11",
@@ -281,7 +281,7 @@
     },
     {
         "order_id": "AOb0250302014252829364160",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 15:20",
@@ -295,7 +295,7 @@
     },
     {
         "order_id": "AOb02503020309205859620b0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 14:56",
@@ -309,7 +309,7 @@
     },
     {
         "order_id": "AOb0250302044824532a3cd70",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 12:28",
@@ -323,7 +323,7 @@
     },
     {
         "order_id": "AOb02503020453544763adc60",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 19:43",
@@ -337,7 +337,7 @@
     },
     {
         "order_id": "AOb025030205343236201d220",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/11/2025 14:51",
@@ -351,7 +351,7 @@
     },
     {
         "order_id": "AOb0250302070142140ca92d0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/4/2025 18:15",
@@ -365,7 +365,7 @@
     },
     {
         "order_id": "AOb0250302072738048eae320",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 12:31",
@@ -379,7 +379,7 @@
     },
     {
         "order_id": "AOb02503020813236920d5f70",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/3/2025 15:47",
@@ -393,7 +393,7 @@
     },
     {
         "order_id": "AOb0250302091634291b5c200",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 17:15",
@@ -407,7 +407,7 @@
     },
     {
         "order_id": "AOb025030209384851053e170",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 14:44",
@@ -421,7 +421,7 @@
     },
     {
         "order_id": "AOb0250302095125271b21ee0",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 22:57",
@@ -435,7 +435,7 @@
     },
     {
         "order_id": "AOb0250302100609448730730",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/6/2025 17:53",
@@ -449,7 +449,7 @@
     },
     {
         "order_id": "AOb02503030113427176ddcc0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 16:12",
@@ -463,7 +463,7 @@
     },
     {
         "order_id": "AOb0250303062315876d4e2d0",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/7/2025 20:48",
@@ -477,7 +477,7 @@
     },
     {
         "order_id": "AOb0250303081940722b59ca0",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/7/2025 16:33",
@@ -491,7 +491,7 @@
     },
     {
         "order_id": "AOb0250303084536621e6ceb0",
-        "sto_co ": "SMR ",
+        "sto_co": "SMR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/5/2025 10:38",
@@ -505,7 +505,7 @@
     },
     {
         "order_id": "AOb0250303092238933f05ff0",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/4/2025 16:21",
@@ -519,7 +519,7 @@
     },
     {
         "order_id": "AOb02503030927453860cad70",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 8:37",
@@ -533,7 +533,7 @@
     },
     {
         "order_id": "AOb0250303100646867146420",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/7/2025 16:10",
@@ -547,7 +547,7 @@
     },
     {
         "order_id": "AOb0250303100805146228a50",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/4/2025 12:38",
@@ -561,7 +561,7 @@
     },
     {
         "order_id": "AOb0250303103514555ba8a40",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/7/2025 15:01",
@@ -575,7 +575,7 @@
     },
     {
         "order_id": "AOb0250303103718143d30700",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/4/2025 14:21",
@@ -589,7 +589,7 @@
     },
     {
         "order_id": "AOb0250303123557030ed84d0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/4/2025 18:47",
@@ -603,7 +603,7 @@
     },
     {
         "order_id": "AOb0250303123821041128fe0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/4/2025 14:22",
@@ -617,7 +617,7 @@
     },
     {
         "order_id": "AOb0250304012505371fb92f0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 12:30",
@@ -631,7 +631,7 @@
     },
     {
         "order_id": "AOb0250304021652245fbd470",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 14:07",
@@ -645,7 +645,7 @@
     },
     {
         "order_id": "AOb0250304025021190dab690",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 9:30",
@@ -659,7 +659,7 @@
     },
     {
         "order_id": "AOb02503040900202454638c0",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/5/2025 10:31",
@@ -673,7 +673,7 @@
     },
     {
         "order_id": "AOb0250304112934960ffa7a0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 14:03",
@@ -687,7 +687,7 @@
     },
     {
         "order_id": "AOb0250305104721735ccd990",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/6/2025 14:46",
@@ -701,7 +701,7 @@
     },
     {
         "order_id": "AOb025030511511313628c710",
-        "sto_co ": "KIP ",
+        "sto_co": "KIP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/7/2025 8:57",
@@ -715,7 +715,7 @@
     },
     {
         "order_id": "AOb0250305115950487271520",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 14:51",
@@ -729,7 +729,7 @@
     },
     {
         "order_id": "AOb02503060218151589aad70",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/11/2025 14:26",
@@ -743,7 +743,7 @@
     },
     {
         "order_id": "AOb0250306023955632d470f0",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/7/2025 19:34",
@@ -757,7 +757,7 @@
     },
     {
         "order_id": "AOb0250306025802371fc9760",
-        "sto_co ": "SGU ",
+        "sto_co": "SGU ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 14:27",
@@ -771,7 +771,7 @@
     },
     {
         "order_id": "AOb0250306053706244855a40",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 13:36",
@@ -785,7 +785,7 @@
     },
     {
         "order_id": "AOb0250306055503242799030",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/9/2025 16:22",
@@ -799,7 +799,7 @@
     },
     {
         "order_id": "AOb0250306073300448bb0020",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/9/2025 10:22",
@@ -813,7 +813,7 @@
     },
     {
         "order_id": "AOb02503061159486406b4d00",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/7/2025 14:38",
@@ -827,7 +827,7 @@
     },
     {
         "order_id": "AOb0250306121154928045970",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 16:25",
@@ -841,7 +841,7 @@
     },
     {
         "order_id": "AOb0250307014702985947180",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/7/2025 19:40",
@@ -855,7 +855,7 @@
     },
     {
         "order_id": "AOb0250307024133542ae7c60",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/9/2025 11:00",
@@ -869,7 +869,7 @@
     },
     {
         "order_id": "AOb0250307035341399aad970",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/9/2025 11:47",
@@ -883,7 +883,7 @@
     },
     {
         "order_id": "AOb0250307093158076585280",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/7/2025 19:43",
@@ -897,7 +897,7 @@
     },
     {
         "order_id": "AOb025030709460434278f550",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 14:50",
@@ -911,7 +911,7 @@
     },
     {
         "order_id": "AOb02503071017539309abcf0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/9/2025 10:26",
@@ -925,7 +925,7 @@
     },
     {
         "order_id": "AOb0250307103850828226a70",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/11/2025 7:37",
@@ -939,7 +939,7 @@
     },
     {
         "order_id": "AOb0250308080040266298140",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/10/2025 8:24",
@@ -953,7 +953,7 @@
     },
     {
         "order_id": "AOb0250308104431259cb7f90",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/11/2025 13:10",
@@ -967,7 +967,7 @@
     },
     {
         "order_id": "AOb0250309011625548902100",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/10/2025 10:42",
@@ -981,7 +981,7 @@
     },
     {
         "order_id": "AOb025030902451505360c870",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/10/2025 16:14",
@@ -995,7 +995,7 @@
     },
     {
         "order_id": "AOb0250309033015726f12cb0",
-        "sto_co ": "PLL ",
+        "sto_co": "PLL ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/10/2025 15:48",
@@ -1009,7 +1009,7 @@
     },
     {
         "order_id": "AOb0250309064629806bb3f30",
-        "sto_co ": "LMP ",
+        "sto_co": "LMP ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/10/2025 8:15",
@@ -1023,7 +1023,7 @@
     },
     {
         "order_id": "AOb0250309110214508cb1930",
-        "sto_co ": "BOT ",
+        "sto_co": "BOT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/11/2025 15:53",
@@ -1037,7 +1037,7 @@
     },
     {
         "order_id": "AOb025031001234803797ba50",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/11/2025 15:26",
@@ -1051,7 +1051,7 @@
     },
     {
         "order_id": "AOb0250310115801353c938a0",
-        "sto_co ": "SGK ",
+        "sto_co": "SGK ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/10/2025 14:12",
@@ -1065,7 +1065,7 @@
     },
     {
         "order_id": "AOb025031102333305855c730",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/18/2025 21:43",
@@ -1079,7 +1079,7 @@
     },
     {
         "order_id": "AOb025031104513348074e410",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/13/2025 11:19",
@@ -1093,7 +1093,7 @@
     },
     {
         "order_id": "AOb02503111027245218215b0",
-        "sto_co ": "RBA ",
+        "sto_co": "RBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/16/2025 14:25",
@@ -1107,7 +1107,7 @@
     },
     {
         "order_id": "AOb0250311113453163b81a70",
-        "sto_co ": "AGN ",
+        "sto_co": "AGN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 12:48",
@@ -1121,7 +1121,7 @@
     },
     {
         "order_id": "AOb025031303274951369d220",
-        "sto_co ": "SED ",
+        "sto_co": "SED ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/14/2025 16:44",
@@ -1135,7 +1135,7 @@
     },
     {
         "order_id": "AOb025031305573921721db50",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/14/2025 15:54",
@@ -1149,7 +1149,7 @@
     },
     {
         "order_id": "AOb025031310445847187a0f0",
-        "sto_co ": "PEA ",
+        "sto_co": "PEA ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/17/2025 7:57",
@@ -1163,7 +1163,7 @@
     },
     {
         "order_id": "AOb0250314032503661314340",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/16/2025 16:39",
@@ -1177,7 +1177,7 @@
     },
     {
         "order_id": "AOb0250314042931601af1890",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/18/2025 16:08",
@@ -1191,7 +1191,7 @@
     },
     {
         "order_id": "AOb0250314110413325e98ff0",
-        "sto_co ": "BTK ",
+        "sto_co": "BTK ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/15/2025 7:45",
@@ -1205,7 +1205,7 @@
     },
     {
         "order_id": "AOb025031510102723215aca0",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/16/2025 14:44",
@@ -1219,7 +1219,7 @@
     },
     {
         "order_id": "AOb025031510433673675f0c0",
-        "sto_co ": "HNU ",
+        "sto_co": "HNU ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/17/2025 10:49",
@@ -1233,7 +1233,7 @@
     },
     {
         "order_id": "AOb025031601205140563ac70",
-        "sto_co ": "KYG ",
+        "sto_co": "KYG ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/17/2025 8:58",
@@ -1247,7 +1247,7 @@
     },
     {
         "order_id": "AOb025031606094201088e190",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/18/2025 10:18",
@@ -1261,7 +1261,7 @@
     },
     {
         "order_id": "AOb02503170414293096377b0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/19/2025 14:39",
@@ -1275,7 +1275,7 @@
     },
     {
         "order_id": "AOb0250317090935396b386c0",
-        "sto_co ": "PBU ",
+        "sto_co": "PBU ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/19/2025 14:55",
@@ -1289,7 +1289,7 @@
     },
     {
         "order_id": "AOb0250318102431772d2f610",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/19/2025 11:29",
@@ -1303,7 +1303,7 @@
     },
     {
         "order_id": "AOi1250226032706076381cc0",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/1/2025 14:31",
@@ -1317,7 +1317,7 @@
     },
     {
         "order_id": "AOi1250226090803934c51a00",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 16:41",
@@ -1331,7 +1331,7 @@
     },
     {
         "order_id": "AOi1250228013155629483e90",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 18:05",
@@ -1345,7 +1345,7 @@
     },
     {
         "order_id": "AOi1250228090844093a4f4e0",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 16:02",
@@ -1359,7 +1359,7 @@
     },
     {
         "order_id": "AOi12503020859126106c2dc0",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 13:04",
@@ -1373,7 +1373,7 @@
     },
     {
         "order_id": "AOi1250302091125082694d00",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 12:56",
@@ -1387,7 +1387,7 @@
     },
     {
         "order_id": "AOi1250303114437519869de0",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/3/2025 12:58",
@@ -1401,7 +1401,7 @@
     },
     {
         "order_id": "AOi1250305090321842b0b570",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/6/2025 13:30",
@@ -1415,7 +1415,7 @@
     },
     {
         "order_id": "AOi12503051145102136ed4a0",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/9/2025 11:22",
@@ -1429,7 +1429,7 @@
     },
     {
         "order_id": "AOi1250306053439291162bd0",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/8/2025 15:02",
@@ -1443,7 +1443,7 @@
     },
     {
         "order_id": "AOi1250308092705809f302a0",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/10/2025 10:43",
@@ -1457,7 +1457,7 @@
     },
     {
         "order_id": "AOi12503090819083469c9a50",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/11/2025 9:45",
@@ -1471,7 +1471,7 @@
     },
     {
         "order_id": "AOi1250309090506319379890",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/10/2025 12:57",
@@ -1485,7 +1485,7 @@
     },
     {
         "order_id": "AOi12503100412493740f4000",
-        "sto_co ": "PBU ",
+        "sto_co": "PBU ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/11/2025 9:28",
@@ -1499,7 +1499,7 @@
     },
     {
         "order_id": "AOi125031010275382023ef30",
-        "sto_co ": "BIG ",
+        "sto_co": "BIG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/11/2025 11:51",
@@ -1513,7 +1513,7 @@
     },
     {
         "order_id": "AOi1250311073701517e58c10",
-        "sto_co ": "AGN ",
+        "sto_co": "AGN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/12/2025 12:59",
@@ -1527,7 +1527,7 @@
     },
     {
         "order_id": "AOi125031109440747337cd10",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 15:02",
@@ -1541,7 +1541,7 @@
     },
     {
         "order_id": "AOi1250313054531004705490",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/17/2025 7:15",
@@ -1555,7 +1555,7 @@
     },
     {
         "order_id": "AOi1250314031530720425bf0",
-        "sto_co ": "PMK ",
+        "sto_co": "PMK ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/15/2025 14:08",
@@ -1569,7 +1569,7 @@
     },
     {
         "order_id": "AOi1250314073859866d31930",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/16/2025 23:18",
@@ -1583,7 +1583,7 @@
     },
     {
         "order_id": "AOi12503150941078886ef670",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/16/2025 14:46",
@@ -1597,7 +1597,7 @@
     },
     {
         "order_id": "AOi125031608085690399cf40",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/17/2025 14:12",
@@ -1611,7 +1611,7 @@
     },
     {
         "order_id": "AOi1250317050929783079360",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/19/2025 13:08",
@@ -1625,7 +1625,7 @@
     },
     {
         "order_id": "AOi12503170853110376f93b0",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/19/2025 10:05",
@@ -1639,7 +1639,7 @@
     },
     {
         "order_id": "AOi12503180324288852a7aa0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/19/2025 14:54",
@@ -1653,7 +1653,7 @@
     },
     {
         "order_id": "AOi4250218110515789357240",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 16:36",
@@ -1667,7 +1667,7 @@
     },
     {
         "order_id": "AOi42502190757421068f8f80",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 14:03",
@@ -1681,7 +1681,7 @@
     },
     {
         "order_id": "AOi4250219111306155a55fb0",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/1/2025 8:43",
@@ -1695,7 +1695,7 @@
     },
     {
         "order_id": "AOi42502210125581243818e0",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 21:15",
@@ -1709,7 +1709,7 @@
     },
     {
         "order_id": "AOi4250221115346137f92d20",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/1/2025 13:12",
@@ -1723,7 +1723,7 @@
     },
     {
         "order_id": "AOi42502220224112885ca910",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/1/2025 18:10",
@@ -1737,7 +1737,7 @@
     },
     {
         "order_id": "AOi4250222050618061310ab0",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/8/2025 16:25",
@@ -1751,7 +1751,7 @@
     },
     {
         "order_id": "AOi42502220659123782b54d0",
-        "sto_co ": "KRO ",
+        "sto_co": "KRO ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 8:04",
@@ -1765,7 +1765,7 @@
     },
     {
         "order_id": "AOi425022210012280433f330",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/6/2025 9:48",
@@ -1779,7 +1779,7 @@
     },
     {
         "order_id": "AOi42502230518030379fea90",
-        "sto_co ": "BRI ",
+        "sto_co": "BRI ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/1/2025 13:11",
@@ -1793,7 +1793,7 @@
     },
     {
         "order_id": "AOi42502240108197261239c0",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/1/2025 8:33",
@@ -1807,7 +1807,7 @@
     },
     {
         "order_id": "AOi42502240213194487bbcd0",
-        "sto_co ": "TSL ",
+        "sto_co": "TSL ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/12/2025 7:57",
@@ -1821,7 +1821,7 @@
     },
     {
         "order_id": "AOi4250224041416084c29870",
-        "sto_co ": "BKY ",
+        "sto_co": "BKY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/6/2025 15:07",
@@ -1835,7 +1835,7 @@
     },
     {
         "order_id": "AOi4250224050712477a6d310",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 16:36",
@@ -1849,7 +1849,7 @@
     },
     {
         "order_id": "AOi4250224062020622ddc570",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 12:04",
@@ -1863,7 +1863,7 @@
     },
     {
         "order_id": "AOi4250224082229324d51ca0",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/3/2025 12:18",
@@ -1877,7 +1877,7 @@
     },
     {
         "order_id": "AOi4250224100233247d89af0",
-        "sto_co ": "KKU ",
+        "sto_co": "KKU ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/1/2025 17:54",
@@ -1891,7 +1891,7 @@
     },
     {
         "order_id": "AOi4250224102154055f5f390",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/1/2025 10:24",
@@ -1905,7 +1905,7 @@
     },
     {
         "order_id": "AOi425022501110171844b850",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/2/2025 15:42",
@@ -1919,7 +1919,7 @@
     },
     {
         "order_id": "AOi42502250143447772be480",
-        "sto_co ": "KOB ",
+        "sto_co": "KOB ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/2/2025 12:11",
@@ -1933,7 +1933,7 @@
     },
     {
         "order_id": "AOi4250225020135756c11060",
-        "sto_co ": "MBD ",
+        "sto_co": "MBD ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 17:28",
@@ -1947,7 +1947,7 @@
     },
     {
         "order_id": "AOi4250225032456525d9c6d0",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 18:33",
@@ -1961,7 +1961,7 @@
     },
     {
         "order_id": "AOi425022503303721371b610",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/4/2025 14:14",
@@ -1975,7 +1975,7 @@
     },
     {
         "order_id": "AOi42502250509362345380e0",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 12:11",
@@ -1989,7 +1989,7 @@
     },
     {
         "order_id": "AOi42502250846013240722e0",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 7:32",
@@ -2003,7 +2003,7 @@
     },
     {
         "order_id": "AOi4250225092454752a8fdb0",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/8/2025 7:54",
@@ -2017,7 +2017,7 @@
     },
     {
         "order_id": "AOi42502251119410322e61c0",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/1/2025 8:45",
@@ -2031,7 +2031,7 @@
     },
     {
         "order_id": "AOi425022511335519700e020",
-        "sto_co ": "LIK ",
+        "sto_co": "LIK ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/2/2025 8:17",
@@ -2045,7 +2045,7 @@
     },
     {
         "order_id": "AOi4250226010547975ee9380",
-        "sto_co ": "RBA ",
+        "sto_co": "RBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 17:01",
@@ -2059,7 +2059,7 @@
     },
     {
         "order_id": "AOi42502260336389112caab0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/6/2025 16:31",
@@ -2073,7 +2073,7 @@
     },
     {
         "order_id": "AOi425022603435130980bdf0",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/2/2025 17:11",
@@ -2087,7 +2087,7 @@
     },
     {
         "order_id": "AOi4250226042932400a8acb0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/1/2025 10:45",
@@ -2101,7 +2101,7 @@
     },
     {
         "order_id": "AOi425022604305954895d880",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/3/2025 20:24",
@@ -2115,7 +2115,7 @@
     },
     {
         "order_id": "AOi42502260544544588f7cc0",
-        "sto_co ": "SEI ",
+        "sto_co": "SEI ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 16:23",
@@ -2129,7 +2129,7 @@
     },
     {
         "order_id": "AOi4250226071209813b60450",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 7:49",
@@ -2143,7 +2143,7 @@
     },
     {
         "order_id": "AOi4250226072158514bbf3b0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 15:15",
@@ -2157,7 +2157,7 @@
     },
     {
         "order_id": "AOi42502260738404992c5ac0",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 17:02",
@@ -2171,7 +2171,7 @@
     },
     {
         "order_id": "AOi42502260922264994b0d50",
-        "sto_co ": "KYG ",
+        "sto_co": "KYG ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/1/2025 15:11",
@@ -2185,7 +2185,7 @@
     },
     {
         "order_id": "AOi42502261030156978fce70",
-        "sto_co ": "SED ",
+        "sto_co": "SED ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 12:45",
@@ -2199,7 +2199,7 @@
     },
     {
         "order_id": "AOi4250226104330353341c40",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 8:22",
@@ -2213,7 +2213,7 @@
     },
     {
         "order_id": "AOi425022611091815971a800",
-        "sto_co ": "KKU ",
+        "sto_co": "KKU ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/5/2025 17:00",
@@ -2227,7 +2227,7 @@
     },
     {
         "order_id": "AOi425022611112905980fc60",
-        "sto_co ": "SMB ",
+        "sto_co": "SMB ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 17:27",
@@ -2241,7 +2241,7 @@
     },
     {
         "order_id": "AOi425022612320615061bb60",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/4/2025 10:07",
@@ -2255,7 +2255,7 @@
     },
     {
         "order_id": "AOi42502270148492326c9470",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/6/2025 14:23",
@@ -2269,7 +2269,7 @@
     },
     {
         "order_id": "AOi4250227021513483ac9410",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 13:50",
@@ -2283,7 +2283,7 @@
     },
     {
         "order_id": "AOi4250227022359537275000",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 16:59",
@@ -2297,7 +2297,7 @@
     },
     {
         "order_id": "AOi42502270316113080900a0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 12:27",
@@ -2311,7 +2311,7 @@
     },
     {
         "order_id": "AOi425022704250522307d620",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 15:40",
@@ -2325,7 +2325,7 @@
     },
     {
         "order_id": "AOi4250227050558600d2a1b0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 16:40",
@@ -2339,7 +2339,7 @@
     },
     {
         "order_id": "AOi4250227051314642fa5fd0",
-        "sto_co ": "SEM ",
+        "sto_co": "SEM ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/6/2025 9:29",
@@ -2353,7 +2353,7 @@
     },
     {
         "order_id": "AOi42502270518267707c91f0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/2/2025 8:27",
@@ -2367,7 +2367,7 @@
     },
     {
         "order_id": "AOi425022707275087623e8d0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/2/2025 8:28",
@@ -2381,7 +2381,7 @@
     },
     {
         "order_id": "AOi4250227073918439147210",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/8/2025 10:20",
@@ -2395,7 +2395,7 @@
     },
     {
         "order_id": "AOi425022708022490697d110",
-        "sto_co ": "BJM ",
+        "sto_co": "BJM ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/2/2025 7:29",
@@ -2409,7 +2409,7 @@
     },
     {
         "order_id": "AOi425022708203591656bc40",
-        "sto_co ": "PLE ",
+        "sto_co": "PLE ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/1/2025 8:51",
@@ -2423,7 +2423,7 @@
     },
     {
         "order_id": "AOi42502270820483488c2210",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/4/2025 17:31",
@@ -2437,7 +2437,7 @@
     },
     {
         "order_id": "AOi4250227082331001e8bcd0",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/1/2025 12:32",
@@ -2451,7 +2451,7 @@
     },
     {
         "order_id": "AOi4250227090531979560d10",
-        "sto_co ": "PBU ",
+        "sto_co": "PBU ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/6/2025 23:00",
@@ -2465,7 +2465,7 @@
     },
     {
         "order_id": "AOi4250227090751957cb0e70",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 12:17",
@@ -2479,7 +2479,7 @@
     },
     {
         "order_id": "AOi4250227092604508d6c680",
-        "sto_co ": "PRC ",
+        "sto_co": "PRC ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/1/2025 16:57",
@@ -2493,7 +2493,7 @@
     },
     {
         "order_id": "AOi42502271027584992a22f0",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/2/2025 11:52",
@@ -2507,7 +2507,7 @@
     },
     {
         "order_id": "AOi4250227103751068866b20",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 11:43",
@@ -2521,7 +2521,7 @@
     },
     {
         "order_id": "AOi4250227104812877f57b70",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 15:23",
@@ -2535,7 +2535,7 @@
     },
     {
         "order_id": "AOi4250227110331896fb6740",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/2/2025 8:32",
@@ -2549,7 +2549,7 @@
     },
     {
         "order_id": "AOi42502271208392313a7f60",
-        "sto_co ": "BJM ",
+        "sto_co": "BJM ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/1/2025 17:06",
@@ -2563,7 +2563,7 @@
     },
     {
         "order_id": "AOi4250228010127509f88a90",
-        "sto_co ": "BLN ",
+        "sto_co": "BLN ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/1/2025 13:03",
@@ -2577,7 +2577,7 @@
     },
     {
         "order_id": "AOi4250228010703753f82cb0",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/3/2025 14:16",
@@ -2591,7 +2591,7 @@
     },
     {
         "order_id": "AOi4250228015149968c54bd0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 16:13",
@@ -2605,7 +2605,7 @@
     },
     {
         "order_id": "AOi42502280207569785687d0",
-        "sto_co ": "KKP ",
+        "sto_co": "KKP ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/3/2025 20:49",
@@ -2619,7 +2619,7 @@
     },
     {
         "order_id": "AOi4250228023843752b5a330",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 12:31",
@@ -2633,7 +2633,7 @@
     },
     {
         "order_id": "AOi42502280442108757c5920",
-        "sto_co ": "PMK ",
+        "sto_co": "PMK ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/2/2025 12:02",
@@ -2647,7 +2647,7 @@
     },
     {
         "order_id": "AOi4250228050109673937ca0",
-        "sto_co ": "TJL ",
+        "sto_co": "TJL ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/2/2025 9:23",
@@ -2661,7 +2661,7 @@
     },
     {
         "order_id": "AOi4250228051944203b08ba0",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 17:04",
@@ -2675,7 +2675,7 @@
     },
     {
         "order_id": "AOi425022805483412005c820",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/2/2025 7:20",
@@ -2689,7 +2689,7 @@
     },
     {
         "order_id": "AOi42502280617309544a4100",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/1/2025 15:38",
@@ -2703,7 +2703,7 @@
     },
     {
         "order_id": "AOi4250228061906704d55b50",
-        "sto_co ": "KKP ",
+        "sto_co": "KKP ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/3/2025 16:01",
@@ -2717,7 +2717,7 @@
     },
     {
         "order_id": "AOi42502280639027675d7670",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 16:28",
@@ -2731,7 +2731,7 @@
     },
     {
         "order_id": "AOi42502280654214004b2500",
-        "sto_co ": "SAN ",
+        "sto_co": "SAN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/1/2025 12:50",
@@ -2745,7 +2745,7 @@
     },
     {
         "order_id": "AOi4250228074920508f789e0",
-        "sto_co ": "MBD ",
+        "sto_co": "MBD ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/3/2025 11:35",
@@ -2759,7 +2759,7 @@
     },
     {
         "order_id": "AOi4250228075242762a570e0",
-        "sto_co ": "RBA ",
+        "sto_co": "RBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/2/2025 10:28",
@@ -2773,7 +2773,7 @@
     },
     {
         "order_id": "AOi425022807533240082e890",
-        "sto_co ": "PRC ",
+        "sto_co": "PRC ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/1/2025 12:54",
@@ -2787,7 +2787,7 @@
     },
     {
         "order_id": "AOi425022808014326233bd30",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/2/2025 10:09",
@@ -2801,7 +2801,7 @@
     },
     {
         "order_id": "AOi42502280819062509d7f50",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/3/2025 15:04",
@@ -2815,7 +2815,7 @@
     },
     {
         "order_id": "AOi4250228085105043b905f0",
-        "sto_co ": "BLN ",
+        "sto_co": "BLN ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/2/2025 12:50",
@@ -2829,7 +2829,7 @@
     },
     {
         "order_id": "AOi4250228085346061c26cb0",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 22:00",
@@ -2843,7 +2843,7 @@
     },
     {
         "order_id": "AOi42502280854459412c0b20",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/1/2025 9:07",
@@ -2857,7 +2857,7 @@
     },
     {
         "order_id": "AOi4250228092137733783a10",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/6/2025 7:29",
@@ -2871,7 +2871,7 @@
     },
     {
         "order_id": "AOi425022809294092082bf20",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/5/2025 9:59",
@@ -2885,7 +2885,7 @@
     },
     {
         "order_id": "AOi4250228092953527ebc150",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/3/2025 12:49",
@@ -2899,7 +2899,7 @@
     },
     {
         "order_id": "AOi42502280956197712db090",
-        "sto_co ": "TMD ",
+        "sto_co": "TMD ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/2/2025 15:05",
@@ -2913,7 +2913,7 @@
     },
     {
         "order_id": "AOi4250228101012163f22580",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/2/2025 10:08",
@@ -2927,7 +2927,7 @@
     },
     {
         "order_id": "AOi4250228101631235f02d50",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 19:26",
@@ -2941,7 +2941,7 @@
     },
     {
         "order_id": "AOi42502281023357934b8760",
-        "sto_co ": "SUA ",
+        "sto_co": "SUA ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/2/2025 12:52",
@@ -2955,7 +2955,7 @@
     },
     {
         "order_id": "AOi42502281115007397707c0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 16:23",
@@ -2969,7 +2969,7 @@
     },
     {
         "order_id": "AOi4250228112635112aef300",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 15:56",
@@ -2983,7 +2983,7 @@
     },
     {
         "order_id": "AOi4250228121232423951b70",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/3/2025 20:25",
@@ -2997,7 +2997,7 @@
     },
     {
         "order_id": "AOi4250301011529632c93dc0",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/2/2025 15:31",
@@ -3011,7 +3011,7 @@
     },
     {
         "order_id": "AOi4250301012350737ea0100",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/2/2025 19:04",
@@ -3025,7 +3025,7 @@
     },
     {
         "order_id": "AOi4250301015147693382420",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/4/2025 8:50",
@@ -3039,7 +3039,7 @@
     },
     {
         "order_id": "AOi42503010237250099695f0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/5/2025 17:23",
@@ -3053,7 +3053,7 @@
     },
     {
         "order_id": "AOi4250301024934773149f20",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/15/2025 16:35",
@@ -3067,7 +3067,7 @@
     },
     {
         "order_id": "AOi4250301025538041e53260",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/4/2025 10:56",
@@ -3081,7 +3081,7 @@
     },
     {
         "order_id": "AOi42503010314495885cb2a0",
-        "sto_co ": "BRI ",
+        "sto_co": "BRI ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/4/2025 16:34",
@@ -3095,7 +3095,7 @@
     },
     {
         "order_id": "AOi42503010412045150a4d80",
-        "sto_co ": "SEI ",
+        "sto_co": "SEI ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 17:07",
@@ -3109,7 +3109,7 @@
     },
     {
         "order_id": "AOi425030105294672187ba20",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 18:56",
@@ -3123,7 +3123,7 @@
     },
     {
         "order_id": "AOi4250301055511143aaaa80",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 18:34",
@@ -3137,7 +3137,7 @@
     },
     {
         "order_id": "AOi425030107325480829a6d0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 10:57",
@@ -3151,7 +3151,7 @@
     },
     {
         "order_id": "AOi4250301080635080ef9140",
-        "sto_co ": "PLE ",
+        "sto_co": "PLE ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/1/2025 12:21",
@@ -3165,7 +3165,7 @@
     },
     {
         "order_id": "AOi42503010815209114966d0",
-        "sto_co ": "KJN ",
+        "sto_co": "KJN ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 15:59",
@@ -3179,7 +3179,7 @@
     },
     {
         "order_id": "AOi425030108172927033e670",
-        "sto_co ": "ANJ ",
+        "sto_co": "ANJ ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 16:24",
@@ -3193,7 +3193,7 @@
     },
     {
         "order_id": "AOi4250301082101526f03610",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/2/2025 12:24",
@@ -3207,7 +3207,7 @@
     },
     {
         "order_id": "AOi4250301082504841ba8d50",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 14:38",
@@ -3221,7 +3221,7 @@
     },
     {
         "order_id": "AOi4250301085840450b096f0",
-        "sto_co ": "BNT ",
+        "sto_co": "BNT ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/6/2025 9:53",
@@ -3235,7 +3235,7 @@
     },
     {
         "order_id": "AOi4250301092008311d73f70",
-        "sto_co ": "TML ",
+        "sto_co": "TML ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/3/2025 18:08",
@@ -3249,7 +3249,7 @@
     },
     {
         "order_id": "AOi4250301095902736cf6810",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/2/2025 8:50",
@@ -3263,7 +3263,7 @@
     },
     {
         "order_id": "AOi42503011005214390b10e0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 18:51",
@@ -3277,7 +3277,7 @@
     },
     {
         "order_id": "AOi42503011010410614509a0",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/2/2025 12:59",
@@ -3291,7 +3291,7 @@
     },
     {
         "order_id": "AOi4250301101250682ed5bf0",
-        "sto_co ": "KMI ",
+        "sto_co": "KMI ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/7/2025 20:47",
@@ -3305,7 +3305,7 @@
     },
     {
         "order_id": "AOi42503011014033885a8ac0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 15:32",
@@ -3319,7 +3319,7 @@
     },
     {
         "order_id": "AOi4250301102124987b43d70",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/3/2025 17:01",
@@ -3333,7 +3333,7 @@
     },
     {
         "order_id": "AOi4250301103743698671820",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/5/2025 12:03",
@@ -3347,7 +3347,7 @@
     },
     {
         "order_id": "AOi42503011041560923235c0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 15:41",
@@ -3361,7 +3361,7 @@
     },
     {
         "order_id": "AOi425030111051986361a890",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 12:26",
@@ -3375,7 +3375,7 @@
     },
     {
         "order_id": "AOi4250301111302190c8a910",
-        "sto_co ": "KKP ",
+        "sto_co": "KKP ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/3/2025 20:55",
@@ -3389,7 +3389,7 @@
     },
     {
         "order_id": "AOi4250301111703404e60780",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 20:34",
@@ -3403,7 +3403,7 @@
     },
     {
         "order_id": "AOi42503011118264887ca830",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/6/2025 9:30",
@@ -3417,7 +3417,7 @@
     },
     {
         "order_id": "AOi4250301112817096eacbd0",
-        "sto_co ": "HNU ",
+        "sto_co": "HNU ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/5/2025 12:00",
@@ -3431,7 +3431,7 @@
     },
     {
         "order_id": "AOi425030111351132932a840",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 18:57",
@@ -3445,7 +3445,7 @@
     },
     {
         "order_id": "AOi42503011138263269ac500",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/2/2025 16:03",
@@ -3459,7 +3459,7 @@
     },
     {
         "order_id": "AOi425030111441634080d240",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 10:49",
@@ -3473,7 +3473,7 @@
     },
     {
         "order_id": "AOi4250301114557102d074d0",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/3/2025 18:45",
@@ -3487,7 +3487,7 @@
     },
     {
         "order_id": "AOi4250301120158779699d00",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 17:27",
@@ -3501,7 +3501,7 @@
     },
     {
         "order_id": "AOi42503011206275577845e0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/3/2025 20:26",
@@ -3515,7 +3515,7 @@
     },
     {
         "order_id": "AOi4250301120706568b21140",
-        "sto_co ": "KKP ",
+        "sto_co": "KKP ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/4/2025 18:27",
@@ -3529,7 +3529,7 @@
     },
     {
         "order_id": "AOi4250301121136042667980",
-        "sto_co ": "SKU ",
+        "sto_co": "SKU ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 11:02",
@@ -3543,7 +3543,7 @@
     },
     {
         "order_id": "AOi42503011230051363aff80",
-        "sto_co ": "SKU ",
+        "sto_co": "SKU ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 10:20",
@@ -3557,7 +3557,7 @@
     },
     {
         "order_id": "AOi4250301123318396832270",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 15:18",
@@ -3571,7 +3571,7 @@
     },
     {
         "order_id": "AOi42503011240147577ebf20",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/2/2025 14:10",
@@ -3585,7 +3585,7 @@
     },
     {
         "order_id": "AOi4250301124305288ffdd10",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/3/2025 9:15",
@@ -3599,7 +3599,7 @@
     },
     {
         "order_id": "AOi4250301125323292773ee0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 17:06",
@@ -3613,7 +3613,7 @@
     },
     {
         "order_id": "AOi4250302011522313fbe440",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 16:43",
@@ -3627,7 +3627,7 @@
     },
     {
         "order_id": "AOi4250302013007637a08ae0",
-        "sto_co ": "SGK ",
+        "sto_co": "SGK ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/3/2025 12:32",
@@ -3641,7 +3641,7 @@
     },
     {
         "order_id": "AOi425030202172359500e790",
-        "sto_co ": "SGK ",
+        "sto_co": "SGK ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/3/2025 9:01",
@@ -3655,7 +3655,7 @@
     },
     {
         "order_id": "AOi4250302031957533d4ad90",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/7/2025 16:24",
@@ -3669,7 +3669,7 @@
     },
     {
         "order_id": "AOi42503020458465629fa8f0",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/3/2025 13:47",
@@ -3683,7 +3683,7 @@
     },
     {
         "order_id": "AOi4250302050926614303bd0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 22:08",
@@ -3697,7 +3697,7 @@
     },
     {
         "order_id": "AOi42503020526124235e9200",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/4/2025 14:10",
@@ -3711,7 +3711,7 @@
     },
     {
         "order_id": "AOi425030205394694858f340",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 16:03",
@@ -3725,7 +3725,7 @@
     },
     {
         "order_id": "AOi42503020558285331b15a0",
-        "sto_co ": "TML ",
+        "sto_co": "TML ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/5/2025 10:03",
@@ -3739,7 +3739,7 @@
     },
     {
         "order_id": "AOi425030206095446252c3c0",
-        "sto_co ": "BAM ",
+        "sto_co": "BAM ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/5/2025 10:57",
@@ -3753,7 +3753,7 @@
     },
     {
         "order_id": "AOi425030206331847374e600",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/3/2025 10:07",
@@ -3767,7 +3767,7 @@
     },
     {
         "order_id": "AOi425030206402317739fa10",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 12:24",
@@ -3781,7 +3781,7 @@
     },
     {
         "order_id": "AOi4250302064356796864e60",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/3/2025 11:49",
@@ -3795,7 +3795,7 @@
     },
     {
         "order_id": "AOi4250302065709835a0afd0",
-        "sto_co ": "BAM ",
+        "sto_co": "BAM ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 7:25",
@@ -3809,7 +3809,7 @@
     },
     {
         "order_id": "AOi4250302072011225f53b10",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/4/2025 12:43",
@@ -3823,7 +3823,7 @@
     },
     {
         "order_id": "AOi425030207243541190b1a0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/4/2025 15:54",
@@ -3837,7 +3837,7 @@
     },
     {
         "order_id": "AOi425030207313199214bee0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 12:43",
@@ -3851,7 +3851,7 @@
     },
     {
         "order_id": "AOi4250302080425255d72800",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 21:01",
@@ -3865,7 +3865,7 @@
     },
     {
         "order_id": "AOi42503020810010513a2af0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 12:45",
@@ -3879,7 +3879,7 @@
     },
     {
         "order_id": "AOi4250302084947715a5c9a0",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/6/2025 18:30",
@@ -3893,7 +3893,7 @@
     },
     {
         "order_id": "AOi4250302093907577f47ad0",
-        "sto_co ": "LMP ",
+        "sto_co": "LMP ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/3/2025 14:44",
@@ -3907,7 +3907,7 @@
     },
     {
         "order_id": "AOi4250302094219917acdae0",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/3/2025 16:09",
@@ -3921,7 +3921,7 @@
     },
     {
         "order_id": "AOi42503020944055608c4590",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 12:11",
@@ -3935,7 +3935,7 @@
     },
     {
         "order_id": "AOi4250302094838885692da0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/3/2025 19:54",
@@ -3949,7 +3949,7 @@
     },
     {
         "order_id": "AOi425030210231152906c430",
-        "sto_co ": "PGN ",
+        "sto_co": "PGN ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/5/2025 13:07",
@@ -3963,7 +3963,7 @@
     },
     {
         "order_id": "AOi42503021041159252ffca0",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 9:18",
@@ -3977,7 +3977,7 @@
     },
     {
         "order_id": "AOi4250302105549200837b10",
-        "sto_co ": "SGU ",
+        "sto_co": "SGU ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/4/2025 11:49",
@@ -3991,7 +3991,7 @@
     },
     {
         "order_id": "AOi4250302105812600316b10",
-        "sto_co ": "KMI ",
+        "sto_co": "KMI ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/4/2025 13:41",
@@ -4005,7 +4005,7 @@
     },
     {
         "order_id": "AOi42503021106291023ff6b0",
-        "sto_co ": "PGT ",
+        "sto_co": "PGT ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/3/2025 12:06",
@@ -4019,7 +4019,7 @@
     },
     {
         "order_id": "AOi42503021132257668628f0",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 13:11",
@@ -4033,7 +4033,7 @@
     },
     {
         "order_id": "AOi4250302122729844dfb460",
-        "sto_co ": "JWT ",
+        "sto_co": "JWT ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/3/2025 11:55",
@@ -4047,7 +4047,7 @@
     },
     {
         "order_id": "AOi4250302123045813fb8220",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 12:15",
@@ -4061,7 +4061,7 @@
     },
     {
         "order_id": "AOi425030301182403899d9c0",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 10:24",
@@ -4075,7 +4075,7 @@
     },
     {
         "order_id": "AOi4250303012604216f41cb0",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/4/2025 12:01",
@@ -4089,7 +4089,7 @@
     },
     {
         "order_id": "AOi42503030128562439b22e0",
-        "sto_co ": "PLE ",
+        "sto_co": "PLE ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/5/2025 9:11",
@@ -4103,7 +4103,7 @@
     },
     {
         "order_id": "AOi42503030136035104afb00",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/6/2025 16:02",
@@ -4117,7 +4117,7 @@
     },
     {
         "order_id": "AOi4250303015526825145260",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/5/2025 12:25",
@@ -4131,7 +4131,7 @@
     },
     {
         "order_id": "AOi4250303020747959bcc2f0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 17:53",
@@ -4145,7 +4145,7 @@
     },
     {
         "order_id": "AOi42503030305000024a3de0",
-        "sto_co ": "SKU ",
+        "sto_co": "SKU ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 10:05",
@@ -4159,7 +4159,7 @@
     },
     {
         "order_id": "AOi425030303223694437fae0",
-        "sto_co ": "SKU ",
+        "sto_co": "SKU ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/6/2025 12:30",
@@ -4173,7 +4173,7 @@
     },
     {
         "order_id": "AOi4250303044646373779020",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/7/2025 10:02",
@@ -4187,7 +4187,7 @@
     },
     {
         "order_id": "AOi4250303045130875ff5380",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/5/2025 10:28",
@@ -4201,7 +4201,7 @@
     },
     {
         "order_id": "AOi425030304552918974c0c0",
-        "sto_co ": "SDR ",
+        "sto_co": "SDR ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/4/2025 14:50",
@@ -4215,7 +4215,7 @@
     },
     {
         "order_id": "AOi4250303052935939fee8a0",
-        "sto_co ": "TAJ ",
+        "sto_co": "TAJ ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/7/2025 9:54",
@@ -4229,7 +4229,7 @@
     },
     {
         "order_id": "AOi4250303060853281c460b0",
-        "sto_co ": "SGK ",
+        "sto_co": "SGK ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/4/2025 9:08",
@@ -4243,7 +4243,7 @@
     },
     {
         "order_id": "AOi42503030645138650908d0",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 21:57",
@@ -4257,7 +4257,7 @@
     },
     {
         "order_id": "AOi4250303065739198b683b0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/6/2025 17:34",
@@ -4271,7 +4271,7 @@
     },
     {
         "order_id": "AOi4250303070459288210d20",
-        "sto_co ": "LOB ",
+        "sto_co": "LOB ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/5/2025 12:44",
@@ -4285,7 +4285,7 @@
     },
     {
         "order_id": "AOi42503030721334379c9ab0",
-        "sto_co ": "PLE ",
+        "sto_co": "PLE ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/5/2025 9:34",
@@ -4299,7 +4299,7 @@
     },
     {
         "order_id": "AOi4250303072458594381390",
-        "sto_co ": "KYG ",
+        "sto_co": "KYG ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 9:35",
@@ -4313,7 +4313,7 @@
     },
     {
         "order_id": "AOi42503030743093049e4410",
-        "sto_co ": "BTB ",
+        "sto_co": "BTB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 11:46",
@@ -4327,7 +4327,7 @@
     },
     {
         "order_id": "AOi4250303082011883505270",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/4/2025 13:07",
@@ -4341,7 +4341,7 @@
     },
     {
         "order_id": "AOi4250303083047752b57c70",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/6/2025 12:47",
@@ -4355,7 +4355,7 @@
     },
     {
         "order_id": "AOi42503030857226244c0300",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/4/2025 12:57",
@@ -4369,7 +4369,7 @@
     },
     {
         "order_id": "AOi42503030858235886a83c0",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 12:20",
@@ -4383,7 +4383,7 @@
     },
     {
         "order_id": "AOi4250303085925525e3b960",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/4/2025 14:24",
@@ -4397,7 +4397,7 @@
     },
     {
         "order_id": "AOi4250303090324925013300",
-        "sto_co ": "TAJ ",
+        "sto_co": "TAJ ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/5/2025 9:19",
@@ -4411,7 +4411,7 @@
     },
     {
         "order_id": "AOi4250303090732364a19450",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/7/2025 16:38",
@@ -4425,7 +4425,7 @@
     },
     {
         "order_id": "AOi425030309294452442a750",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/5/2025 10:20",
@@ -4439,7 +4439,7 @@
     },
     {
         "order_id": "AOi4250303093600259fea980",
-        "sto_co ": "TML ",
+        "sto_co": "TML ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/4/2025 15:30",
@@ -4453,7 +4453,7 @@
     },
     {
         "order_id": "AOi4250303093654863fba030",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/5/2025 10:16",
@@ -4467,7 +4467,7 @@
     },
     {
         "order_id": "AOi42503030946070729ab350",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 8:07",
@@ -4481,7 +4481,7 @@
     },
     {
         "order_id": "AOi4250303100658808884770",
-        "sto_co ": "PGN ",
+        "sto_co": "PGN ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/3/2025 20:30",
@@ -4495,7 +4495,7 @@
     },
     {
         "order_id": "AOi425030310072831932ece0",
-        "sto_co ": "LIK ",
+        "sto_co": "LIK ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/8/2025 8:28",
@@ -4509,7 +4509,7 @@
     },
     {
         "order_id": "AOi425030310303679090b400",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 13:36",
@@ -4523,7 +4523,7 @@
     },
     {
         "order_id": "AOi425030310360838007a1e0",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/9/2025 7:42",
@@ -4537,7 +4537,7 @@
     },
     {
         "order_id": "AOi4250303104227541a1f3c0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/4/2025 11:08",
@@ -4551,7 +4551,7 @@
     },
     {
         "order_id": "AOi42503031048402139f3930",
-        "sto_co ": "PBU ",
+        "sto_co": "PBU ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/6/2025 22:26",
@@ -4565,7 +4565,7 @@
     },
     {
         "order_id": "AOi4250303110629036ccbd10",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/5/2025 10:48",
@@ -4579,7 +4579,7 @@
     },
     {
         "order_id": "AOi4250303111751861bdb920",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/4/2025 16:17",
@@ -4593,7 +4593,7 @@
     },
     {
         "order_id": "AOi42503031130386127640f0",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/4/2025 18:15",
@@ -4607,7 +4607,7 @@
     },
     {
         "order_id": "AOi4250303115201740e6d710",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 22:26",
@@ -4621,7 +4621,7 @@
     },
     {
         "order_id": "AOi425030312303143466d960",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 16:46",
@@ -4635,7 +4635,7 @@
     },
     {
         "order_id": "AOi4250303123809269073790",
-        "sto_co ": "SGK ",
+        "sto_co": "SGK ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/4/2025 9:24",
@@ -4649,7 +4649,7 @@
     },
     {
         "order_id": "AOi42503031259566408fb340",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 10:22",
@@ -4663,7 +4663,7 @@
     },
     {
         "order_id": "AOi4250304010116925425ef0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 16:47",
@@ -4677,7 +4677,7 @@
     },
     {
         "order_id": "AOi4250304010319816af9a40",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 15:11",
@@ -4691,7 +4691,7 @@
     },
     {
         "order_id": "AOi425030401193203214d8d0",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/5/2025 12:12",
@@ -4705,7 +4705,7 @@
     },
     {
         "order_id": "AOi42503040130428445c77d0",
-        "sto_co ": "SBR ",
+        "sto_co": "SBR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/6/2025 9:48",
@@ -4719,7 +4719,7 @@
     },
     {
         "order_id": "AOi4250304013452204dbca40",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/5/2025 18:24",
@@ -4733,7 +4733,7 @@
     },
     {
         "order_id": "AOi425030401583505487c8a0",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/5/2025 10:30",
@@ -4747,7 +4747,7 @@
     },
     {
         "order_id": "AOi4250304021142139e4e960",
-        "sto_co ": "SMR ",
+        "sto_co": "SMR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/5/2025 8:09",
@@ -4761,7 +4761,7 @@
     },
     {
         "order_id": "AOi4250304022752157277cd0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 15:09",
@@ -4775,7 +4775,7 @@
     },
     {
         "order_id": "AOi4250304024231586b5dbb0",
-        "sto_co ": "SDR ",
+        "sto_co": "SDR ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/6/2025 12:17",
@@ -4789,7 +4789,7 @@
     },
     {
         "order_id": "AOi42503040257291122e1bd0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/7/2025 17:37",
@@ -4803,7 +4803,7 @@
     },
     {
         "order_id": "AOi4250304035011003e051a0",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/5/2025 19:52",
@@ -4817,7 +4817,7 @@
     },
     {
         "order_id": "AOi42503040351060694b69e0",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 13:31",
@@ -4831,7 +4831,7 @@
     },
     {
         "order_id": "AOi4250304042443495fd4ad0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 17:46",
@@ -4845,7 +4845,7 @@
     },
     {
         "order_id": "AOi4250304050121694c4e320",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/5/2025 10:41",
@@ -4859,7 +4859,7 @@
     },
     {
         "order_id": "AOi42503040523392897e59d0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/6/2025 11:11",
@@ -4873,7 +4873,7 @@
     },
     {
         "order_id": "AOi42503040529231495b6af0",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 20:42",
@@ -4887,7 +4887,7 @@
     },
     {
         "order_id": "AOi42503040555441337dd100",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/5/2025 10:07",
@@ -4901,7 +4901,7 @@
     },
     {
         "order_id": "AOi4250304070018229215f00",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/5/2025 10:23",
@@ -4915,7 +4915,7 @@
     },
     {
         "order_id": "AOi4250304070302951c7d380",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/5/2025 10:24",
@@ -4929,7 +4929,7 @@
     },
     {
         "order_id": "AOi4250304070813450d95c30",
-        "sto_co ": "BJM ",
+        "sto_co": "BJM ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 15:42",
@@ -4943,7 +4943,7 @@
     },
     {
         "order_id": "AOi42503040719115756f4e90",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 13:17",
@@ -4957,7 +4957,7 @@
     },
     {
         "order_id": "AOi4250304073942220f49060",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 17:11",
@@ -4971,7 +4971,7 @@
     },
     {
         "order_id": "AOi425030408091759124d450",
-        "sto_co ": "RTA ",
+        "sto_co": "RTA ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/5/2025 14:25",
@@ -4985,7 +4985,7 @@
     },
     {
         "order_id": "AOi4250304083134034223df0",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 21:58",
@@ -4999,7 +4999,7 @@
     },
     {
         "order_id": "AOi42503040839299350704d0",
-        "sto_co ": "PEA ",
+        "sto_co": "PEA ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/5/2025 15:36",
@@ -5013,7 +5013,7 @@
     },
     {
         "order_id": "AOi4250304084237714bc9fe0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/7/2025 14:04",
@@ -5027,7 +5027,7 @@
     },
     {
         "order_id": "AOi4250304084422475887cb0",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 12:05",
@@ -5041,7 +5041,7 @@
     },
     {
         "order_id": "AOi42503040848414592f1640",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/5/2025 13:06",
@@ -5055,7 +5055,7 @@
     },
     {
         "order_id": "AOi4250304085212884f6a3f0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/4/2025 16:35",
@@ -5069,7 +5069,7 @@
     },
     {
         "order_id": "AOi4250304085215639481580",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/11/2025 17:18",
@@ -5083,7 +5083,7 @@
     },
     {
         "order_id": "AOi425030408533550921b9a0",
-        "sto_co ": "MBD ",
+        "sto_co": "MBD ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 15:05",
@@ -5097,7 +5097,7 @@
     },
     {
         "order_id": "AOi4250304090308222f1e580",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 12:02",
@@ -5111,7 +5111,7 @@
     },
     {
         "order_id": "AOi425030409262668419cb80",
-        "sto_co ": "SNY ",
+        "sto_co": "SNY ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/8/2025 8:37",
@@ -5125,7 +5125,7 @@
     },
     {
         "order_id": "AOi4250304093353865e223b0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/5/2025 17:14",
@@ -5139,7 +5139,7 @@
     },
     {
         "order_id": "AOi4250304094525254924100",
-        "sto_co ": "SAN ",
+        "sto_co": "SAN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/4/2025 12:11",
@@ -5153,7 +5153,7 @@
     },
     {
         "order_id": "AOi4250304095841562cd8dd0",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/5/2025 12:33",
@@ -5167,7 +5167,7 @@
     },
     {
         "order_id": "AOi4250304102252924427a30",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/5/2025 15:55",
@@ -5181,7 +5181,7 @@
     },
     {
         "order_id": "AOi4250304103510675267cc0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/5/2025 18:14",
@@ -5195,7 +5195,7 @@
     },
     {
         "order_id": "AOi42503041058061212eeb70",
-        "sto_co ": "TAJ ",
+        "sto_co": "TAJ ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/5/2025 12:33",
@@ -5209,7 +5209,7 @@
     },
     {
         "order_id": "AOi4250304121623882cf6ae0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/7/2025 9:44",
@@ -5223,7 +5223,7 @@
     },
     {
         "order_id": "AOi4250304121715398258530",
-        "sto_co ": "TAJ ",
+        "sto_co": "TAJ ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/6/2025 9:56",
@@ -5237,7 +5237,7 @@
     },
     {
         "order_id": "AOi4250304124705931010ae0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 17:42",
@@ -5251,7 +5251,7 @@
     },
     {
         "order_id": "AOi4250304125836698906d10",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/7/2025 9:56",
@@ -5265,7 +5265,7 @@
     },
     {
         "order_id": "AOi425030501325761496a790",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/5/2025 19:36",
@@ -5279,7 +5279,7 @@
     },
     {
         "order_id": "AOi42503050139376698c2600",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 7:07",
@@ -5293,7 +5293,7 @@
     },
     {
         "order_id": "AOi4250305020148563e45b60",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/7/2025 8:55",
@@ -5307,7 +5307,7 @@
     },
     {
         "order_id": "AOi42503050207345105041d0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/5/2025 10:04",
@@ -5321,7 +5321,7 @@
     },
     {
         "order_id": "AOi4250305055009885c40340",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/14/2025 16:28",
@@ -5335,7 +5335,7 @@
     },
     {
         "order_id": "AOi42503050737165054f17d0",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/7/2025 9:38",
@@ -5349,7 +5349,7 @@
     },
     {
         "order_id": "AOi4250305082130669dd1ad0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/5/2025 15:33",
@@ -5363,7 +5363,7 @@
     },
     {
         "order_id": "AOi4250305093232134135710",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 12:49",
@@ -5377,7 +5377,7 @@
     },
     {
         "order_id": "AOi4250305103904158f8f650",
-        "sto_co ": "SNY ",
+        "sto_co": "SNY ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/8/2025 8:10",
@@ -5391,7 +5391,7 @@
     },
     {
         "order_id": "AOi425030512154356972cef0",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 19:42",
@@ -5405,7 +5405,7 @@
     },
     {
         "order_id": "AOi4250305121943319136730",
-        "sto_co ": "SBR ",
+        "sto_co": "SBR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/6/2025 14:12",
@@ -5419,7 +5419,7 @@
     },
     {
         "order_id": "AOi4250305122504178a3f2c0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/5/2025 15:48",
@@ -5433,7 +5433,7 @@
     },
     {
         "order_id": "AOi425030512383308715f460",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/7/2025 16:21",
@@ -5447,7 +5447,7 @@
     },
     {
         "order_id": "AOi4250305124438935580a50",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/7/2025 8:16",
@@ -5461,7 +5461,7 @@
     },
     {
         "order_id": "AOi42503051249394885c6180",
-        "sto_co ": "PGN ",
+        "sto_co": "PGN ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/6/2025 10:01",
@@ -5475,7 +5475,7 @@
     },
     {
         "order_id": "AOi42503051258416313a01f0",
-        "sto_co ": "TLA ",
+        "sto_co": "TLA ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/5/2025 16:18",
@@ -5489,7 +5489,7 @@
     },
     {
         "order_id": "AOi42503060116552676d7690",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 18:30",
@@ -5503,7 +5503,7 @@
     },
     {
         "order_id": "AOi4250306011711036dc0bd0",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/7/2025 15:27",
@@ -5517,7 +5517,7 @@
     },
     {
         "order_id": "AOi4250306011843532392f40",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/7/2025 18:35",
@@ -5531,7 +5531,7 @@
     },
     {
         "order_id": "AOi42503060120448759d5800",
-        "sto_co ": "SBR ",
+        "sto_co": "SBR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/17/2025 14:10",
@@ -5545,7 +5545,7 @@
     },
     {
         "order_id": "AOi4250306014218708bd5610",
-        "sto_co ": "MBD ",
+        "sto_co": "MBD ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/9/2025 14:29",
@@ -5559,7 +5559,7 @@
     },
     {
         "order_id": "AOi4250306014413516a2a620",
-        "sto_co ": "TML ",
+        "sto_co": "TML ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/8/2025 18:57",
@@ -5573,7 +5573,7 @@
     },
     {
         "order_id": "AOi4250306015837547ed80a0",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/6/2025 17:08",
@@ -5587,7 +5587,7 @@
     },
     {
         "order_id": "AOi4250306020900722d2c390",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 20:37",
@@ -5601,7 +5601,7 @@
     },
     {
         "order_id": "AOi4250306022131988f7af90",
-        "sto_co ": "JWT ",
+        "sto_co": "JWT ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/7/2025 11:03",
@@ -5615,7 +5615,7 @@
     },
     {
         "order_id": "AOi42503060226367793894c0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/7/2025 14:58",
@@ -5629,7 +5629,7 @@
     },
     {
         "order_id": "AOi42503060228442970f2410",
-        "sto_co ": "BTB ",
+        "sto_co": "BTB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/8/2025 12:46",
@@ -5643,7 +5643,7 @@
     },
     {
         "order_id": "AOi4250306023427385bade40",
-        "sto_co ": "JWT ",
+        "sto_co": "JWT ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/8/2025 7:37",
@@ -5657,7 +5657,7 @@
     },
     {
         "order_id": "AOi42503060234403837c4bb0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/8/2025 8:29",
@@ -5671,7 +5671,7 @@
     },
     {
         "order_id": "AOi425030602353951444bca0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/8/2025 13:35",
@@ -5685,7 +5685,7 @@
     },
     {
         "order_id": "AOi4250306024022790c4b760",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/7/2025 12:31",
@@ -5699,7 +5699,7 @@
     },
     {
         "order_id": "AOi4250306024144096362730",
-        "sto_co ": "PYM ",
+        "sto_co": "PYM ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/9/2025 6:44",
@@ -5713,7 +5713,7 @@
     },
     {
         "order_id": "AOi42503060313119467ef630",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 15:11",
@@ -5727,7 +5727,7 @@
     },
     {
         "order_id": "AOi425030605123718531c180",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/8/2025 10:46",
@@ -5741,7 +5741,7 @@
     },
     {
         "order_id": "AOi4250306063643808603380",
-        "sto_co ": "SAN ",
+        "sto_co": "SAN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/10/2025 8:17",
@@ -5755,7 +5755,7 @@
     },
     {
         "order_id": "AOi425030606374720688fea0",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/8/2025 12:56",
@@ -5769,7 +5769,7 @@
     },
     {
         "order_id": "AOi4250306065556520c96a40",
-        "sto_co ": "BRI ",
+        "sto_co": "BRI ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/7/2025 16:36",
@@ -5783,7 +5783,7 @@
     },
     {
         "order_id": "AOi4250306065717297e5ae30",
-        "sto_co ": "RTA ",
+        "sto_co": "RTA ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/7/2025 8:11",
@@ -5797,7 +5797,7 @@
     },
     {
         "order_id": "AOi4250306081150542d5ed70",
-        "sto_co ": "SER ",
+        "sto_co": "SER ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/8/2025 8:49",
@@ -5811,7 +5811,7 @@
     },
     {
         "order_id": "AOi42503060815519736b2ee0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/8/2025 10:49",
@@ -5825,7 +5825,7 @@
     },
     {
         "order_id": "AOi4250306083144791f05da0",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/8/2025 17:32",
@@ -5839,7 +5839,7 @@
     },
     {
         "order_id": "AOi42503060854062058c3530",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/12/2025 13:13",
@@ -5853,7 +5853,7 @@
     },
     {
         "order_id": "AOi4250306085526771fb8ca0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 12:40",
@@ -5867,7 +5867,7 @@
     },
     {
         "order_id": "AOi42503060940520662da6d0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/12/2025 12:02",
@@ -5881,7 +5881,7 @@
     },
     {
         "order_id": "AOi425030611272170351b7a0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/7/2025 14:10",
@@ -5895,7 +5895,7 @@
     },
     {
         "order_id": "AOi425030611371474678b580",
-        "sto_co ": "RTA ",
+        "sto_co": "RTA ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/12/2025 9:00",
@@ -5909,7 +5909,7 @@
     },
     {
         "order_id": "AOi4250306114817705d0c460",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/6/2025 15:11",
@@ -5923,7 +5923,7 @@
     },
     {
         "order_id": "AOi425030611512886929c590",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/7/2025 18:01",
@@ -5937,7 +5937,7 @@
     },
     {
         "order_id": "AOi4250306120042277270fa0",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/7/2025 10:10",
@@ -5951,7 +5951,7 @@
     },
     {
         "order_id": "AOi4250306120550240103590",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/8/2025 9:51",
@@ -5965,7 +5965,7 @@
     },
     {
         "order_id": "AOi4250306120952070621d50",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/9/2025 12:04",
@@ -5979,7 +5979,7 @@
     },
     {
         "order_id": "AOi4250306121516550aebe70",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/8/2025 12:57",
@@ -5993,7 +5993,7 @@
     },
     {
         "order_id": "AOi4250306122127785e950d0",
-        "sto_co ": "HNU ",
+        "sto_co": "HNU ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/9/2025 17:21",
@@ -6007,7 +6007,7 @@
     },
     {
         "order_id": "AOi425030612214014567cb60",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/7/2025 16:05",
@@ -6021,7 +6021,7 @@
     },
     {
         "order_id": "AOi42503061231338405e96e0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/7/2025 10:21",
@@ -6035,7 +6035,7 @@
     },
     {
         "order_id": "AOi4250306125134035213820",
-        "sto_co ": "TLA ",
+        "sto_co": "TLA ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/6/2025 20:24",
@@ -6049,7 +6049,7 @@
     },
     {
         "order_id": "AOi4250306125913141285d90",
-        "sto_co ": "BJM ",
+        "sto_co": "BJM ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/7/2025 15:18",
@@ -6063,7 +6063,7 @@
     },
     {
         "order_id": "AOi4250307010136235510a80",
-        "sto_co ": "BNT ",
+        "sto_co": "BNT ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/8/2025 12:57",
@@ -6077,7 +6077,7 @@
     },
     {
         "order_id": "AOi4250307010811998bc8fa0",
-        "sto_co ": "PBU ",
+        "sto_co": "PBU ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/8/2025 21:01",
@@ -6091,7 +6091,7 @@
     },
     {
         "order_id": "AOi42503070118183710f3f40",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/8/2025 8:50",
@@ -6105,7 +6105,7 @@
     },
     {
         "order_id": "AOi4250307015507864038190",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/11/2025 17:15",
@@ -6119,7 +6119,7 @@
     },
     {
         "order_id": "AOi4250307020056076c093e0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/8/2025 15:09",
@@ -6133,7 +6133,7 @@
     },
     {
         "order_id": "AOi42503070201215746044a0",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/11/2025 11:08",
@@ -6147,7 +6147,7 @@
     },
     {
         "order_id": "AOi4250307021157933318c10",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/11/2025 7:30",
@@ -6161,7 +6161,7 @@
     },
     {
         "order_id": "AOi4250307021916112670400",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 14:19",
@@ -6175,7 +6175,7 @@
     },
     {
         "order_id": "AOi425030702233067720b3b0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/8/2025 15:12",
@@ -6189,7 +6189,7 @@
     },
     {
         "order_id": "AOi42503070225544821ce4a0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/8/2025 12:10",
@@ -6203,7 +6203,7 @@
     },
     {
         "order_id": "AOi425030703043505829b200",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/12/2025 10:47",
@@ -6217,7 +6217,7 @@
     },
     {
         "order_id": "AOi4250307041924508263620",
-        "sto_co ": "ANJ ",
+        "sto_co": "ANJ ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/8/2025 16:08",
@@ -6231,7 +6231,7 @@
     },
     {
         "order_id": "AOi4250307050810326699950",
-        "sto_co ": "BAM ",
+        "sto_co": "BAM ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/10/2025 10:43",
@@ -6245,7 +6245,7 @@
     },
     {
         "order_id": "AOi425030705225363518e090",
-        "sto_co ": "AMP ",
+        "sto_co": "AMP ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/11/2025 14:00",
@@ -6259,7 +6259,7 @@
     },
     {
         "order_id": "AOi425030707202130576bc30",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 14:48",
@@ -6273,7 +6273,7 @@
     },
     {
         "order_id": "AOi4250307074128101973880",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/9/2025 13:05",
@@ -6287,7 +6287,7 @@
     },
     {
         "order_id": "AOi42503070813071249ac4d0",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/9/2025 10:26",
@@ -6301,7 +6301,7 @@
     },
     {
         "order_id": "AOi4250307081934288fd50b0",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/9/2025 16:00",
@@ -6315,7 +6315,7 @@
     },
     {
         "order_id": "AOi4250307085624978dc64a0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/9/2025 12:23",
@@ -6329,7 +6329,7 @@
     },
     {
         "order_id": "AOi4250307091726419ce5eb0",
-        "sto_co ": "BDO ",
+        "sto_co": "BDO ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/8/2025 15:26",
@@ -6343,7 +6343,7 @@
     },
     {
         "order_id": "AOi4250307093041653353910",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 15:09",
@@ -6357,7 +6357,7 @@
     },
     {
         "order_id": "AOi42503071003097214c59e0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/9/2025 14:53",
@@ -6371,7 +6371,7 @@
     },
     {
         "order_id": "AOi4250307100901849fb4730",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/8/2025 13:02",
@@ -6385,7 +6385,7 @@
     },
     {
         "order_id": "AOi4250307101407353bf6390",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 16:33",
@@ -6399,7 +6399,7 @@
     },
     {
         "order_id": "AOi42503071020396662ec950",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/10/2025 16:42",
@@ -6413,7 +6413,7 @@
     },
     {
         "order_id": "AOi4250307103003142ae8930",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 17:42",
@@ -6427,7 +6427,7 @@
     },
     {
         "order_id": "AOi4250307104202845b56550",
-        "sto_co ": "PAA ",
+        "sto_co": "PAA ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/8/2025 6:49",
@@ -6441,7 +6441,7 @@
     },
     {
         "order_id": "AOi4250307104437170b039a0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/9/2025 15:52",
@@ -6455,7 +6455,7 @@
     },
     {
         "order_id": "AOi4250307105038214decfb0",
-        "sto_co ": "KPB ",
+        "sto_co": "KPB ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/11/2025 7:27",
@@ -6469,7 +6469,7 @@
     },
     {
         "order_id": "AOi425030710525432677b3a0",
-        "sto_co ": "SUA ",
+        "sto_co": "SUA ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/9/2025 17:07",
@@ -6483,7 +6483,7 @@
     },
     {
         "order_id": "AOi4250307113259389cd02a0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/8/2025 8:36",
@@ -6497,7 +6497,7 @@
     },
     {
         "order_id": "AOi4250308010227256464c30",
-        "sto_co ": "PAA ",
+        "sto_co": "PAA ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/8/2025 17:21",
@@ -6511,7 +6511,7 @@
     },
     {
         "order_id": "AOi4250308012551630ac0c10",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/9/2025 9:43",
@@ -6525,7 +6525,7 @@
     },
     {
         "order_id": "AOi425030801322978757aa20",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/9/2025 8:38",
@@ -6539,7 +6539,7 @@
     },
     {
         "order_id": "AOi42503080203121828a17a0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 16:16",
@@ -6553,7 +6553,7 @@
     },
     {
         "order_id": "AOi42503080237445037f3d20",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/9/2025 14:20",
@@ -6567,7 +6567,7 @@
     },
     {
         "order_id": "AOi4250308025622689161090",
-        "sto_co ": "PAA ",
+        "sto_co": "PAA ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/8/2025 17:19",
@@ -6581,7 +6581,7 @@
     },
     {
         "order_id": "AOi4250308030138031741f10",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/11/2025 13:18",
@@ -6595,7 +6595,7 @@
     },
     {
         "order_id": "AOi425030803414383037efe0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/10/2025 16:23",
@@ -6609,7 +6609,7 @@
     },
     {
         "order_id": "AOi4250308035929030607f50",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 16:11",
@@ -6623,7 +6623,7 @@
     },
     {
         "order_id": "AOi4250308054723961564b70",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/13/2025 10:11",
@@ -6637,7 +6637,7 @@
     },
     {
         "order_id": "AOi4250308061521754b15c40",
-        "sto_co ": "BAM ",
+        "sto_co": "BAM ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/13/2025 8:37",
@@ -6651,7 +6651,7 @@
     },
     {
         "order_id": "AOi4250308063520897bd0960",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/11/2025 7:49",
@@ -6665,7 +6665,7 @@
     },
     {
         "order_id": "AOi4250308070656530fec650",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/9/2025 12:43",
@@ -6679,7 +6679,7 @@
     },
     {
         "order_id": "AOi425030807540201344a640",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/10/2025 11:44",
@@ -6693,7 +6693,7 @@
     },
     {
         "order_id": "AOi4250308083725565825dc0",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/9/2025 10:42",
@@ -6707,7 +6707,7 @@
     },
     {
         "order_id": "AOi42503080853531276894a0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/10/2025 15:57",
@@ -6721,7 +6721,7 @@
     },
     {
         "order_id": "AOi425030809023845259c900",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/8/2025 12:09",
@@ -6735,7 +6735,7 @@
     },
     {
         "order_id": "AOi4250308091922323ea87d0",
-        "sto_co ": "MRB ",
+        "sto_co": "MRB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/10/2025 9:52",
@@ -6749,7 +6749,7 @@
     },
     {
         "order_id": "AOi4250308104044251498f20",
-        "sto_co ": "SEI ",
+        "sto_co": "SEI ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/9/2025 15:27",
@@ -6763,7 +6763,7 @@
     },
     {
         "order_id": "AOi4250308105140414d1d4b0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/10/2025 18:21",
@@ -6777,7 +6777,7 @@
     },
     {
         "order_id": "AOi4250308110012905c07320",
-        "sto_co ": "JWT ",
+        "sto_co": "JWT ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/9/2025 7:55",
@@ -6791,7 +6791,7 @@
     },
     {
         "order_id": "AOi425030811102874895e360",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/9/2025 10:36",
@@ -6805,7 +6805,7 @@
     },
     {
         "order_id": "AOi425030811561773302b980",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/12/2025 18:46",
@@ -6819,7 +6819,7 @@
     },
     {
         "order_id": "AOi4250308124256837a26db0",
-        "sto_co ": "BRI ",
+        "sto_co": "BRI ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/14/2025 8:39",
@@ -6833,7 +6833,7 @@
     },
     {
         "order_id": "AOi4250308125956372e6a150",
-        "sto_co ": "BJM ",
+        "sto_co": "BJM ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/9/2025 14:16",
@@ -6847,7 +6847,7 @@
     },
     {
         "order_id": "AOi4250309022927524cb7420",
-        "sto_co ": "SAN ",
+        "sto_co": "SAN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 13:30",
@@ -6861,7 +6861,7 @@
     },
     {
         "order_id": "AOi4250309031119655acc430",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/11/2025 8:33",
@@ -6875,7 +6875,7 @@
     },
     {
         "order_id": "AOi4250309035203359cbbee0",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/10/2025 13:01",
@@ -6889,7 +6889,7 @@
     },
     {
         "order_id": "AOi42503090402190309a5360",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/11/2025 10:13",
@@ -6903,7 +6903,7 @@
     },
     {
         "order_id": "AOi42503090405369714d59f0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/12/2025 9:03",
@@ -6917,7 +6917,7 @@
     },
     {
         "order_id": "AOi4250309063912185399af0",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/13/2025 9:59",
@@ -6931,7 +6931,7 @@
     },
     {
         "order_id": "AOi4250309064027435944c70",
-        "sto_co ": "LIK ",
+        "sto_co": "LIK ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/10/2025 11:40",
@@ -6945,7 +6945,7 @@
     },
     {
         "order_id": "AOi425030906420781060c490",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/11/2025 11:19",
@@ -6959,7 +6959,7 @@
     },
     {
         "order_id": "AOi42503090647319792b0460",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/12/2025 13:38",
@@ -6973,7 +6973,7 @@
     },
     {
         "order_id": "AOi4250309071649398e1d300",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/11/2025 17:59",
@@ -6987,7 +6987,7 @@
     },
     {
         "order_id": "AOi425030907193816235ccb0",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/10/2025 8:46",
@@ -7001,7 +7001,7 @@
     },
     {
         "order_id": "AOi42503090739454850a8b60",
-        "sto_co ": "TJL ",
+        "sto_co": "TJL ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/10/2025 17:14",
@@ -7015,7 +7015,7 @@
     },
     {
         "order_id": "AOi4250309081315857c0f290",
-        "sto_co ": "TAJ ",
+        "sto_co": "TAJ ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/12/2025 7:58",
@@ -7029,7 +7029,7 @@
     },
     {
         "order_id": "AOi4250309081701183eca210",
-        "sto_co ": "SBR ",
+        "sto_co": "SBR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/10/2025 11:50",
@@ -7043,7 +7043,7 @@
     },
     {
         "order_id": "AOi4250309083134711f1aed0",
-        "sto_co ": "BIG ",
+        "sto_co": "BIG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/12/2025 18:35",
@@ -7057,7 +7057,7 @@
     },
     {
         "order_id": "AOi42503090947145495e1ba0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/11/2025 11:36",
@@ -7071,7 +7071,7 @@
     },
     {
         "order_id": "AOi4250309100758886ee7980",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/14/2025 13:36",
@@ -7085,7 +7085,7 @@
     },
     {
         "order_id": "AOi4250309101238305605900",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/10/2025 8:27",
@@ -7099,7 +7099,7 @@
     },
     {
         "order_id": "AOi42503091100396220d3210",
-        "sto_co ": "PLE ",
+        "sto_co": "PLE ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/11/2025 14:27",
@@ -7113,7 +7113,7 @@
     },
     {
         "order_id": "AOi42503091118030833b12a0",
-        "sto_co ": "TBA ",
+        "sto_co": "TBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/13/2025 9:23",
@@ -7127,7 +7127,7 @@
     },
     {
         "order_id": "AOi4250309114951538b89110",
-        "sto_co ": "SAD ",
+        "sto_co": "SAD ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/11/2025 7:54",
@@ -7141,7 +7141,7 @@
     },
     {
         "order_id": "AOi4250309122438592dc9d50",
-        "sto_co ": "AMT ",
+        "sto_co": "AMT ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/11/2025 10:21",
@@ -7155,7 +7155,7 @@
     },
     {
         "order_id": "AOi4250309124412980554e20",
-        "sto_co ": "KWN ",
+        "sto_co": "KWN ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/11/2025 14:22",
@@ -7169,7 +7169,7 @@
     },
     {
         "order_id": "AOi425031001053386361e2b0",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/16/2025 22:34",
@@ -7183,7 +7183,7 @@
     },
     {
         "order_id": "AOi425031001062088782d8f0",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/11/2025 9:17",
@@ -7197,7 +7197,7 @@
     },
     {
         "order_id": "AOi425031001265935184f980",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/11/2025 13:05",
@@ -7211,7 +7211,7 @@
     },
     {
         "order_id": "AOi425031001405314390cf60",
-        "sto_co ": "PGT ",
+        "sto_co": "PGT ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/11/2025 12:01",
@@ -7225,7 +7225,7 @@
     },
     {
         "order_id": "AOi42503100142567443e0020",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 18:43",
@@ -7239,7 +7239,7 @@
     },
     {
         "order_id": "AOi4250310015317885fcd250",
-        "sto_co ": "TBA ",
+        "sto_co": "TBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/12/2025 17:56",
@@ -7253,7 +7253,7 @@
     },
     {
         "order_id": "AOi4250310015343459e78d80",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/11/2025 13:02",
@@ -7267,7 +7267,7 @@
     },
     {
         "order_id": "AOi4250310015545144c39eb0",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/12/2025 8:02",
@@ -7281,7 +7281,7 @@
     },
     {
         "order_id": "AOi4250310022030235018860",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/11/2025 13:00",
@@ -7295,7 +7295,7 @@
     },
     {
         "order_id": "AOi42503100305164515ae280",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/11/2025 11:06",
@@ -7309,7 +7309,7 @@
     },
     {
         "order_id": "AOi4250310030710337fcef80",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/13/2025 10:08",
@@ -7323,7 +7323,7 @@
     },
     {
         "order_id": "AOi42503100309248543c77b0",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/11/2025 11:35",
@@ -7337,7 +7337,7 @@
     },
     {
         "order_id": "AOi4250310034029047295380",
-        "sto_co ": "SBR ",
+        "sto_co": "SBR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/11/2025 12:45",
@@ -7351,7 +7351,7 @@
     },
     {
         "order_id": "AOi42503100343120054e3930",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/11/2025 18:17",
@@ -7365,7 +7365,7 @@
     },
     {
         "order_id": "AOi425031005232493798a400",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/11/2025 16:31",
@@ -7379,7 +7379,7 @@
     },
     {
         "order_id": "AOi42503100529114212b5950",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/11/2025 14:11",
@@ -7393,7 +7393,7 @@
     },
     {
         "order_id": "AOi42503100618088743d6590",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 11:01",
@@ -7407,7 +7407,7 @@
     },
     {
         "order_id": "AOi4250310062624813eecb30",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/11/2025 12:43",
@@ -7421,7 +7421,7 @@
     },
     {
         "order_id": "AOi425031007201929741a270",
-        "sto_co ": "ANJ ",
+        "sto_co": "ANJ ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/11/2025 17:09",
@@ -7435,7 +7435,7 @@
     },
     {
         "order_id": "AOi4250310074223374729200",
-        "sto_co ": "SGK ",
+        "sto_co": "SGK ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/11/2025 13:11",
@@ -7449,7 +7449,7 @@
     },
     {
         "order_id": "AOi42503100759232156dfc30",
-        "sto_co ": "RBA ",
+        "sto_co": "RBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/15/2025 21:11",
@@ -7463,7 +7463,7 @@
     },
     {
         "order_id": "AOi4250310081903069c1cd40",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 9:39",
@@ -7477,7 +7477,7 @@
     },
     {
         "order_id": "AOi425031008312262644ce50",
-        "sto_co ": "KRI ",
+        "sto_co": "KRI ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/10/2025 12:30",
@@ -7491,7 +7491,7 @@
     },
     {
         "order_id": "AOi42503100833061534b5440",
-        "sto_co ": "LOB ",
+        "sto_co": "LOB ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/11/2025 14:43",
@@ -7505,7 +7505,7 @@
     },
     {
         "order_id": "AOi4250310085634373976b80",
-        "sto_co ": "BNT ",
+        "sto_co": "BNT ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/10/2025 16:23",
@@ -7519,7 +7519,7 @@
     },
     {
         "order_id": "AOi4250310091625875c44f20",
-        "sto_co ": "LMP ",
+        "sto_co": "LMP ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/11/2025 14:30",
@@ -7533,7 +7533,7 @@
     },
     {
         "order_id": "AOi425031009224108508e3b0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/11/2025 11:18",
@@ -7547,7 +7547,7 @@
     },
     {
         "order_id": "AOi4250310092813729ce27e0",
-        "sto_co ": "SGU ",
+        "sto_co": "SGU ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/11/2025 11:56",
@@ -7561,7 +7561,7 @@
     },
     {
         "order_id": "AOi42503100938126901393a0",
-        "sto_co ": "TJL ",
+        "sto_co": "TJL ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/12/2025 8:24",
@@ -7575,7 +7575,7 @@
     },
     {
         "order_id": "AOi42503101000140723a2570",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/13/2025 11:40",
@@ -7589,7 +7589,7 @@
     },
     {
         "order_id": "AOi4250310103011677c9fb90",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/16/2025 22:36",
@@ -7603,7 +7603,7 @@
     },
     {
         "order_id": "AOi4250310114946995b31cb0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/11/2025 17:10",
@@ -7617,7 +7617,7 @@
     },
     {
         "order_id": "AOi4250310123126640538b00",
-        "sto_co ": "TSL ",
+        "sto_co": "TSL ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/11/2025 17:29",
@@ -7631,7 +7631,7 @@
     },
     {
         "order_id": "AOi425031012383365576a350",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/11/2025 13:09",
@@ -7645,7 +7645,7 @@
     },
     {
         "order_id": "AOi4250311012506127632950",
-        "sto_co ": "SMB ",
+        "sto_co": "SMB ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/12/2025 14:24",
@@ -7659,7 +7659,7 @@
     },
     {
         "order_id": "AOi42503110126526128e50c0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/15/2025 15:51",
@@ -7673,7 +7673,7 @@
     },
     {
         "order_id": "AOi42503110232044536d6890",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/19/2025 15:34",
@@ -7687,7 +7687,7 @@
     },
     {
         "order_id": "AOi42503110335325872c5120",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/14/2025 15:05",
@@ -7701,7 +7701,7 @@
     },
     {
         "order_id": "AOi42503110431356907031a0",
-        "sto_co ": "KYG ",
+        "sto_co": "KYG ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/12/2025 9:31",
@@ -7715,7 +7715,7 @@
     },
     {
         "order_id": "AOi425031108033312699a150",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/13/2025 10:08",
@@ -7729,7 +7729,7 @@
     },
     {
         "order_id": "AOi4250311081407786b7dff0",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/16/2025 22:37",
@@ -7743,7 +7743,7 @@
     },
     {
         "order_id": "AOi4250311091806365dd8b90",
-        "sto_co ": "KKU ",
+        "sto_co": "KKU ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/12/2025 18:30",
@@ -7757,7 +7757,7 @@
     },
     {
         "order_id": "AOi4250311102418525042750",
-        "sto_co ": "TSL ",
+        "sto_co": "TSL ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/12/2025 8:43",
@@ -7771,7 +7771,7 @@
     },
     {
         "order_id": "AOi4250311121250201620370",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/11/2025 16:21",
@@ -7785,7 +7785,7 @@
     },
     {
         "order_id": "AOi42503111251564204a9a50",
-        "sto_co ": "PAA ",
+        "sto_co": "PAA ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/12/2025 8:09",
@@ -7799,7 +7799,7 @@
     },
     {
         "order_id": "AOi4250312013651541d3ef30",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/13/2025 11:35",
@@ -7813,7 +7813,7 @@
     },
     {
         "order_id": "AOi425031202035531356bf40",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/17/2025 7:53",
@@ -7827,7 +7827,7 @@
     },
     {
         "order_id": "AOi4250312022757172e4e670",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/16/2025 17:59",
@@ -7841,7 +7841,7 @@
     },
     {
         "order_id": "AOi42503120239106564b71d0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/14/2025 13:59",
@@ -7855,7 +7855,7 @@
     },
     {
         "order_id": "AOi42503120258076973661b0",
-        "sto_co ": "TSL ",
+        "sto_co": "TSL ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/13/2025 9:52",
@@ -7869,7 +7869,7 @@
     },
     {
         "order_id": "AOi42503120331277813bf0a0",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/16/2025 9:08",
@@ -7883,7 +7883,7 @@
     },
     {
         "order_id": "AOi42503120402126381abb10",
-        "sto_co ": "AGN ",
+        "sto_co": "AGN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/13/2025 13:41",
@@ -7897,7 +7897,7 @@
     },
     {
         "order_id": "AOi4250312040420725557920",
-        "sto_co ": "AGN ",
+        "sto_co": "AGN ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/13/2025 11:35",
@@ -7911,7 +7911,7 @@
     },
     {
         "order_id": "AOi4250312042913037565e10",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/14/2025 14:01",
@@ -7925,7 +7925,7 @@
     },
     {
         "order_id": "AOi4250312042917367685cf0",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/14/2025 7:38",
@@ -7939,7 +7939,7 @@
     },
     {
         "order_id": "AOi4250312062332303066a00",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/19/2025 9:47",
@@ -7953,7 +7953,7 @@
     },
     {
         "order_id": "AOi4250312082736486496f40",
-        "sto_co ": "LMP ",
+        "sto_co": "LMP ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/13/2025 13:53",
@@ -7967,7 +7967,7 @@
     },
     {
         "order_id": "AOi4250312085629710b3d760",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/14/2025 16:12",
@@ -7981,7 +7981,7 @@
     },
     {
         "order_id": "AOi4250312090835873a8a7a0",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/19/2025 9:46",
@@ -7995,7 +7995,7 @@
     },
     {
         "order_id": "AOi425031209113991001b580",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/13/2025 8:38",
@@ -8009,7 +8009,7 @@
     },
     {
         "order_id": "AOi4250312095530353483b90",
-        "sto_co ": "KPB ",
+        "sto_co": "KPB ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/13/2025 16:23",
@@ -8023,7 +8023,7 @@
     },
     {
         "order_id": "AOi4250312101437135944770",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/14/2025 17:05",
@@ -8037,7 +8037,7 @@
     },
     {
         "order_id": "AOi42503121040592918aa8d0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/14/2025 16:41",
@@ -8051,7 +8051,7 @@
     },
     {
         "order_id": "AOi4250312114817115d9d5e0",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/13/2025 14:42",
@@ -8065,7 +8065,7 @@
     },
     {
         "order_id": "AOi42503121159304493b5bd0",
-        "sto_co ": "SMR ",
+        "sto_co": "SMR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/13/2025 13:47",
@@ -8079,7 +8079,7 @@
     },
     {
         "order_id": "AOi4250312122854559a8ecd0",
-        "sto_co ": "AMP ",
+        "sto_co": "AMP ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/13/2025 13:41",
@@ -8093,7 +8093,7 @@
     },
     {
         "order_id": "AOi4250312123625099641070",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/13/2025 13:44",
@@ -8107,7 +8107,7 @@
     },
     {
         "order_id": "AOi4250312124930743cd8d30",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/12/2025 17:12",
@@ -8121,7 +8121,7 @@
     },
     {
         "order_id": "AOi42503121252200262a64a0",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/13/2025 8:56",
@@ -8135,7 +8135,7 @@
     },
     {
         "order_id": "AOi4250313011855243aee200",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/14/2025 11:31",
@@ -8149,7 +8149,7 @@
     },
     {
         "order_id": "AOi4250313012837622b08100",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/15/2025 13:43",
@@ -8163,7 +8163,7 @@
     },
     {
         "order_id": "AOi42503130156599544b6ff0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/15/2025 11:53",
@@ -8177,7 +8177,7 @@
     },
     {
         "order_id": "AOi42503130207566215936e0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/14/2025 16:33",
@@ -8191,7 +8191,7 @@
     },
     {
         "order_id": "AOi425031302493913315b9e0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/16/2025 22:58",
@@ -8205,7 +8205,7 @@
     },
     {
         "order_id": "AOi425031303570267798b870",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/14/2025 11:34",
@@ -8219,7 +8219,7 @@
     },
     {
         "order_id": "AOi4250313040750707e8a370",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/13/2025 15:25",
@@ -8233,7 +8233,7 @@
     },
     {
         "order_id": "AOi4250313061722555ec47c0",
-        "sto_co ": "BTB ",
+        "sto_co": "BTB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/19/2025 21:17",
@@ -8247,7 +8247,7 @@
     },
     {
         "order_id": "AOi4250313065504226c04250",
-        "sto_co ": "BTB ",
+        "sto_co": "BTB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/19/2025 10:20",
@@ -8261,7 +8261,7 @@
     },
     {
         "order_id": "AOi425031309015577781c670",
-        "sto_co ": "KKY ",
+        "sto_co": "KKY ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/17/2025 8:37",
@@ -8275,7 +8275,7 @@
     },
     {
         "order_id": "AOi42503130912096368654e0",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/13/2025 12:49",
@@ -8289,7 +8289,7 @@
     },
     {
         "order_id": "AOi425031309535672984cbc0",
-        "sto_co ": "RBA ",
+        "sto_co": "RBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/15/2025 15:03",
@@ -8303,7 +8303,7 @@
     },
     {
         "order_id": "AOi42503131010098247af110",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/14/2025 12:05",
@@ -8317,7 +8317,7 @@
     },
     {
         "order_id": "AOi42503131010592168906e0",
-        "sto_co ": "KWN ",
+        "sto_co": "KWN ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/14/2025 16:11",
@@ -8331,7 +8331,7 @@
     },
     {
         "order_id": "AOi4250313104046380ba08e0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/18/2025 0:29",
@@ -8345,7 +8345,7 @@
     },
     {
         "order_id": "AOi42503131045173798cb600",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/14/2025 9:12",
@@ -8359,7 +8359,7 @@
     },
     {
         "order_id": "AOi4250313104519702eee910",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/14/2025 15:02",
@@ -8373,7 +8373,7 @@
     },
     {
         "order_id": "AOi42503131051294408c8d80",
-        "sto_co ": "PGN ",
+        "sto_co": "PGN ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/15/2025 13:18",
@@ -8387,7 +8387,7 @@
     },
     {
         "order_id": "AOi4250313105146250424310",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/14/2025 16:01",
@@ -8401,7 +8401,7 @@
     },
     {
         "order_id": "AOi4250313110431409743920",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/13/2025 13:51",
@@ -8415,7 +8415,7 @@
     },
     {
         "order_id": "AOi4250313113240727cc9b60",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/17/2025 10:31",
@@ -8429,7 +8429,7 @@
     },
     {
         "order_id": "AOi425031403505692456ca00",
-        "sto_co ": "MPW ",
+        "sto_co": "MPW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/16/2025 15:06",
@@ -8443,7 +8443,7 @@
     },
     {
         "order_id": "AOi42503140436503051dceb0",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/17/2025 12:38",
@@ -8457,7 +8457,7 @@
     },
     {
         "order_id": "AOi4250314045235216aba4d0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/17/2025 9:06",
@@ -8471,7 +8471,7 @@
     },
     {
         "order_id": "AOi425031406091565794d390",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/17/2025 8:04",
@@ -8485,7 +8485,7 @@
     },
     {
         "order_id": "AOi4250314073135556cbc110",
-        "sto_co ": "LAB ",
+        "sto_co": "LAB ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/15/2025 15:52",
@@ -8499,7 +8499,7 @@
     },
     {
         "order_id": "AOi42503140739108548d7800",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/16/2025 18:31",
@@ -8513,7 +8513,7 @@
     },
     {
         "order_id": "AOi4250314080809734d4b3c0",
-        "sto_co ": "LAB ",
+        "sto_co": "LAB ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/16/2025 17:42",
@@ -8527,7 +8527,7 @@
     },
     {
         "order_id": "AOi4250314095439724c0e9d0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/15/2025 11:37",
@@ -8541,7 +8541,7 @@
     },
     {
         "order_id": "AOi42503140958203928773a0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/17/2025 8:37",
@@ -8555,7 +8555,7 @@
     },
     {
         "order_id": "AOi42503141004313870a9f80",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/16/2025 16:42",
@@ -8569,7 +8569,7 @@
     },
     {
         "order_id": "AOi425031410171126285ef40",
-        "sto_co ": "BRI ",
+        "sto_co": "BRI ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/15/2025 20:03",
@@ -8583,7 +8583,7 @@
     },
     {
         "order_id": "AOi42503141025185457c0cb0",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/15/2025 16:24",
@@ -8597,7 +8597,7 @@
     },
     {
         "order_id": "AOi4250314105046963471530",
-        "sto_co ": "SER ",
+        "sto_co": "SER ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/16/2025 9:14",
@@ -8611,7 +8611,7 @@
     },
     {
         "order_id": "AOi4250314105501184781f40",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/15/2025 10:36",
@@ -8625,7 +8625,7 @@
     },
     {
         "order_id": "AOi4250314110719259edce50",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/16/2025 14:46",
@@ -8639,7 +8639,7 @@
     },
     {
         "order_id": "AOi425031411555777425b500",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/14/2025 16:27",
@@ -8653,7 +8653,7 @@
     },
     {
         "order_id": "AOi4250314124739212d2ebb0",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/18/2025 10:19",
@@ -8667,7 +8667,7 @@
     },
     {
         "order_id": "AOi4250314124842130b53ac0",
-        "sto_co ": "KKP ",
+        "sto_co": "KKP ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/19/2025 19:17",
@@ -8681,7 +8681,7 @@
     },
     {
         "order_id": "AOi4250315010027134e929c0",
-        "sto_co ": "KRO ",
+        "sto_co": "KRO ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/16/2025 12:08",
@@ -8695,7 +8695,7 @@
     },
     {
         "order_id": "AOi425031501223041872c500",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/17/2025 8:30",
@@ -8709,7 +8709,7 @@
     },
     {
         "order_id": "AOi42503150201386735a6f20",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/16/2025 15:10",
@@ -8723,7 +8723,7 @@
     },
     {
         "order_id": "AOi425031502563133586e050",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/15/2025 12:45",
@@ -8737,7 +8737,7 @@
     },
     {
         "order_id": "AOi4250315025928240806b50",
-        "sto_co ": "KMI ",
+        "sto_co": "KMI ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/16/2025 14:46",
@@ -8751,7 +8751,7 @@
     },
     {
         "order_id": "AOi42503150321018034263f0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/19/2025 14:07",
@@ -8765,7 +8765,7 @@
     },
     {
         "order_id": "AOi4250315041728254768760",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/18/2025 15:54",
@@ -8779,7 +8779,7 @@
     },
     {
         "order_id": "AOi4250315050944152fe4550",
-        "sto_co ": "KMI ",
+        "sto_co": "KMI ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/19/2025 20:53",
@@ -8793,7 +8793,7 @@
     },
     {
         "order_id": "AOi425031506222944577ea70",
-        "sto_co ": "BNT ",
+        "sto_co": "BNT ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/17/2025 15:12",
@@ -8807,7 +8807,7 @@
     },
     {
         "order_id": "AOi4250315083550169c277c0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/17/2025 8:29",
@@ -8821,7 +8821,7 @@
     },
     {
         "order_id": "AOi42503150855156336f7920",
-        "sto_co ": "TJL ",
+        "sto_co": "TJL ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/16/2025 13:55",
@@ -8835,7 +8835,7 @@
     },
     {
         "order_id": "AOi4250315090354188f0b7b0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/16/2025 12:19",
@@ -8849,7 +8849,7 @@
     },
     {
         "order_id": "AOi425031509405169745b1d0",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/19/2025 14:34",
@@ -8863,7 +8863,7 @@
     },
     {
         "order_id": "AOi4250315094702790001250",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/16/2025 9:23",
@@ -8877,7 +8877,7 @@
     },
     {
         "order_id": "AOi4250315114534133e5d9a0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/16/2025 16:38",
@@ -8891,7 +8891,7 @@
     },
     {
         "order_id": "AOi42503151206031556a4640",
-        "sto_co ": "BOT ",
+        "sto_co": "BOT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/15/2025 15:09",
@@ -8905,7 +8905,7 @@
     },
     {
         "order_id": "AOi4250315122327660e1e800",
-        "sto_co ": "SED ",
+        "sto_co": "SED ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/16/2025 16:41",
@@ -8919,7 +8919,7 @@
     },
     {
         "order_id": "AOi4250316011407208bce220",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/17/2025 8:40",
@@ -8933,7 +8933,7 @@
     },
     {
         "order_id": "AOi42503160124228074ff5a0",
-        "sto_co ": "SEM ",
+        "sto_co": "SEM ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/18/2025 20:30",
@@ -8947,7 +8947,7 @@
     },
     {
         "order_id": "AOi425031601342546487a000",
-        "sto_co ": "PBU ",
+        "sto_co": "PBU ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/17/2025 14:17",
@@ -8961,7 +8961,7 @@
     },
     {
         "order_id": "AOi42503160147332671043b0",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/17/2025 7:22",
@@ -8975,7 +8975,7 @@
     },
     {
         "order_id": "AOi425031602291423735d0d0",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/18/2025 13:57",
@@ -8989,7 +8989,7 @@
     },
     {
         "order_id": "AOi4250316024049307adf590",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/18/2025 10:21",
@@ -9003,7 +9003,7 @@
     },
     {
         "order_id": "AOi4250316032059588f9a860",
-        "sto_co ": "KBG ",
+        "sto_co": "KBG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/18/2025 20:47",
@@ -9017,7 +9017,7 @@
     },
     {
         "order_id": "AOi425031604254559500c810",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/19/2025 18:29",
@@ -9031,7 +9031,7 @@
     },
     {
         "order_id": "AOi4250316045528299926a30",
-        "sto_co ": "SBR ",
+        "sto_co": "SBR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/18/2025 9:06",
@@ -9045,7 +9045,7 @@
     },
     {
         "order_id": "AOi4250316050356123864630",
-        "sto_co ": "PGT ",
+        "sto_co": "PGT ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/18/2025 7:56",
@@ -9059,7 +9059,7 @@
     },
     {
         "order_id": "AOi4250316063102173b8e040",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/17/2025 8:50",
@@ -9073,7 +9073,7 @@
     },
     {
         "order_id": "AOi4250316063433185561660",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/17/2025 13:40",
@@ -9087,7 +9087,7 @@
     },
     {
         "order_id": "AOi425031607220854719a130",
-        "sto_co ": "SUA ",
+        "sto_co": "SUA ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/19/2025 11:47",
@@ -9101,7 +9101,7 @@
     },
     {
         "order_id": "AOi42503160722494662c4550",
-        "sto_co ": "LAB ",
+        "sto_co": "LAB ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/16/2025 12:11",
@@ -9115,7 +9115,7 @@
     },
     {
         "order_id": "AOi4250316072900252d4f100",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/17/2025 14:13",
@@ -9129,7 +9129,7 @@
     },
     {
         "order_id": "AOi4250316073311494f5da20",
-        "sto_co ": "MTW ",
+        "sto_co": "MTW ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/17/2025 16:13",
@@ -9143,7 +9143,7 @@
     },
     {
         "order_id": "AOi4250316073430416f5a9c0",
-        "sto_co ": "TAJ ",
+        "sto_co": "TAJ ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/17/2025 11:54",
@@ -9157,7 +9157,7 @@
     },
     {
         "order_id": "AOi4250316081700876681e00",
-        "sto_co ": "SMR ",
+        "sto_co": "SMR ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/17/2025 10:39",
@@ -9171,7 +9171,7 @@
     },
     {
         "order_id": "AOi4250316084229752536d60",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/16/2025 12:41",
@@ -9185,7 +9185,7 @@
     },
     {
         "order_id": "AOi4250316085641309ffc080",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/18/2025 13:50",
@@ -9199,7 +9199,7 @@
     },
     {
         "order_id": "AOi4250316093400400e12250",
-        "sto_co ": "BBR ",
+        "sto_co": "BBR ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/17/2025 10:01",
@@ -9213,7 +9213,7 @@
     },
     {
         "order_id": "AOi42503160939452748dccb0",
-        "sto_co ": "SEM ",
+        "sto_co": "SEM ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/16/2025 15:15",
@@ -9227,7 +9227,7 @@
     },
     {
         "order_id": "AOi42503160956461904121b0",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/17/2025 8:47",
@@ -9241,7 +9241,7 @@
     },
     {
         "order_id": "AOi425031610371970896f290",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/19/2025 20:57",
@@ -9255,7 +9255,7 @@
     },
     {
         "order_id": "AOi4250316105719254f597f0",
-        "sto_co ": "PGT ",
+        "sto_co": "PGT ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/17/2025 8:44",
@@ -9269,7 +9269,7 @@
     },
     {
         "order_id": "AOi4250316111600239b663b0",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/18/2025 9:01",
@@ -9283,7 +9283,7 @@
     },
     {
         "order_id": "AOi4250316111639822d20030",
-        "sto_co ": "SEI ",
+        "sto_co": "SEI ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/16/2025 15:46",
@@ -9297,7 +9297,7 @@
     },
     {
         "order_id": "AOi42503161136122914eba40",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/17/2025 8:41",
@@ -9311,7 +9311,7 @@
     },
     {
         "order_id": "AOi42503161143201438bab70",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/18/2025 9:05",
@@ -9325,7 +9325,7 @@
     },
     {
         "order_id": "AOi4250316121250208d82280",
-        "sto_co ": "KKU ",
+        "sto_co": "KKU ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/18/2025 21:47",
@@ -9339,7 +9339,7 @@
     },
     {
         "order_id": "AOi42503161222529674ba840",
-        "sto_co ": "SGK ",
+        "sto_co": "SGK ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/16/2025 16:13",
@@ -9353,7 +9353,7 @@
     },
     {
         "order_id": "AOi425031612331300680b310",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/17/2025 13:57",
@@ -9367,7 +9367,7 @@
     },
     {
         "order_id": "AOi4250316124007511d48e80",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/18/2025 10:17",
@@ -9381,7 +9381,7 @@
     },
     {
         "order_id": "AOi425031702184835935a1c0",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/19/2025 8:19",
@@ -9395,7 +9395,7 @@
     },
     {
         "order_id": "AOi4250317033551384d93cb0",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/18/2025 10:57",
@@ -9409,7 +9409,7 @@
     },
     {
         "order_id": "AOi42503170600068062b3f40",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/19/2025 8:27",
@@ -9423,7 +9423,7 @@
     },
     {
         "order_id": "AOi4250317064457557cfd100",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/19/2025 8:26",
@@ -9437,7 +9437,7 @@
     },
     {
         "order_id": "AOi4250317064915127f4c890",
-        "sto_co ": "PLE ",
+        "sto_co": "PLE ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/19/2025 9:48",
@@ -9451,7 +9451,7 @@
     },
     {
         "order_id": "AOi4250317065059235d8f220",
-        "sto_co ": "KOB ",
+        "sto_co": "KOB ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/18/2025 16:45",
@@ -9465,7 +9465,7 @@
     },
     {
         "order_id": "AOi4250317080554536c97c60",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/18/2025 11:35",
@@ -9479,7 +9479,7 @@
     },
     {
         "order_id": "AOi4250317085415880e4c640",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/18/2025 7:58",
@@ -9493,7 +9493,7 @@
     },
     {
         "order_id": "AOi4250317085727569d1c780",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/18/2025 20:33",
@@ -9507,7 +9507,7 @@
     },
     {
         "order_id": "AOi4250317091827152b42e30",
-        "sto_co ": "TBA ",
+        "sto_co": "TBA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/19/2025 16:06",
@@ -9521,7 +9521,7 @@
     },
     {
         "order_id": "AOi4250317094422909c37290",
-        "sto_co ": "PYM ",
+        "sto_co": "PYM ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/17/2025 14:52",
@@ -9535,7 +9535,7 @@
     },
     {
         "order_id": "AOi42503171003122839810a0",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/19/2025 8:25",
@@ -9549,7 +9549,7 @@
     },
     {
         "order_id": "AOi42503171024506377fa130",
-        "sto_co ": "BRI ",
+        "sto_co": "BRI ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/19/2025 9:35",
@@ -9563,7 +9563,7 @@
     },
     {
         "order_id": "AOi42503171046280456799d0",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/18/2025 12:47",
@@ -9577,7 +9577,7 @@
     },
     {
         "order_id": "AOi4250317105910262d5fa10",
-        "sto_co ": "LMD ",
+        "sto_co": "LMD ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/18/2025 21:42",
@@ -9591,7 +9591,7 @@
     },
     {
         "order_id": "AOi4250317110637736f3bfa0",
-        "sto_co ": "SEI ",
+        "sto_co": "SEI ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/19/2025 13:56",
@@ -9605,7 +9605,7 @@
     },
     {
         "order_id": "AOi4250317113949774f9a630",
-        "sto_co ": "KYG ",
+        "sto_co": "KYG ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/19/2025 8:19",
@@ -9619,7 +9619,7 @@
     },
     {
         "order_id": "AOi42503171146169585680f0",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/18/2025 10:47",
@@ -9633,7 +9633,7 @@
     },
     {
         "order_id": "AOi42503171149588204264d0",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/19/2025 9:47",
@@ -9647,7 +9647,7 @@
     },
     {
         "order_id": "AOi4250317124905501b68db0",
-        "sto_co ": "JAW ",
+        "sto_co": "JAW ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/18/2025 13:42",
@@ -9661,7 +9661,7 @@
     },
     {
         "order_id": "AOi42503171258370271d9390",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/18/2025 15:45",
@@ -9675,7 +9675,7 @@
     },
     {
         "order_id": "AOi42503180134328598606a0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/19/2025 12:03",
@@ -9689,7 +9689,7 @@
     },
     {
         "order_id": "AOi42503180136079196c3c90",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/19/2025 12:25",
@@ -9703,7 +9703,7 @@
     },
     {
         "order_id": "AOi4250318015434241f5ae00",
-        "sto_co ": "MJW ",
+        "sto_co": "MJW ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/18/2025 18:38",
@@ -9717,7 +9717,7 @@
     },
     {
         "order_id": "AOi4250318020230964b22b60",
-        "sto_co ": "SEP ",
+        "sto_co": "SEP ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/19/2025 15:37",
@@ -9731,7 +9731,7 @@
     },
     {
         "order_id": "AOi42503180204164747ff8e0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/19/2025 10:38",
@@ -9745,7 +9745,7 @@
     },
     {
         "order_id": "AOi42503180207251678c0c20",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/19/2025 20:02",
@@ -9759,7 +9759,7 @@
     },
     {
         "order_id": "AOi4250318034023252478210",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/19/2025 19:04",
@@ -9773,7 +9773,7 @@
     },
     {
         "order_id": "AOi42503180438431773905c0",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/19/2025 17:03",
@@ -9787,7 +9787,7 @@
     },
     {
         "order_id": "AOi4250318052611599164b50",
-        "sto_co ": "SPY ",
+        "sto_co": "SPY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/19/2025 9:22",
@@ -9801,7 +9801,7 @@
     },
     {
         "order_id": "AOi42503180537281011eda90",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/19/2025 14:14",
@@ -9815,7 +9815,7 @@
     },
     {
         "order_id": "AOi42503180658303062503b0",
-        "sto_co ": "PMK ",
+        "sto_co": "PMK ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/19/2025 13:42",
@@ -9829,7 +9829,7 @@
     },
     {
         "order_id": "AOi42503180703304313f13e0",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/19/2025 16:06",
@@ -9843,7 +9843,7 @@
     },
     {
         "order_id": "AOi42503180733262028d6fa0",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/19/2025 16:09",
@@ -9857,7 +9857,7 @@
     },
     {
         "order_id": "AOi42503180737014419bcf20",
-        "sto_co ": "AMT ",
+        "sto_co": "AMT ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/19/2025 11:59",
@@ -9871,7 +9871,7 @@
     },
     {
         "order_id": "AOi4250318083051924b04680",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/19/2025 12:39",
@@ -9885,7 +9885,7 @@
     },
     {
         "order_id": "AOi4250318083741253f33ed0",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/19/2025 12:04",
@@ -9899,7 +9899,7 @@
     },
     {
         "order_id": "AOi4250318085812274c85ce0",
-        "sto_co ": "TSL ",
+        "sto_co": "TSL ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/18/2025 10:29",
@@ -9913,7 +9913,7 @@
     },
     {
         "order_id": "AOi425031809112346218ea40",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/18/2025 15:47",
@@ -9927,7 +9927,7 @@
     },
     {
         "order_id": "AOi425031810512654100d8d0",
-        "sto_co ": "KTP ",
+        "sto_co": "KTP ",
         "branch": "PANGKALAN BUN",
         "wok": "KETAPANG",
         "provi_ts": "3/19/2025 11:05",
@@ -9941,7 +9941,7 @@
     },
     {
         "order_id": "AOi4250318122121960632990",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/19/2025 16:47",
@@ -9955,7 +9955,7 @@
     },
     {
         "order_id": "AOi42503181230298308c5250",
-        "sto_co ": "PNJ ",
+        "sto_co": "PNJ ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/18/2025 20:14",
@@ -9969,7 +9969,7 @@
     },
     {
         "order_id": "AOi4250319031240524818620",
-        "sto_co ": "MGG ",
+        "sto_co": "MGG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/19/2025 18:33",
@@ -9983,7 +9983,7 @@
     },
     {
         "order_id": "AOi42503190908231094735c0",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/19/2025 12:23",
@@ -9997,7 +9997,7 @@
     },
     {
         "order_id": "AOk325031309305687416f5d0",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/13/2025 11:37",
@@ -10011,7 +10011,7 @@
     },
     {
         "order_id": "AOk4250206011658278ccae70",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/7/2025 10:17",
@@ -10025,7 +10025,7 @@
     },
     {
         "order_id": "AOk4250222103042727047bf0",
-        "sto_co ": "BRI ",
+        "sto_co": "BRI ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/1/2025 10:20",
@@ -10039,7 +10039,7 @@
     },
     {
         "order_id": "AOk4250226103019422b441f0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 16:45",
@@ -10053,7 +10053,7 @@
     },
     {
         "order_id": "AOk42502270921562649f8d70",
-        "sto_co ": "KBG ",
+        "sto_co": "KBG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/2/2025 12:56",
@@ -10067,7 +10067,7 @@
     },
     {
         "order_id": "AOk4250228012827053b1bc60",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/1/2025 10:00",
@@ -10081,7 +10081,7 @@
     },
     {
         "order_id": "AOk425022810053351507f510",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 13:27",
@@ -10095,7 +10095,7 @@
     },
     {
         "order_id": "AOk425030110274761395f2b0",
-        "sto_co ": "AMT ",
+        "sto_co": "AMT ",
         "branch": "BANJARMASIN",
         "wok": "TANJUNG",
         "provi_ts": "3/2/2025 9:34",
@@ -10109,7 +10109,7 @@
     },
     {
         "order_id": "AOk4250303011317207b59e30",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 17:13",
@@ -10123,7 +10123,7 @@
     },
     {
         "order_id": "AOk4250303024332517365780",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/4/2025 14:54",
@@ -10137,7 +10137,7 @@
     },
     {
         "order_id": "AOk4250303025814834d82100",
-        "sto_co ": "SGU ",
+        "sto_co": "SGU ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/4/2025 11:46",
@@ -10151,7 +10151,7 @@
     },
     {
         "order_id": "AOk4250303093806314a2c770",
-        "sto_co ": "MLN ",
+        "sto_co": "MLN ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/8/2025 7:44",
@@ -10165,7 +10165,7 @@
     },
     {
         "order_id": "AOk425030311564811431b900",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/5/2025 9:19",
@@ -10179,7 +10179,7 @@
     },
     {
         "order_id": "AOk4250304014608249affd10",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/4/2025 20:13",
@@ -10193,7 +10193,7 @@
     },
     {
         "order_id": "AOk4250304024641877c61d10",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/5/2025 12:31",
@@ -10207,7 +10207,7 @@
     },
     {
         "order_id": "AOk4250304105426485ae1cb0",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/4/2025 17:50",
@@ -10221,7 +10221,7 @@
     },
     {
         "order_id": "AOk4250305083535922033d30",
-        "sto_co ": "BAM ",
+        "sto_co": "BAM ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/5/2025 14:24",
@@ -10235,7 +10235,7 @@
     },
     {
         "order_id": "AOk4250306111254891101330",
-        "sto_co ": "SGU ",
+        "sto_co": "SGU ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/8/2025 11:28",
@@ -10249,7 +10249,7 @@
     },
     {
         "order_id": "AOk4250307083520461363b10",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/7/2025 15:32",
@@ -10263,7 +10263,7 @@
     },
     {
         "order_id": "AOk42503071100375694099f0",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/9/2025 10:30",
@@ -10277,7 +10277,7 @@
     },
     {
         "order_id": "AOk425030809500830154c1e0",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/8/2025 12:57",
@@ -10291,7 +10291,7 @@
     },
     {
         "order_id": "AOk4250308095341205a13bf0",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/8/2025 19:42",
@@ -10305,7 +10305,7 @@
     },
     {
         "order_id": "AOk4250308114238862300b90",
-        "sto_co ": "KBG ",
+        "sto_co": "KBG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/8/2025 14:34",
@@ -10319,7 +10319,7 @@
     },
     {
         "order_id": "AOk4250310084108058e61eb0",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/11/2025 13:00",
@@ -10333,7 +10333,7 @@
     },
     {
         "order_id": "AOk4250311010509138aae420",
-        "sto_co ": "KPL ",
+        "sto_co": "KPL ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/12/2025 18:55",
@@ -10347,7 +10347,7 @@
     },
     {
         "order_id": "AOk4250311074051349747b60",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/12/2025 14:47",
@@ -10361,7 +10361,7 @@
     },
     {
         "order_id": "AOk42503110919068601ffdd0",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/11/2025 13:21",
@@ -10375,7 +10375,7 @@
     },
     {
         "order_id": "AOk425031110312562975f560",
-        "sto_co ": "SGU ",
+        "sto_co": "SGU ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/11/2025 14:19",
@@ -10389,7 +10389,7 @@
     },
     {
         "order_id": "AOk4250311104923064b85620",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/11/2025 17:36",
@@ -10403,7 +10403,7 @@
     },
     {
         "order_id": "AOk425031110492734716eb20",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/11/2025 13:58",
@@ -10417,7 +10417,7 @@
     },
     {
         "order_id": "AOk425031211502485791fef0",
-        "sto_co ": "BNT ",
+        "sto_co": "BNT ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/13/2025 11:25",
@@ -10431,7 +10431,7 @@
     },
     {
         "order_id": "AOk4250313011325596420980",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/14/2025 18:38",
@@ -10445,7 +10445,7 @@
     },
     {
         "order_id": "AOk4250313023603749d30ba0",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/15/2025 12:07",
@@ -10459,7 +10459,7 @@
     },
     {
         "order_id": "AOk4250313110617940a28f20",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/14/2025 13:53",
@@ -10473,7 +10473,7 @@
     },
     {
         "order_id": "AOk42503131137385541ba2d0",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/17/2025 8:30",
@@ -10487,7 +10487,7 @@
     },
     {
         "order_id": "AOk42503140217548011c1dc0",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/16/2025 7:14",
@@ -10501,7 +10501,7 @@
     },
     {
         "order_id": "AOk4250314104730576069f50",
-        "sto_co ": "PLE ",
+        "sto_co": "PLE ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/17/2025 8:32",
@@ -10515,7 +10515,7 @@
     },
     {
         "order_id": "AOk42503141052356031416b0",
-        "sto_co ": "SMB ",
+        "sto_co": "SMB ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/15/2025 16:26",
@@ -10529,7 +10529,7 @@
     },
     {
         "order_id": "AOk42503141056340827cc630",
-        "sto_co ": "LNN ",
+        "sto_co": "LNN ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/16/2025 23:20",
@@ -10543,7 +10543,7 @@
     },
     {
         "order_id": "AOk425031510172250049f460",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/20/2025 1:21",
@@ -10557,7 +10557,7 @@
     },
     {
         "order_id": "AOk4250317115205653cb22e0",
-        "sto_co ": "KMI ",
+        "sto_co": "KMI ",
         "branch": "PANGKALAN BUN",
         "wok": "PANGKALAN BUN",
         "provi_ts": "3/18/2025 23:13",
@@ -10571,7 +10571,7 @@
     },
     {
         "order_id": "AOk425031810550160575e800",
-        "sto_co ": "BNT ",
+        "sto_co": "BNT ",
         "branch": "PALANGKARAYA",
         "wok": "BARITO - KAPUAS",
         "provi_ts": "3/18/2025 16:23",
@@ -10585,7 +10585,7 @@
     },
     {
         "order_id": "AOk425031811041290170eec0",
-        "sto_co ": "LUL ",
+        "sto_co": "LUL ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/19/2025 11:29",
@@ -10599,7 +10599,7 @@
     },
     {
         "order_id": "AOk42503181158054866c23b0",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/19/2025 16:22",
@@ -10613,7 +10613,7 @@
     },
     {
         "order_id": "AOs3250222060138391120050",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/1/2025 10:30",
@@ -10627,7 +10627,7 @@
     },
     {
         "order_id": "AOs325022206515497312f700",
-        "sto_co ": "BKY ",
+        "sto_co": "BKY ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 18:21",
@@ -10641,7 +10641,7 @@
     },
     {
         "order_id": "AOs3250224123047998a1bd80",
-        "sto_co ": "STG ",
+        "sto_co": "STG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 20:36",
@@ -10655,7 +10655,7 @@
     },
     {
         "order_id": "AOs325022511410308722bed0",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/7/2025 19:07",
@@ -10669,7 +10669,7 @@
     },
     {
         "order_id": "AOs32502260106394756ac6d0",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/3/2025 15:01",
@@ -10683,7 +10683,7 @@
     },
     {
         "order_id": "AOs3250226083352928e70db0",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 12:16",
@@ -10697,7 +10697,7 @@
     },
     {
         "order_id": "AOs32502260904262133861b0",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/1/2025 17:35",
@@ -10711,7 +10711,7 @@
     },
     {
         "order_id": "AOs32502280604576625455e0",
-        "sto_co ": "SRY ",
+        "sto_co": "SRY ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 14:52",
@@ -10725,7 +10725,7 @@
     },
     {
         "order_id": "AOs3250228110907626d13900",
-        "sto_co ": "TSL ",
+        "sto_co": "TSL ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/3/2025 10:21",
@@ -10739,7 +10739,7 @@
     },
     {
         "order_id": "AOs325022811305049474b800",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/1/2025 17:01",
@@ -10753,7 +10753,7 @@
     },
     {
         "order_id": "AOs3250301012950231c38e00",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 16:34",
@@ -10767,7 +10767,7 @@
     },
     {
         "order_id": "AOs3250301030936734b226d0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 10:23",
@@ -10781,7 +10781,7 @@
     },
     {
         "order_id": "AOs32503010319101751df050",
-        "sto_co ": "MBD ",
+        "sto_co": "MBD ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/2/2025 12:49",
@@ -10795,7 +10795,7 @@
     },
     {
         "order_id": "AOs3250301052918246d0d9d0",
-        "sto_co ": "SRD ",
+        "sto_co": "SRD ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/3/2025 9:27",
@@ -10809,7 +10809,7 @@
     },
     {
         "order_id": "AOs3250301071612415b638b0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/2/2025 16:16",
@@ -10823,7 +10823,7 @@
     },
     {
         "order_id": "AOs3250301104516499601cc0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/4/2025 20:50",
@@ -10837,7 +10837,7 @@
     },
     {
         "order_id": "AOs3250301123633805f7ce80",
-        "sto_co ": "STA ",
+        "sto_co": "STA ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/2/2025 19:30",
@@ -10851,7 +10851,7 @@
     },
     {
         "order_id": "AOs3250301125715851a7c9f0",
-        "sto_co ": "TLA ",
+        "sto_co": "TLA ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/3/2025 8:18",
@@ -10865,7 +10865,7 @@
     },
     {
         "order_id": "AOs3250302032325326cbe1c0",
-        "sto_co ": "KJN ",
+        "sto_co": "KJN ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/4/2025 12:54",
@@ -10879,7 +10879,7 @@
     },
     {
         "order_id": "AOs3250302064132331c78d50",
-        "sto_co ": "TBY ",
+        "sto_co": "TBY ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/4/2025 12:50",
@@ -10893,7 +10893,7 @@
     },
     {
         "order_id": "AOs325030210162639002d070",
-        "sto_co ": "BDO ",
+        "sto_co": "BDO ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/3/2025 13:40",
@@ -10907,7 +10907,7 @@
     },
     {
         "order_id": "AOs3250303081753944f2ef20",
-        "sto_co ": "MLN ",
+        "sto_co": "MLN ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/11/2025 11:50",
@@ -10921,7 +10921,7 @@
     },
     {
         "order_id": "AOs32503031230175991b61d0",
-        "sto_co ": "BLN ",
+        "sto_co": "BLN ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/3/2025 17:20",
@@ -10935,7 +10935,7 @@
     },
     {
         "order_id": "AOs3250304021348146748ae0",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/5/2025 13:00",
@@ -10949,7 +10949,7 @@
     },
     {
         "order_id": "AOs3250304023904232913ec0",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 9:34",
@@ -10963,7 +10963,7 @@
     },
     {
         "order_id": "AOs3250304052659037da9990",
-        "sto_co ": "PNJ ",
+        "sto_co": "PNJ ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/5/2025 10:47",
@@ -10977,7 +10977,7 @@
     },
     {
         "order_id": "AOs32503040837104465cf830",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/4/2025 12:02",
@@ -10991,7 +10991,7 @@
     },
     {
         "order_id": "AOs325030408585465178cde0",
-        "sto_co ": "SER ",
+        "sto_co": "SER ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/5/2025 10:04",
@@ -11005,7 +11005,7 @@
     },
     {
         "order_id": "AOs3250305075150518abab30",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 15:50",
@@ -11019,7 +11019,7 @@
     },
     {
         "order_id": "AOs32503050814183136bf870",
-        "sto_co ": "SGU ",
+        "sto_co": "SGU ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/5/2025 14:01",
@@ -11033,7 +11033,7 @@
     },
     {
         "order_id": "AOs32503050932095564c3d00",
-        "sto_co ": "NGG ",
+        "sto_co": "NGG ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 14:52",
@@ -11047,7 +11047,7 @@
     },
     {
         "order_id": "AOs3250306112144868739810",
-        "sto_co ": "PUT ",
+        "sto_co": "PUT ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/7/2025 15:56",
@@ -11061,7 +11061,7 @@
     },
     {
         "order_id": "AOs3250307075440021b76d90",
-        "sto_co ": "MLN ",
+        "sto_co": "MLN ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/11/2025 11:46",
@@ -11075,7 +11075,7 @@
     },
     {
         "order_id": "AOs325030708242111746dff0",
-        "sto_co ": "TNG ",
+        "sto_co": "TNG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/8/2025 15:00",
@@ -11089,7 +11089,7 @@
     },
     {
         "order_id": "AOs325030711394421009ff90",
-        "sto_co ": "TRK ",
+        "sto_co": "TRK ",
         "branch": "TARAKAN",
         "wok": "TARAKAN",
         "provi_ts": "3/11/2025 8:31",
@@ -11103,7 +11103,7 @@
     },
     {
         "order_id": "AOs3250307123934928611290",
-        "sto_co ": "PLK ",
+        "sto_co": "PLK ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/13/2025 8:54",
@@ -11117,7 +11117,7 @@
     },
     {
         "order_id": "AOs32503080146026317addd0",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/10/2025 10:11",
@@ -11131,7 +11131,7 @@
     },
     {
         "order_id": "AOs3250308085302732ef1370",
-        "sto_co ": "MTP ",
+        "sto_co": "MTP ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/9/2025 13:25",
@@ -11145,7 +11145,7 @@
     },
     {
         "order_id": "AOs32503080858496004916f0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 14:06",
@@ -11159,7 +11159,7 @@
     },
     {
         "order_id": "AOs3250308090500868087ee0",
-        "sto_co ": "STI ",
+        "sto_co": "STI ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/11/2025 11:35",
@@ -11173,7 +11173,7 @@
     },
     {
         "order_id": "AOs32503090600360904cc840",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/11/2025 9:03",
@@ -11187,7 +11187,7 @@
     },
     {
         "order_id": "AOs3250309084624467f738d0",
-        "sto_co ": "BLN ",
+        "sto_co": "BLN ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/11/2025 11:38",
@@ -11201,7 +11201,7 @@
     },
     {
         "order_id": "AOs3250310073815445a6b510",
-        "sto_co ": "SKU ",
+        "sto_co": "SKU ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/10/2025 13:54",
@@ -11215,7 +11215,7 @@
     },
     {
         "order_id": "AOs3250310090405099fcf290",
-        "sto_co ": "ULI ",
+        "sto_co": "ULI ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/12/2025 10:49",
@@ -11229,7 +11229,7 @@
     },
     {
         "order_id": "AOs32503101227432870be0d0",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/11/2025 12:16",
@@ -11243,7 +11243,7 @@
     },
     {
         "order_id": "AOs325031105461545172d860",
-        "sto_co ": "HNU ",
+        "sto_co": "HNU ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/12/2025 12:53",
@@ -11257,7 +11257,7 @@
     },
     {
         "order_id": "AOs3250311071020371ae0a10",
-        "sto_co ": "MLA ",
+        "sto_co": "MLA ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/11/2025 13:42",
@@ -11271,7 +11271,7 @@
     },
     {
         "order_id": "AOs3250311071754288922830",
-        "sto_co ": "TMD ",
+        "sto_co": "TMD ",
         "branch": "SAMARINDA",
         "wok": "KOTA SAMARINDA",
         "provi_ts": "3/11/2025 13:29",
@@ -11285,7 +11285,7 @@
     },
     {
         "order_id": "AOs325031109332060649a9e0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/11/2025 11:50",
@@ -11299,7 +11299,7 @@
     },
     {
         "order_id": "AOs32503111029464842f3410",
-        "sto_co ": "GSA ",
+        "sto_co": "GSA ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/12/2025 10:51",
@@ -11313,7 +11313,7 @@
     },
     {
         "order_id": "AOs325031201314900666b7f0",
-        "sto_co ": "KKN ",
+        "sto_co": "KKN ",
         "branch": "PALANGKARAYA",
         "wok": "PALANGKARAYA",
         "provi_ts": "3/13/2025 14:17",
@@ -11327,7 +11327,7 @@
     },
     {
         "order_id": "AOs3250312092804210f0a7e0",
-        "sto_co ": "PTK ",
+        "sto_co": "PTK ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/12/2025 12:57",
@@ -11341,7 +11341,7 @@
     },
     {
         "order_id": "AOs3250312102817037013b30",
-        "sto_co ": "SAO ",
+        "sto_co": "SAO ",
         "branch": "PONTIANAK",
         "wok": "PONTIANAK",
         "provi_ts": "3/19/2025 13:44",
@@ -11355,7 +11355,7 @@
     },
     {
         "order_id": "AOs3250313043755762b68a50",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/16/2025 23:16",
@@ -11369,7 +11369,7 @@
     },
     {
         "order_id": "AOs32503140149503800863e0",
-        "sto_co ": "SNW ",
+        "sto_co": "SNW ",
         "branch": "PONTIANAK",
         "wok": "SAMBAS",
         "provi_ts": "3/15/2025 10:23",
@@ -11383,7 +11383,7 @@
     },
     {
         "order_id": "AOs325031407471657676c260",
-        "sto_co ": "GMB ",
+        "sto_co": "GMB ",
         "branch": "BANJARMASIN",
         "wok": "BANJAR",
         "provi_ts": "3/16/2025 7:15",
@@ -11397,7 +11397,7 @@
     },
     {
         "order_id": "AOs32503150654209414cfc70",
-        "sto_co ": "STT ",
+        "sto_co": "STT ",
         "branch": "SAMARINDA",
         "wok": "BONTANG",
         "provi_ts": "3/15/2025 12:17",
@@ -11411,7 +11411,7 @@
     },
     {
         "order_id": "AOs32503150940237052a1b90",
-        "sto_co ": "BLC ",
+        "sto_co": "BLC ",
         "branch": "BANJARMASIN",
         "wok": "BATULICIN",
         "provi_ts": "3/16/2025 9:16",
@@ -11425,7 +11425,7 @@
     },
     {
         "order_id": "AOs32503160328003211ca2e0",
-        "sto_co ": "PTG ",
+        "sto_co": "PTG ",
         "branch": "BALIKPAPAN",
         "wok": "BALIKPAPAN",
         "provi_ts": "3/17/2025 14:02",
@@ -11439,7 +11439,7 @@
     },
     {
         "order_id": "AOs32503170643131501f4100",
-        "sto_co ": "NPN ",
+        "sto_co": "NPN ",
         "branch": "PONTIANAK",
         "wok": "SINTANG",
         "provi_ts": "3/19/2025 8:49",
@@ -11453,7 +11453,7 @@
     },
     {
         "order_id": "AOs3250317072350644354500",
-        "sto_co ": "SAD ",
+        "sto_co": "SAD ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/18/2025 9:14",
@@ -11467,7 +11467,7 @@
     },
     {
         "order_id": "AOs32503170826100595df950",
-        "sto_co ": "SAI ",
+        "sto_co": "SAI ",
         "branch": "PANGKALAN BUN",
         "wok": "KOTAWARINGIN",
         "provi_ts": "3/19/2025 8:26",
@@ -11481,7 +11481,7 @@
     },
     {
         "order_id": "AOs32503180318218639b7ad0",
-        "sto_co ": "TRD ",
+        "sto_co": "TRD ",
         "branch": "TARAKAN",
         "wok": "BERAU",
         "provi_ts": "3/19/2025 10:15",
@@ -11495,7 +11495,7 @@
     },
     {
         "order_id": "AOs3250318035318176a98690",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/19/2025 11:41",
@@ -11509,7 +11509,7 @@
     },
     {
         "order_id": "AOs32503180936201353459d0",
-        "sto_co ": "TGG ",
+        "sto_co": "TGG ",
         "branch": "BALIKPAPAN",
         "wok": "KUTAI",
         "provi_ts": "3/18/2025 15:39",
