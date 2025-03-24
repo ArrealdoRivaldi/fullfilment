@@ -10697,31 +10697,5 @@
         "symptom": "ODP Full",
         "Aging Fallout ": "1-3 hari",
         "Status ": "Stay Fallout "
-    },
-    {
-        "order_id": null,
-        "branch": null,
-        "wok": null,
-        "provi_ts": null,
-        "order_ts": null,
-        "longitude": null,
-        "latitude": null,
-        "Kendala Teknik": null,
-        "symptom": null,
-        "Aging Fallout ": null,
-        "Status ": null
-    },
-    {
-        "order_id": "",
-        "branch": "",
-        "wok": "",
-        "provi_ts": "",
-        "order_ts": "",
-        "longitude": "",
-        "latitude": "",
-        "Kendala Teknik": "",
-        "symptom": "",
-        "Aging Fallout ": "",
-        "Status ": ""
     }
 ]
