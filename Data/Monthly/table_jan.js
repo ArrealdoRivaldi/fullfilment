@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch("https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Monthly%20arch%20PS/Januari.json");
+        const response = await fetch("https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Data/Monthly/jan.json");
         const data = await response.json();
         
         // Cari data referensi berdasarkan NOP "KALIMANTAN"
