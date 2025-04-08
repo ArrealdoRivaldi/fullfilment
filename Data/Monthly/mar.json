@@ -3,64 +3,48 @@
         "NOP": "Balikpapan",
         "Re": "3682",
         "PS": "2242",
-        "Reg to PS": "60.89%",
-        "Target PS": "3539",
-        "Achievement PS": "63.35%"
+        "Reg to PS": "60.89%"
     },
     {
         "NOP": "Banjarmasin",
         "Re": "4176",
         "PS": "3236",
-        "Reg to PS": "77.49%",
-        "Target PS": "4917",
-        "Achievement PS": "65.81%"
+        "Reg to PS": "77.49%"
     },
     {
         "NOP": "Palangkaraya",
         "Re": "1604",
         "PS": "1292",
-        "Reg to PS": "80.55%",
-        "Target PS": "2233",
-        "Achievement PS": "57.86%"
+        "Reg to PS": "80.55%"
     },
     {
         "NOP": "Pangkalan Bun",
         "Re": "2281",
         "PS": "1396",
-        "Reg to PS": "61.20%",
-        "Target PS": "2675",
-        "Achievement PS": "52.19%"
+        "Reg to PS": "61.20%"
     },
     {
         "NOP": "Pontianak",
         "Re": "5277",
         "PS": "2888",
-        "Reg to PS": "54.73%",
-        "Target PS": "4288",
-        "Achievement PS": "67.35%"
+        "Reg to PS": "54.73%"
     },
     {
         "NOP": "Samarinda",
         "Re": "3477",
         "PS": "2096",
-        "Reg to PS": "60.28%",
-        "Target PS": "3154",
-        "Achievement PS": "66.46%"
+        "Reg to PS": "60.28%"
     },
     {
         "NOP": "Tarakan",
         "Re": "2170",
         "PS": "1310",
-        "Reg to PS": "60.37%",
-        "Target PS": "1688",
-        "Achievement PS": "77.61%"
+        "Reg to PS": "60.37%"
     },
     {
         "NOP": "KALIMANTAN",
         "Re": "22667",
         "PS": "14460",
-        "Reg to PS": "63.79%",
-        "Target PS": "18729",
-        "Achievement PS": "77.21%"
+        "Reg to PS": "63.79%"
     }
 ]
