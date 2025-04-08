@@ -1,248 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
-    <title>FBB</title>
-
-    <!-- CSS Files -->
-    <link href="css/font-face.css" rel="stylesheet">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet">
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="vendor/wow/animate.css" rel="stylesheet">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet">
-    <link href="vendor/slick/slick.css" rel="stylesheet">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
-    <link href="css/theme.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="au theme template" />
+  <meta name="author" content="Hau Nguyen" />
+  <meta name="keywords" content="au theme template" />
+  <title>FBB</title>
+  <link href="css/font-face.css" rel="stylesheet" />
+  <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" />
+  <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" />
+  <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" />
+  <link href="vendor/animsition/animsition.min.css" rel="stylesheet" />
+  <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+  <link href="vendor/wow/animate.css" rel="stylesheet" />
+  <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
+  <link href="vendor/slick/slick.css" rel="stylesheet" />
+  <link href="vendor/select2/select2.min.css" rel="stylesheet" />
+  <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" />
+  <link href="css/theme.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-
 <body class="animsition">
-    <div class="page-wrapper">
-        <!-- Header Mobile -->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin">
-                        </a>
-                        <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
+  <div class="page-wrapper">
+    <!-- Sidebar -->
+    <aside class="menu-sidebar d-none d-lg-block">
+      <div class="logo">
+        <a href="#"><img src="images/icon/logo.png" alt="CoolAdmin" /></a>
+      </div>
+      <div class="menu-sidebar__content js-scrollbar1">
+        <nav class="navbar-sidebar">
+          <ul class="list-unstyled navbar__list">
+            <li class="active has-sub">
+              <a class="js-arrow" href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            </li>
+            <li class="has-sub">
+              <a class="js-arrow" href="#"><i class="fas fa-chart-line"></i>Achievement</a>
+              <ul class="list-unstyled navbar__sub-list js-sub-list">
+                <li><a href="monthly.html">Data Monthly</a></li>
+                <li><a href="daily.html">Data Daily</a></li>
+                <li><a href="fallout.html">Data Fallout</a></li>
+              </ul>
+            </li>
+            <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
+          </ul>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Page Container -->
+    <div class="page-container">
+      <div class="main-content">
+        <main class="flex-1 p-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
+          <p class="text-sm text-gray-500 mb-8">Updated on: April 7, 2025</p>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Card 1 -->
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
+              <div class="flex justify-between">
+                <div>
+                  <p class="text-gray-500">Total Data</p>
+                  <h3 class="text-2xl font-bold text-gray-800">1,254</h3>
+                  <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 12% from last month</p>
                 </div>
-            </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-                        <li><a href="chart.html"><i class="fas fa-chart-bar"></i>Charts</a></li>
-                        <li><a href="table.html"><i class="fas fa-table"></i>Tables</a></li>
-                        <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i>Calendar</a></li>
-                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
-                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a></li>
-                        <li><a href="register.html"><i class="fas fa-user-plus"></i>Register</a></li>
-                        <li><a href="forget-pass.html"><i class="fas fa-key"></i>Forget Password</a></li>
-                    </ul>
+                <div class="text-blue-600 text-2xl bg-blue-100 p-3 rounded-full">
+                  <i class="fas fa-database"></i>
                 </div>
-            </nav>
-        </header>
-        
-        <!-- Sidebar -->
-        <aside class="menu-sidebar d-none d-lg-block">
-            <div class="logo">
-                <a href="#">
-                    <img src="images/icon/logo.png" alt="CoolAdmin">
+              </div>
+              <div class="mt-4 flex justify-between">
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-info-circle"></i> Detail
                 </a>
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-link"></i> Source
+                </a>
+              </div>
             </div>
-            <div class="menu-sidebar__content js-scrollbar1">
-                <nav class="navbar-sidebar">
-                    <ul class="list-unstyled navbar__list">
-                        <li class="active has-sub">
-                            <a class="js-arrow" href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#"><i class="fas fa-chart-line"></i>Achievement</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li><a href="monthly.html">Data Monthly</a></li>
-                                <li><a href="daily.html">Data Daily</a></li>
-                                <li><a href="fallout.html">Data Fallout</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
-                    </ul>
-                </nav>
+            <!-- Card 2 -->
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
+              <div class="flex justify-between">
+                <div>
+                  <p class="text-gray-500">Monthly Data</p>
+                  <h3 class="text-2xl font-bold text-gray-800">342</h3>
+                  <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 8% from last month</p>
+                </div>
+                <div class="text-green-600 text-2xl bg-green-100 p-3 rounded-full">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex justify-between">
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-info-circle"></i> Detail
+                </a>
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-link"></i> Source
+                </a>
+              </div>
             </div>
-        </aside>
-
-        <!-- Page Container -->
-        <div class="page-container">
-            <div class="main-content">
-                <main class="flex-1 p-8">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
-                    <p class="text-sm text-gray-500 mb-8">Updated on: April 7, 2025</p>
-                
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <!-- Card 1 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Total Data</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">1,254</h3>
-                                    <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 12% from last month</p>
-                                </div>
-                                <div class="text-blue-600 text-2xl bg-blue-100 p-3 rounded-full">
-                                    <i class="fas fa-database"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                
-                        <!-- Card 2 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Monthly Data</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">342</h3>
-                                    <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 8% from last month</p>
-                                </div>
-                                <div class="text-green-600 text-2xl bg-green-100 p-3 rounded-full">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                
-                        <!-- Card 3 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Daily Data</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">56</h3>
-                                    <p class="text-red-500 text-sm mt-1"><i class="fas fa-arrow-down"></i> 3% from yesterday</p>
-                                </div>
-                                <div class="text-yellow-600 text-2xl bg-yellow-100 p-3 rounded-full">
-                                    <i class="fas fa-calendar-day"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                
-                        <!-- Card 4 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Fallout Data</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">18</h3>
-                                    <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 5% resolved</p>
-                                </div>
-                                <div class="text-red-600 text-2xl bg-red-100 p-3 rounded-full">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- Recent Activities -->
-                    <div class="bg-white p-6 rounded-xl shadow">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl font-bold text-gray-800">Recent Activities</h3>
-                            <a href="#" class="text-blue-600 text-sm font-medium">View All</a>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-blue-100 p-2 rounded-full">
-                                    <i class="fas fa-database text-blue-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium">New data added</p>
-                                    <p class="text-sm text-gray-500">15 minutes ago</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-green-100 p-2 rounded-full">
-                                    <i class="fas fa-check-circle text-green-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium">Fallout data resolved</p>
-                                    <p class="text-sm text-gray-500">2 hours ago</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <div class="bg-yellow-100 p-2 rounded-full">
-                                    <i class="fas fa-exclamation text-yellow-600"></i>
-                                </div>
-                                <div>
-                                    <p class="font-medium">Warning: Data inconsistency detected</p>
-                                    <p class="text-sm text-gray-500">Yesterday</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-                
-                
+            <!-- Card 3 -->
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
+              <div class="flex justify-between">
+                <div>
+                  <p class="text-gray-500">Daily Data</p>
+                  <h3 class="text-2xl font-bold text-gray-800">56</h3>
+                  <p class="text-red-500 text-sm mt-1"><i class="fas fa-arrow-down"></i> 3% from yesterday</p>
+                </div>
+                <div class="text-yellow-600 text-2xl bg-yellow-100 p-3 rounded-full">
+                  <i class="fas fa-calendar-day"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex justify-between">
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-info-circle"></i> Detail
+                </a>
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-link"></i> Source
+                </a>
+              </div>
             </div>
-        </div>
+            <!-- Card 4 -->
+            <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
+              <div class="flex justify-between">
+                <div>
+                  <p class="text-gray-500">Fallout Data</p>
+                  <h3 class="text-2xl font-bold text-gray-800">18</h3>
+                  <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 5% resolved</p>
+                </div>
+                <div class="text-red-600 text-2xl bg-red-100 p-3 rounded-full">
+                  <i class="fas fa-exclamation-triangle"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex justify-between">
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-info-circle"></i> Detail
+                </a>
+                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
+                  <i class="fas fa-link"></i> Source
+                </a>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
-
-    <!-- JS Files -->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <script src="vendor/slick/slick.min.js"></script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js"></script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="js/main.js"></script>
+  </div>
+  <script src="vendor/jquery-3.2.1.min.js"></script>
+  <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+  <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+  <script src="vendor/slick/slick.min.js"></script>
+  <script src="vendor/wow/wow.min.js"></script>
+  <script src="vendor/animsition/animsition.min.js"></script>
+  <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+  <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+  <script src="vendor/counter-up/jquery.counterup.min.js"></script>
+  <script src="vendor/circle-progress/circle-progress.min.js"></script>
+  <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+  <script src="vendor/select2/select2.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
-
 </html>
