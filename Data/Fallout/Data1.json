@@ -1,12 +1,13 @@
 {
     "data": [
-        { "NOP": "BALIKPAPAN", "PS": 4, "PT2": 19, "PT3": 38, "Reorder": 0, "Revoke": 64, "Stay Fallout": 1032, "Offering Orbit": 28, "Cancel": 519, "NY Feedback": 0, "Grand Total": 1704, "Ach PS": "0.23%" },
-        { "NOP": "BANJARMASIN", "PS": 337, "PT2": 15, "PT3": 36, "Reorder": 0, "Revoke": 92, "Stay Fallout": 999, "Offering Orbit": 27, "Cancel": 979, "NY Feedback": 0, "Grand Total": 2485, "Ach PS": "13.56%" },
-        { "NOP": "PALANGKARAYA", "PS": 58, "PT2": 7, "PT3": 30, "Reorder": 0, "Revoke": 29, "Stay Fallout": 348, "Offering Orbit": 1, "Cancel": 122, "NY Feedback": 0, "Grand Total": 595, "Ach PS": "9.75%" },
-        { "NOP": "PANGKALAN BUN", "PS": 67, "PT2": 40, "PT3": 41, "Reorder": 27, "Revoke": 22, "Stay Fallout": 342, "Offering Orbit": 63, "Cancel": 331, "NY Feedback": 0, "Grand Total": 893, "Ach PS": "7.18%" },
-        { "NOP": "PONTIANAK", "PS": 28, "PT2": 18, "PT3": 98, "Reorder": 0, "Revoke": 119, "Stay Fallout": 792, "Offering Orbit": 0, "Cancel": 740, "NY Feedback": 0, "Grand Total": 1795, "Ach PS": "1.56%" },
-        { "NOP": "SAMARINDA", "PS": 10, "PT2": 11, "PT3": 13, "Reorder": 0, "Revoke": 48, "Stay Fallout": 554, "Offering Orbit": 15, "Cancel": 293, "NY Feedback": 0, "Grand Total": 944, "Ach PS": "1.06%" },
-        { "NOP": "TARAKAN", "PS": 4, "PT2": 9, "PT3": 15, "Reorder": 0, "Revoke": 28, "Stay Fallout": 383, "Offering Orbit": 10, "Cancel": 244, "NY Feedback": 0, "Grand Total": 643, "Ach PS": "0.62%" },
-        { "NOP": "Kalimantan", "PS": 508, "PT2": 119, "PT3": 271, "Reorder": 27, "Revoke": 402, "Stay Fallout": 4400, "Offering Orbit": 144, "Cancel": 3228, "NY Feedback": 0, "Grand Total": 9029, "Ach PS": "5.58%" }
+      { "NOP": "BALIKPAPAN", "PS": 16, "PT2": 30, "PT3": 73, "Reorder": 8, "Revoke": 124, "Stay Fallout": 1196, "Offering Orbit": 17, "Cancel": 662, "NY Feedback": 0, "Grand Total": 2126, "Ach PS": "0.75%" },
+      { "NOP": "BANJARMASIN", "PS": 456, "PT2": 24, "PT3": 52, "Reorder": 7, "Revoke": 131, "Stay Fallout": 1226, "Offering Orbit": 20, "Cancel": 1186, "NY Feedback": 0, "Grand Total": 3102, "Ach PS": "14.70%" },
+      { "NOP": "PALANGKARAYA", "PS": 91, "PT2": 7, "PT3": 32, "Reorder": 1, "Revoke": 43, "Stay Fallout": 486, "Offering Orbit": 2, "Cancel": 132, "NY Feedback": 0, "Grand Total": 794, "Ach PS": "11.46%" },
+      { "NOP": "PANGKALAN BUN", "PS": 110, "PT2": 34, "PT3": 48, "Reorder": 18, "Revoke": 46, "Stay Fallout": 588, "Offering Orbit": 36, "Cancel": 448, "NY Feedback": 0, "Grand Total": 1328, "Ach PS": "8.28%" },
+      { "NOP": "PONTIANAK", "PS": 41, "PT2": 21, "PT3": 73, "Reorder": 4, "Revoke": 181, "Stay Fallout": 841, "Offering Orbit": 3, "Cancel": 1375, "NY Feedback": 0, "Grand Total": 2489, "Ach PS": "1.65%" },
+      { "NOP": "SAMARINDA", "PS": 27, "PT2": 22, "PT3": 34, "Reorder": 4, "Revoke": 76, "Stay Fallout": 667, "Offering Orbit": 7, "Cancel": 423, "NY Feedback": 0, "Grand Total": 1259, "Ach PS": "2.14%" },
+      { "NOP": "TARAKAN", "PS": 5, "PT2": 7, "PT3": 20, "Reorder": 3, "Revoke": 26, "Stay Fallout": 314, "Offering Orbit": 10, "Cancel": 419, "NY Feedback": 0, "Grand Total": 804, "Ach PS": "0.62%" },
+      { "NOP": "Kalimantan", "PS": 746, "PT2": 145, "PT3": 332, "Reorder": 45, "Revoke": 577, "Stay Fallout": 5317, "Offering Orbit": 95, "Cancel": 4845, "NY Feedback": 0, "Grand Total": 11902, "Ach PS": "6.27%" }
     ]
-}
+  }
+  
