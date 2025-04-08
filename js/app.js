@@ -120,7 +120,7 @@ $(document).ready(function() {
     initializeTables();
 
     // Load default data dari pilihan pertama di dropdown
-    let defaultOption = $('#dataSelector option[value="pilihan1"]');
+    let defaultOption = $('#dataSelector option[value="Apr"]');
     let file1 = defaultOption.data('table1');
     let file2 = defaultOption.data('table2');
     let file3 = defaultOption.data('table3');
