@@ -7,7 +7,8 @@
       { "Symptom": "ODP Full", ">14 hari": 730, "Grand Total": 730 },
       { "Symptom": "ODP Jauh", ">14 hari": 628, "Grand Total": 628 },
       { "Symptom": "ODP tidak ditemukan", ">14 hari": 364, "Grand Total": 364 },
-      { "Symptom": "ODP Unspec", ">14 hari": 201, "Grand Total": 201 }
+      { "Symptom": "ODP Unspec", ">14 hari": 201, "Grand Total": 201 },
+      { "Symptom": "Grand Total",">14 hari": 3719, "Grand Total": 3719 }
     ]
   }
   

@@ -7,7 +7,8 @@
       { "Symptom": "ODP Full", "PS": 23, "PT2": 24, "PT3": 35, "Reorder": 6, "Revoke": 53, "Stay Fallout": 353, "Offering Orbit": 3, "Cancel": 256, "NY Feedback": 0, "Grand Total": 753, "Ach PS": "3.05%" },
       { "Symptom": "ODP Jauh", "PS": 8, "PT2": 9, "PT3": 48, "Reorder": 4, "Revoke": 70, "Stay Fallout": 316, "Offering Orbit": 4, "Cancel": 177, "NY Feedback": 0, "Grand Total": 636, "Ach PS": "1.26%" },
       { "Symptom": "ODP tidak ditemukan", "PS": 2, "PT2": 6, "PT3": 36, "Reorder": 4, "Revoke": 21, "Stay Fallout": 171, "Offering Orbit": 1, "Cancel": 125, "NY Feedback": 0, "Grand Total": 366, "Ach PS": "0.55%" },
-      { "Symptom": "ODP Unspec", "PS": 39, "PT2": 3, "PT3": 6, "Reorder": 4, "Revoke": 18, "Stay Fallout": 88, "Offering Orbit": 2, "Cancel": 80, "NY Feedback": 0, "Grand Total": 240, "Ach PS": "16.25%" }
+      { "Symptom": "ODP Unspec", "PS": 39, "PT2": 3, "PT3": 6, "Reorder": 4, "Revoke": 18, "Stay Fallout": 88, "Offering Orbit": 2, "Cancel": 80, "NY Feedback": 0, "Grand Total": 240, "Ach PS": "16.25%" },
+      { "Symptom": "Grand Total", "PS": 209, "PT2": 74, "PT3": 191, "Reorder": 26, "Revoke": 293, "Stay Fallout": 1688, "Offering Orbit": 12, "Cancel": 1435, "NY Feedback": 0, "Grand Total": 3928, "Ach PS": "5.32%" }
     ]
   }
   
