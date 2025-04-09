@@ -1,6 +1,25 @@
-$(document).ready(function() {
+$(document).ready(function () {
     let table1, table2, table3;
-    
+    let currentSelection = '';
+
+    function showLoading(show = true) {
+        $('#loading').toggle(show);
+    }
+
+    function showMessage(msg) {
+        $('#message').text(msg).show();
+        $('#error').hide();
+    }
+
+    function showError(msg) {
+        $('#error').text(msg).show();
+        $('#message').hide();
+    }
+
+    function clearMessages() {
+        $('#loading, #message, #error').hide().text('');
+    }
+
     function initializeTables() {
         table1 = $('#table1').DataTable({
             paging: false,
@@ -8,9 +27,9 @@ $(document).ready(function() {
             ordering: false,
             info: false,
             searching: false,
-            dom: 'Bfrtip', 
+            dom: 'Bfrtip',
             buttons: [
-                'copy', 
+                'copy',
                 {
                     extend: 'excel',
                     text: 'Download Excel',
@@ -38,10 +57,10 @@ $(document).ready(function() {
             lengthChange: false,
             ordering: false,
             info: false,
-            searching: false, 
+            searching: false,
             dom: 'Bfrtip',
             buttons: [
-                'copy', 
+                'copy',
                 {
                     extend: 'excel',
                     text: 'Download Excel',
@@ -69,10 +88,10 @@ $(document).ready(function() {
             lengthChange: false,
             ordering: false,
             info: false,
-            searching: false, 
+            searching: false,
             dom: 'Bfrtip',
             buttons: [
-                'copy', 
+                'copy',
                 {
                     extend: 'excel',
                     text: 'Download Excel',
@@ -90,44 +109,83 @@ $(document).ready(function() {
         });
     }
 
-    function loadTableData(table, jsonFile) {
-        $.getJSON(jsonFile, function(response) {
+    function loadTableData(table, jsonFile, callback) {
+        $.getJSON(jsonFile, function (response) {
             console.log("Data dari " + jsonFile + " berhasil dimuat:", response);
-            
+
             if (response && response.data && Array.isArray(response.data)) {
                 table.clear().rows.add(response.data).draw();
+                callback(true);
             } else {
-                console.error("Format JSON tidak sesuai:", response);
+                callback(false, "Format JSON tidak sesuai: " + jsonFile);
             }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error("Gagal memuat " + jsonFile, textStatus, errorThrown);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            callback(false, "Gagal memuat " + jsonFile + ": " + errorThrown);
         });
     }
 
-    $('#dataSelector').on('change', function() {
+    function loadSelectedData(value, file1, file2, file3) {
+        if (currentSelection === value) {
+            showMessage("✅ Data sudah ditampilkan.");
+            return;
+        }
+
+        currentSelection = value;
+        clearMessages();
+        showLoading(true);
+
+        let successCount = 0;
+        let total = 3;
+        let errorMessages = [];
+
+        loadTableData(table1, file1, function (success, errMsg) {
+            if (!success) errorMessages.push(errMsg);
+            checkComplete();
+        });
+
+        loadTableData(table2, file2, function (success, errMsg) {
+            if (!success) errorMessages.push(errMsg);
+            checkComplete();
+        });
+
+        loadTableData(table3, file3, function (success, errMsg) {
+            if (!success) errorMessages.push(errMsg);
+            checkComplete();
+        });
+
+        function checkComplete() {
+            successCount++;
+            if (successCount === total) {
+                showLoading(false);
+                if (errorMessages.length > 0) {
+                    showError(errorMessages.join("<br>"));
+                } else {
+                    showMessage("✅ Data berhasil dimuat.");
+                }
+            }
+        }
+    }
+
+    initializeTables();
+
+    $('#dataSelector').off('change').on('change', function () {
         let selectedOption = $(this).find(':selected');
+        let value = selectedOption.val();
         let file1 = selectedOption.data('table1');
         let file2 = selectedOption.data('table2');
         let file3 = selectedOption.data('table3');
 
         if (file1 && file2 && file3) {
-            loadTableData(table1, file1);
-            loadTableData(table2, file2);
-            loadTableData(table3, file3);
+            loadSelectedData(value, file1, file2, file3);
         }
     });
 
-    initializeTables();
-
-    // Load default data dari pilihan pertama di dropdown
+    // Default load
     let defaultOption = $('#dataSelector option[value="Apr"]');
-    let file1 = defaultOption.data('table1');
-    let file2 = defaultOption.data('table2');
-    let file3 = defaultOption.data('table3');
-
-    if (file1 && file2 && file3) {
-        loadTableData(table1, file1);
-        loadTableData(table2, file2);
-        loadTableData(table3, file3);
+    if (defaultOption.length) {
+        let file1 = defaultOption.data('table1');
+        let file2 = defaultOption.data('table2');
+        let file3 = defaultOption.data('table3');
+        loadSelectedData("Apr", file1, file2, file3);
     }
 });
