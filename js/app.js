@@ -1,6 +1,5 @@
 $(document).ready(function () {
     let table1, table2, table3;
-    let currentFiles = { file1: null, file2: null, file3: null };
 
     function initializeTables() {
         table1 = $('#table1').DataTable({
@@ -94,6 +93,7 @@ $(document).ready(function () {
     function loadTableData(table, jsonFile) {
         $.getJSON(jsonFile, function (response) {
             console.log("Data dari " + jsonFile + " berhasil dimuat:", response);
+
             if (response && response.data && Array.isArray(response.data)) {
                 table.clear().rows.add(response.data).draw();
             } else {
@@ -110,41 +110,29 @@ $(document).ready(function () {
         let file2 = selectedOption.data('table2');
         let file3 = selectedOption.data('table3');
 
-        // Hanya lanjutkan kalau ada perubahan pilihan
-        if (
-            file1 !== currentFiles.file1 ||
-            file2 !== currentFiles.file2 ||
-            file3 !== currentFiles.file3
-        ) {
-            // Hapus data lama dari semua tabel
+        if (file1 && file2 && file3) {
+            // Selalu reset tabel dulu agar data lama hilang
             table1.clear().draw();
             table2.clear().draw();
             table3.clear().draw();
 
-            // Load data baru
+            // Load data baru dari file JSON
             loadTableData(table1, file1);
             loadTableData(table2, file2);
             loadTableData(table3, file3);
-
-            // Simpan file yang sedang dipakai
-            currentFiles = {
-                file1: file1,
-                file2: file2,
-                file3: file3
-            };
         }
     });
 
+    // Inisialisasi DataTable saat halaman dimuat
     initializeTables();
 
-    // Load default data (April)
+    // Load data default dari opsi 'April'
     let defaultOption = $('#dataSelector option[value="Apr"]');
     let file1 = defaultOption.data('table1');
     let file2 = defaultOption.data('table2');
     let file3 = defaultOption.data('table3');
 
     if (file1 && file2 && file3) {
-        currentFiles = { file1, file2, file3 };
         loadTableData(table1, file1);
         loadTableData(table2, file2);
         loadTableData(table3, file3);
