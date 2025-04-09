@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let table1, table2, table3;
-    let currentFiles = { table1: null, table2: null, table3: null };
+    let currentFiles = { file1: null, file2: null, file3: null };
 
     function initializeTables() {
         table1 = $('#table1').DataTable({
@@ -91,17 +91,9 @@ $(document).ready(function () {
         });
     }
 
-    function loadTableData(table, jsonFile, tableKey) {
-        if (currentFiles[tableKey] === jsonFile) {
-            console.log("File " + jsonFile + " sudah dimuat sebelumnya. Lewati.");
-            return;
-        }
-
-        currentFiles[tableKey] = jsonFile;
-
+    function loadTableData(table, jsonFile) {
         $.getJSON(jsonFile, function (response) {
             console.log("Data dari " + jsonFile + " berhasil dimuat:", response);
-
             if (response && response.data && Array.isArray(response.data)) {
                 table.clear().rows.add(response.data).draw();
             } else {
@@ -118,35 +110,43 @@ $(document).ready(function () {
         let file2 = selectedOption.data('table2');
         let file3 = selectedOption.data('table3');
 
-        if (file1 && file2 && file3) {
-            // Reset file tracking supaya data sebelumnya dihapus
-            currentFiles = { table1: null, table2: null, table3: null };
-
-            // Kosongkan tabel sebelum load baru
+        // Hanya lanjutkan kalau ada perubahan pilihan
+        if (
+            file1 !== currentFiles.file1 ||
+            file2 !== currentFiles.file2 ||
+            file3 !== currentFiles.file3
+        ) {
+            // Hapus data lama dari semua tabel
             table1.clear().draw();
             table2.clear().draw();
             table3.clear().draw();
 
             // Load data baru
-            loadTableData(table1, file1, "table1");
-            loadTableData(table2, file2, "table2");
-            loadTableData(table3, file3, "table3");
+            loadTableData(table1, file1);
+            loadTableData(table2, file2);
+            loadTableData(table3, file3);
+
+            // Simpan file yang sedang dipakai
+            currentFiles = {
+                file1: file1,
+                file2: file2,
+                file3: file3
+            };
         }
     });
 
     initializeTables();
 
-    // Load default data dari pilihan pertama di dropdown
+    // Load default data (April)
     let defaultOption = $('#dataSelector option[value="Apr"]');
     let file1 = defaultOption.data('table1');
     let file2 = defaultOption.data('table2');
     let file3 = defaultOption.data('table3');
 
     if (file1 && file2 && file3) {
-        currentFiles = { table1: null, table2: null, table3: null };
-
-        loadTableData(table1, file1, "table1");
-        loadTableData(table2, file2, "table2");
-        loadTableData(table3, file3, "table3");
+        currentFiles = { file1, file2, file3 };
+        loadTableData(table1, file1);
+        loadTableData(table2, file2);
+        loadTableData(table3, file3);
     }
 });
