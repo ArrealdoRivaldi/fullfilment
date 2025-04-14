@@ -169,18 +169,19 @@
                                 <div class="map-data m-b-40">
                                     <h3 class="title-3 m-b-30">
                                         <i class="zmdi zmdi-map"></i>Map Data Stay Fallout</h3>
-                                    <div class="filters">
-                                        <select id="branchFilter"><option value="">All Branches</option></select>
-                                        <select id="stoFilter"><option value="">All STO</option></select>
-                                        <select id="wokFilter"><option value="">All WOK</option></select>
-                                        <button type="button" class="btn btn-danger" onclick="filterData()">
-                                            <i class="fa fa-filter"></i>&nbsp; Filter
-                                        </button>
-                                        <button type="button" class="btn btn-danger" onclick="resetFilter()">
-                                            <i class="fa fa-refresh"></i>&nbsp; Reset
-                                        </button>                                        
-                                        <p id="dataCount">Total Data: 0</p>
-                                    </div>
+                                        <div class="filters">
+                                            <select id="branchFilter"><option value="">All Branches</option></select>
+                                            <select id="stoFilter"><option value="">All STO</option></select>
+                                            <select id="wokFilter"><option value="">All WOK</option></select>
+                                            <select id="monthFilter"><option value="">All Months</option></select>
+                                            <button type="button" class="btn btn-danger" onclick="filterData()">
+                                                <i class="fa fa-filter"></i>&nbsp; Filter
+                                            </button>
+                                            <button type="button" class="btn btn-danger" onclick="resetFilter()">
+                                                <i class="fa fa-refresh"></i>&nbsp; Reset
+                                            </button>                                        
+                                            <p id="dataCount">Total Data: 0</p>
+                                        </div>
                                     <div class="map-wrap m-t-45 m-b-20">
                                         <div id="map"></div>
                                     </div>
@@ -216,11 +217,21 @@
         }
 
         function populateFilters() {
-            let branches = new Set(), stos = new Set(), woks = new Set();
-            jsonData.forEach(d => { branches.add(d.branch); stos.add(d.sto_co); woks.add(d.wok); });
+            let branches = new Set(), stos = new Set(), woks = new Set(), months = new Set();
+            jsonData.forEach(d => {
+                branches.add(d.branch);
+                stos.add(d.sto_co);
+                woks.add(d.wok);
+                let proviDate = new Date(d.provi_ts);
+                if (!isNaN(proviDate)) {
+                    let monthStr = `${proviDate.getFullYear()}-${String(proviDate.getMonth() + 1).padStart(2, '0')}`;
+                    months.add(monthStr);
+                }
+            });
             fillSelect('branchFilter', branches);
             fillSelect('stoFilter', stos);
             fillSelect('wokFilter', woks);
+            fillSelect('monthFilter', months);
         }
 
         function fillSelect(id, data) {
@@ -259,11 +270,19 @@
             let branch = document.getElementById('branchFilter').value;
             let sto = document.getElementById('stoFilter').value;
             let wok = document.getElementById('wokFilter').value;
-            let filtered = jsonData.filter(d => 
-                (branch === '' || d.branch === branch) &&
-                (sto === '' || d.sto_co === sto) &&
-                (wok === '' || d.wok === wok)
-            );
+            let month = document.getElementById('monthFilter').value;
+
+            let filtered = jsonData.filter(d => {
+                let proviDate = new Date(d.provi_ts);
+                let proviMonth = !isNaN(proviDate) ? `${proviDate.getFullYear()}-${String(proviDate.getMonth() + 1).padStart(2, '0')}` : '';
+                return (
+                    (branch === '' || d.branch === branch) &&
+                    (sto === '' || d.sto_co === sto) &&
+                    (wok === '' || d.wok === wok) &&
+                    (month === '' || proviMonth === month)
+                );
+            });
+
             displayMarkers(filtered);
             if (filtered.length > 0) {
                 let first = filtered[0];
@@ -275,8 +294,8 @@
             document.getElementById('branchFilter').value = '';
             document.getElementById('stoFilter').value = '';
             document.getElementById('wokFilter').value = '';
+            document.getElementById('monthFilter').value = '';
             displayMarkers(jsonData);
-            map.setView([-2.5, 117], 5);
         }
 
         loadData();
