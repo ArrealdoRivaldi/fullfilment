@@ -56,10 +56,10 @@
         <div class="page-container">
             <div class="main-content p-0 m-0">
                 <div class="section__content section__content--p30">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Achievement</h1>
+                    <p id="updated-date" class="text-sm text-gray-500 mb-8"></p>
                     <div class="container-fluid">
                         <div class="row form-group">
-                            <h1 class="text-3xl font-bold text-gray-800 mb-2">Data Achievement RE TO PS ALL Branch</h1>
-                            <p id="updated-date" class="text-sm text-gray-500 mb-8"></p>
                             <div class="col-md-3"><h4>Pilih Data:</h4></div>
                             <div class="col-12 col-md-9">
                                 <select id="monthFilter" class="form-control-sm form-control" onchange="filterData()">
@@ -142,7 +142,7 @@
         const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const today = new Date();
         document.getElementById('updated-date').textContent = "Diperbarui pada: " + today.toLocaleDateString('id-ID', options);
-    </script>
+      </script>
     
     <!-- Vendor JS -->
     <script src="vendor/jquery-3.2.1.min.js"></script>
