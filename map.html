@@ -208,14 +208,14 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         let markersLayer = L.layerGroup().addTo(map);
         let jsonData = [];
-
+    
         async function loadData() {
             const response = await fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/Datamap/data.json');
             jsonData = await response.json();
             populateFilters();
-            displayMarkers(jsonData);
+            filterData();  // Apply the filter after populating the filters
         }
-
+    
         function populateFilters() {
             let branches = new Set(), stos = new Set(), woks = new Set(), months = new Set();
             jsonData.forEach(d => {
@@ -232,8 +232,13 @@
             fillSelect('stoFilter', stos);
             fillSelect('wokFilter', woks);
             fillSelect('monthFilter', months);
+    
+            // Set the default month to the current month
+            let currentMonth = new Date();
+            let formattedCurrentMonth = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('monthFilter').value = formattedCurrentMonth;
         }
-
+    
         function fillSelect(id, data) {
             const select = document.getElementById(id);
             data.forEach(item => {
@@ -243,7 +248,7 @@
                 select.appendChild(option);
             });
         }
-
+    
         function displayMarkers(data) {
             markersLayer.clearLayers();
             data.forEach(d => {
@@ -259,19 +264,18 @@
                                     <b>Symptom:</b> ${d.symptom}<br>
                                     <b>Aging Fallout:</b> ${d["Aging Fallout "]}<br>
                                     <b>Status:</b> ${d.Status}`;
-                let marker = L.marker([parseFloat(d.latitude), parseFloat(d.longitude)])
-                    .bindPopup(popupContent);
+                let marker = L.marker([parseFloat(d.latitude), parseFloat(d.longitude)]).bindPopup(popupContent);
                 markersLayer.addLayer(marker);
             });
             document.getElementById('dataCount').innerText = `Total Data: ${data.length}`;
         }
-
+    
         function filterData() {
             let branch = document.getElementById('branchFilter').value;
             let sto = document.getElementById('stoFilter').value;
             let wok = document.getElementById('wokFilter').value;
             let month = document.getElementById('monthFilter').value;
-
+    
             let filtered = jsonData.filter(d => {
                 let proviDate = new Date(d.provi_ts);
                 let proviMonth = !isNaN(proviDate) ? `${proviDate.getFullYear()}-${String(proviDate.getMonth() + 1).padStart(2, '0')}` : '';
@@ -282,14 +286,14 @@
                     (month === '' || proviMonth === month)
                 );
             });
-
+    
             displayMarkers(filtered);
             if (filtered.length > 0) {
                 let first = filtered[0];
                 map.setView([parseFloat(first.latitude), parseFloat(first.longitude)], 10);
             }
         }
-
+    
         function resetFilter() {
             document.getElementById('branchFilter').value = '';
             document.getElementById('stoFilter').value = '';
@@ -297,9 +301,10 @@
             document.getElementById('monthFilter').value = '';
             displayMarkers(jsonData);
         }
-
+    
         loadData();
     </script>
+    
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
