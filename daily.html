@@ -208,48 +208,82 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script>
-        window.onload = function () {
-    var select = document.getElementById("DataFilter");
+        const months = [
+            "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+            "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+        ];
     
-    // Gantilah value ini dengan opsi yang sesuai dengan file terakhir yang kamu inginkan
-    var defaultValue = "Januari"; // Misalnya bulan terakhir yang ingin ditampilkan
-
-    select.value = defaultValue;
-    filterData();
-};
-
-       function filterData() {
-    var select = document.getElementById("DataFilter");
-    var selectedOption = select.options[select.selectedIndex];
-
-    var chartSrc = selectedOption.getAttribute("data-chart");
-    var tableSrc = selectedOption.getAttribute("data-table");
-
-    if (chartSrc && tableSrc) {
-        // Hapus semua elemen dengan style position: absolute yang ditambahkan sebelumnya
-        document.querySelectorAll('div[style*="position: absolute"]').forEach(el => el.remove());
-
-        // Hapus skrip lama jika ada
-        document.querySelectorAll(".dynamic-script").forEach(script => script.remove());
-
-        // Hapus isi elemen tabel agar tidak menumpuk
-        document.getElementById("table_monthly").innerHTML = "";
-
-        // Buat skrip baru untuk Chart
-        var scriptChart = document.createElement("script");
-        scriptChart.src = chartSrc;
-        scriptChart.classList.add("dynamic-script");
-        document.body.appendChild(scriptChart);
-
-        // Buat skrip baru untuk Table
-        var scriptTable = document.createElement("script");
-        scriptTable.src = tableSrc;
-        scriptTable.classList.add("dynamic-script");
-        document.body.appendChild(scriptTable);
-    }
-}
-
+        const branches = [
+            "ALL",
+            "BALIKPAPAN",
+            "BANJARMASIN",
+            "PALANGKARAYA",
+            "PANGKALAN BUN",
+            "PONTIANAK",
+            "SAMARINDA",
+            "TARAKAN"
+        ];
+    
+        // Auto-generate isi dropdown
+        window.onload = function () {
+            const select = document.getElementById("DataFilter");
+    
+            months.forEach(bulan => {
+                const group = document.createElement("optgroup");
+                group.label = bulan;
+    
+                branches.forEach(cabang => {
+                    const option = document.createElement("option");
+                    option.value = `${bulan}|${cabang}`;
+                    option.textContent = (cabang === "ALL") ? `Data ${bulan} All Branch` : cabang;
+                    group.appendChild(option);
+                });
+    
+                select.appendChild(group);
+            });
+    
+            // Set default value
+            select.value = "Januari|ALL";
+            filterData();
+        };
+    
+        function filterData() {
+            const select = document.getElementById("DataFilter");
+            const selectedValue = select.value;
+    
+            if (selectedValue === "0") return;
+    
+            const [bulan, cabang] = selectedValue.split("|");
+            const bulanLower = bulan.toLowerCase();
+            const cabangLower = cabang.toLowerCase().replace(/\s/g, "_");
+    
+            let chartSrc = `Data/Daily/chart/chart_${bulanLower}_${cabangLower}.js`;
+            let tableSrc = `Data/Daily/table/table_${bulanLower}_${cabangLower}.js`;
+    
+            if (cabang === "ALL") {
+                chartSrc = `Data/Daily/chart/chart_${bulanLower}.js`;
+                tableSrc = `Data/Daily/table/table_${bulanLower}.js`;
+            }
+    
+            // Clean up old scripts and chart/table data
+            document.querySelectorAll('div[style*="position: absolute"]').forEach(el => el.remove());
+            document.querySelectorAll(".dynamic-script").forEach(script => script.remove());
+            document.getElementById("table_monthly").innerHTML = "";
+    
+            // Load new chart script
+            const scriptChart = document.createElement("script");
+            scriptChart.src = chartSrc;
+            scriptChart.classList.add("dynamic-script");
+            document.body.appendChild(scriptChart);
+    
+            // Load new table script
+            const scriptTable = document.createElement("script");
+            scriptTable.src = tableSrc;
+            scriptTable.classList.add("dynamic-script");
+            document.body.appendChild(scriptTable);
+        }
     </script>
+    
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <!-- Bootstrap JS-->
