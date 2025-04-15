@@ -190,6 +190,17 @@
                                 <div class="au-card m-b-30">
                                     <div class="au-card-inner">
                                         <h3 class="datajudul">Data</h3>
+                                        <label for="region">Pilih Wilayah:</label>
+                                        <select id="region" onchange="handleRegionChange()">
+                                        <option value="ALL">ALL</option>
+                                        <option value="BALIKPAPAN">BALIKPAPAN</option>
+                                        <option value="BANJARMASIN">BANJARMASIN</option>
+                                        <option value="PALANGKARAYA">PALANGKARAYA</option>
+                                        <option value="PANGKALAN BUN">PANGKALAN BUN</option>
+                                        <option value="PONTIANAK">PONTIANAK</option>
+                                        <option value="SAMARINDA">SAMARINDA</option>
+                                        <option value="TARAKAN">TARAKAN</option>
+                                        </select>
                                         <div id="table_monthly"></div>
                                     </div>
                                 </div>
@@ -222,7 +233,7 @@
 
     select.value = defaultValue;
     filterData();
-};
+    };
 
        function filterData() {
     var select = document.getElementById("DataFilter");
