@@ -1,4 +1,4 @@
-google.charts.load('current', { packages: ['corechart'] });
+google.charts.load('current', {packages: ['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
@@ -9,28 +9,17 @@ function drawChart() {
         ['3', 22, '22', 14, '14', 19, '19', 0.6379 * 80, '63.79%'],
         ['4',  6,  '6',  4,  '4', 17, '17', 0.2463 * 80, '24.63%'],
     ]);
-  
-    
+
     var options = {
         title: '',
         vAxes: {
-            0: { title: 'Jumlah' },
-            1: { title: 'Persentase', format: 'percent', viewWindow: { min: 0, max: 1 } }
+            0: {title: 'Thousands'},
+            1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
         },
-        hAxis: { 
-            title: 'Bulan',
-            slantedText: false
-        },
+        hAxis: {title: ''},
         seriesType: 'bars',
         series: {
-            2: { 
-                type: 'line', 
-                targetAxisIndex: 1, 
-                lineWidth: 4, 
-                pointSize: 7, 
-                color: '#3498db', 
-                curveType: 'none' 
-            }
+            3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
         },
         annotations: {
             alwaysOutside: true,
@@ -41,13 +30,11 @@ function drawChart() {
                 bold: true
             }
         },
-        chartArea: { left: '10%', top: '10%', width: '85%', height: '70%' },
-        bar: { groupWidth: "60%" },
-        colors: ['#e67e22', '#1a237e']
+        legend: { position: 'bottom' },
+        colors: ['#e67e22', '#1a237e', '#b0bec5'],
+        chartArea: {width: '70%', height: '70%'}
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
-
-window.addEventListener('resize', drawChart);
