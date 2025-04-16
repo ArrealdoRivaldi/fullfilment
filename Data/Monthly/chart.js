@@ -16,11 +16,21 @@ function drawChart() {
             0: {title: 'Thousands'},
             1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
         },
-        hAxis: {title: ''},
+        hAxis: {
+            title: 'Bulan',
+            format: 'MMM yyyy' // Contoh: Jan 2025, Feb 2025, dst.
+        },
         seriesType: 'bars',
         series: {
-            3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
-        },
+            3: {
+                type: 'line',
+                targetAxisIndex: 0,
+                lineWidth: 3,
+                pointSize: 8,
+                color: '#3498db',
+                curveType: 'none'
+            }
+        },        
         annotations: {
             alwaysOutside: true,
             highContrast: true,
