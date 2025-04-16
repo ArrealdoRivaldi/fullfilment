@@ -29,40 +29,30 @@
 
 <body class="animsition" onload="loadLatestData()">
     <div class="page-wrapper">
-        <!-- Sidebar & Header -->
-        <aside class="menu-sidebar d-none d-lg-block">
-            <div class="logo">
-                <a href="#"><img src="images/icon/logo.png" alt="Cool Admin" /></a>
-            </div>
-            <div class="menu-sidebar__content js-scrollbar1">
-                <nav class="navbar-sidebar">
-                    <ul class="list-unstyled navbar__list">
-                        <li><a href="index.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-                        <li class="active has-sub">
-                            <a class="js-arrow" href="#"><i class="fas fa-chart-line"></i>Achievement</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li class="active"><a href="monthly.html">Data Monthly</a></li>
-                                <li><a href="daily.html">Data Daily</a></li>
-                                <li><a href="fallout.html">Data Fallout</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-        
-        <!-- Main Content -->
+        <!-- Sidebar tetap sama -->
+
+        <!-- Page Container -->
         <div class="page-container">
             <div class="main-content p-0 m-0">
                 <div class="section__content section__content--p30">
-                    <h1 class="text-3xl font-bold text-gray-800 mb-2">Achievement Monthly</h1>
                     <div class="container-fluid">
-                        <div class="row form-group">
-                            <div class="col-md-3"><h4>Pilih Data:</h4></div>
+
+                        <!-- Judul -->
+                        <h1 class="section-title">
+                            <i class="fas fa-chart-line mr-2 text-primary"></i>Achievement <span class="text-muted">Monthly</span>
+                        </h1>
+
+                        <!-- Last Update -->
+                        <p class="text-muted mb-4">📌 Last Updated: <span id="lastUpdate"></span></p>
+
+                        <!-- Dropdown Filter -->
+                        <div class="row form-group align-items-center mb-4">
+                            <div class="col-md-3">
+                                <h5 class="mb-0 font-weight-bold text-dark">📅 Pilih Bulan:</h5>
+                            </div>
                             <div class="col-12 col-md-9">
-                                <select id="monthFilter" class="form-control-sm form-control" onchange="filterData()">
-                                    <option value="0">Please select</option>
+                                <select id="monthFilter" class="form-control select2" onchange="filterData()">
+                                    <option value="0">-- Pilih Bulan --</option>
                                     <option value="Data/Monthly/table_jan.js">Januari</option>
                                     <option value="Data/Monthly/table_feb.js">Februari</option>
                                     <option value="Data/Monthly/table_mar.js">Maret</option>
@@ -70,6 +60,8 @@
                                 </select>
                             </div>
                         </div>
+
+                        <!-- Chart Section -->
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="au-card m-b-30">
@@ -79,6 +71,8 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Table -->
                             <div class="col-lg-12">
                                 <div class="au-card m-b-30">
                                     <div class="au-card-inner">
@@ -88,20 +82,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Footer -->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                                <div class="copyright text-center">
+                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by 
+                                        <a href="https://colorlib.com">Colorlib</a>.
+                                    </p>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!-- Scripts -->
+
+    <!-- Custom Script -->
     <script>
         function loadLatestData() {
             let latestFile = "Data/Monthly/table_mar.js";
@@ -128,16 +127,34 @@
 
         function updateTable() {
             let tableDiv = document.getElementById("card_table");
-            tableDiv.innerHTML = "<table border='1'><tr><th>City</th><th>Achievement</th></tr>";
+            tableDiv.innerHTML = "<table border='0'><thead><tr><th>City</th><th>Achievement</th></tr></thead><tbody>";
             if (typeof monthlyData !== 'undefined') {
-                monthlyData.slice(1).forEach(row => tableDiv.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`);
+                monthlyData.slice(1).forEach(row => {
+                    tableDiv.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
+                });
             } else {
                 tableDiv.innerHTML += "<tr><td colspan='2'>No data available</td></tr>";
             }
-            tableDiv.innerHTML += "</table>";
+            tableDiv.innerHTML += "</tbody></table>";
         }
+
+        // Last update info
+        document.addEventListener('DOMContentLoaded', () => {
+            const now = new Date();
+            const formatted = now.toLocaleString('id-ID', {
+                day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+            document.getElementById('lastUpdate').textContent = formatted;
+
+            // Activate Select2
+            $('#monthFilter').select2({
+                width: '100%',
+                placeholder: "-- Pilih Bulan --",
+                theme: "classic"
+            });
+        });
     </script>
-    
+
     <!-- Vendor JS -->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
@@ -145,6 +162,50 @@
     <script src="vendor/animsition/animsition.min.js"></script>
     <script src="vendor/select2/select2.min.js"></script>
     <script src="js/main.js"></script>
+
+    <!-- Extra CSS -->
+    <style>
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        #card_table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        #card_table th, #card_table td {
+            padding: 10px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        #card_table th {
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: bold;
+        }
+
+        #card_table tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        .select2-container--classic .select2-selection--single {
+            height: 38px;
+            line-height: 36px;
+            padding-left: 10px;
+            font-size: 15px;
+        }
+    </style>
 </body>
+
 
 </html>
