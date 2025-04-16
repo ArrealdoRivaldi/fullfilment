@@ -13,31 +13,36 @@ async function fetchData() {
 }
 
 function generateTable(data, reference) {
-    let table = `<table border="1" style="width: 100%; border-collapse: collapse;">
-        <tr>
-            <th>NOP</th>
-            <th>Re</th>
-            <th>PS</th>
-            <th>Reg to PS</th>
-            <th>Target PS</th>
-            <th>Achievement PS</th>
-        </tr>`;
+    let table = `
+    <div style="text-align: center;">
+        <table border="1" style="margin: auto; width: 100%; border-collapse: collapse; text-align: center;">
+            <tr>
+                <th>NOP</th>
+                <th>Re</th>
+                <th>PS</th>
+                <th>Reg to PS</th>
+                <th>Target PS</th>
+                <th>Achievement PS</th>
+            </tr>`;
     
     data.forEach(row => {
         let regToPsColor = reference && parseFloat(row["Reg to PS"].replace('%', '')) < parseFloat(reference["Reg to PS"].replace('%', '')) ? 'red' : 'black';
         let achievementPsColor = reference && parseFloat(row["Achievement PS "].replace('%', '')) < parseFloat(reference["Achievement PS "].replace('%', '')) ? 'red' : 'black';
         
-        table += `<tr>
-            <td>${row.NOP}</td>
-            <td>${row.Re}</td>
-            <td>${row.PS}</td>
-            <td style="color: ${regToPsColor};">${row["Reg to PS"]}</td>
-            <td>${row["Target PS"]}</td>
-            <td style="color: ${achievementPsColor};">${row["Achievement PS "]}</td>
-        </tr>`;
+        table += `
+            <tr>
+                <td>${row.NOP}</td>
+                <td>${row.Re}</td>
+                <td>${row.PS}</td>
+                <td style="color: ${regToPsColor};">${row["Reg to PS"]}</td>
+                <td>${row["Target PS"]}</td>
+                <td style="color: ${achievementPsColor};">${row["Achievement PS "]}</td>
+            </tr>`;
     });
 
-    table += `</table>`;
+    table += `
+        </table>
+    </div>`;
 
     document.getElementById("card_table").innerHTML = table;
 }
