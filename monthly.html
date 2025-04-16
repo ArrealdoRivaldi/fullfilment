@@ -29,9 +29,30 @@
 
 <body class="animsition" onload="loadLatestData()">
     <div class="page-wrapper">
-        <!-- Sidebar tetap sama -->
-
-        <!-- Page Container -->
+        <!-- Sidebar & Header -->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#"><img src="images/icon/logo.png" alt="Cool Admin" /></a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li><a href="index.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#"><i class="fas fa-chart-line"></i>Achievement</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class="active"><a href="monthly.html">Data Monthly</a></li>
+                                <li><a href="daily.html">Data Daily</a></li>
+                                <li><a href="fallout.html">Data Fallout</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
         <div class="page-container">
             <div class="main-content p-0 m-0">
                 <div class="section__content section__content--p30">
@@ -99,62 +120,62 @@
             </div>
         </div>
     </div>
+    
+   <!-- Custom Script -->
+   <script>
+    function loadLatestData() {
+        let latestFile = "Data/Monthly/table_mar.js";
+        loadScript(latestFile, updateTable);
+    }
 
-    <!-- Custom Script -->
-    <script>
-        function loadLatestData() {
-            let latestFile = "Data/Monthly/table_mar.js";
-            loadScript(latestFile, updateTable);
-        }
+    function filterData() {
+        let monthSelect = document.getElementById("monthFilter");
+        let selectedOption = monthSelect.options[monthSelect.selectedIndex].text;
+        document.querySelector(".datajudul").textContent = selectedOption !== "Please select" ? `Data ${selectedOption}` : "Data";
+        if (monthSelect.value) loadScript(monthSelect.value, updateTable);
+    }
 
-        function filterData() {
-            let monthSelect = document.getElementById("monthFilter");
-            let selectedOption = monthSelect.options[monthSelect.selectedIndex].text;
-            document.querySelector(".datajudul").textContent = selectedOption !== "Please select" ? `Data ${selectedOption}` : "Data";
-            if (monthSelect.value) loadScript(monthSelect.value, updateTable);
-        }
+    function loadScript(file, callback) {
+        let script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = file;
+        script.onload = callback;
+        let oldScript = document.getElementById("dataScript");
+        if (oldScript) document.body.removeChild(oldScript);
+        script.id = "dataScript";
+        document.body.appendChild(script);
+    }
 
-        function loadScript(file, callback) {
-            let script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = file;
-            script.onload = callback;
-            let oldScript = document.getElementById("dataScript");
-            if (oldScript) document.body.removeChild(oldScript);
-            script.id = "dataScript";
-            document.body.appendChild(script);
-        }
-
-        function updateTable() {
-            let tableDiv = document.getElementById("card_table");
-            tableDiv.innerHTML = "<table border='0'><thead><tr><th>City</th><th>Achievement</th></tr></thead><tbody>";
-            if (typeof monthlyData !== 'undefined') {
-                monthlyData.slice(1).forEach(row => {
-                    tableDiv.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
-                });
-            } else {
-                tableDiv.innerHTML += "<tr><td colspan='2'>No data available</td></tr>";
-            }
-            tableDiv.innerHTML += "</tbody></table>";
-        }
-
-        // Last update info
-        document.addEventListener('DOMContentLoaded', () => {
-            const now = new Date();
-            const formatted = now.toLocaleString('id-ID', {
-                day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    function updateTable() {
+        let tableDiv = document.getElementById("card_table");
+        tableDiv.innerHTML = "<table border='0'><thead><tr><th>City</th><th>Achievement</th></tr></thead><tbody>";
+        if (typeof monthlyData !== 'undefined') {
+            monthlyData.slice(1).forEach(row => {
+                tableDiv.innerHTML += `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`;
             });
-            document.getElementById('lastUpdate').textContent = formatted;
+        } else {
+            tableDiv.innerHTML += "<tr><td colspan='2'>No data available</td></tr>";
+        }
+        tableDiv.innerHTML += "</tbody></table>";
+    }
 
-            // Activate Select2
-            $('#monthFilter').select2({
-                width: '100%',
-                placeholder: "-- Pilih Bulan --",
-                theme: "classic"
-            });
+    // Last update info
+    document.addEventListener('DOMContentLoaded', () => {
+        const now = new Date();
+        const formatted = now.toLocaleString('id-ID', {
+            day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit'
         });
-    </script>
+        document.getElementById('lastUpdate').textContent = formatted;
 
+        // Activate Select2
+        $('#monthFilter').select2({
+            width: '100%',
+            placeholder: "-- Pilih Bulan --",
+            theme: "classic"
+        });
+    });
+   </script>
+    
     <!-- Vendor JS -->
     <script src="vendor/jquery-3.2.1.min.js"></script>
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
@@ -206,6 +227,4 @@
         }
     </style>
 </body>
-
-
 </html>
