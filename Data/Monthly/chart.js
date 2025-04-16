@@ -16,7 +16,7 @@ function drawChart() {
             0: {title: 'Jumlah'},
             1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
         },
-        vAxis: {title: 'Months'},
+        vAxis: {title: 'Month'},
         seriesType: 'bars',
         series: {
             3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
