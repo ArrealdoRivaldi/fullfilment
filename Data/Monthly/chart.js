@@ -12,7 +12,7 @@ function drawChart() {
 
     var options = {
         hAxis: { 
-            title: '',
+            title: 'Bulan',
             slantedText: true,
             slantedTextAngle: 45 
         },
