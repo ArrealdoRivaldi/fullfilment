@@ -40,7 +40,7 @@ function drawChart() {
         colors: ['#e67e22', '#1a237e', '#b0bec5'],
         chartArea: {
             width: '80%',   // Increase width of chart area
-            height: '70%'   // Set the height of the chart area
+            height: '90%'   // Set the height of the chart area
         }
     };
 
