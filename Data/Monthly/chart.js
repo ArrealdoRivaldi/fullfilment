@@ -3,11 +3,11 @@ google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
-        ['Bulan', 'Reg', 'PS Current', 'PS/Reg', { role: 'annotation' }],
-        ['Januari', 27, 17, 0.6477, '64.77%'],
-        ['Februari', 26, 16, 0.6097, '60.97%'],
-        ['Maret', 22, 14, 0.6379, '63.79%'],
-        ['April', 6, 4, 0.2463, '24.63%'],
+        ['Category', 'Reg', { role: 'annotation' }, 'PS', { role: 'annotation' }, 'Target PS', { role: 'annotation' }, 'PS/Reg', { role: 'annotation' }],
+        ['1', 27, '27', 17, '17', 18, '18', 0.6477 * 80, '64.77%'],
+        ['2', 26, '26', 16, '16', 19, '19', 0.6097 * 80, '60.97%'],
+        ['3', 22, '22', 14, '14', 19, '19', 0.6379 * 80, '63.79%'],
+        ['4',  6,  '6',  4,  '4', 17, '17', 0.2463 * 80, '24.63%'],
     ]);
 
     var options = {
