@@ -1,4 +1,4 @@
-google.charts.load('current', {packages: ['corechart']});
+google.charts.load('current', { packages: ['corechart'] });
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
@@ -13,11 +13,10 @@ function drawChart() {
     var options = {
         title: '',
         vAxes: {
-            0: {title: 'Thousands'},
-            1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
+            0: { title: 'Thousands' },
+            1: { title: 'Percentage', format: 'percent', viewWindow: { min: 0, max: 1 } }
         },
         hAxis: {
-            title: 'Month',
             slantedText: true,
             slantedTextAngle: 45,  // Rotate labels for better readability
             showTextEvery: 1,      // Ensure every label is shown
@@ -26,7 +25,7 @@ function drawChart() {
         },
         seriesType: 'bars',
         series: {
-            3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
+            3: { type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none' }
         },
         annotations: {
             alwaysOutside: true,
