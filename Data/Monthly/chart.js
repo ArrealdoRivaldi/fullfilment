@@ -17,7 +17,7 @@ function drawChart() {
             1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
         },
         hAxis: {
-            
+            title: 'Month',
             slantedText: true,
             slantedTextAngle: 45,  // Rotate labels for better readability
             showTextEvery: 1,      // Ensure every label is shown
@@ -38,7 +38,11 @@ function drawChart() {
             }
         },
         legend: { position: 'bottom' },
-        colors: ['#e67e22', '#1a237e', '#b0bec5']
+        colors: ['#e67e22', '#1a237e', '#b0bec5'],
+        chartArea: {
+            width: '80%',   // Increase width of chart area
+            height: '40%'   // Set the height of the chart area
+        }
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
