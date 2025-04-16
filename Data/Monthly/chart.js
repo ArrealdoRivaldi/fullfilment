@@ -36,7 +36,8 @@ function drawChart() {
             }
         },
         legend: { position: 'bottom' },
-        colors: ['#e67e22', '#1a237e', '#b0bec5']
+        colors: ['#e67e22', '#1a237e', '#b0bec5'],
+        chartArea: {width: '70%', height: '70%'}
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
