@@ -21,7 +21,8 @@ function drawChart() {
             slantedText: true,
             slantedTextAngle: 45,  // Rotate labels for better readability
             showTextEvery: 1,      // Ensure every label is shown
-            textStyle: { fontSize: 12 }
+            textStyle: { fontSize: 12 },
+            ticks: ['Jan', 'Feb', 'Mar', 'Apr']  // Explicitly setting the tick values for months
         },
         seriesType: 'bars',
         series: {
