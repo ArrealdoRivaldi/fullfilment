@@ -33,7 +33,8 @@ function drawChart() {
         },
         legend: { position: 'bottom' },
         colors: ['#e67e22', '#1a237e', '#b0bec5'],
-        chartArea: {width: '80%', height: '70%'}
+        chartArea: { left: '10%', top: '10%', width: '85%', height: '70%' }, // Memberi ruang untuk teks
+        bar: { groupWidth: "60%" } // Mengatur lebar batang agar tidak terlalu besar
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
