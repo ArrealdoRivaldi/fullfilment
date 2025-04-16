@@ -17,7 +17,7 @@ function drawChart() {
             1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
         },
         hAxis: {
-            title: 'Month',
+            
             slantedText: true,
             slantedTextAngle: 45,  // Rotate labels for better readability
             showTextEvery: 1,      // Ensure every label is shown
