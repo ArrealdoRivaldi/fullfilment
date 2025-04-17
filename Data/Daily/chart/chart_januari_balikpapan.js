@@ -41,14 +41,29 @@ function drawChart() {
         title: 'Performance by Day',
         vAxes: {
             0: {title: 'Thousands'},
-            1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
+            1: {
+                title: 'Percentage', 
+                format: 'percent', 
+                viewWindow: {
+                    min: 0, 
+                    max: 1.2 // Sesuaikan jika ada nilai >120%
+                }
+            }
         },
         hAxis: {title: 'Day'},
-        seriesType: 'bars',
+        seriesType: 'bars', // Default semua seri adalah bar
         series: {
-            0: {type: 'bars', targetAxisIndex: 0}, // Reg as bars
-            1: {type: 'bars', targetAxisIndex: 0}, // PS as bars
-            2: {type: 'line', targetAxisIndex: 1, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'} // PS/Reg as line
+            0: {targetAxisIndex: 0, color: '#e67e22'}, // Reg (bar)
+            1: {targetAxisIndex: 0, color: '#1a237e'}, // PS (bar)
+            2: {
+                type: 'line', 
+                targetAxisIndex: 1, 
+                lineWidth: 3, 
+                pointSize: 6, 
+                color: '#3498db', 
+                curveType: 'none',
+                focusTarget: 'category' // Memudahkan hover
+            }
         },
         annotations: {
             alwaysOutside: true,
@@ -59,7 +74,6 @@ function drawChart() {
             }
         },
         legend: { position: 'bottom' },
-        colors: ['#e67e22', '#1a237e', '#b0bec5'],
         chartArea: {
             left: '10%',
             top: '10%',
