@@ -4,7 +4,7 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
     var data = google.visualization.arrayToDataTable([
         ['Category', 'Re', 'PS Current', 'PS/Reg', { role: 'annotation' }],
-        ['1', 576, 222, 0.3854*80, '38.54%'],
+        ['1', 576, 222, 0.3854*10, '38.54%'],
         ['2', 1140, 527, 0.4623, '46.23%'],
         ['3', 1132, 573, 0.5062, '50.62%'],
         ['4', 973, 506, 0.5202, '52.02%'],
