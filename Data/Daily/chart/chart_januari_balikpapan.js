@@ -38,7 +38,7 @@ function drawChart() {
     ]);
 
     var options = {
-        title: 'Performance by Month',
+        title: 'Day',
         vAxes: {
             0: {title: 'Thousands'},
             1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
@@ -46,7 +46,8 @@ function drawChart() {
         hAxis: {title: 'Month'},
         seriesType: 'bars',
         series: {
-            3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
+            3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'},
+            4: {type: 'line', targetAxisIndex: 1, lineWidth: 3, pointSize: 8, color: '#e74c3c', curveType: 'none'}
         },
         annotations: {
             alwaysOutside: true,
@@ -69,4 +70,3 @@ function drawChart() {
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
-
