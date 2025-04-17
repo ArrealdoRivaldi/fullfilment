@@ -1,66 +1,66 @@
 [
     {
         "NOP": "Balikpapan",
-        "Re": "1073",
-        "PS": "683",
-        "Reg to PS": "63.65%",
+        "Re": "1761",
+        "PS": "1269",
+        "Reg to PS": "72.06%",
         "Target PS": "2669",
-        "Achievement PS ": "25.59%"
+        "Achievement PS ": "47.55% "
     },
     {
         "NOP": "Banjarmasin",
-        "Re": "1393",
-        "PS": "941",
-        "Reg to PS": "67.55%",
+        "Re": "2403",
+        "PS": "1883",
+        "Reg to PS": "78.36%",
         "Target PS": "3891",
-        "Achievement PS ": "24.18%"
+        "Achievement PS ": "48.39% "
     },
     {
         "NOP": "Palangkaraya",
-        "Re": "605",
-        "PS": "443",
-        "Reg to PS": "73.22%",
+        "Re": "958",
+        "PS": "765",
+        "Reg to PS": "79.85%",
         "Target PS": "1576",
-        "Achievement PS ": "28.11%"
+        "Achievement PS ": "48.54% "
     },
     {
         "NOP": "Pangkalan Bun",
-        "Re": "657",
-        "PS": "401",
-        "Reg to PS": "61.04%",
+        "Re": "1107",
+        "PS": "808",
+        "Reg to PS": "72.99%",
         "Target PS": "1821",
-        "Achievement PS ": "22.02%"
+        "Achievement PS ": "44.37% "
     },
     {
         "NOP": "Pontianak",
-        "Re": "1512",
-        "PS": "630",
-        "Reg to PS": "41.67%",
+        "Re": "2684",
+        "PS": "1649",
+        "Reg to PS": "61.44%",
         "Target PS": "3093",
-        "Achievement PS ": "20.37%"
+        "Achievement PS ": "53.31% "
     },
     {
         "NOP": "Samarinda",
-        "Re": "922",
-        "PS": "665",
-        "Reg to PS": "72.13%",
+        "Re": "1533",
+        "PS": "1157",
+        "Reg to PS": "75.47%",
         "Target PS": "2457",
-        "Achievement PS ": "27.07%"
+        "Achievement PS ": "47.09% "
     },
     {
         "NOP": "Tarakan",
-        "Re": "695",
-        "PS": "365",
-        "Reg to PS": "52.52%",
+        "Re": "1194",
+        "PS": "710",
+        "Reg to PS": "59.46%",
         "Target PS": "1251",
-        "Achievement PS ": "29.18%"
+        "Achievement PS ": "56.75% "
     },
     {
         "NOP": "KALIMANTAN",
-        "Re": "6857",
-        "PS": "4128",
-        "Reg to PS": "60.20%",
+        "Re": "11640",
+        "PS": "8241",
+        "Reg to PS": "70.80%",
         "Target PS": "16759",
-        "Achievement PS ": "24.63%"
+        "Achievement PS ": "49.17% "
     }
 ]
