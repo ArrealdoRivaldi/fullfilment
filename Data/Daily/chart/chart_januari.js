@@ -38,42 +38,50 @@ function drawChart() {
     ]);
 
     var options = {
-        title: '',
+        title: 'Performance by Day',
         vAxes: {
-            0: { title: 'Thousands' },
-            1: { title: 'Percentage', format: 'percent', viewWindow: { min: 0, max: 1.2 } } // Menambah ruang di atas garis
+            0: {title: 'Thousands'},
+            1: {
+                title: 'Percentage', 
+                format: 'percent', 
+                viewWindow: {
+                    min: 0, 
+                    max: 1.2 // Sesuaikan jika ada nilai >120%
+                }
+            }
         },
-        hAxis: { 
-            title: '',
-            slantedText: true,
-            slantedTextAngle: 45 
-        },
-        seriesType: 'bars',
+        hAxis: {title: 'Day'},
+        seriesType: 'bars', // Default semua seri adalah bar
         series: {
-            2: { 
+            0: {targetAxisIndex: 0, color: '#e67e22'}, // Reg (bar)
+            1: {targetAxisIndex: 0, color: '#1a237e'}, // PS (bar)
+            2: {
                 type: 'line', 
                 targetAxisIndex: 1, 
-                lineWidth: 4, 
-                pointSize: 7, 
+                lineWidth: 3, 
+                pointSize: 6, 
                 color: '#3498db', 
-                curveType: 'none' 
+                curveType: 'none',
+                focusTarget: 'category' // Memudahkan hover
             }
         },
         annotations: {
-            alwaysOutside: true, // Pastikan angka di atas garis biru
-            highContrast: true,
+            alwaysOutside: true,
             textStyle: {
                 fontSize: 12,
                 color: '#000',
                 bold: true
             }
         },
-        chartArea: { left: '10%', top: '10%', width: '85%', height: '70%' }, // Memberi ruang untuk teks
-        bar: { groupWidth: "60%" } // Mengatur lebar batang agar tidak terlalu besar
+        legend: { position: 'bottom' },
+        chartArea: {
+            left: '10%',
+            top: '10%',
+            width: '85%',
+            height: '70%'
+        }
     };
 
     var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
-
-window.addEventListener('resize', drawChart);
