@@ -5,7 +5,7 @@ var data = [
     { "tanggal": 4, "RE": 160, "PS": 78 },
     { "tanggal": 5, "RE": 135, "PS": 77 },
     { "tanggal": 6, "RE": 232, "PS": 86 },
-    { "tanggal": 7, "RE": 205, "PS": 90 },
+    { "tanggal": 7, "RE": 204, "PS": 90 },
     { "tanggal": 8, "RE": 163, "PS": 119 },
     { "tanggal": 9, "RE": 116, "PS": 118 },
     { "tanggal": 10, "RE": 142, "PS": 88 },
@@ -14,7 +14,7 @@ var data = [
     { "tanggal": 13, "RE": 124, "PS": 81 },
     { "tanggal": 14, "RE": 113, "PS": 58 },
     { "tanggal": 15, "RE": 142, "PS": 98 },
-    { "tanggal": 16, "RE": 151, "PS": 104 },
+    { "tanggal": 16, "RE": 150, "PS": 104 },
     { "tanggal": 17, "RE": 126, "PS": 109 },
     { "tanggal": 18, "RE": 113, "PS": 95 },
     { "tanggal": 19, "RE": 103, "PS": 88 },
@@ -23,12 +23,12 @@ var data = [
     { "tanggal": 22, "RE": 174, "PS": 95 },
     { "tanggal": 23, "RE": 186, "PS": 113 },
     { "tanggal": 24, "RE": 180, "PS": 91 },
-    { "tanggal": 25, "RE": 182, "PS": 109 },
+    { "tanggal": 25, "RE": 181, "PS": 109 },
     { "tanggal": 26, "RE": 120, "PS": 54 },
     { "tanggal": 27, "RE": 173, "PS": 102 },
     { "tanggal": 28, "RE": 216, "PS": 94 },
     { "tanggal": 29, "RE": 183, "PS": 87 },
-    { "tanggal": 30, "RE": 144, "PS": 87 },
+    { "tanggal": 30, "RE": 143, "PS": 87 },
     { "tanggal": 31, "RE": 181, "PS": 70 }
 ];
 
