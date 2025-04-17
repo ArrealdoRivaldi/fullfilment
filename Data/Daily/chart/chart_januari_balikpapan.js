@@ -46,7 +46,9 @@ function drawChart() {
         hAxis: {title: 'Day'},
         seriesType: 'bars',
         series: {
-            2: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
+            0: {type: 'bars', targetAxisIndex: 0}, // Reg as bars
+            1: {type: 'bars', targetAxisIndex: 0}, // PS as bars
+            2: {type: 'line', targetAxisIndex: 1, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'} // PS/Reg as line
         },
         annotations: {
             alwaysOutside: true,
