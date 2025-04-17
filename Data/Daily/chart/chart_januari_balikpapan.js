@@ -34,27 +34,19 @@ function drawChart() {
         ['28', 216, '216', 94, '94', 0.4352 * 80, '43.52%'],
         ['29', 183, '183', 87, '87', 0.4754 * 80, '47.54%'],
         ['30', 143, '143', 87, '87', 0.6084 * 80, '60.84%'],
-        ['31', 181, '181', 70, '70', 0.3867 * 80, '38.67%']
+        ['31', 181, '181', 70, '70', 0.3867 * 80, '38.67%'],
     ]);
 
     var options = {
-        title: 'Performance by Date',
-        hAxis: {
-            title: 'Date',
-            slantedText: true,
-            slantedTextAngle: 45
+        title: 'Performance by Month',
+        vAxes: {
+            0: {title: 'Thousands'},
+            1: {title: 'Percentage', format: 'percent', viewWindow: {min: 0, max: 1}}
         },
-        vAxis: {
-            title: 'Jumlah'
-        },
+        hAxis: {title: 'Month'},
         seriesType: 'bars',
         series: {
-            2: {
-                type: 'line',
-                lineWidth: 3,
-                pointSize: 8,
-                color: '#3498db'
-            }
+            3: {type: 'line', targetAxisIndex: 0, lineWidth: 3, pointSize: 8, color: '#3498db', curveType: 'none'}
         },
         annotations: {
             alwaysOutside: true,
@@ -65,7 +57,7 @@ function drawChart() {
             }
         },
         legend: { position: 'bottom' },
-        colors: ['#e67e22', '#1a237e'],
+        colors: ['#e67e22', '#1a237e', '#b0bec5'],
         chartArea: {
             left: '10%',
             top: '10%',
@@ -78,4 +70,3 @@ function drawChart() {
     chart.draw(data, options);
 }
 
-window.addEventListener('resize', drawChart);
