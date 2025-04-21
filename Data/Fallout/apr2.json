@@ -1,14 +1,15 @@
 {
-    "data": [
-      { "Symptom": "Kendala Izin", "PS": 490, "PT2": 32, "PT3": 38, "Reorder": 7, "Revoke": 85, "Stay Fallout": 983, "Offering Orbit": 17, "Cancel": 1349, "NY Feedback": 0, "Grand Total": 3001, "Ach PS": "16.33%" },
-      { "Symptom": "Kendala Jalur/Rute Tarikan", "PS": 45, "PT2": 31, "PT3": 82, "Reorder": 7, "Revoke": 153, "Stay Fallout": 1378, "Offering Orbit": 19, "Cancel": 1131, "NY Feedback": 0, "Grand Total": 2846, "Ach PS": "1.58%" },
-      { "Symptom": "Kendala NTE/Device", "PS": 1, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 4, "Stay Fallout": 13, "Offering Orbit": 0, "Cancel": 11, "NY Feedback": 0, "Grand Total": 29, "Ach PS": "3.45%" },
-      { "Symptom": "ODP BELUM GO LIVE", "PS": 2, "PT2": 0, "PT3": 1, "Reorder": 0, "Revoke": 7, "Stay Fallout": 37, "Offering Orbit": 1, "Cancel": 31, "NY Feedback": 0, "Grand Total": 79, "Ach PS": "2.53%" },
-      { "Symptom": "ODP Full", "PS": 59, "PT2": 43, "PT3": 62, "Reorder": 15, "Revoke": 120, "Stay Fallout": 1086, "Offering Orbit": 21, "Cancel": 851, "NY Feedback": 0, "Grand Total": 2257, "Ach PS": "2.61%" },
-      { "Symptom": "ODP Jauh", "PS": 36, "PT2": 21, "PT3": 84, "Reorder": 7, "Revoke": 142, "Stay Fallout": 1017, "Offering Orbit": 29, "Cancel": 609, "NY Feedback": 0, "Grand Total": 1945, "Ach PS": "1.85%" },
-      { "Symptom": "ODP tidak ditemukan", "PS": 3, "PT2": 14, "PT3": 56, "Reorder": 4, "Revoke": 41, "Stay Fallout": 499, "Offering Orbit": 5, "Cancel": 419, "NY Feedback": 0, "Grand Total": 1041, "Ach PS": "0.29%" },
-      { "Symptom": "ODP Unspec", "PS": 110, "PT2": 4, "PT3": 9, "Reorder": 5, "Revoke": 25, "Stay Fallout": 304, "Offering Orbit": 3, "Cancel": 244, "NY Feedback": 0, "Grand Total": 704, "Ach PS": "15.63%" },
-      { "Symptom": "Grand Total", "PS": 746, "PT2": 145, "PT3": 332, "Reorder": 45, "Revoke": 577, "Stay Fallout": 5317, "Offering Orbit": 95, "Cancel": 4645, "NY Feedback": 0, "Grand Total": 11902, "Ach PS": "6.27%" }
-    ]
-  }
+  "data": [
+    { "Symptom": "Kendala Izin", "PS": 138, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 9, "Stay Fallout": 533, "Offering Orbit": 0, "Cancel": 148, "NY Feedback": 0, "Grand Total": 828, "Ach PS": "16.67%" },
+    { "Symptom": "Kendala Jalur/Rute Tarikan", "PS": 19, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 22, "Stay Fallout": 568, "Offering Orbit": 0, "Cancel": 120, "NY Feedback": 0, "Grand Total": 729, "Ach PS": "2.61%" },
+    { "Symptom": "Kendala NTE/Device", "PS": 2, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 0, "Stay Fallout": 3, "Offering Orbit": 0, "Cancel": 0, "NY Feedback": 0, "Grand Total": 5, "Ach PS": "40.00%" },
+    { "Symptom": "ODP BELUM GO LIVE", "PS": 3, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 0, "Stay Fallout": 19, "Offering Orbit": 0, "Cancel": 3, "NY Feedback": 0, "Grand Total": 25, "Ach PS": "12.00%" },
+    { "Symptom": "ODP Full", "PS": 42, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 4, "Stay Fallout": 453, "Offering Orbit": 0, "Cancel": 126, "NY Feedback": 0, "Grand Total": 625, "Ach PS": "6.72%" },
+    { "Symptom": "ODP Jauh", "PS": 25, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 1, "Stay Fallout": 333, "Offering Orbit": 0, "Cancel": 68, "NY Feedback": 0, "Grand Total": 427, "Ach PS": "5.86%" },
+    { "Symptom": "ODP tidak ditemukan", "PS": 1, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 2, "Stay Fallout": 190, "Offering Orbit": 0, "Cancel": 77, "NY Feedback": 0, "Grand Total": 270, "Ach PS": "0.37%" },
+    { "Symptom": "ODP Unspec", "PS": 55, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 10, "Stay Fallout": 167, "Offering Orbit": 0, "Cancel": 40, "NY Feedback": 0, "Grand Total": 272, "Ach PS": "20.22%" },
+    { "Symptom": "Grand Total", "PS": 285, "PT2": 0, "PT3": 0, "Reorder": 0, "Revoke": 48, "Stay Fallout": 2266, "Offering Orbit": 0, "Cancel": 582, "NY Feedback": 0, "Grand Total": 3181, "Ach PS": "8.96%" }
+  ]
+}
+
   
