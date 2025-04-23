@@ -1,36 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags-->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="fbb">
-    <meta name="author" content="fbb">
-    <meta name="keywords" content="fbb">
-
-    <!-- Title Page-->
-    <title>fbb</title>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-    <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
@@ -54,311 +27,151 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
     </style>
-
 </head>
-
-<body class="animsition">
-    <div class="page-wrapper">
-        <!-- HEADER MOBILE-->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
-                        </a>
-                        <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li class="has-sub">
-                            <a class="js-arrow" href="index.html">
-                                <i class="fas fa-tachometer-alt"></i>Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="chart.html">
-                                <i class="fas fa-chart-bar"></i>Charts</a>
-                        </li>
-                        <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
-                        </li>
-                        
-                        <li>
-                            <a href="calendar.html">
-                                <i class="fas fa-calendar-alt"></i>Calendar</a>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-copy"></i>Pages</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="login.html">Login</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
-                                <li>
-                                    <a href="forget-pass.html">Forget Password</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-desktop"></i>UI Elements</a>
-                            <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
-                                <li>
-                                    <a href="button.html">Button</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badges</a>
-                                </li>
-                               
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">Performance Dashboard</h1>
+            <p class="text-gray-600">RE, PS, and PS/REG Performance Monitoring</p>
         </header>
-        <!-- END HEADER MOBILE-->
-        <!-- MENU SIDEBAR-->
-        <aside class="menu-sidebar d-none d-lg-block">
-            <div class="logo">
-                <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
-                </a>
-            </div>
-            <div class="menu-sidebar__content js-scrollbar1">
-                <nav class="navbar-sidebar">
-                    <ul class="list-unstyled navbar__list">
-                        <li>
-                            <a class="js-arrow" href="index.html">
-                            <i class="fas fa-tachometer-alt"></i>Dashboard
-                            </a>
-                        </li>
-                        <li class="active has-sub">
-                            <a class="js-arrow" href="#">
-                                <i class="fas fa-chart-line"></i>Achievement</a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="monthly.html">Data Monthly</a>
-                                </li>
-                                <li class="active has-sub" >
-                                    <a href="daily.html">Data Daily</a>
-                                </li>
-                                <li>
-                                    <a href="fallout.html">Data Fallout</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </aside>
-        <!-- END MENU SIDEBAR-->
 
-        <!-- PAGE CONTAINER-->
-        <div class="page-container">
-            <!-- MAIN CONTENT-->
-            <div class="main-content">
-                <div class="section__content section__content--p30">
-                    <div class="container-fluid">
-                        <div class="container mx-auto px-4 py-8">
-                            <!-- Header -->
-                            <header class="mb-8">
-                                <h1 class="text-3xl font-bold text-gray-800">Performance Dashboard</h1>
-                                <p class="text-gray-600">RE, PS, and PS/REG Performance Monitoring</p>
-                            </header>
-                    
-                            <!-- Filter Section -->
-                            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div>
-                                        <label for="region" class="block text-sm font-medium text-gray-700 mb-1">Region</label>
-                                        <select id="region" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                                            <option value="all">All Regions</option>
-                                            <option value="BANJARMASIN">BANJARMASIN</option>
-                                            <option value="BALIKPAPAN">BALIKPAPAN</option>
-                                            <option value="PALANGKARAYA">PALANGKARAYA</option>
-                                            <option value="PANGKALAN BUN">PANGKALAN BUN</option>
-                                            <option value="PONTIANAK">PONTIANAK</option>
-                                            <option value="SAMARINDA">SAMARINDA</option>
-                                            <option value="TARAKAN">TARAKAN</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
-                                        <select id="month" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                                            <option value="all">All Months</option>
-                                            <option value="01">January</option>
-                                            <option value="02">February</option>
-                                            <option value="03">March</option>
-                                            <option value="04">April</option>
-                                            <option value="05">May</option>
-                                            <option value="06">June</option>
-                                            <option value="07">July</option>
-                                            <option value="08">August</option>
-                                            <option value="09">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year</label>
-                                        <select id="year" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                                            <option value="2025">2025</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <!-- Performance Summary Cards -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                                <div class="performance-card bg-white rounded-lg shadow-md p-6">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="text-sm font-medium text-gray-500">Total RE</p>
-                                            <h3 id="total-re" class="text-2xl font-bold text-indigo-600">0</h3>
-                                        </div>
-                                        <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
-                                            <i class="fas fa-user-plus text-xl"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        <p class="text-xs text-gray-500">Current period data</p>
-                                    </div>
-                                </div>
-                    
-                                <div class="performance-card bg-white rounded-lg shadow-md p-6">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="text-sm font-medium text-gray-500">Total PS</p>
-                                            <h3 id="total-ps" class="text-2xl font-bold text-blue-600">0</h3>
-                                        </div>
-                                        <div class="p-3 rounded-full bg-blue-100 text-blue-600">
-                                            <i class="fas fa-bolt text-xl"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        <p class="text-xs text-gray-500">Current period data</p>
-                                    </div>
-                                </div>
-                    
-                                <div class="performance-card bg-white rounded-lg shadow-md p-6">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="text-sm font-medium text-gray-500">PS/REG Ratio</p>
-                                            <h3 id="total-ratio" class="text-2xl font-bold text-purple-600">0%</h3>
-                                        </div>
-                                        <div class="p-3 rounded-full bg-purple-100 text-purple-600">
-                                            <i class="fas fa-percentage text-xl"></i>
-                                        </div>
-                                    </div>
-                                    <div class="mt-4">
-                                        <p class="text-xs text-gray-500">Current period data</p>
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <!-- Calendar View -->
-                            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Calendar View</h2>
-                                <div class="overflow-x-auto">
-                                    <div id="calendar" class="inline-block min-w-full">
-                                        <!-- Calendar will be generated here -->
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <!-- Chart Section -->
-                            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Performance Trend</h2>
-                                <div class="h-96">
-                                    <canvas id="performanceChart"></canvas>
-                                </div>
-                            </div>
-                    
-                            <!-- Data Table -->
-                            <div class="bg-white rounded-lg shadow-md p-6">
-                                <div class="flex justify-between items-center mb-4">
-                                    <h2 class="text-xl font-semibold text-gray-800">Performance Data</h2>
-                                    <button id="export-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                        <i class="fas fa-download mr-2"></i>Export Data
-                                    </button>
-                                </div>
-                                <div class="overflow-x-auto">
-                                    <table class="min-w-full divide-y divide-gray-200">
-                                        <thead class="bg-gray-50">
-                                            <tr>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Region</th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RE</th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS</th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS/REG</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="data-table" class="bg-white divide-y divide-gray-200">
-                                            <!-- Data will be populated here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="copyright">
-                                    <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Filter Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label for="region" class="block text-sm font-medium text-gray-700 mb-1">Region</label>
+                    <select id="region" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="all">All Regions</option>
+                        <option value="BANJARMASIN">BANJARMASIN</option>
+                        <option value="BALIKPAPAN">BALIKPAPAN</option>
+                        <option value="PALANGKARAYA">PALANGKARAYA</option>
+                        <option value="PANGKALAN BUN">PANGKALAN BUN</option>
+                        <option value="PONTIANAK">PONTIANAK</option>
+                        <option value="SAMARINDA">SAMARINDA</option>
+                        <option value="TARAKAN">TARAKAN</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
+                    <select id="month" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="all">All Months</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                    <select id="year" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                        <option value="2025">2025</option>
+                    </select>
                 </div>
             </div>
-            <!-- END MAIN CONTENT-->
-            <!-- END PAGE CONTAINER-->
         </div>
 
+        <!-- Performance Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="performance-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Total RE</p>
+                        <h3 id="total-re" class="text-2xl font-bold text-indigo-600">0</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
+                        <i class="fas fa-user-plus text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xs text-gray-500">Current period data</p>
+                </div>
+            </div>
+
+            <div class="performance-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Total PS</p>
+                        <h3 id="total-ps" class="text-2xl font-bold text-blue-600">0</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                        <i class="fas fa-bolt text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xs text-gray-500">Current period data</p>
+                </div>
+            </div>
+
+            <div class="performance-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">PS/REG Ratio</p>
+                        <h3 id="total-ratio" class="text-2xl font-bold text-purple-600">0%</h3>
+                    </div>
+                    <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                        <i class="fas fa-percentage text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p class="text-xs text-gray-500">Current period data</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar View -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Calendar View</h2>
+            <div class="overflow-x-auto">
+                <div id="calendar" class="inline-block min-w-full">
+                    <!-- Calendar will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Performance Trend</h2>
+            <div class="h-96">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-800">Performance Data</h2>
+                <button id="export-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <i class="fas fa-download mr-2"></i>Export Data
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Region</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RE</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS</th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS/REG</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-table" class="bg-white divide-y divide-gray-200">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    
-       
-    <!-- Jquery JS-->
-    <script src="vendor/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
-    </script>
-    <script src="vendor/wow/wow.min.js"></script>
-    <script src="vendor/animsition/animsition.min.js"></script>
-    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="vendor/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
-    <script src="vendor/select2/select2.min.js">
-    </script>
-    <!-- Main JS-->
+
     <script>
         // Sample JSON data for 2025
         const performanceData = [
@@ -742,6 +555,4 @@
         updateDashboard();
     </script>
 </body>
-
 </html>
-<!-- end document-->
