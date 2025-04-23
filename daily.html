@@ -29,530 +29,209 @@
     </style>
 </head>
 <body class="bg-gray-50">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Performance Dashboard</h1>
-            <p class="text-gray-600">RE, PS, and PS/REG Performance Monitoring</p>
+    <div class="page-wrapper">
+        <!-- Header Mobile -->
+        <header class="header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid">
+                    <div class="header-mobile-inner">
+                        <a class="logo" href="index.html">
+                            <img src="images/icon/logo.png" alt="CoolAdmin">
+                        </a>
+                        <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar-mobile">
+                <div class="container-fluid">
+                    <ul class="navbar-mobile__list list-unstyled">
+                        <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                        <li><a href="chart.html"><i class="fas fa-chart-bar"></i>Charts</a></li>
+                        <li><a href="table.html"><i class="fas fa-table"></i>Tables</a></li>
+                        <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i>Calendar</a></li>
+                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a></li>
+                        <li><a href="register.html"><i class="fas fa-user-plus"></i>Register</a></li>
+                        <li><a href="forget-pass.html"><i class="fas fa-key"></i>Forget Password</a></li>
+                    </ul>
+                </div>
+            </nav>
         </header>
 
-        <!-- Filter Section -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                    <label for="region" class="block text-sm font-medium text-gray-700 mb-1">Region</label>
-                    <select id="region" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="all">All Regions</option>
-                        <option value="BANJARMASIN">BANJARMASIN</option>
-                        <option value="BALIKPAPAN">BALIKPAPAN</option>
-                        <option value="PALANGKARAYA">PALANGKARAYA</option>
-                        <option value="PANGKALAN BUN">PANGKALAN BUN</option>
-                        <option value="PONTIANAK">PONTIANAK</option>
-                        <option value="SAMARINDA">SAMARINDA</option>
-                        <option value="TARAKAN">TARAKAN</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
-                    <select id="month" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="all">All Months</option>
-                        <option value="01">January</option>
-                        <option value="02">February</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year</label>
-                    <select id="year" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                        <option value="2025">2025</option>
-                    </select>
-                </div>
+        <!-- Sidebar -->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#">
+                    <img src="images/icon/logo.png" alt="FBB">
+                </a>
             </div>
-        </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#"><i class="fas fa-chart-line"></i>Achievement</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li><a href="monthly.html">Data Monthly</a></li>
+                                <li><a href="daily.html">Data Daily</a></li>
+                                <li><a href="fallout.html">Data Fallout</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
 
-        <!-- Performance Summary Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="performance-card bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center justify-between">
+        <!-- Main Content -->
+        <div class="container mx-auto px-4 py-8">
+            <!-- Header -->
+            <header class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-800">Performance Dashboard</h1>
+                <p class="text-gray-600">RE, PS, and PS/REG Performance Monitoring</p>
+            </header>
+
+            <!-- Filter Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div>
-                        <p class="text-sm font-medium text-gray-500">Total RE</p>
-                        <h3 id="total-re" class="text-2xl font-bold text-indigo-600">0</h3>
+                        <label for="region" class="block text-sm font-medium text-gray-700 mb-1">Region</label>
+                        <select id="region" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="all">All Regions</option>
+                            <option value="BANJARMASIN">BANJARMASIN</option>
+                            <option value="BALIKPAPAN">BALIKPAPAN</option>
+                            <option value="PALANGKARAYA">PALANGKARAYA</option>
+                            <option value="PANGKALAN BUN">PANGKALAN BUN</option>
+                            <option value="PONTIANAK">PONTIANAK</option>
+                            <option value="SAMARINDA">SAMARINDA</option>
+                            <option value="TARAKAN">TARAKAN</option>
+                        </select>
                     </div>
-                    <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
-                        <i class="fas fa-user-plus text-xl"></i>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p class="text-xs text-gray-500">Current period data</p>
-                </div>
-            </div>
-
-            <div class="performance-card bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500">Total PS</p>
-                        <h3 id="total-ps" class="text-2xl font-bold text-blue-600">0</h3>
+                        <label for="month" class="block text-sm font-medium text-gray-700 mb-1">Month</label>
+                        <select id="month" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="all">All Months</option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
                     </div>
-                    <div class="p-3 rounded-full bg-blue-100 text-blue-600">
-                        <i class="fas fa-bolt text-xl"></i>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p class="text-xs text-gray-500">Current period data</p>
-                </div>
-            </div>
-
-            <div class="performance-card bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-500">PS/REG Ratio</p>
-                        <h3 id="total-ratio" class="text-2xl font-bold text-purple-600">0%</h3>
+                        <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year</label>
+                        <select id="year" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="2025">2025</option>
+                        </select>
                     </div>
-                    <div class="p-3 rounded-full bg-purple-100 text-purple-600">
-                        <i class="fas fa-percentage text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Performance Summary Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="performance-card bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Total RE</p>
+                            <h3 id="total-re" class="text-2xl font-bold text-indigo-600">0</h3>
+                        </div>
+                        <div class="p-3 rounded-full bg-indigo-100 text-indigo-600">
+                            <i class="fas fa-user-plus text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-xs text-gray-500">Current period data</p>
                     </div>
                 </div>
-                <div class="mt-4">
-                    <p class="text-xs text-gray-500">Current period data</p>
+
+                <div class="performance-card bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Total PS</p>
+                            <h3 id="total-ps" class="text-2xl font-bold text-blue-600">0</h3>
+                        </div>
+                        <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                            <i class="fas fa-bolt text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-xs text-gray-500">Current period data</p>
+                    </div>
+                </div>
+
+                <div class="performance-card bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">PS/REG Ratio</p>
+                            <h3 id="total-ratio" class="text-2xl font-bold text-purple-600">0%</h3>
+                        </div>
+                        <div class="p-3 rounded-full bg-purple-100 text-purple-600">
+                            <i class="fas fa-percentage text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-xs text-gray-500">Current period data</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Calendar View -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Calendar View</h2>
-            <div class="overflow-x-auto">
-                <div id="calendar" class="inline-block min-w-full">
-                    <!-- Calendar will be generated here -->
+            <!-- Calendar View -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Calendar View</h2>
+                <div class="overflow-x-auto">
+                    <div id="calendar" class="inline-block min-w-full">
+                        <!-- Calendar will be generated here -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Chart Section -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Performance Trend</h2>
-            <div class="h-96">
-                <canvas id="performanceChart"></canvas>
+            <!-- Chart Section -->
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Performance Trend</h2>
+                <div class="h-96">
+                    <canvas id="performanceChart"></canvas>
+                </div>
             </div>
-        </div>
 
-        <!-- Data Table -->
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold text-gray-800">Performance Data</h2>
-                <button id="export-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    <i class="fas fa-download mr-2"></i>Export Data
-                </button>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Region</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RE</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS/REG</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-table" class="bg-white divide-y divide-gray-200">
-                        <!-- Data will be populated here -->
-                    </tbody>
-                </table>
+            <!-- Data Table -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800">Performance Data</h2>
+                    <button id="export-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        <i class="fas fa-download mr-2"></i>Export Data
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Region</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">RE</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PS/REG</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table" class="bg-white divide-y divide-gray-200">
+                            <!-- Data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
-    <script>
-        // Sample JSON data for 2025
-        const performanceData = [
-            { date: "01/01/2025", region: "BANJARMASIN", re: 150, ps: 125, ps_reg: 83.33 },
-            { date: "02/01/2025", region: "BANJARMASIN", re: 145, ps: 120, ps_reg: 82.76 },
-            { date: "03/01/2025", region: "BANJARMASIN", re: 130, ps: 110, ps_reg: 84.62 },
-            { date: "04/01/2025", region: "BALIKPAPAN", re: 180, ps: 155, ps_reg: 86.11 },
-            { date: "05/01/2025", region: "BALIKPAPAN", re: 160, ps: 140, ps_reg: 87.50 },
-            { date: "06/01/2025", region: "PALANGKARAYA", re: 140, ps: 125, ps_reg: 89.29 },
-            { date: "07/01/2025", region: "PALANGKARAYA", re: 135, ps: 120, ps_reg: 88.89 },
-            { date: "08/01/2025", region: "PANGKALAN BUN", re: 170, ps: 150, ps_reg: 88.24 },
-            { date: "09/01/2025", region: "PANGKALAN BUN", re: 155, ps: 140, ps_reg: 90.32 },
-            { date: "10/01/2025", region: "PONTIANAK", re: 165, ps: 150, ps_reg: 90.91 },
-            { date: "11/01/2025", region: "PONTIANAK", re: 145, ps: 135, ps_reg: 93.10 },
-            { date: "12/01/2025", region: "SAMARINDA", re: 190, ps: 175, ps_reg: 92.11 },
-            { date: "13/01/2025", region: "SAMARINDA", re: 175, ps: 160, ps_reg: 91.43 },
-            { date: "14/01/2025", region: "TARAKAN", re: 160, ps: 150, ps_reg: 93.75 },
-            { date: "15/01/2025", region: "TARAKAN", re: 140, ps: 130, ps_reg: 92.86 },
-            { date: "01/02/2025", region: "BANJARMASIN", re: 155, ps: 135, ps_reg: 87.10 },
-            { date: "02/02/2025", region: "BANJARMASIN", re: 148, ps: 130, ps_reg: 87.84 },
-            { date: "03/02/2025", region: "BALIKPAPAN", re: 185, ps: 165, ps_reg: 89.19 },
-            { date: "04/02/2025", region: "BALIKPAPAN", re: 165, ps: 150, ps_reg: 90.91 },
-            { date: "05/02/2025", region: "PALANGKARAYA", re: 150, ps: 135, ps_reg: 90.00 },
-            { date: "06/02/2025", region: "PALANGKARAYA", re: 140, ps: 128, ps_reg: 91.43 },
-            { date: "07/02/2025", region: "PANGKALAN BUN", re: 175, ps: 160, ps_reg: 91.43 },
-            { date: "08/02/2025", region: "PANGKALAN BUN", re: 160, ps: 150, ps_reg: 93.75 },
-            { date: "09/02/2025", region: "PONTIANAK", re: 170, ps: 160, ps_reg: 94.12 },
-            { date: "10/02/2025", region: "PONTIANAK", re: 150, ps: 140, ps_reg: 93.33 },
-            { date: "11/02/2025", region: "SAMARINDA", re: 195, ps: 185, ps_reg: 94.87 },
-            { date: "12/02/2025", region: "SAMARINDA", re: 180, ps: 170, ps_reg: 94.44 },
-            { date: "13/02/2025", region: "TARAKAN", re: 170, ps: 160, ps_reg: 94.12 },
-            { date: "14/02/2025", region: "TARAKAN", re: 150, ps: 140, ps_reg: 93.33 }
-        ];
-
-        // Initialize chart
-        let performanceChart;
-        const ctx = document.getElementById('performanceChart').getContext('2d');
-        
-        function initializeChart(filteredData) {
-            if (performanceChart) {
-                performanceChart.destroy();
-            }
-            
-            const dates = filteredData.map(item => item.date);
-            const reData = filteredData.map(item => item.re);
-            const psData = filteredData.map(item => item.ps);
-            const psRegData = filteredData.map(item => item.ps_reg);
-            
-            performanceChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: dates,
-                    datasets: [
-                        {
-                            label: 'RE',
-                            data: reData,
-                            backgroundColor: 'rgba(79, 70, 229, 0.7)',
-                            borderColor: 'rgba(79, 70, 229, 1)',
-                            borderWidth: 1,
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: 'PS',
-                            data: psData,
-                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
-                            borderColor: 'rgba(59, 130, 246, 1)',
-                            borderWidth: 1,
-                            yAxisID: 'y'
-                        },
-                        {
-                            label: 'PS/REG (%)',
-                            data: psRegData,
-                            backgroundColor: 'rgba(124, 58, 237, 0.7)',
-                            borderColor: 'rgba(124, 58, 237, 1)',
-                            borderWidth: 1,
-                            type: 'line',
-                            yAxisID: 'y1'
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
-                            title: {
-                                display: true,
-                                text: 'Count'
-                            }
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            min: 0,
-                            max: 100,
-                            grid: {
-                                drawOnChartArea: false
-                            },
-                            title: {
-                                display: true,
-                                text: 'Percentage (%)'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.dataset.label === 'PS/REG (%)') {
-                                        label += context.raw.toFixed(2) + '%';
-                                    } else {
-                                        label += context.raw;
-                                    }
-                                    return label;
-                                }
-                            }
-                        },
-                        legend: {
-                            position: 'top',
-                        }
-                    }
-                }
-            });
-        }
-
-        // Update table with filtered data
-        function updateTable(filteredData) {
-            const tableBody = document.getElementById('data-table');
-            tableBody.innerHTML = '';
-            
-            filteredData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.date}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.region}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.re}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.ps}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.ps_reg.toFixed(2)}%</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Update summary cards
-        function updateSummaryCards(filteredData) {
-            if (filteredData.length === 0) {
-                document.getElementById('total-re').textContent = '0';
-                document.getElementById('total-ps').textContent = '0';
-                document.getElementById('total-ratio').textContent = '0%';
-                return;
-            }
-            
-            // Calculate current period totals
-            const currentRe = filteredData.reduce((sum, item) => sum + item.re, 0);
-            const currentPs = filteredData.reduce((sum, item) => sum + item.ps, 0);
-            const currentRatio = currentRe > 0 ? (currentPs / currentRe) * 100 : 0;
-            
-            // Update current values
-            document.getElementById('total-re').textContent = currentRe;
-            document.getElementById('total-ps').textContent = currentPs;
-            document.getElementById('total-ratio').textContent = currentRatio.toFixed(2) + '%';
-        }
-
-        // Generate calendar view
-        function generateCalendar(filteredData) {
-            const calendarEl = document.getElementById('calendar');
-            calendarEl.innerHTML = '';
-            
-            // Group data by month
-            const months = {};
-            filteredData.forEach(item => {
-                const [day, month, year] = item.date.split('/');
-                const monthKey = `${month}/${year}`;
-                
-                if (!months[monthKey]) {
-                    months[monthKey] = [];
-                }
-                
-                months[monthKey].push({
-                    day: parseInt(day),
-                    month: parseInt(month),
-                    year: parseInt(year),
-                    data: item
-                });
-            });
-            
-            // Create calendar for each month
-            for (const monthKey in months) {
-                const [month, year] = monthKey.split('/');
-                const monthData = months[monthKey];
-                
-                const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                const monthName = monthNames[parseInt(month) - 1];
-                
-                const monthHeader = document.createElement('h3');
-                monthHeader.className = 'text-lg font-semibold text-gray-800 mb-2';
-                monthHeader.textContent = `${monthName} ${year}`;
-                calendarEl.appendChild(monthHeader);
-                
-                const table = document.createElement('table');
-                table.className = 'min-w-full border-collapse mb-8';
-                
-                // Create header row with day names
-                const thead = document.createElement('thead');
-                const headerRow = document.createElement('tr');
-                
-                const dayNames = ['Sun', 'Mon', 'Tue', "Wed", "Thu", "Fri", "Sat"];
-                dayNames.forEach(day => {
-                    const th = document.createElement('th');
-                    th.className = 'py-2 px-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center';
-                    th.textContent = day;
-                    headerRow.appendChild(th);
-                });
-                
-                thead.appendChild(headerRow);
-                table.appendChild(thead);
-                
-                // Create calendar body
-                const tbody = document.createElement('tbody');
-                
-                // Get first day of month and total days
-                const firstDay = new Date(year, month - 1, 1).getDay();
-                const daysInMonth = new Date(year, month, 0).getDate();
-                
-                let dayCount = 1;
-                for (let i = 0; i < 6; i++) {
-                    // Stop if we've processed all days
-                    if (dayCount > daysInMonth) break;
-                    
-                    const row = document.createElement('tr');
-                    
-                    // Create cells for each day of the week
-                    for (let j = 0; j < 7; j++) {
-                        const cell = document.createElement('td');
-                        cell.className = 'py-2 px-3 border border-gray-200 text-center';
-                        
-                        // Empty cells before first day of month
-                        if (i === 0 && j < firstDay) {
-                            cell.innerHTML = '&nbsp;';
-                        } 
-                        // Cells after last day of month
-                        else if (dayCount > daysInMonth) {
-                            cell.innerHTML = '&nbsp;';
-                        } 
-                        // Regular day cells
-                        else {
-                            const dayData = monthData.find(d => d.day === dayCount);
-                            
-                            const dayDiv = document.createElement('div');
-                            dayDiv.className = 'calendar-day p-1 rounded';
-                            
-                            const dayNumber = document.createElement('div');
-                            dayNumber.className = 'text-sm font-medium mb-1';
-                            dayNumber.textContent = dayCount;
-                            
-                            const reDiv = document.createElement('div');
-                            reDiv.className = 'text-xs text-indigo-600';
-                            reDiv.textContent = dayData ? `RE: ${dayData.data.re}` : 'RE: 0';
-                            
-                            const psDiv = document.createElement('div');
-                            psDiv.className = 'text-xs text-blue-600';
-                            psDiv.textContent = dayData ? `PS: ${dayData.data.ps}` : 'PS: 0';
-                            
-                            const ratioDiv = document.createElement('div');
-                            ratioDiv.className = 'text-xs text-purple-600';
-                            ratioDiv.textContent = dayData ? `PS/REG: ${dayData.data.ps_reg.toFixed(2)}%` : 'PS/REG: 0%';
-                            
-                            dayDiv.appendChild(dayNumber);
-                            dayDiv.appendChild(reDiv);
-                            dayDiv.appendChild(psDiv);
-                            dayDiv.appendChild(ratioDiv);
-                            
-                            // Highlight today's date (for demo, we'll highlight the 15th)
-                            if (dayCount === 15) {
-                                dayDiv.classList.add('highlight');
-                            }
-                            
-                            cell.appendChild(dayDiv);
-                            dayCount++;
-                        }
-                        
-                        row.appendChild(cell);
-                    }
-                    
-                    tbody.appendChild(row);
-                }
-                
-                table.appendChild(tbody);
-                calendarEl.appendChild(table);
-            }
-        }
-
-        // Filter data based on selections
-        function filterData() {
-            const region = document.getElementById('region').value;
-            const month = document.getElementById('month').value;
-            const year = document.getElementById('year').value;
-            
-            let filteredData = [...performanceData];
-            
-            // Filter by region
-            if (region !== 'all') {
-                filteredData = filteredData.filter(item => item.region === region);
-            }
-            
-            // Filter by month and year
-            if (month !== 'all') {
-                filteredData = filteredData.filter(item => {
-                    const [day, itemMonth, itemYear] = item.date.split('/');
-                    return itemMonth === month && itemYear === year;
-                });
-            } else {
-                // Filter by year only if month is 'all'
-                filteredData = filteredData.filter(item => {
-                    const [day, itemMonth, itemYear] = item.date.split('/');
-                    return itemYear === year;
-                });
-            }
-            
-            return filteredData;
-        }
-
-        // Update all components
-        function updateDashboard() {
-            const filteredData = filterData();
-            
-            initializeChart(filteredData);
-            updateTable(filteredData);
-            updateSummaryCards(filteredData);
-            generateCalendar(filteredData);
-        }
-
-        // Export data to CSV
-        document.getElementById('export-btn').addEventListener('click', function() {
-            const filteredData = filterData();
-            
-            if (filteredData.length === 0) {
-                alert('No data to export');
-                return;
-            }
-            
-            // Create CSV content
-            let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Date,Region,RE,PS,PS/REG\n";
-            
-            filteredData.forEach(item => {
-                csvContent += `${item.date},${item.region},${item.re},${item.ps},${item.ps_reg.toFixed(2)}%\n`;
-            });
-            
-            // Create download link
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "performance_data.csv");
-            document.body.appendChild(link);
-            
-            // Trigger download
-            link.click();
-            document.body.removeChild(link);
-        });
-
-        // Event listeners for filter changes
-        document.getElementById('region').addEventListener('change', updateDashboard);
-        document.getElementById('month').addEventListener('change', updateDashboard);
-        document.getElementById('year').addEventListener('change', updateDashboard);
-
-        // Initialize dashboard
-        updateDashboard();
-    </script>
 </body>
 </html>
