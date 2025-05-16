@@ -694,22 +694,17 @@
             // Group data by month
             const months = {};
             filteredData.forEach(item => {
-                const dateParts = item.date.split('/');
-                const day = parseInt(dateParts[0]);
-                let monthFromFile = dateParts[1]; // Can be "1" or "01"
-                const yearFromFile = parseInt(dateParts[2]);
-
-                monthFromFile = monthFromFile.padStart(2, '0'); // Normalize month to "01", "02", etc.
-                const monthKey = `${monthFromFile}/${yearFromFile}`; // Consistent key, e.g., "01/2025"
+                const [day, month, year] = item.date.split('/');
+                const monthKey = `${month}/${year}`;
                 
                 if (!months[monthKey]) {
                     months[monthKey] = [];
                 }
                 
                 months[monthKey].push({
-                    day: day,
-                    month: parseInt(monthFromFile), // Use normalized month for consistency
-                    year: yearFromFile,
+                    day: parseInt(day),
+                    month: parseInt(month),
+                    year: parseInt(year),
                     data: item
                 });
             });
@@ -836,19 +831,13 @@
             // Filter by month and year
             if (month !== 'all') {
                 filteredData = filteredData.filter(item => {
-                    const dateParts = item.date.split('/'); 
-                    let itemMonth = dateParts[1];
-                    const itemYear = dateParts[2];
-                    
-                    itemMonth = itemMonth.padStart(2, '0'); // Normalize month to two digits for comparison
-
+                    const [day, itemMonth, itemYear] = item.date.split('/');
                     return itemMonth === month && itemYear === year;
                 });
             } else {
                 // Filter by year only if month is 'all'
                 filteredData = filteredData.filter(item => {
-                    const dateParts = item.date.split('/');
-                    const itemYear = dateParts[2]; 
+                    const [day, itemMonth, itemYear] = item.date.split('/');
                     return itemYear === year;
                 });
             }
