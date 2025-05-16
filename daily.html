@@ -317,7 +317,20 @@
         const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
         document.getElementById('month').value = currentMonth;
 
-        // Sample JSON data for 2025
+        // --- Data --- 
+        /**
+         * @typedef {Object} PerformanceRecord
+         * @property {string} date - The date of the record (DD/MM/YYYY).
+         * @property {string} region - The region name.
+         * @property {number} re - The RE value.
+         * @property {number} ps - The PS value.
+         * @property {number} ps_reg - The PS/REG ratio (percentage).
+         */
+
+        /**
+         * Sample performance data for the year 2025.
+         * @type {PerformanceRecord[]}
+         */
         const performanceData = [
         { date: "01/01/2025", region: "BALIKPAPAN", re: 108, ps: 31, ps_reg: 28.70 },
         { date: "02/01/2025", region: "BALIKPAPAN", re: 205, ps: 66, ps_reg: 32.20 },
@@ -542,15 +555,53 @@
         let performanceChart;
         const ctx = document.getElementById('performanceChart').getContext('2d');
         
-        function initializeChart(filteredData) {
+        /**
+         * Initializes or updates the performance trend chart.
+         * @param {PerformanceRecord[]} dataToDisplay - The data to display on the chart. This data should be pre-filtered
+         * according to user selections for month and year, and potentially for a specific region.
+         * If 'All Regions' is selected, this function will aggregate the data by date before rendering.
+         */
+        function initializeChart(dataToDisplay) {
             if (performanceChart) {
                 performanceChart.destroy();
             }
+
+            const selectedRegionFilter = document.getElementById('region').value;
+            let chartPlotData = dataToDisplay;
+
+            // If 'All Regions' is selected, aggregate data by date for the chart view.
+            if (selectedRegionFilter === 'all' && dataToDisplay.length > 0) {
+                const dailyAggregated = {};
+                dataToDisplay.forEach(item => {
+                    const dateKey = item.date;
+                    if (!dailyAggregated[dateKey]) {
+                        dailyAggregated[dateKey] = { date: item.date, re: 0, ps: 0, region: "All Regions" };
+                    }
+                    dailyAggregated[dateKey].re += item.re;
+                    dailyAggregated[dateKey].ps += item.ps;
+                });
+
+                chartPlotData = Object.values(dailyAggregated).map(aggItem => {
+                    aggItem.ps_reg = aggItem.re > 0 ? (aggItem.ps / aggItem.re) * 100 : 0;
+                    return aggItem;
+                });
+            }
+
+            // Sort data by date for chronological chart display, regardless of aggregation.
+            chartPlotData.sort((a, b) => {
+                const dateAParts = a.date.split('/'); // DD/MM/YYYY
+                const dateBParts = b.date.split('/');
+                // Create date objects: new Date(year, monthIndex, day)
+                const dateA = new Date(dateAParts[2], dateAParts[1] - 1, dateAParts[0]);
+                const dateB = new Date(dateBParts[2], dateBParts[1] - 1, dateBParts[0]);
+                return dateA - dateB;
+            });
             
-            const dates = filteredData.map(item => item.date);
-            const reData = filteredData.map(item => item.re);
-            const psData = filteredData.map(item => item.ps);
-            const psRegData = filteredData.map(item => item.ps_reg);
+            const dates = chartPlotData.map(item => item.date);
+            const reData = chartPlotData.map(item => item.re);
+            const psData = chartPlotData.map(item => item.ps);
+            const psRegData = chartPlotData.map(item => item.ps_reg);
+
             performanceChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -641,12 +692,15 @@
             });
         }
 
-        // Update table with filtered data
-        function updateTable(filteredData) {
+        /**
+         * Updates the data table with the provided performance records.
+         * @param {PerformanceRecord[]} dataToDisplay - An array of performance records to display in the table.
+         */
+        function updateTable(dataToDisplay) {
             const tableBody = document.getElementById('data-table');
-            tableBody.innerHTML = '';
+            tableBody.innerHTML = ''; // Clear existing rows
             
-            filteredData.forEach(item => {
+            dataToDisplay.forEach(item => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${item.date}</td>
@@ -659,9 +713,12 @@
             });
         }
 
-        // Update summary cards
-        function updateSummaryCards(filteredData) {
-            if (filteredData.length === 0) {
+        /**
+         * Updates the summary cards (Total RE, Total PS, PS/REG Ratio) based on the filtered data.
+         * @param {PerformanceRecord[]} dataToDisplay - An array of performance records used to calculate summaries.
+         */
+        function updateSummaryCards(dataToDisplay) {
+            if (dataToDisplay.length === 0) {
                 document.getElementById('total-re').textContent = '0';
                 document.getElementById('total-ps').textContent = '0';
                 document.getElementById('total-ratio').textContent = '0%';
@@ -669,8 +726,8 @@
             }
             
             // Calculate current period totals
-            const currentRe = filteredData.reduce((sum, item) => sum + item.re, 0);
-            const currentPs = filteredData.reduce((sum, item) => sum + item.ps, 0);
+            const currentRe = dataToDisplay.reduce((sum, item) => sum + item.re, 0);
+            const currentPs = dataToDisplay.reduce((sum, item) => sum + item.ps, 0);
             const currentRatio = currentRe > 0 ? (currentPs / currentRe) * 100 : 0;
             
             // Update current values
@@ -679,46 +736,50 @@
             document.getElementById('total-ratio').textContent = currentRatio.toFixed(2) + '%';
         }
 
-        // Generate calendar view
-        function generateCalendar(filteredData) {
+        /**
+         * Generates and displays the calendar view based on filtered data.
+         * If "All Regions" is selected, it aggregates daily data across all regions.
+         * @param {PerformanceRecord[]} dataToDisplay - An array of performance records, pre-filtered by year and month/region.
+         */
+        function generateCalendar(dataToDisplay) {
             const calendarEl = document.getElementById('calendar');
-            calendarEl.innerHTML = '';
+            calendarEl.innerHTML = ''; // Clear previous calendar
 
-            const selectedRegion = document.getElementById('region').value;
-            let dataForCalendar = filteredData;
+            const selectedRegionFilter = document.getElementById('region').value;
+            let calendarSpecificData = dataToDisplay;
 
-            if (selectedRegion === 'all' && filteredData.length > 0) {
-                const dailyAggregatedData = {};
-                filteredData.forEach(item => {
+            // If 'All Regions' is selected, aggregate data by date for the calendar view.
+            if (selectedRegionFilter === 'all' && dataToDisplay.length > 0) {
+                const dailyAggregated = {};
+                dataToDisplay.forEach(item => {
                     const dateKey = item.date;
-                    if (!dailyAggregatedData[dateKey]) {
-                        dailyAggregatedData[dateKey] = {
+                    if (!dailyAggregated[dateKey]) {
+                        dailyAggregated[dateKey] = {
                             date: item.date,
                             re: 0,
                             ps: 0,
-                            // ps_reg will be recalculated
-                            region: "All Regions" // Or some other indicator
+                            region: "All Regions"
                         };
                     }
-                    dailyAggregatedData[dateKey].re += item.re;
-                    dailyAggregatedData[dateKey].ps += item.ps;
+                    dailyAggregated[dateKey].re += item.re;
+                    dailyAggregated[dateKey].ps += item.ps;
                 });
 
-                dataForCalendar = Object.values(dailyAggregatedData).map(aggItem => {
+                calendarSpecificData = Object.values(dailyAggregated).map(aggItem => {
                     aggItem.ps_reg = aggItem.re > 0 ? (aggItem.ps / aggItem.re) * 100 : 0;
                     return aggItem;
                 });
             }
             
-            // Find the highest ps_reg in the dataForCalendar
+            // Find the highest ps_reg in the calendarSpecificData for highlighting
             let maxPsReg = -1;
-            if (dataForCalendar.length > 0) {
-                maxPsReg = dataForCalendar.reduce((max, item) => Math.max(max, parseFloat(item.ps_reg)), -Infinity);
+            if (calendarSpecificData.length > 0) {
+                maxPsReg = calendarSpecificData.reduce((max, item) => Math.max(max, parseFloat(item.ps_reg)), -Infinity);
             }
             
-            // Group data by month using dataForCalendar
+            // Group data by month using calendarSpecificData
             const months = {};
-            dataForCalendar.forEach(item => {
+            calendarSpecificData.forEach(item => {
                 const dateParts = item.date.split('/');
                 const day = parseInt(dateParts[0]);
                 let monthFromFile = dateParts[1]; 
@@ -845,21 +906,25 @@
             }
         }
 
-        // Filter data based on selections
+        /**
+         * Filters the global `performanceData` based on current selections in region, month, and year dropdowns.
+         * Normalizes month values from data to ensure consistent filtering (e.g., '1' becomes '01').
+         * @returns {PerformanceRecord[]} An array of performance records that match the filter criteria.
+         */
         function filterData() {
-            const region = document.getElementById('region').value;
-            const month = document.getElementById('month').value;
-            const year = document.getElementById('year').value;
+            const selectedRegion = document.getElementById('region').value;
+            const selectedMonth = document.getElementById('month').value;
+            const selectedYear = document.getElementById('year').value;
             
             let filteredData = [...performanceData];
             
             // Filter by region
-            if (region !== 'all') {
-                filteredData = filteredData.filter(item => item.region === region);
+            if (selectedRegion !== 'all') {
+                filteredData = filteredData.filter(item => item.region === selectedRegion);
             }
             
             // Filter by month and year
-            if (month !== 'all') {
+            if (selectedMonth !== 'all') {
                 filteredData = filteredData.filter(item => {
                     const dateParts = item.date.split('/'); // [day, month, year]
                     // const itemDay = dateParts[0]; // Not directly used in filter logic
@@ -868,35 +933,42 @@
                     
                     itemMonth = itemMonth.padStart(2, '0'); // Normalize month to two digits
 
-                    return itemMonth === month && itemYear === year;
+                    return itemMonth === selectedMonth && itemYear === selectedYear;
                 });
             } else {
                 // Filter by year only if month is 'all'
                 filteredData = filteredData.filter(item => {
                     const dateParts = item.date.split('/');
                     const itemYear = dateParts[2]; // itemYear is at index 2
-                    return itemYear === year;
+                    return itemYear === selectedYear;
                 });
             }
             
             return filteredData;
         }
 
-        // Update all components
+        /**
+         * Main function to update all dashboard components (chart, table, summary cards, calendar).
+         * It calls `filterData` to get the relevant data and then updates each component.
+         */
         function updateDashboard() {
             const filteredData = filterData();
             
-            initializeChart(filteredData);
-            updateTable(filteredData);
-            updateSummaryCards(filteredData);
-            generateCalendar(filteredData);
+            initializeChart(filteredData); // Pass the main filtered data
+            updateTable(filteredData);     // Table shows records as they are (can be multiple per day for 'All Regions')
+            updateSummaryCards(filteredData); // Summary cards calculate totals from all filtered records
+            generateCalendar(filteredData); // Calendar handles its own aggregation if 'All Regions'
         }
 
-        // Export data to CSV
+        /**
+         * Handles the export of currently filtered data to a CSV file.
+         * If "All Regions" is selected, the exported data reflects individual regional entries,
+         * not the aggregated daily sums shown in the calendar/chart for "All Regions".
+         */
         document.getElementById('export-btn').addEventListener('click', function() {
-            const filteredData = filterData();
+            const dataToExport = filterData(); // Uses the same filtered data as the table
             
-            if (filteredData.length === 0) {
+            if (dataToExport.length === 0) {
                 alert('No data to export');
                 return;
             }
@@ -905,7 +977,7 @@
             let csvContent = "data:text/csv;charset=utf-8,";
             csvContent += "Date,Region,RE,PS,PS/REG\n";
             
-            filteredData.forEach(item => {
+            dataToExport.forEach(item => {
                 csvContent += `${item.date},${item.region},${item.re},${item.ps},${item.ps_reg.toFixed(2)}%\n`;
             });
             
@@ -926,7 +998,11 @@
         document.getElementById('month').addEventListener('change', updateDashboard);
         document.getElementById('year').addEventListener('change', updateDashboard);
 
-        // Initialize dashboard
+        // --- Initial Dashboard Load ---
+        /**
+         * Sets the default month filter to the current month and then updates the dashboard 
+         * to display initial data when the page loads.
+         */
         updateDashboard();
     </script>
 </body>
