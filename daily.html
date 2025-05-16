@@ -708,7 +708,7 @@
                 
                 months[monthKey].push({
                     day: day,
-                    month: parseInt(monthFromFile),
+                    month: parseInt(monthFromFile), // Use normalized month for consistency
                     year: yearFromFile,
                     data: item
                 });
@@ -836,12 +836,11 @@
             // Filter by month and year
             if (month !== 'all') {
                 filteredData = filteredData.filter(item => {
-                    const dateParts = item.date.split('/'); // [day, month, year]
-                    // const itemDay = dateParts[0]; // Not directly used in filter logic
+                    const dateParts = item.date.split('/'); 
                     let itemMonth = dateParts[1];
                     const itemYear = dateParts[2];
                     
-                    itemMonth = itemMonth.padStart(2, '0'); // Normalize month to two digits
+                    itemMonth = itemMonth.padStart(2, '0'); // Normalize month to two digits for comparison
 
                     return itemMonth === month && itemYear === year;
                 });
@@ -849,7 +848,7 @@
                 // Filter by year only if month is 'all'
                 filteredData = filteredData.filter(item => {
                     const dateParts = item.date.split('/');
-                    const itemYear = dateParts[2]; // itemYear is at index 2
+                    const itemYear = dateParts[2]; 
                     return itemYear === year;
                 });
             }
