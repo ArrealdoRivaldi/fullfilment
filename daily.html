@@ -683,29 +683,59 @@
         function generateCalendar(filteredData) {
             const calendarEl = document.getElementById('calendar');
             calendarEl.innerHTML = '';
-            
-            // Find the highest ps_reg in the filteredData
-            let maxPsReg = -1;
-            if (filteredData.length > 0) {
-                // Ensure ps_reg is treated as a number for comparison
-                maxPsReg = filteredData.reduce((max, item) => Math.max(max, parseFloat(item.ps_reg)), -Infinity);
+
+            const selectedRegion = document.getElementById('region').value;
+            let dataForCalendar = filteredData;
+
+            if (selectedRegion === 'all' && filteredData.length > 0) {
+                const dailyAggregatedData = {};
+                filteredData.forEach(item => {
+                    const dateKey = item.date;
+                    if (!dailyAggregatedData[dateKey]) {
+                        dailyAggregatedData[dateKey] = {
+                            date: item.date,
+                            re: 0,
+                            ps: 0,
+                            // ps_reg will be recalculated
+                            region: "All Regions" // Or some other indicator
+                        };
+                    }
+                    dailyAggregatedData[dateKey].re += item.re;
+                    dailyAggregatedData[dateKey].ps += item.ps;
+                });
+
+                dataForCalendar = Object.values(dailyAggregatedData).map(aggItem => {
+                    aggItem.ps_reg = aggItem.re > 0 ? (aggItem.ps / aggItem.re) * 100 : 0;
+                    return aggItem;
+                });
             }
             
-            // Group data by month
+            // Find the highest ps_reg in the dataForCalendar
+            let maxPsReg = -1;
+            if (dataForCalendar.length > 0) {
+                maxPsReg = dataForCalendar.reduce((max, item) => Math.max(max, parseFloat(item.ps_reg)), -Infinity);
+            }
+            
+            // Group data by month using dataForCalendar
             const months = {};
-            filteredData.forEach(item => {
-                const [day, month, year] = item.date.split('/');
-                const monthKey = `${month}/${year}`;
+            dataForCalendar.forEach(item => {
+                const dateParts = item.date.split('/');
+                const day = parseInt(dateParts[0]);
+                let monthFromFile = dateParts[1]; 
+                const yearFromFile = parseInt(dateParts[2]);
+
+                monthFromFile = monthFromFile.padStart(2, '0'); 
+                const monthKey = `${monthFromFile}/${yearFromFile}`;
                 
                 if (!months[monthKey]) {
                     months[monthKey] = [];
                 }
                 
                 months[monthKey].push({
-                    day: parseInt(day),
-                    month: parseInt(month),
-                    year: parseInt(year),
-                    data: item
+                    day: day,
+                    month: parseInt(monthFromFile),
+                    year: yearFromFile,
+                    data: item // item here is either from original filteredData or aggregated daily data
                 });
             });
             
@@ -831,13 +861,20 @@
             // Filter by month and year
             if (month !== 'all') {
                 filteredData = filteredData.filter(item => {
-                    const [day, itemMonth, itemYear] = item.date.split('/');
+                    const dateParts = item.date.split('/'); // [day, month, year]
+                    // const itemDay = dateParts[0]; // Not directly used in filter logic
+                    let itemMonth = dateParts[1];
+                    const itemYear = dateParts[2];
+                    
+                    itemMonth = itemMonth.padStart(2, '0'); // Normalize month to two digits
+
                     return itemMonth === month && itemYear === year;
                 });
             } else {
                 // Filter by year only if month is 'all'
                 filteredData = filteredData.filter(item => {
-                    const [day, itemMonth, itemYear] = item.date.split('/');
+                    const dateParts = item.date.split('/');
+                    const itemYear = dateParts[2]; // itemYear is at index 2
                     return itemYear === year;
                 });
             }
