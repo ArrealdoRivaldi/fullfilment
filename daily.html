@@ -684,13 +684,6 @@
             const calendarEl = document.getElementById('calendar');
             calendarEl.innerHTML = '';
             
-            // Find the highest ps_reg in the filteredData
-            let maxPsReg = -1;
-            if (filteredData.length > 0) {
-                // Ensure ps_reg is treated as a number for comparison
-                maxPsReg = filteredData.reduce((max, item) => Math.max(max, parseFloat(item.ps_reg)), -Infinity);
-            }
-            
             // Group data by month
             const months = {};
             filteredData.forEach(item => {
@@ -795,8 +788,8 @@
                             dayDiv.appendChild(psDiv);
                             dayDiv.appendChild(ratioDiv);
                             
-                            // Highlight if this day has the maxPsReg
-                            if (dayData && parseFloat(dayData.data.ps_reg) === maxPsReg && maxPsReg !== -Infinity) {
+                            // Highlight today's date (for demo, we'll highlight the 15th)
+                            if (dayCount === 15) {
                                 dayDiv.classList.add('highlight');
                             }
                             
