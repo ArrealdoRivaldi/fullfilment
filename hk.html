@@ -309,7 +309,7 @@
                             const tbody = document.getElementById('dataTableBody');
                             tbody.innerHTML = '';
 
-                            // Get unique Status HK values for dropdown
+                            // Ambil unique Status HK dari data asli (bukan data filter)
                             const uniqueStatusHK = getUniqueStatusHK(data);
 
                             data.forEach((item, index) => {
@@ -409,6 +409,7 @@
                         // Initialize
                         document.addEventListener('DOMContentLoaded', async () => {
                             const data = await fetchData();
+                            originalDataHK = data; // simpan data asli
                             initializeFilters(data);
                             renderTable(data);
 
