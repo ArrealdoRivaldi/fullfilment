@@ -216,9 +216,9 @@
 
                         // Get Status PS based on Status HK
                         function getStatusPS(statusHK) {
-                            if (statusHK === 'Cancel ') return 'Cancel';
+                            if (statusHK === 'Cancel') return 'Cancel';
                             if (statusHK === 'PS') return 'PS';
-                            if (['PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout ', 'Offering Orbit', 'Stay Fallout'].includes(statusHK)) {
+                            if (['PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'].includes(statusHK)) {
                                 return 'STAY FALL OUT';
                             }
                             return '';
@@ -245,11 +245,13 @@
                                 filters.branch.add(item.branch);
                                 filters.wok.add(item.wok);
                                 filters.sto.add(item.sto_co);
-                                filters.statusHK.add(item["Status HK"]);
+                                if (item["Status HK"]) {
+                                    filters.statusHK.add(item["Status HK"].trim());
+                                }
                             });
 
                             // Populate filter dropdowns
-                            ['branch', 'wok', 'sto', 'statusHK'].forEach(filter => {
+                            ['branch', 'wok', 'sto'].forEach(filter => {
                                 const select = document.getElementById(`${filter}Filter`);
                                 [...filters[filter]].sort().forEach(value => {
                                     if (value) {
@@ -259,6 +261,16 @@
                                         select.appendChild(option);
                                     }
                                 });
+                            });
+
+                            // Special handling for Status HK to include all possible values
+                            const statusHKSelect = document.getElementById('statusHKFilter');
+                            const allStatusHK = ['Cancel', 'PS', 'PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'];
+                            allStatusHK.forEach(status => {
+                                const option = document.createElement('option');
+                                option.value = status;
+                                option.textContent = status;
+                                statusHKSelect.appendChild(option);
                             });
                         }
 
@@ -309,9 +321,14 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <select class="status-hk-select border rounded px-2 py-1">
                                             <option value="">Select Status</option>
-                                            <option value="Cancel " ${item["Status HK"] === "Cancel " ? 'selected' : ''}>Cancel</option>
-                                            <option value="Stay Fallout " ${item["Status HK"] === "Stay Fallout " ? 'selected' : ''}>Stay Fallout</option>
+                                            <option value="Cancel" ${item["Status HK"] === "Cancel" ? 'selected' : ''}>Cancel</option>
+                                            <option value="PS" ${item["Status HK"] === "PS" ? 'selected' : ''}>PS</option>
+                                            <option value="PT2" ${item["Status HK"] === "PT2" ? 'selected' : ''}>PT2</option>
+                                            <option value="PT3" ${item["Status HK"] === "PT3" ? 'selected' : ''}>PT3</option>
+                                            <option value="Reorder" ${item["Status HK"] === "Reorder" ? 'selected' : ''}>Reorder</option>
+                                            <option value="Revoke" ${item["Status HK"] === "Revoke" ? 'selected' : ''}>Revoke</option>
                                             <option value="Stay Fallout" ${item["Status HK"] === "Stay Fallout" ? 'selected' : ''}>Stay Fallout</option>
+                                            <option value="Offering Orbit" ${item["Status HK"] === "Offering Orbit" ? 'selected' : ''}>Offering Orbit</option>
                                         </select>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
