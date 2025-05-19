@@ -216,9 +216,9 @@
 
                         // Get Status PS based on Symptom
                         function getStatusPS(symptom) {
-                            if (symptom === 'Cancel') return 'Cancel';
+                            if (symptom === 'Cancel ') return 'Cancel';
                             if (symptom === 'PS') return 'PS';
-                            if (['PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'].includes(symptom)) {
+                            if (['PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout ', 'Offering Orbit'].includes(symptom)) {
                                 return 'STAY FALL OUT';
                             }
                             return '';
