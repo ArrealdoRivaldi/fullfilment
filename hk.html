@@ -295,13 +295,29 @@
                             });
                         }
 
+                        // Helper to get unique Status HK values from data
+                        function getUniqueStatusHK(data) {
+                            const set = new Set();
+                            data.forEach(item => {
+                                if (item["Status HK"]) set.add(item["Status HK"]);
+                            });
+                            return Array.from(set);
+                        }
+
                         // Render table
                         function renderTable(data) {
                             const tbody = document.getElementById('dataTableBody');
                             tbody.innerHTML = '';
 
+                            // Get unique Status HK values for dropdown
+                            const uniqueStatusHK = getUniqueStatusHK(data);
+
                             data.forEach((item, index) => {
                                 const row = document.createElement('tr');
+                                // Build Status HK options
+                                let statusHKOptions = uniqueStatusHK.map(status =>
+                                    `<option value="${status}"${item["Status HK"] === status ? ' selected' : ''}>${status}</option>`
+                                ).join('');
                                 row.innerHTML = `
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${index + 1}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.order_id}</td>
@@ -321,15 +337,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <select class="status-hk-select border rounded px-2 py-1">
-                                            <option value="">Select Status</option>
-                                            <option value="Cancel" ${item["Status HK"] === "Cancel" ? 'selected' : ''}>Cancel</option>
-                                            <option value="PS" ${item["Status HK"] === "PS" ? 'selected' : ''}>PS</option>
-                                            <option value="PT2" ${item["Status HK"] === "PT2" ? 'selected' : ''}>PT2</option>
-                                            <option value="PT3" ${item["Status HK"] === "PT3" ? 'selected' : ''}>PT3</option>
-                                            <option value="Reorder" ${item["Status HK"] === "Reorder" ? 'selected' : ''}>Reorder</option>
-                                            <option value="Revoke" ${item["Status HK"] === "Revoke" ? 'selected' : ''}>Revoke</option>
-                                            <option value="Stay Fallout" ${item["Status HK"] === "Stay Fallout" ? 'selected' : ''}>Stay Fallout</option>
-                                            <option value="Offering Orbit" ${item["Status HK"] === "Offering Orbit" ? 'selected' : ''}>Offering Orbit</option>
+                                            ${statusHKOptions}
                                         </select>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
