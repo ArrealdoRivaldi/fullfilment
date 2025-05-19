@@ -214,11 +214,11 @@
                             return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
                         }
 
-                        // Get Status PS based on Symptom
-                        function getStatusPS(symptom) {
-                            if (symptom === 'Cancel ') return 'Cancel';
-                            if (symptom === 'PS') return 'PS';
-                            if (['PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout ', 'Offering Orbit'].includes(symptom)) {
+                        // Get Status PS based on Status HK
+                        function getStatusPS(statusHK) {
+                            if (statusHK === 'Cancel ') return 'Cancel';
+                            if (statusHK === 'PS') return 'PS';
+                            if (['PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout ', 'Offering Orbit', 'Stay Fallout'].includes(statusHK)) {
                                 return 'STAY FALL OUT';
                             }
                             return '';
@@ -282,7 +282,7 @@
                             });
                         }
 
-                        // Modified renderTable function to include row numbers
+                        // Render table
                         function renderTable(data) {
                             const tbody = document.getElementById('dataTableBody');
                             tbody.innerHTML = '';
@@ -308,7 +308,9 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <select class="status-hk-select border rounded px-2 py-1">
-                                            <option value="Cancel" ${item["Status HK"] === "Cancel" ? 'selected' : ''}>Cancel</option>
+                                            <option value="">Select Status</option>
+                                            <option value="Cancel " ${item["Status HK"] === "Cancel " ? 'selected' : ''}>Cancel</option>
+                                            <option value="Stay Fallout " ${item["Status HK"] === "Stay Fallout " ? 'selected' : ''}>Stay Fallout</option>
                                             <option value="Stay Fallout" ${item["Status HK"] === "Stay Fallout" ? 'selected' : ''}>Stay Fallout</option>
                                         </select>
                                     </td>
@@ -317,7 +319,7 @@
                                                value="${item["New Order ID"] || ''}" 
                                                placeholder="Enter New Order ID">
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${getStatusPS(item.symptom)}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${getStatusPS(item["Status HK"])}</td>
                                 `;
                                 tbody.appendChild(row);
                             });
@@ -329,6 +331,15 @@
                                     const details = document.getElementById('falloutDetails');
                                     details.textContent = btn.dataset.fallout;
                                     modal.classList.remove('hidden');
+                                });
+                            });
+
+                            // Add event listeners for Status HK changes
+                            document.querySelectorAll('.status-hk-select').forEach((select, index) => {
+                                select.addEventListener('change', (e) => {
+                                    const row = e.target.closest('tr');
+                                    const statusPSCell = row.querySelector('td:last-child');
+                                    statusPSCell.textContent = getStatusPS(e.target.value);
                                 });
                             });
                         }
