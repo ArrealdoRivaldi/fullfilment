@@ -276,7 +276,20 @@
                             });
                         }
 
-                        // Render table
+                        // Helper to send update to backend
+                        async function updateData(order_id, status_hk, new_order_id) {
+                            try {
+                                await fetch('http://localhost:3000/update', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ order_id, status_hk, new_order_id })
+                                });
+                            } catch (e) {
+                                alert('Failed to update data!');
+                            }
+                        }
+
+                        // Modify renderTable to add event listeners for update
                         function renderTable(data) {
                             const tbody = document.getElementById('dataTableBody');
                             tbody.innerHTML = '';
@@ -313,6 +326,16 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${getStatusPS(item.symptom)}</td>
                                 `;
                                 tbody.appendChild(row);
+
+                                // Add event listeners for update
+                                const statusSelect = row.querySelector('.status-hk-select');
+                                const newOrderInput = row.querySelector('.new-order-id');
+                                statusSelect.addEventListener('change', () => {
+                                    updateData(item.order_id, statusSelect.value, newOrderInput.value);
+                                });
+                                newOrderInput.addEventListener('blur', () => {
+                                    updateData(item.order_id, statusSelect.value, newOrderInput.value);
+                                });
                             });
 
                             // Add event listeners for details buttons
