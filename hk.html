@@ -289,18 +289,6 @@
                             return dateStr; // fallback
                         }
 
-                        // Get Status PS based on Status HK
-                        function getStatusPS(statusHK) {
-                            if (statusHK === 'Cancel') return 'Cancel';
-                            if (statusHK === 'PS') return 'PS';
-                            if ([
-                                'PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'
-                            ].includes(statusHK)) {
-                                return 'STAY FALL OUT';
-                            }
-                            return '';
-                        }
-
                         // Truncate text
                         function truncateText(text, maxLength = 50) {
                             if (text && text.length > maxLength) {
@@ -309,24 +297,21 @@
                             return text || '';
                         }
 
-                        // Initialize filters
+                        // Update initializeFilters to only set 'done' and 'not yet' for statusHK
                         function initializeFilters(data) {
                             const filters = {
                                 branch: new Set(),
                                 wok: new Set(),
                                 sto: new Set(),
-                                statusHK: new Set()
                             };
                             data.forEach(item => {
                                 filters.branch.add(item.branch);
                                 filters.wok.add(item.wok);
                                 filters.sto.add(item.sto_co);
-                                if (item.status_hk) {
-                                    filters.statusHK.add(item.status_hk.trim());
-                                }
                             });
                             ['branch', 'wok', 'sto'].forEach(filter => {
                                 const select = document.getElementById(`${filter}Filter`);
+                                select.innerHTML = '<option value="">All</option>';
                                 [...filters[filter]].sort().forEach(value => {
                                     if (value) {
                                         const option = document.createElement('option');
@@ -336,17 +321,24 @@
                                     }
                                 });
                             });
+                            // Status HK filter: only 'done' and 'not yet'
                             const statusHKSelect = document.getElementById('statusHKFilter');
-                            const allStatusHK = ['Cancel', 'PS', 'PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'];
-                            allStatusHK.forEach(status => {
-                                const option = document.createElement('option');
-                                option.value = status;
-                                option.textContent = status;
-                                statusHKSelect.appendChild(option);
-                            });
+                            statusHKSelect.innerHTML = '';
+                            const optAll = document.createElement('option');
+                            optAll.value = '';
+                            optAll.textContent = 'All';
+                            statusHKSelect.appendChild(optAll);
+                            const optDone = document.createElement('option');
+                            optDone.value = 'done';
+                            optDone.textContent = 'Done';
+                            statusHKSelect.appendChild(optDone);
+                            const optNotYet = document.createElement('option');
+                            optNotYet.value = 'notyet';
+                            optNotYet.textContent = 'Not Yet';
+                            statusHKSelect.appendChild(optNotYet);
                         }
 
-                        // Apply filters
+                        // Update filterData to use new statusHK logic
                         function filterData(data) {
                             const branch = document.getElementById('branchFilter').value;
                             const wok = document.getElementById('wokFilter').value;
@@ -355,30 +347,34 @@
                             const endDate = document.getElementById('endDate').value;
                             const statusHK = document.getElementById('statusHKFilter').value;
                             return data.filter(item => {
-                                // provi_ts bisa string (YYYY-MM-DD) atau object Timestamp
                                 let itemDate;
                                 if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
                                     itemDate = new Date(item.provi_ts.seconds * 1000);
                                 } else if (typeof item.provi_ts === 'string') {
-                                    // Jika format sudah YYYY-MM-DD
                                     itemDate = new Date(item.provi_ts);
                                 } else {
                                     itemDate = new Date(item.provi_ts);
                                 }
                                 let start = startDate ? new Date(startDate) : null;
                                 let end = endDate ? new Date(endDate) : null;
-                                // Set end date ke jam 23:59:59 agar filter benar
                                 if (end) end.setHours(23,59,59,999);
+                                // Status HK filter logic
+                                let statusHKMatch = true;
+                                if (statusHK === 'done') {
+                                    statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
+                                } else if (statusHK === 'notyet') {
+                                    statusHKMatch = !(item.status_hk && item.status_hk.trim() !== '');
+                                }
                                 return (!branch || item.branch === branch) &&
                                     (!wok || item.wok === wok) &&
                                     (!sto || item.sto_co === sto) &&
-                                    (!statusHK || item.status_hk === statusHK) &&
+                                    statusHKMatch &&
                                     (!start || itemDate >= start) &&
                                     (!end || itemDate <= end);
                             });
                         }
 
-                        // Render table
+                        // Update renderTable: remove getStatusPS, show status_ps from db
                         function renderTable(data) {
                             const tbody = document.getElementById('dataTableBody');
                             tbody.innerHTML = '';
@@ -414,7 +410,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${getStatusPS(item.status_hk)}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
                                 `;
                                 tbody.appendChild(row);
@@ -427,20 +423,12 @@
                                     modal.classList.remove('hidden');
                                 });
                             });
-                            document.querySelectorAll('.status-hk-select').forEach((select, index) => {
-                                select.addEventListener('change', (e) => {
-                                    const row = e.target.closest('tr');
-                                    const statusPSCell = row.querySelector('td:nth-last-child(2)');
-                                    statusPSCell.textContent = getStatusPS(e.target.value);
-                                });
-                            });
                             document.querySelectorAll('.update-btn').forEach((btn, idx) => {
                                 btn.addEventListener('click', async () => {
                                     const row = btn.closest('tr');
                                     const orderId = row.children[1].textContent;
                                     const statusHK = row.querySelector('.status-hk-select').value;
                                     const newOrderId = row.querySelector('.new-order-id').value;
-                                    const statusPS = getStatusPS(statusHK);
                                     try {
                                         // Cari dokumen di Firestore dengan order_id yang sama
                                         const q = await getDocs(collection(db, "fallout"));
@@ -456,8 +444,7 @@
                                         }
                                         await updateDoc(doc(db, "fallout", docIdToUpdate), {
                                             status_hk: statusHK,
-                                            new_order_id: newOrderId,
-                                            status_ps: statusPS
+                                            new_order_id: newOrderId
                                         });
                                         alert('Data updated successfully!');
                                         // Optionally, re-fetch and re-render the table
@@ -499,8 +486,7 @@
                                     symptom: form.symptom.value.trim(),
                                     fallout_reason: form.fallout_reason.value.trim(),
                                     status_hk: form.status_hk.value,
-                                    new_order_id: form.new_order_id.value.trim(),
-                                    status_ps: getStatusPS(form.status_hk.value)
+                                    new_order_id: form.new_order_id.value.trim()
                                 };
                                 try {
                                     await addDoc(collection(db, "fallout"), data);
