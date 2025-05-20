@@ -324,6 +324,8 @@
                                             <option value="">Select Status</option>
                                             <option value="Cancel" ${item["Status HK"] === "Cancel" ? 'selected' : ''}>Cancel</option>
                                             <option value="PS" ${item["Status HK"] === "PS" ? 'selected' : ''}>PS</option>
+                                            <option value="Cancel" ${item["Status HK"] === "Cancel" ? 'selected' : ''}>Cancel</option>
+                                            <option value="PS" ${item["Status HK"] === "PS" ? 'selected' : ''}>PS</option>
                                             <option value="PT2" ${item["Status HK"] === "PT2" ? 'selected' : ''}>PT2</option>
                                             <option value="PT3" ${item["Status HK"] === "PT3" ? 'selected' : ''}>PT3</option>
                                             <option value="Reorder" ${item["Status HK"] === "Reorder" ? 'selected' : ''}>Reorder</option>
@@ -334,7 +336,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <input type="text" class="new-order-id border rounded px-2 py-1" 
-                                               value="${item["New Order ID"] || ''}" 
+                                               value="${item["New Order ID"] ? item["New Order ID"].trim() : ''}" 
                                                placeholder="Enter New Order ID">
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${getStatusPS(item["Status HK"])}</td>
