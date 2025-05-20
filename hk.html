@@ -355,13 +355,26 @@
                             const endDate = document.getElementById('endDate').value;
                             const statusHK = document.getElementById('statusHKFilter').value;
                             return data.filter(item => {
-                                const itemDate = new Date(item.provi_ts);
+                                // provi_ts bisa string (YYYY-MM-DD) atau object Timestamp
+                                let itemDate;
+                                if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
+                                    itemDate = new Date(item.provi_ts.seconds * 1000);
+                                } else if (typeof item.provi_ts === 'string') {
+                                    // Jika format sudah YYYY-MM-DD
+                                    itemDate = new Date(item.provi_ts);
+                                } else {
+                                    itemDate = new Date(item.provi_ts);
+                                }
+                                let start = startDate ? new Date(startDate) : null;
+                                let end = endDate ? new Date(endDate) : null;
+                                // Set end date ke jam 23:59:59 agar filter benar
+                                if (end) end.setHours(23,59,59,999);
                                 return (!branch || item.branch === branch) &&
                                     (!wok || item.wok === wok) &&
                                     (!sto || item.sto_co === sto) &&
                                     (!statusHK || item.status_hk === statusHK) &&
-                                    (!startDate || itemDate >= new Date(startDate)) &&
-                                    (!endDate || itemDate <= new Date(endDate));
+                                    (!start || itemDate >= start) &&
+                                    (!end || itemDate <= end);
                             });
                         }
 
