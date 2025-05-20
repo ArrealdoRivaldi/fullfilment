@@ -224,10 +224,28 @@
                             }
                         }
 
-                        // Format date to dd-mm-yyyy
+                        // Format date to dd-mm-yyyy, robust for Firestore string
                         function formatDate(dateStr) {
-                            const date = new Date(dateStr);
-                            return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                            if (!dateStr) return '';
+                            // Try parse as timestamp (Firestore Timestamp object)
+                            if (typeof dateStr === 'object' && dateStr.seconds) {
+                                const date = new Date(dateStr.seconds * 1000);
+                                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                            }
+                            // Try parse as ISO string
+                            let date = new Date(dateStr);
+                            if (!isNaN(date.getTime())) {
+                                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                            }
+                            // Try parse Firestore string format: 'March 24, 2025 at 2:45:00 PM UTC+8'
+                            const match = dateStr.match(/([A-Za-z]+ \d{1,2}, \d{4})/);
+                            if (match) {
+                                date = new Date(match[1]);
+                                if (!isNaN(date.getTime())) {
+                                    return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                                }
+                            }
+                            return dateStr; // fallback
                         }
 
                         // Get Status PS based on Status HK
@@ -369,14 +387,20 @@
                                     const statusHK = row.querySelector('.status-hk-select').value;
                                     const newOrderId = row.querySelector('.new-order-id').value;
                                     const statusPS = getStatusPS(statusHK);
-                                    // Cari id dokumen berdasarkan order_id
-                                    const item = data.find(d => d.order_id === orderId);
-                                    if (!item) {
-                                        alert('Data tidak ditemukan!');
-                                        return;
-                                    }
                                     try {
-                                        await updateDoc(doc(db, "fallout", item.id), {
+                                        // Cari dokumen di Firestore dengan order_id yang sama
+                                        const q = await getDocs(collection(db, "fallout"));
+                                        let docIdToUpdate = null;
+                                        q.forEach(docSnap => {
+                                            if (docSnap.data().order_id === orderId) {
+                                                docIdToUpdate = docSnap.id;
+                                            }
+                                        });
+                                        if (!docIdToUpdate) {
+                                            alert('Data tidak ditemukan di Firestore!');
+                                            return;
+                                        }
+                                        await updateDoc(doc(db, "fallout", docIdToUpdate), {
                                             status_hk: statusHK,
                                             new_order_id: newOrderId,
                                             status_ps: statusPS
