@@ -322,16 +322,14 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <select class="status-hk-select border rounded px-2 py-1">
                                             <option value="">Select Status</option>
-                                            <option value="Cancel" ${item["Status HK"] === "Cancel" ? 'selected' : ''}>Cancel</option>
-                                            <option value="PS" ${item["Status HK"] === "PS" ? 'selected' : ''}>PS</option>
-                                            <option value="Cancel" ${item["Status HK"] === "Cancel" ? 'selected' : ''}>Cancel</option>
-                                            <option value="PS" ${item["Status HK"] === "PS" ? 'selected' : ''}>PS</option>
-                                            <option value="PT2" ${item["Status HK"] === "PT2" ? 'selected' : ''}>PT2</option>
-                                            <option value="PT3" ${item["Status HK"] === "PT3" ? 'selected' : ''}>PT3</option>
-                                            <option value="Reorder" ${item["Status HK"] === "Reorder" ? 'selected' : ''}>Reorder</option>
-                                            <option value="Revoke" ${item["Status HK"] === "Revoke" ? 'selected' : ''}>Revoke</option>
-                                            <option value="Stay Fallout" ${item["Status HK"] === "Stay Fallout" ? 'selected' : ''}>Stay Fallout</option>
-                                            <option value="Offering Orbit" ${item["Status HK"] === "Offering Orbit" ? 'selected' : ''}>Offering Orbit</option>
+                                            <option value="Cancel" ${item["Status HK"] && item["Status HK"].trim() === "Cancel" ? 'selected' : ''}>Cancel</option>
+                                            <option value="PS" ${item["Status HK"] && item["Status HK"].trim() === "PS" ? 'selected' : ''}>PS</option>
+                                            <option value="PT2" ${item["Status HK"] && item["Status HK"].trim() === "PT2" ? 'selected' : ''}>PT2</option>
+                                            <option value="PT3" ${item["Status HK"] && item["Status HK"].trim() === "PT3" ? 'selected' : ''}>PT3</option>
+                                            <option value="Reorder" ${item["Status HK"] && item["Status HK"].trim() === "Reorder" ? 'selected' : ''}>Reorder</option>
+                                            <option value="Revoke" ${item["Status HK"] && item["Status HK"].trim() === "Revoke" ? 'selected' : ''}>Revoke</option>
+                                            <option value="Stay Fallout" ${item["Status HK"] && item["Status HK"].trim() === "Stay Fallout" ? 'selected' : ''}>Stay Fallout</option>
+                                            <option value="Offering Orbit" ${item["Status HK"] && item["Status HK"].trim() === "Offering Orbit" ? 'selected' : ''}>Offering Orbit</option>
                                         </select>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
