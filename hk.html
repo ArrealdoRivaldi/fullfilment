@@ -152,12 +152,7 @@
                         </div>
                     </div>
 
-                    <!-- Button Tambah Data -->
-                    <div class="flex justify-end mb-4">
-                        <button id="addDataBtn" class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300">
-                            Tambah Data
-                        </button>
-                    </div>
+                    
 
                     <!-- Table Section -->
                     <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -456,50 +451,7 @@
                             });
                         }
 
-                        document.addEventListener('DOMContentLoaded', async () => {
-                            const data = await fetchData();
-                            initializeFilters(data);
-                            renderTable(data);
-                            document.getElementById('applyFilters').addEventListener('click', () => {
-                                const filteredData = filterData(data);
-                                renderTable(filteredData);
-                            });
-                            document.getElementById('closeModal').addEventListener('click', () => {
-                                document.getElementById('falloutModal').classList.add('hidden');
-                            });
-                            document.getElementById('addDataBtn').addEventListener('click', () => {
-                                document.getElementById('addDataModal').classList.remove('hidden');
-                            });
-                            document.getElementById('cancelAddData').addEventListener('click', () => {
-                                document.getElementById('addDataModal').classList.add('hidden');
-                            });
-                            document.getElementById('addDataForm').addEventListener('submit', async (e) => {
-                                e.preventDefault();
-                                const form = e.target;
-                                const data = {
-                                    order_id: form.order_id.value.trim(),
-                                    provi_ts: form.provi_ts.value, // format YYYY-MM-DD
-                                    branch: form.branch.value.trim(),
-                                    wok: form.wok.value.trim(),
-                                    sto_co: form.sto_co.value.trim(),
-                                    symptom: form.symptom.value.trim(),
-                                    fallout_reason: form.fallout_reason.value.trim(),
-                                    status_hk: form.status_hk.value,
-                                    new_order_id: form.new_order_id.value.trim()
-                                };
-                                try {
-                                    await addDoc(collection(db, "fallout"), data);
-                                    alert('Data berhasil ditambahkan!');
-                                    document.getElementById('addDataModal').classList.add('hidden');
-                                    form.reset();
-                                    const updatedData = await fetchData();
-                                    initializeFilters(updatedData);
-                                    renderTable(updatedData);
-                                } catch (err) {
-                                    alert('Gagal menambah data!');
-                                }
-                            });
-                        });
+                        
                     </script>
                 </main>
             </div>
