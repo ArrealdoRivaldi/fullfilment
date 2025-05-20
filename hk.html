@@ -196,15 +196,30 @@
                         </div>
                     </div>
 
-                    <script>
-                        // Fetch and process data
+                    <script type="module">
+                        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+                        import { getFirestore, collection, getDocs, updateDoc, doc } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+                        // Firebase config
+                        const firebaseConfig = {
+                            apiKey: "AIzaSyCjBlPnJSlEq18tJett5ZdOAcMl2yPvlOE",
+                            authDomain: "fbb-fullfilment.firebaseapp.com",
+                            projectId: "fbb-fullfilment",
+                            storageBucket: "fbb-fullfilment.appspot.com",
+                            messagingSenderId: "842233083514",
+                            appId: "1:842233083514:web:beb0ce0ac38fc5825eedc3",
+                            measurementId: "G-9RPL0LSY4Q"
+                        };
+                        const app = initializeApp(firebaseConfig);
+                        const db = getFirestore(app);
+
+                        // Fetch data from Firestore
                         async function fetchData() {
                             try {
-                                const response = await fetch('https://raw.githubusercontent.com/ArrealdoRivaldi/fullfilment/refs/heads/main/datahk.json');
-                                const data = await response.json();
-                                return data;
+                                const querySnapshot = await getDocs(collection(db, "fbb"));
+                                return querySnapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
                             } catch (error) {
-                                console.error('Error fetching data:', error);
+                                console.error('Error fetching data from Firestore:', error);
                                 return [];
                             }
                         }
@@ -219,7 +234,9 @@
                         function getStatusPS(statusHK) {
                             if (statusHK === 'Cancel') return 'Cancel';
                             if (statusHK === 'PS') return 'PS';
-                            if (['PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'].includes(statusHK)) {
+                            if ([
+                                'PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'
+                            ].includes(statusHK)) {
                                 return 'STAY FALL OUT';
                             }
                             return '';
@@ -241,17 +258,14 @@
                                 sto: new Set(),
                                 statusHK: new Set()
                             };
-
                             data.forEach(item => {
                                 filters.branch.add(item.branch);
                                 filters.wok.add(item.wok);
                                 filters.sto.add(item.sto_co);
-                                if (item["Status HK"]) {
-                                    filters.statusHK.add(item["Status HK"].trim());
+                                if (item.status_hk) {
+                                    filters.statusHK.add(item.status_hk.trim());
                                 }
                             });
-
-                            // Populate filter dropdowns
                             ['branch', 'wok', 'sto'].forEach(filter => {
                                 const select = document.getElementById(`${filter}Filter`);
                                 [...filters[filter]].sort().forEach(value => {
@@ -263,10 +277,8 @@
                                     }
                                 });
                             });
-
-                            // Special handling for Status HK to include all possible values
                             const statusHKSelect = document.getElementById('statusHKFilter');
-                            const allStatusHK = ['Cancel ', 'PS ', 'PT2 ', 'PT3 ', 'Reorder ', 'Revoke ', 'Stay Fallout ', 'Offering Orbit '];
+                            const allStatusHK = ['Cancel', 'PS', 'PT2', 'PT3', 'Reorder', 'Revoke', 'Stay Fallout', 'Offering Orbit'];
                             allStatusHK.forEach(status => {
                                 const option = document.createElement('option');
                                 option.value = status;
@@ -283,15 +295,14 @@
                             const startDate = document.getElementById('startDate').value;
                             const endDate = document.getElementById('endDate').value;
                             const statusHK = document.getElementById('statusHKFilter').value;
-
                             return data.filter(item => {
                                 const itemDate = new Date(item.provi_ts);
                                 return (!branch || item.branch === branch) &&
-                                       (!wok || item.wok === wok) &&
-                                       (!sto || item.sto_co === sto) &&
-                                       (!statusHK || item["Status HK"] === statusHK) &&
-                                       (!startDate || itemDate >= new Date(startDate)) &&
-                                       (!endDate || itemDate <= new Date(endDate));
+                                    (!wok || item.wok === wok) &&
+                                    (!sto || item.sto_co === sto) &&
+                                    (!statusHK || item.status_hk === statusHK) &&
+                                    (!startDate || itemDate >= new Date(startDate)) &&
+                                    (!endDate || itemDate <= new Date(endDate));
                             });
                         }
 
@@ -299,7 +310,6 @@
                         function renderTable(data) {
                             const tbody = document.getElementById('dataTableBody');
                             tbody.innerHTML = '';
-
                             data.forEach((item, index) => {
                                 const row = document.createElement('tr');
                                 row.innerHTML = `
@@ -313,37 +323,30 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <div class="flex items-center">
                                             <span>${truncateText(item.fallout_reason)}</span>
-                                            <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" 
-                                                    data-fallout="${item.fallout_reason}">
-                                                Details
-                                            </button>
+                                            <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <select class="status-hk-select border rounded px-2 py-1">
                                             <option value="">Select Status</option>
-                                            <option value="Cancel" ${item["Status HK"] && item["Status HK"].trim() === "Cancel" ? 'selected' : ''}>Cancel</option>
-                                            <option value="PS" ${item["Status HK"] && item["Status HK"].trim() === "PS" ? 'selected' : ''}>PS</option>
-                                            <option value="PT2" ${item["Status HK"] && item["Status HK"].trim() === "PT2" ? 'selected' : ''}>PT2</option>
-                                            <option value="PT3" ${item["Status HK"] && item["Status HK"].trim() === "PT3" ? 'selected' : ''}>PT3</option>
-                                            <option value="Reorder" ${item["Status HK"] && item["Status HK"].trim() === "Reorder" ? 'selected' : ''}>Reorder</option>
-                                            <option value="Revoke" ${item["Status HK"] && item["Status HK"].trim() === "Revoke" ? 'selected' : ''}>Revoke</option>
-                                            <option value="Stay Fallout" ${item["Status HK"] && item["Status HK"].trim() === "Stay Fallout" ? 'selected' : ''}>Stay Fallout</option>
-                                            <option value="Offering Orbit" ${item["Status HK"] && item["Status HK"].trim() === "Offering Orbit" ? 'selected' : ''}>Offering Orbit</option>
+                                            <option value="Cancel" ${item.status_hk && item.status_hk.trim() === "Cancel" ? 'selected' : ''}>Cancel</option>
+                                            <option value="PS" ${item.status_hk && item.status_hk.trim() === "PS" ? 'selected' : ''}>PS</option>
+                                            <option value="PT2" ${item.status_hk && item.status_hk.trim() === "PT2" ? 'selected' : ''}>PT2</option>
+                                            <option value="PT3" ${item.status_hk && item.status_hk.trim() === "PT3" ? 'selected' : ''}>PT3</option>
+                                            <option value="Reorder" ${item.status_hk && item.status_hk.trim() === "Reorder" ? 'selected' : ''}>Reorder</option>
+                                            <option value="Revoke" ${item.status_hk && item.status_hk.trim() === "Revoke" ? 'selected' : ''}>Revoke</option>
+                                            <option value="Stay Fallout" ${item.status_hk && item.status_hk.trim() === "Stay Fallout" ? 'selected' : ''}>Stay Fallout</option>
+                                            <option value="Offering Orbit" ${item.status_hk && item.status_hk.trim() === "Offering Orbit" ? 'selected' : ''}>Offering Orbit</option>
                                         </select>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <input type="text" class="new-order-id border rounded px-2 py-1" 
-                                               value="${item["New Order ID"] ? item["New Order ID"].trim() : ''}" 
-                                               placeholder="Enter New Order ID">
+                                        <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${getStatusPS(item["Status HK"])}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${getStatusPS(item.status_hk)}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
                                 `;
                                 tbody.appendChild(row);
                             });
-
-                            // Add event listeners for details buttons
                             document.querySelectorAll('.details-btn').forEach(btn => {
                                 btn.addEventListener('click', () => {
                                     const modal = document.getElementById('falloutModal');
@@ -352,8 +355,6 @@
                                     modal.classList.remove('hidden');
                                 });
                             });
-
-                            // Add event listeners for Status HK changes
                             document.querySelectorAll('.status-hk-select').forEach((select, index) => {
                                 select.addEventListener('change', (e) => {
                                     const row = e.target.closest('tr');
@@ -361,8 +362,6 @@
                                     statusPSCell.textContent = getStatusPS(e.target.value);
                                 });
                             });
-
-                            // Add event listeners for Update buttons
                             document.querySelectorAll('.update-btn').forEach((btn, idx) => {
                                 btn.addEventListener('click', async () => {
                                     const row = btn.closest('tr');
@@ -370,27 +369,22 @@
                                     const statusHK = row.querySelector('.status-hk-select').value;
                                     const newOrderId = row.querySelector('.new-order-id').value;
                                     const statusPS = getStatusPS(statusHK);
-                                    // Prepare update payload
-                                    const updatePayload = {
-                                        order_id: orderId,
-                                        "Status HK": statusHK,
-                                        "New Order ID": newOrderId,
-                                        "Status PS": statusPS
-                                    };
+                                    // Cari id dokumen berdasarkan order_id
+                                    const item = data.find(d => d.order_id === orderId);
+                                    if (!item) {
+                                        alert('Data tidak ditemukan!');
+                                        return;
+                                    }
                                     try {
-                                        const response = await fetch('/api/update-datahk', {
-                                            method: 'POST',
-                                            headers: { 'Content-Type': 'application/json' },
-                                            body: JSON.stringify(updatePayload)
+                                        await updateDoc(doc(db, "fbb", item.id), {
+                                            status_hk: statusHK,
+                                            new_order_id: newOrderId,
+                                            status_ps: statusPS
                                         });
-                                        if (response.ok) {
-                                            alert('Data updated successfully!');
-                                            // Optionally, re-fetch and re-render the table
-                                            const updatedData = await fetchData();
-                                            renderTable(updatedData);
-                                        } else {
-                                            alert('Success to update data.');
-                                        }
+                                        alert('Data updated successfully!');
+                                        // Optionally, re-fetch and re-render the table
+                                        const updatedData = await fetchData();
+                                        renderTable(updatedData);
                                     } catch (err) {
                                         alert('Error updating data.');
                                     }
@@ -398,19 +392,14 @@
                             });
                         }
 
-                        // Initialize
                         document.addEventListener('DOMContentLoaded', async () => {
                             const data = await fetchData();
                             initializeFilters(data);
                             renderTable(data);
-
-                            // Replace individual filter listeners with a single Apply button listener
                             document.getElementById('applyFilters').addEventListener('click', () => {
                                 const filteredData = filterData(data);
                                 renderTable(filteredData);
                             });
-
-                            // Modal close button
                             document.getElementById('closeModal').addEventListener('click', () => {
                                 document.getElementById('falloutModal').classList.add('hidden');
                             });
