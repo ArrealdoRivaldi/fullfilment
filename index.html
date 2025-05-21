@@ -219,16 +219,28 @@
             });
           }
 
+          function parseMonth(str) {
+            if (!str) return null;
+            // Contoh: "March 24, 2025 at 2:45:00 PM UTC+8"
+            const match = str.match(/([A-Za-z]+)\s+\d{1,2},\s+(\d{4})/);
+            if (!match) return null;
+            const monthStr = match[1];
+            const yearStr = match[2];
+            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const month = months.findIndex(m => m.toLowerCase() === monthStr.toLowerCase());
+            return { month: month+1, year: parseInt(yearStr) };
+          }
+
           function renderBarTrend(data) {
             // Group by month
             const months = Array.from({length: 12}, (_, i) => i+1);
             const falloutPerMonth = months.map(m => data.filter(d => {
-              const date = new Date(d.provi_ts);
-              return d.order_id && d.order_id !== '' && (date.getMonth()+1) === m;
+              const parsed = parseMonth(d.provi_ts);
+              return d.order_id && d.order_id !== '' && parsed && parsed.month === m;
             }).length);
             const psPerMonth = months.map(m => data.filter(d => {
-              const date = new Date(d.provi_ts);
-              return d.order_id && d.order_id !== '' && d.status_ps === "PS" && (date.getMonth()+1) === m;
+              const parsed = parseMonth(d.provi_ts);
+              return d.order_id && d.order_id !== '' && d.status_ps === "PS" && parsed && parsed.month === m;
             }).length);
             const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
             const ctx = document.getElementById('barTrend').getContext('2d');
