@@ -221,7 +221,12 @@
 
           function parseMonth(str) {
             if (!str) return null;
-            // Contoh: "March 24, 2025 at 2:45:00 PM UTC+8"
+            // Jika Firestore Timestamp
+            if (typeof str === 'object' && str.seconds) {
+              const date = new Date(str.seconds * 1000);
+              return { month: date.getMonth() + 1, year: date.getFullYear() };
+            }
+            if (typeof str !== 'string') str = String(str);
             const match = str.match(/([A-Za-z]+)\s+\d{1,2},\s+(\d{4})/);
             if (!match) return null;
             const monthStr = match[1];
