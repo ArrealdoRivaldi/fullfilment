@@ -478,9 +478,15 @@
               else group[key].stay++;
             });
             let html = `<tr><th>House Keeping</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
+            let total = 0, ps = 0, cancel = 0, stay = 0;
             for (const [hk, val] of Object.entries(group)) {
               html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
+              total += val.total;
+              ps += val.ps;
+              cancel += val.cancel;
+              stay += val.stay;
             }
+            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th><th>${cancel}</th><th>${stay}</th></tr>`;
             document.getElementById('tableHK').innerHTML = html;
           }
 
