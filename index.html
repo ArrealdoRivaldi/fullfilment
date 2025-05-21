@@ -381,10 +381,11 @@
           function renderProgressSymptom(data) {
             const status = {};
             data.forEach(d => {
-              status[d.status_hk] = (status[d.status_hk] || 0) + 1;
+              let key = d.status_hk;
+              if (!key || key.trim() === "") key = "Stay Fallout";
+              status[key] = (status[key] || 0) + 1;
             });
             const total = data.length;
-            // Hitung persentase dan urutkan
             let arr = Object.entries(status).map(([label, value]) => ({
               label,
               value,
@@ -405,7 +406,7 @@
                 }]
               },
               options: {
-                indexAxis: 'y', // horizontal bar
+                indexAxis: 'y',
                 plugins: {
                   legend: { display: false },
                   title: { display: true, text: 'Progress House Keeping (Symptom)' },
@@ -414,12 +415,14 @@
                     align: 'end',
                     color: '#222',
                     font: { weight: 'bold', size: 14 },
+                    clip: false,
                     formatter: function(value, context) {
                       const percent = arr[context.dataIndex].percent;
                       return value + ' (' + percent.toFixed(1) + '%)';
                     }
                   }
                 },
+                layout: { padding: { right: 40 } },
                 scales: {
                   x: { beginAtZero: true, title: { display: true, text: 'Jumlah' } },
                   y: { title: { display: true, text: 'Status HK' } }
@@ -466,11 +469,13 @@
           function renderTableHK(data) {
             const group = {};
             data.forEach(d => {
-              if (!group[d.status_hk]) group[d.status_hk] = { total: 0, ps: 0, cancel: 0, stay: 0 };
-              group[d.status_hk].total++;
-              if (d.status_ps === "PS") group[d.status_hk].ps++;
-              else if (d.status_ps === "Cancel") group[d.status_hk].cancel++;
-              else group[d.status_hk].stay++;
+              let key = d.status_hk;
+              if (!key || key.trim() === "") key = "Stay Fallout";
+              if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+              else if (d.status_ps === "Cancel") group[key].cancel++;
+              else group[key].stay++;
             });
             let html = `<tr><th>House Keeping</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
             for (const [hk, val] of Object.entries(group)) {
