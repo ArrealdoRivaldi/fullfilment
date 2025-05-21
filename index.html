@@ -25,6 +25,52 @@
     <link href="css/theme.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      .main-content {
+        max-width: 1600px;
+        margin: 0 auto;
+        background: #f7fafc;
+        border-radius: 18px;
+        padding: 32px 24px 32px 24px;
+        min-height: 100vh;
+      }
+      .dashboard-row {
+        display: flex;
+        gap: 32px;
+        margin-bottom: 32px;
+      }
+      .dashboard-row > div {
+        flex: 1 1 0;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px 0 #0001;
+        padding: 24px 16px 24px 16px;
+        min-width: 0;
+        min-height: 420px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background: #fff;
+        margin-top: 8px;
+      }
+      th, td {
+        border: 1px solid #e5e7eb;
+        padding: 8px 12px;
+        text-align: left;
+      }
+      th {
+        background: #f3f4f6;
+        font-weight: bold;
+      }
+      tr:nth-child(even) td {
+        background: #f9fafb;
+      }
+    </style>
 </head>
 
 <body class="animsition">
@@ -103,44 +149,42 @@
                     <span class="text-xs text-gray-400 ml-4"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: Senin 4/24/2025</span>
                 </div>
             </div>
-            <div class="main-content p-0 m-0">
-                <main class="flex-1 pt-4 px-6 pb-8">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
-                    <div class="flex flex-wrap gap-4 mb-6 items-end">
-                        <select id="branchFilter" class="border rounded px-2 py-1"></select>
-                        <input type="date" id="startDate" class="border rounded px-2 py-1">
-                        <input type="date" id="endDate" class="border rounded px-2 py-1">
-                        <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded">Filter</button>
+            <div class="main-content">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
+                <div class="flex flex-wrap gap-4 mb-6 items-end">
+                    <select id="branchFilter" class="border rounded px-2 py-1"></select>
+                    <input type="date" id="startDate" class="border rounded px-2 py-1">
+                    <input type="date" id="endDate" class="border rounded px-2 py-1">
+                    <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded">Filter</button>
+                </div>
+                <div class="dashboard-row">
+                    <div>
+                        <h3 class="font-bold mb-2">Fallout & HK</h3>
+                        <canvas id="pieHK" width="260" height="260"></canvas>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <div class="bg-white p-4 rounded-xl shadow flex flex-col items-center">
-                            <h3 class="font-bold mb-2">Fallout & HK</h3>
-                            <canvas id="pieHK" width="200" height="200"></canvas>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow flex flex-col items-center">
-                            <h3 class="font-bold mb-2">Trend Fallout to PS</h3>
-                            <canvas id="barTrend" width="300" height="200"></canvas>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow flex flex-col items-center">
-                            <h3 class="font-bold mb-2">Symptom</h3>
-                            <canvas id="progressSymptom" width="300" height="200"></canvas>
-                        </div>
+                    <div>
+                        <h3 class="font-bold mb-2">Trend Fallout to PS</h3>
+                        <canvas id="barTrend" width="420" height="260"></canvas>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-4 rounded-xl shadow overflow-x-auto">
-                            <h3 class="font-bold mb-2">Symptom to PS</h3>
-                            <table id="tableSymptom" class="min-w-full text-xs"></table>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow overflow-x-auto">
-                            <h3 class="font-bold mb-2">Fallout NOP to PS</h3>
-                            <table id="tableNop" class="min-w-full text-xs"></table>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow overflow-x-auto">
-                            <h3 class="font-bold mb-2">Result House Keeping</h3>
-                            <table id="tableHK" class="min-w-full text-xs"></table>
-                        </div>
+                    <div>
+                        <h3 class="font-bold mb-2">Symptom</h3>
+                        <canvas id="progressSymptom" width="420" height="260"></canvas>
                     </div>
-                </main>
+                </div>
+                <div class="dashboard-row">
+                    <div style="overflow-x:auto;">
+                        <h3 class="font-bold mb-2">Symptom to PS</h3>
+                        <table id="tableSymptom" class="min-w-full text-xs"></table>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <h3 class="font-bold mb-2">Fallout NOP to PS</h3>
+                        <table id="tableNop" class="min-w-full text-xs"></table>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <h3 class="font-bold mb-2">Result House Keeping</h3>
+                        <table id="tableHK" class="min-w-full text-xs"></table>
+                    </div>
+                </div>
             </div>
             <!-- Improved Footer -->
             <footer class="w-full bg-gray-100 py-6 mt-8 shadow-inner">
