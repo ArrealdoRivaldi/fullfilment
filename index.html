@@ -255,9 +255,35 @@
               data: {
                 labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
                 datasets: [
-                  { label: 'Fallout', data: falloutPerMonth, backgroundColor: '#60a5fa', yAxisID: 'y' },
-                  { label: 'PS', data: psPerMonth, backgroundColor: '#fbbf24', yAxisID: 'y' },
-                  { label: 'Fallout to PS (%)', data: percentPerMonth, type: 'line', borderColor: '#ef4444', backgroundColor: '#ef4444', fill: false, yAxisID: 'y1', tension: 0.3 }
+                  { 
+                    label: 'Fallout', 
+                    data: falloutPerMonth, 
+                    backgroundColor: '#60a5fa', 
+                    yAxisID: 'y',
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.5
+                  },
+                  { 
+                    label: 'PS', 
+                    data: psPerMonth, 
+                    backgroundColor: '#fbbf24', 
+                    yAxisID: 'y',
+                    barPercentage: 0.5,
+                    categoryPercentage: 0.5
+                  },
+                  { 
+                    label: 'Fallout to PS (%)', 
+                    data: percentPerMonth, 
+                    type: 'line', 
+                    borderColor: '#ef4444', 
+                    backgroundColor: '#ef4444', 
+                    fill: false, 
+                    yAxisID: 'y1', 
+                    tension: 0.3,
+                    order: 99, // always on top
+                    pointRadius: 4,
+                    borderWidth: 3
+                  }
                 ]
               },
               options: {
