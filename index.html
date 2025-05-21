@@ -104,97 +104,40 @@
                 </div>
             </div>
             <div class="main-content p-0 m-0">
-                <main class="flex-1 pt-4 px-6 pb-8">            
+                <main class="flex-1 pt-4 px-6 pb-8">
                     <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
-                    <p class="text-sm text-gray-500 mb-8">Updated on: April 7, 2025</p>
-                
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <!-- Card 1 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Total Data</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">12.995</h3>
-                                    <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 6.69% Ach RE TO PS</p>
-                                </div>
-                                <div class="text-blue-600 text-2xl bg-blue-100 p-3 rounded-full">
-                                    <i class="fas fa-database"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
+                    <div class="flex flex-wrap gap-4 mb-6 items-end">
+                        <select id="branchFilter" class="border rounded px-2 py-1"></select>
+                        <input type="date" id="startDate" class="border rounded px-2 py-1">
+                        <input type="date" id="endDate" class="border rounded px-2 py-1">
+                        <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded">Filter</button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white p-4 rounded-xl shadow flex flex-col items-center">
+                            <h3 class="font-bold mb-2">Fallout & HK</h3>
+                            <canvas id="pieHK" width="200" height="200"></canvas>
                         </div>
-                
-                        <!-- Card 2 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Monthly Data April</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">1.922</h3>
-                                    <p class="text-red-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 8% from last month</p>
-                                </div>
-                                <div class="text-green-600 text-2xl bg-green-100 p-3 rounded-full">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
+                        <div class="bg-white p-4 rounded-xl shadow flex flex-col items-center">
+                            <h3 class="font-bold mb-2">Trend Fallout to PS</h3>
+                            <canvas id="barTrend" width="300" height="200"></canvas>
                         </div>
-                
-                        <!-- Card 3 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Daily Data</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">9,698</h3>
-                                    <p class="text-red-500 text-sm mt-1"><i class="fas fa-arrow-down"></i> 3% from yesterday</p>
-                                </div>
-                                <div class="text-yellow-600 text-2xl bg-yellow-100 p-3 rounded-full">
-                                    <i class="fas fa-calendar-day"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
+                        <div class="bg-white p-4 rounded-xl shadow flex flex-col items-center">
+                            <h3 class="font-bold mb-2">Symptom</h3>
+                            <canvas id="progressSymptom" width="300" height="200"></canvas>
                         </div>
-                
-                        <!-- Card 4 -->
-                        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg">
-                            <div class="flex justify-between">
-                                <div>
-                                    <p class="text-gray-500">Fallout Data</p>
-                                    <h3 class="text-2xl font-bold text-gray-800">1922</h3>
-                                    <p class="text-green-500 text-sm mt-1"><i class="fas fa-arrow-up"></i> 8.01% ach -> 154 PS</p>
-                                </div>
-                                <div class="text-red-600 text-2xl bg-red-100 p-3 rounded-full">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between">
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-info-circle"></i> Detail
-                                </a>
-                                <a href="#" class="flex items-center gap-1 text-sm text-white bg-gray-500 hover:bg-gray-600 px-3 py-1 rounded-full transition">
-                                    <i class="fas fa-link"></i> Source
-                                </a>
-                            </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded-xl shadow overflow-x-auto">
+                            <h3 class="font-bold mb-2">Symptom to PS</h3>
+                            <table id="tableSymptom" class="min-w-full text-xs"></table>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow overflow-x-auto">
+                            <h3 class="font-bold mb-2">Fallout NOP to PS</h3>
+                            <table id="tableNop" class="min-w-full text-xs"></table>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow overflow-x-auto">
+                            <h3 class="font-bold mb-2">Result House Keeping</h3>
+                            <table id="tableHK" class="min-w-full text-xs"></table>
                         </div>
                     </div>
                 </main>
@@ -230,5 +173,160 @@
         <script src="vendor/chartjs/Chart.bundle.min.js"></script> 
         <script src="vendor/select2/select2.min.js"></script> 
         <script src="js/main.js"></script>
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Firebase SDK -->
+        <script type="module">
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+          import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+
+          const firebaseConfig = {
+            apiKey: "AIzaSyCjBlPnJSlEq18tJett5ZdOAcMl2yPvlOE",
+            authDomain: "fbb-fullfilment.firebaseapp.com",
+            projectId: "fbb-fullfilment",
+            storageBucket: "fbb-fullfilment.firebasestorage.app",
+            messagingSenderId: "842233083514",
+            appId: "1:842233083514:web:beb0ce0ac38fc5825eedc3",
+            measurementId: "G-9RPL0LSY4Q"
+          };
+
+          const app = initializeApp(firebaseConfig);
+          const db = getFirestore(app);
+
+          let allData = [];
+
+          async function fetchData(branchFilter = null, startDate = null, endDate = null) {
+            let q = collection(db, "fallout");
+            let constraints = [];
+            if (branchFilter) constraints.push(where("branch", "==", branchFilter));
+            if (startDate) constraints.push(where("provi_ts", ">=", startDate));
+            if (endDate) constraints.push(where("provi_ts", "<=", endDate));
+            if (constraints.length > 0) q = query(q, ...constraints);
+            const snapshot = await getDocs(q);
+            return snapshot.docs.map(doc => doc.data());
+          }
+
+          function renderPieHK(data) {
+            const total = data.length;
+            const filled = data.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
+            const unfilled = total - filled;
+            new Chart(document.getElementById('pieHK'), {
+              type: 'pie',
+              data: {
+                labels: ['Sudah HK', 'Belum HK'],
+                datasets: [{ data: [filled, unfilled], backgroundColor: ['#4ade80', '#f87171'] }]
+              }
+            });
+          }
+
+          function renderBarTrend(data) {
+            const months = Array.from({length: 12}, (_, i) => i+1);
+            const falloutPerMonth = months.map(m => data.filter(d => new Date(d.provi_ts).getMonth()+1 === m).length);
+            const psPerMonth = months.map(m => data.filter(d => new Date(d.provi_ts).getMonth()+1 === m && d.status_ps === "PS").length);
+            new Chart(document.getElementById('barTrend'), {
+              type: 'bar',
+              data: {
+                labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
+                datasets: [
+                  { label: 'Fallout', data: falloutPerMonth, backgroundColor: '#60a5fa' },
+                  { label: 'PS', data: psPerMonth, backgroundColor: '#fbbf24' }
+                ]
+              }
+            });
+          }
+
+          function renderProgressSymptom(data) {
+            const status = {};
+            data.forEach(d => {
+              status[d.status_hk] = (status[d.status_hk] || 0) + 1;
+            });
+            new Chart(document.getElementById('progressSymptom'), {
+              type: 'bar',
+              data: {
+                labels: Object.keys(status),
+                datasets: [{ label: 'Jumlah', data: Object.values(status), backgroundColor: '#34d399' }]
+              }
+            });
+          }
+
+          function renderTableSymptom(data) {
+            const group = {};
+            data.forEach(d => {
+              if (!group[d.symptom]) group[d.symptom] = { total: 0, ps: 0 };
+              group[d.symptom].total++;
+              if (d.status_ps === "PS") group[d.symptom].ps++;
+            });
+            let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th></tr>`;
+            let total = 0, ps = 0;
+            for (const [symptom, val] of Object.entries(group)) {
+              html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
+              total += val.total; ps += val.ps;
+            }
+            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`;
+            document.getElementById('tableSymptom').innerHTML = html;
+          }
+
+          function renderTableNop(data) {
+            const group = {};
+            data.forEach(d => {
+              if (!group[d.branch]) group[d.branch] = { total: 0, ps: 0 };
+              group[d.branch].total++;
+              if (d.status_ps === "PS") group[d.branch].ps++;
+            });
+            let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th></tr>`;
+            let total = 0, ps = 0;
+            for (const [branch, val] of Object.entries(group)) {
+              html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
+              total += val.total; ps += val.ps;
+            }
+            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`;
+            document.getElementById('tableNop').innerHTML = html;
+          }
+
+          function renderTableHK(data) {
+            const group = {};
+            data.forEach(d => {
+              if (!group[d.status_hk]) group[d.status_hk] = { total: 0, ps: 0, cancel: 0, stay: 0 };
+              group[d.status_hk].total++;
+              if (d.status_ps === "PS") group[d.status_hk].ps++;
+              else if (d.status_ps === "Cancel") group[d.status_hk].cancel++;
+              else group[d.status_hk].stay++;
+            });
+            let html = `<tr><th>House Keeping</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
+            for (const [hk, val] of Object.entries(group)) {
+              html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
+            }
+            document.getElementById('tableHK').innerHTML = html;
+          }
+
+          function renderBranchFilter(data) {
+            const branches = [...new Set(data.map(d => d.branch))];
+            document.getElementById('branchFilter').innerHTML = `<option value="">All Branch</option>` + branches.map(b => `<option value="${b}">${b}</option>`).join('');
+          }
+
+          async function renderDashboard() {
+            renderBranchFilter(allData);
+            renderPieHK(allData);
+            renderBarTrend(allData);
+            renderProgressSymptom(allData);
+            renderTableSymptom(allData);
+            renderTableNop(allData);
+            renderTableHK(allData);
+          }
+
+          window.applyFilters = async function() {
+            const branch = document.getElementById('branchFilter').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            allData = await fetchData(branch, startDate, endDate);
+            renderDashboard();
+          }
+
+          // Initial load
+          (async function() {
+            allData = await fetchData();
+            renderDashboard();
+          })();
+        </script>
     </body> 
 </html>
