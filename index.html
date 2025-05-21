@@ -383,13 +383,21 @@
             data.forEach(d => {
               status[d.status_hk] = (status[d.status_hk] || 0) + 1;
             });
+            const total = data.length;
+            // Hitung persentase dan urutkan
+            let arr = Object.entries(status).map(([label, value]) => ({
+              label,
+              value,
+              percent: total > 0 ? (value / total * 100) : 0
+            }));
+            arr.sort((a, b) => b.percent - a.percent);
             new Chart(document.getElementById('progressSymptom'), {
               type: 'bar',
               data: {
-                labels: Object.keys(status),
+                labels: arr.map(x => x.label),
                 datasets: [{
                   label: 'Jumlah',
-                  data: Object.values(status),
+                  data: arr.map(x => x.value),
                   backgroundColor: '#34d399',
                   borderRadius: 12,
                   barPercentage: 0.7,
@@ -400,13 +408,24 @@
                 indexAxis: 'y', // horizontal bar
                 plugins: {
                   legend: { display: false },
-                  title: { display: true, text: 'Progress House Keeping (Symptom)' }
+                  title: { display: true, text: 'Progress House Keeping (Symptom)' },
+                  datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    color: '#222',
+                    font: { weight: 'bold', size: 14 },
+                    formatter: function(value, context) {
+                      const percent = arr[context.dataIndex].percent;
+                      return percent.toFixed(1) + '%';
+                    }
+                  }
                 },
                 scales: {
                   x: { beginAtZero: true, title: { display: true, text: 'Jumlah' } },
                   y: { title: { display: true, text: 'Status HK' } }
                 }
-              }
+              },
+              plugins: [ChartDataLabels]
             });
           }
 
