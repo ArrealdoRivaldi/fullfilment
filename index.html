@@ -256,12 +256,38 @@
             const total = data.length;
             const filled = data.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
             const unfilled = total - filled;
-            new Chart(document.getElementById('pieHK'), {
+            const ctx = document.getElementById('pieHK').getContext('2d');
+            if (window.pieHKChart) window.pieHKChart.destroy();
+            window.pieHKChart = new Chart(ctx, {
               type: 'pie',
               data: {
                 labels: ['Sudah HK', 'Belum HK'],
-                datasets: [{ data: [filled, unfilled], backgroundColor: ['#4ade80', '#f87171'] }]
-              }
+                datasets: [{
+                  data: [filled, unfilled],
+                  backgroundColor: ['#4ade80', '#f87171']
+                }]
+              },
+              options: {
+                plugins: {
+                  datalabels: {
+                    color: '#222',
+                    font: { weight: 'bold', size: 16 },
+                    formatter: function(value, context) {
+                      const percent = total > 0 ? (value / total * 100).toFixed(1) : 0;
+                      return value + ' (' + percent + '%)';
+                    }
+                  },
+                  legend: {
+                    display: true,
+                    position: 'top'
+                  },
+                  title: {
+                    display: true,
+                    text: 'Fallout & HK'
+                  }
+                }
+              },
+              plugins: [ChartDataLabels]
             });
           }
 
@@ -445,5 +471,6 @@
             renderDashboard();
           })();
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     </body> 
 </html>
