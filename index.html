@@ -416,7 +416,7 @@
                     font: { weight: 'bold', size: 14 },
                     formatter: function(value, context) {
                       const percent = arr[context.dataIndex].percent;
-                      return percent.toFixed(1) + '%';
+                      return value + ' (' + percent.toFixed(1) + '%)';
                     }
                   }
                 },
