@@ -221,16 +221,57 @@
 
           function renderBarTrend(data) {
             const months = Array.from({length: 12}, (_, i) => i+1);
-            const falloutPerMonth = months.map(m => data.filter(d => new Date(d.provi_ts).getMonth()+1 === m).length);
-            const psPerMonth = months.map(m => data.filter(d => new Date(d.provi_ts).getMonth()+1 === m && d.status_ps === "PS").length);
-            new Chart(document.getElementById('barTrend'), {
+            const falloutPerMonth = months.map(m => data.filter(d => {
+              const dt = new Date(d.provi_ts);
+              return dt instanceof Date && !isNaN(dt) && (dt.getMonth()+1) === m;
+            }).length);
+            const psPerMonth = months.map(m => data.filter(d => {
+              const dt = new Date(d.provi_ts);
+              return dt instanceof Date && !isNaN(dt) && (dt.getMonth()+1) === m && d.status_ps === "PS";
+            }).length);
+            const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
+
+            // Destroy previous chart if exists
+            if (window.barTrendChart) window.barTrendChart.destroy();
+
+            window.barTrendChart = new Chart(document.getElementById('barTrend'), {
               type: 'bar',
               data: {
                 labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
                 datasets: [
-                  { label: 'Fallout', data: falloutPerMonth, backgroundColor: '#60a5fa' },
-                  { label: 'PS', data: psPerMonth, backgroundColor: '#fbbf24' }
+                  { label: 'Fallout', data: falloutPerMonth, backgroundColor: '#60a5fa', yAxisID: 'y' },
+                  { label: 'PS', data: psPerMonth, backgroundColor: '#fbbf24', yAxisID: 'y' },
+                  { label: 'Fallout to PS (%)', data: percentPerMonth, type: 'line', borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.2)', yAxisID: 'y1', fill: false, tension: 0.3, pointRadius: 4, pointBackgroundColor: '#ef4444' }
                 ]
+              },
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: { position: 'top' },
+                  tooltip: {
+                    callbacks: {
+                      label: function(context) {
+                        if (context.dataset.label === 'Fallout to PS (%)') {
+                          return context.dataset.label + ': ' + context.formattedValue + '%';
+                        }
+                        return context.dataset.label + ': ' + context.formattedValue;
+                      }
+                    }
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Jumlah' }
+                  },
+                  y1: {
+                    beginAtZero: true,
+                    position: 'right',
+                    grid: { drawOnChartArea: false },
+                    title: { display: true, text: 'Persentase (%)' },
+                    ticks: { callback: v => v + '%' }
+                  }
+                }
               }
             });
           }
