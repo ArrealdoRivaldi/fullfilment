@@ -75,37 +75,35 @@
 
 <body class="animsition">
     <div class="page-wrapper">
-        <!-- Header Mobile -->
-        <header class="header-mobile d-block d-lg-none">
-            <div class="header-mobile__bar">
-                <div class="container-fluid">
-                    <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin">
-                        </a>
-                        <button class="hamburger hamburger--slider" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
+        <!-- Header Mobile Responsive -->
+        <header class="block lg:hidden">
+          <div class="flex items-center justify-between px-4 py-2 bg-white shadow">
+            <a class="logo" href="index.html">
+              <img src="images/icon/logo.png" alt="FBB" class="h-8">
+            </a>
+            <button id="mobileMenuBtn" class="text-2xl focus:outline-none">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+          <!-- Overlay & Menu -->
+          <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden"></div>
+          <nav id="mobileMenu" class="fixed top-0 left-0 w-64 h-full bg-white z-50 transform -translate-x-full transition-transform duration-300">
+            <div class="p-4 border-b flex items-center justify-between">
+              <span class="font-bold text-lg">Menu</span>
+              <button id="closeMobileMenu" class="text-xl"><i class="fas fa-times"></i></button>
             </div>
-            <nav class="navbar-mobile">
-                <div class="container-fluid">
-                    <ul class="navbar-mobile__list list-unstyled">
-                        <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-                        <li><a href="chart.html"><i class="fas fa-chart-bar"></i>Charts</a></li>
-                        <li><a href="table.html"><i class="fas fa-table"></i>Tables</a></li>
-                        <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i>Calendar</a></li>
-                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
-                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a></li>
-                        <li><a href="register.html"><i class="fas fa-user-plus"></i>Register</a></li>
-                        <li><a href="forget-pass.html"><i class="fas fa-key"></i>Forget Password</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100"><i class="fas fa-house-user mr-2"></i> House Keeping</a>
+                <ul class="ml-6 mt-1 space-y-1">
+                  <li><a href="index.html" class="flex items-center px-2 py-1 hover:bg-gray-100"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a></li>
+                  <li><a href="hk.html" class="flex items-center px-2 py-1 hover:bg-gray-100"><i class="fas fa-tools mr-2"></i> Tool House Keeping</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
         </header>
+        <!-- END Header Mobile Responsive -->
         
         <!-- Sidebar -->
         <aside class="menu-sidebar d-none d-lg-block">
@@ -541,5 +539,23 @@
           });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+        <!-- Mobile Menu Script -->
+        <script>
+          const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+          const mobileMenu = document.getElementById('mobileMenu');
+          const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+          const closeMobileMenu = document.getElementById('closeMobileMenu');
+          function openMenu() {
+            mobileMenu.classList.remove('-translate-x-full');
+            mobileMenuOverlay.classList.remove('hidden');
+          }
+          function closeMenu() {
+            mobileMenu.classList.add('-translate-x-full');
+            mobileMenuOverlay.classList.add('hidden');
+          }
+          if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+          if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeMenu);
+          if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
+        </script>
     </body> 
 </html>
