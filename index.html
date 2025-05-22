@@ -320,7 +320,9 @@
               return d.order_id && d.order_id !== '' && d.status_ps === "PS" && parsed && parsed.month === m;
             }).length);
             // Line merah hanya muncul jika ada data Fallout dan PS di bulan itu
-            const percentPerMonth = falloutPerMonth.map((f, i) => (f > 0 && psPerMonth[i] > 0) ? (psPerMonth[i] / f * 100).toFixed(2) : null);
+            const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
+            const maxBar = Math.max(...falloutPerMonth, ...psPerMonth);
+            const maxPercent = Math.max(...percentPerMonth.map(x => Number(x) || 0));
             const ctx = document.getElementById('barTrend').getContext('2d');
             if(window.barTrendChart) window.barTrendChart.destroy();
             window.barTrendChart = new Chart(ctx, {
@@ -366,9 +368,10 @@
                   title: { display: true, text: 'Trend Fallout to PS' }
                 },
                 scales: {
-                  y: { beginAtZero: true, title: { display: true, text: 'Jumlah' } },
+                  y: { beginAtZero: true, max: maxBar * 2, title: { display: true, text: 'Jumlah' } },
                   y1: {
                     beginAtZero: true,
+                    max: maxPercent * 2,
                     position: 'right',
                     title: { display: true, text: 'Fallout to PS (%)' },
                     grid: { drawOnChartArea: false },
