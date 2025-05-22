@@ -242,30 +242,20 @@
           let allData = [];
 
           async function fetchData() {
-            let q = collection(db, "fallout");
-            const snapshot = await getDocs(q);
+            const snapshot = await getDocs(collection(db, "fallout"));
             return snapshot.docs.map(doc => doc.data());
           }
 
           function filterData(data, branch, startDate, endDate) {
             return data.filter(d => {
-              if (branch && (d.branch || '').trim().toUpperCase() !== branch.trim().toUpperCase()) return false;
-
+              if (branch && (d.branch || '').trim() !== branch.trim()) return false;
               if (startDate || endDate) {
-                let proviDate;
-                try {
-                  proviDate = new Date(d.provi_ts);
-                  if (isNaN(proviDate.getTime())) throw new Error('Invalid Date');
-                } catch (e) {
-                  console.warn('Could not parse provi_ts:', d.provi_ts, e);
-                  return false;
-                }
-
+                let proviDate = new Date(d.provi_ts);
                 if (startDate && proviDate < startDate) return false;
                 if (endDate) {
-                  const endDateEndDay = new Date(endDate);
-                  endDateEndDay.setHours(23, 59, 59, 999);
-                  if (proviDate > endDateEndDay) return false;
+                  let endDateEnd = new Date(endDate);
+                  endDateEnd.setHours(23,59,59,999);
+                  if (proviDate > endDateEnd) return false;
                 }
               }
               return true;
@@ -517,34 +507,40 @@
           }
 
           function renderBranchFilter(data) {
-            const branches = [...new Set(data.map(d => d.branch))];
-            document.getElementById('branchFilter').innerHTML = `<option value="">All Branch</option>` + branches.map(b => `<option value="${b}">${b}</option>`).join('');
+            const unique = {};
+            data.forEach(d => {
+              const norm = (d.branch || '').trim().toUpperCase();
+              if (norm && !unique[norm]) unique[norm] = (d.branch || '').trim();
+            });
+            const branches = Object.values(unique);
+            document.getElementById('branchFilter').innerHTML =
+              `<option value="">All Branch</option>` +
+              branches.map(b => `<option value="${b}">${b}</option>`).join('');
           }
 
-          async function renderDashboard() {
-            renderBranchFilter(allData);
-            renderPieHK(allData);
-            renderBarTrend(allData);
-            renderProgressSymptom(allData);
-            renderTableSymptom(allData);
-            renderTableNop(allData);
-            renderTableHK(allData);
+          function renderDashboard(data) {
+            renderBranchFilter(data);
+            renderPieHK(data);
+            renderBarTrend(data);
+            renderProgressSymptom(data);
+            renderTableSymptom(data);
+            renderTableNop(data);
+            renderTableHK(data);
           }
 
-          window.applyFilters = async function() {
+          window.applyFilters = function() {
             const branch = document.getElementById('branchFilter').value;
             const startDateRaw = document.getElementById('startDate').value;
             const endDateRaw = document.getElementById('endDate').value;
             const startDate = startDateRaw ? new Date(startDateRaw) : null;
             const endDate = endDateRaw ? new Date(endDateRaw) : null;
-            allData = await fetchData();
-            allData = filterData(allData, branch, startDate, endDate);
-            renderDashboard();
+            const filtered = filterData(allData, branch, startDate, endDate);
+            renderDashboard(filtered);
           }
 
           document.addEventListener('DOMContentLoaded', async function() {
             allData = await fetchData();
-            renderDashboard();
+            renderDashboard(allData);
           });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
