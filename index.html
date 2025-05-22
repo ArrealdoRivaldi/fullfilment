@@ -319,7 +319,7 @@
               const parsed = parseMonth(d.provi_ts);
               return d.order_id && d.order_id !== '' && d.status_ps === "PS" && parsed && parsed.month === m;
             }).length);
-            const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
+            const percentPerMonth = falloutPerMonth.map((f, i) => (f > 0 && psPerMonth[i] > 0) ? (psPerMonth[i] / f * 100).toFixed(2) : null);
             const ctx = document.getElementById('barTrend').getContext('2d');
             if(window.barTrendChart) window.barTrendChart.destroy();
             window.barTrendChart = new Chart(ctx, {
@@ -392,7 +392,7 @@
               percent: total > 0 ? (value / total * 100) : 0
             }));
             arr.sort((a, b) => b.percent - a.percent);
-            const maxValue = Math.max(...arr.map(x => x.value)) + 1;
+            const maxValue = Math.max(...arr.map(x => x.value)) + 2;
             new Chart(document.getElementById('progressSymptom'), {
               type: 'bar',
               data: {
