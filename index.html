@@ -241,20 +241,40 @@
 
           let allData = [];
 
-          async function fetchData(branchFilter = null, startDate = null, endDate = null) {
+          async function fetchData() {
             let q = collection(db, "fallout");
-            let constraints = [];
-            if (branchFilter) constraints.push(where("branch", "==", branchFilter));
-            if (startDate) constraints.push(where("provi_ts", ">=", startDate));
-            if (endDate) constraints.push(where("provi_ts", "<=", endDate));
-            if (constraints.length > 0) q = query(q, ...constraints);
             const snapshot = await getDocs(q);
             return snapshot.docs.map(doc => doc.data());
           }
 
-          function renderPieHK(data) {
-            const total = data.length;
-            const filled = data.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
+          function filterData(data, branch, startDate, endDate) {
+            return data.filter(d => {
+              if (branch && (d.branch || '').trim().toUpperCase() !== branch.trim().toUpperCase()) return false;
+
+              if (startDate || endDate) {
+                let proviDate;
+                try {
+                  proviDate = new Date(d.provi_ts);
+                  if (isNaN(proviDate.getTime())) throw new Error('Invalid Date');
+                } catch (e) {
+                  console.warn('Could not parse provi_ts:', d.provi_ts, e);
+                  return false;
+                }
+
+                if (startDate && proviDate < startDate) return false;
+                if (endDate) {
+                  const endDateEndDay = new Date(endDate);
+                  endDateEndDay.setHours(23, 59, 59, 999);
+                  if (proviDate > endDateEndDay) return false;
+                }
+              }
+              return true;
+            });
+          }
+
+          function renderPieHK(dataToRender) {
+            const total = dataToRender.length;
+            const filled = dataToRender.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
             const unfilled = total - filled;
             const ctx = document.getElementById('pieHK').getContext('2d');
             if (window.pieHKChart) window.pieHKChart.destroy();
@@ -293,7 +313,6 @@
 
           function parseMonth(str) {
             if (!str) return null;
-            // Jika Firestore Timestamp
             if (typeof str === 'object' && str.seconds) {
               const date = new Date(str.seconds * 1000);
               return { month: date.getMonth() + 1, year: date.getFullYear() };
@@ -308,21 +327,22 @@
             return { month: month+1, year: parseInt(yearStr) };
           }
 
-          function renderBarTrend(data) {
-            // Group by month
+          function renderBarTrend(dataToRender) {
             const months = Array.from({length: 12}, (_, i) => i+1);
-            const falloutPerMonth = months.map(m => data.filter(d => {
+            const falloutPerMonth = months.map(m => dataToRender.filter(d => {
               const parsed = parseMonth(d.provi_ts);
               return d.order_id && d.order_id !== '' && parsed && parsed.month === m;
             }).length);
-            const psPerMonth = months.map(m => data.filter(d => {
+            const psPerMonth = months.map(m => dataToRender.filter(d => {
               const parsed = parseMonth(d.provi_ts);
               return d.order_id && d.order_id !== '' && d.status_ps === "PS" && parsed && parsed.month === m;
             }).length);
-            // Line merah hanya muncul jika ada data Fallout dan PS di bulan itu
+            
             const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
+
             const maxBar = Math.max(...falloutPerMonth, ...psPerMonth);
             const maxPercent = Math.max(...percentPerMonth.map(x => Number(x) || 0));
+
             const ctx = document.getElementById('barTrend').getContext('2d');
             if(window.barTrendChart) window.barTrendChart.destroy();
             window.barTrendChart = new Chart(ctx, {
@@ -355,7 +375,7 @@
                     fill: false, 
                     yAxisID: 'y1', 
                     tension: 0.3,
-                    order: 99, // always on top
+                    order: 99,
                     pointRadius: 4,
                     borderWidth: 3
                   }
@@ -368,10 +388,10 @@
                   title: { display: true, text: 'Trend Fallout to PS' }
                 },
                 scales: {
-                  y: { beginAtZero: true, max: maxBar * 2, title: { display: true, text: 'Jumlah' } },
+                  y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 2 : 5), title: { display: true, text: 'Jumlah' } },
                   y1: {
                     beginAtZero: true,
-                    max: maxPercent * 2,
+                    max: (maxPercent > 0 ? maxPercent * 2 : 100),
                     position: 'right',
                     title: { display: true, text: 'Fallout to PS (%)' },
                     grid: { drawOnChartArea: false },
@@ -382,10 +402,10 @@
             });
           }
 
-          function renderProgressSymptom(data) {
+          function renderProgressSymptom(dataToRender) {
             const status = {};
-            data.forEach(d => {
-              if (d.status_ps === 'PS') return; // skip jika PS
+            dataToRender.forEach(d => {
+              if (d.status_ps === 'PS') return;
               let key = d.status_hk;
               if (!key || key.trim() === "") key = "Stay Fallout";
               status[key] = (status[key] || 0) + 1;
@@ -517,7 +537,8 @@
             const endDateRaw = document.getElementById('endDate').value;
             const startDate = startDateRaw ? new Date(startDateRaw) : null;
             const endDate = endDateRaw ? new Date(endDateRaw) : null;
-            allData = await fetchData(branch, startDate, endDate);
+            allData = await fetchData();
+            allData = filterData(allData, branch, startDate, endDate);
             renderDashboard();
           }
 
