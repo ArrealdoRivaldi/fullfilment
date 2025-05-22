@@ -385,11 +385,12 @@
           function renderProgressSymptom(data) {
             const status = {};
             data.forEach(d => {
+              if (d.status_ps === 'PS') return; // skip jika PS
               let key = d.status_hk;
               if (!key || key.trim() === "") key = "Stay Fallout";
               status[key] = (status[key] || 0) + 1;
             });
-            const total = data.length;
+            const total = Object.values(status).reduce((a, b) => a + b, 0);
             let arr = Object.entries(status).map(([label, value]) => ({
               label,
               value,
