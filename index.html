@@ -319,6 +319,7 @@
               const parsed = parseMonth(d.provi_ts);
               return d.order_id && d.order_id !== '' && d.status_ps === "PS" && parsed && parsed.month === m;
             }).length);
+            // Line merah hanya muncul jika ada data Fallout dan PS di bulan itu
             const percentPerMonth = falloutPerMonth.map((f, i) => (f > 0 && psPerMonth[i] > 0) ? (psPerMonth[i] / f * 100).toFixed(2) : null);
             const ctx = document.getElementById('barTrend').getContext('2d');
             if(window.barTrendChart) window.barTrendChart.destroy();
