@@ -391,15 +391,14 @@
           }
 
           function renderProgressSymptom(dataToRender) {
-            const status = {};
+            const group = {};
             dataToRender.forEach(d => {
               if (d.status_ps === 'PS') return;
-              let key = d.status_hk;
-              if (!key || key.trim() === "") key = "Stay Fallout";
-              status[key] = (status[key] || 0) + 1;
+              let key = d.symptom || "Unknown";
+              group[key] = (group[key] || 0) + 1;
             });
-            const total = Object.values(status).reduce((a, b) => a + b, 0);
-            let arr = Object.entries(status).map(([label, value]) => ({
+            const total = Object.values(group).reduce((a, b) => a + b, 0);
+            let arr = Object.entries(group).map(([label, value]) => ({
               label,
               value,
               percent: total > 0 ? (value / total * 100) : 0
@@ -439,7 +438,7 @@
                 layout: { padding: { right: 40 } },
                 scales: {
                   x: { beginAtZero: true, title: { display: true, text: 'Jumlah' }, max: maxValue },
-                  y: { title: { display: true, text: 'Status HK' } }
+                  y: { title: { display: true, text: 'Symptom' } }
                 }
               },
               plugins: [ChartDataLabels]
