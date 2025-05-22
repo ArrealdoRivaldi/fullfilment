@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="au theme template">
     <meta name="author" content="Hau Nguyen">
     <meta name="keywords" content="au theme template">
-    <title>Menu Dashboard FBB</title>
+    <title>Menu Tracking House Keeping</title>
 
     <!-- CSS Files -->
     <link href="css/font-face.css" rel="stylesheet">
@@ -25,52 +25,6 @@
     <link href="css/theme.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-      .main-content {
-        max-width: 1600px;
-        margin: 0 auto;
-        background: #f7fafc;
-        border-radius: 18px;
-        padding: 32px 24px 32px 24px;
-        min-height: 100vh;
-      }
-      .dashboard-row {
-        display: flex;
-        gap: 32px;
-        margin-bottom: 32px;
-      }
-      .dashboard-row > div {
-        flex: 1 1 0;
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 2px 12px 0 #0001;
-        padding: 24px 16px 24px 16px;
-        min-width: 0;
-        min-height: 420px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-      }
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        background: #fff;
-        margin-top: 8px;
-      }
-      th, td {
-        border: 1px solid #e5e7eb;
-        padding: 8px 12px;
-        text-align: left;
-      }
-      th {
-        background: #f3f4f6;
-        font-weight: bold;
-      }
-      tr:nth-child(even) td {
-        background: #f9fafb;
-      }
-    </style>
 </head>
 
 <body class="animsition">
@@ -115,22 +69,22 @@
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
-              <nav class="navbar-sidebar">
-                  <ul class="list-unstyled navbar__list">
-                      <li class="has-sub">
-                          <a class="js-arrow" href="#"><i class="fas fa-house-user"></i>House Keeping</a>
-                          <ul class="list-unstyled navbar__sub-list js-sub-list">
-                              <li>
-                                  <a class="js-arrow" href="index.html"><i class="fas fa-house-user"></i>Dashboard</a>
-                              </li>
-                              <li class="active has-sub">
-                                  <a class="js-arrow" href="hk.html"><i class="fas fa-house-user"></i>Tool House Keeping</a>
-                              </li>
-                          </ul>
-                      </li>
-                  </ul>
-              </nav>
-          </div>
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#"><i class="fas fa-house-user"></i>House Keeping</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class="active has-sub">
+                                    <a class="js-arrow" href="index.html"><i class="fas fa-house-user"></i>Dashboard</a>
+                                </li>
+                                <li>
+                                    <a class="js-arrow" href="hk.html"><i class="fas fa-house-user"></i>Tool House Keeping</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </aside>
 
         <!-- Page Container -->
@@ -138,7 +92,7 @@
             <!-- Headbar Menu (moved here) -->
             <div class="w-full bg-white shadow flex items-center justify-between px-8 py-3 z-10" style="position:sticky;top:0;">
                 <div class="flex items-center gap-4">
-                    <span class="text-xl font-bold text-gray-800">Performance Dashboard</span>
+                    <span class="text-xl font-bold text-gray-800">Data Fallout</span>
                 </div>
                 <div class="flex items-center gap-6 text-gray-600">
                     <a href="#" class="hover:text-blue-600 transition">Home</a>
@@ -147,45 +101,315 @@
                     <span class="text-xs text-gray-400 ml-4"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: Senin 4/24/2025</span>
                 </div>
             </div>
-            <main class="main-content">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
-                <div class="flex flex-wrap gap-4 mb-6 items-end">
-                    <select id="branchFilter" class="border rounded px-2 py-1"></select>
-                    <input type="date" id="startDate" class="border rounded px-2 py-1">
-                    <input type="date" id="endDate" class="border rounded px-2 py-1">
-                    <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded">Filter</button>
-                </div>
-                <div class="dashboard-row">
-                    <div>
-                        <h3 class="font-bold mb-2">Fallout & HK</h3>
-                        <canvas id="pieHK" width="260" height="260"></canvas>
+            <div class="main-content p-0 m-0">
+                <main class="flex-1 pt-4 px-6 pb-8">            
+                    <!-- Filters Section -->
+                    <div class="bg-white p-4 rounded-lg shadow mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Branch</label>
+                                <select id="branchFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">WOK</label>
+                                <select id="wokFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">STO</label>
+                                <select id="sto_coFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                                <input type="date" id="startDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">End Date</label>
+                                <input type="date" id="endDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Status HK</label>
+                                <select id="statusHKFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-4">
+                            <button id="applyFilters" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                Apply Filters
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-bold mb-2">Symptom</h3>
-                        <canvas id="progressSymptom" width="420" height="260"></canvas>
+
+                    <!-- Table Section -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Provi ts</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">WOK</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">STO</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Symptom</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fallout Reason</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status HK</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">New Order ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status PS</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dataTableBody" class="bg-white divide-y divide-gray-200">
+                                    <!-- Data will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <div class="dashboard-row">
-                    <div style="flex: 1 1 100%; max-width: 100%;">
-                        <h3 class="font-bold mb-2">Trend Fallout to PS</h3>
-                        <canvas id="barTrend" width="900" height="320"></canvas>
+
+                    <!-- Modal for Fallout Reason Details -->
+                    <div id="falloutModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                            <div class="mt-3 text-center">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Fallout Reason Details</h3>
+                                <div class="mt-2 px-7 py-3">
+                                    <p id="falloutDetails" class="text-sm text-gray-500"></p>
+                                </div>
+                                <div class="items-center px-4 py-3">
+                                    <button id="closeModal" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="dashboard-row">
-                    <div style="overflow-x:auto;">
-                        <h3 class="font-bold mb-2">Symptom to PS</h3>
-                        <table id="tableSymptom" class="min-w-full text-xs"></table>
-                    </div>
-                    <div style="overflow-x:auto;">
-                        <h3 class="font-bold mb-2">Fallout NOP to PS</h3>
-                        <table id="tableNop" class="min-w-full text-xs"></table>
-                    </div>
-                    <div style="overflow-x:auto;">
-                        <h3 class="font-bold mb-2">Result House Keeping</h3>
-                        <table id="tableHK" class="min-w-full text-xs"></table>
-                    </div>
-                </div>
-            </main>
+
+                    <script type="module">
+                        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+                        import { getFirestore, collection, getDocs, updateDoc, doc, addDoc } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+                        const firebaseConfig = {
+                            apiKey: "AIzaSyCjBlPnJSlEq18tJett5ZdOAcMl2yPvlOE",
+                            authDomain: "fbb-fullfilment.firebaseapp.com",
+                            projectId: "fbb-fullfilment",
+                            storageBucket: "fbb-fullfilment.appspot.com",
+                            messagingSenderId: "842233083514",
+                            appId: "1:842233083514:web:beb0ce0ac38fc5825eedc3",
+                            measurementId: "G-9RPL0LSY4Q"
+                        };
+                        const app = initializeApp(firebaseConfig);
+                        const db = getFirestore(app);
+
+                        const statusHKOptions = [
+                            { value: "Cancel", label: "Cancel" },
+                            { value: "PT2", label: "PT2" },
+                            { value: "PT3", label: "PT3" },
+                            { value: "Reorder", label: "Reorder" },
+                            { value: "Revoke", label: "Revoke" },
+                            { value: "Stay Fallout", label: "Stay Fallout" },
+                            { value: "Offering Orbit", label: "Offering Orbit" }
+                        ];
+
+                        let allData = [];
+
+                        async function fetchData() {
+                            try {
+                                const querySnapshot = await getDocs(collection(db, "fallout"));
+                                allData = querySnapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+                                return allData;
+                            } catch (error) {
+                                console.error('Error fetching data from Firestore:', error);
+                                allData = [];
+                                return [];
+                            }
+                        }
+
+                        function formatDate(dateStr) {
+                            if (!dateStr) return '';
+                            if (typeof dateStr === 'object' && dateStr.seconds) {
+                                const date = new Date(dateStr.seconds * 1000);
+                                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                            }
+                            let date = new Date(dateStr);
+                            if (!isNaN(date.getTime())) {
+                                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                            }
+                            const match = dateStr.match(/([A-Za-z]+ \d{1,2}, \d{4})/);
+                            if (match) {
+                                date = new Date(match[1]);
+                                if (!isNaN(date.getTime())) {
+                                    return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                                }
+                            }
+                            return dateStr;
+                        }
+
+                        function truncateText(text, maxLength = 50) {
+                            if (text && text.length > maxLength) {
+                                return text.substring(0, maxLength) + '...';
+                            }
+                            return text || '';
+                        }
+
+                        function initializeFilters(data) {
+                            const filters = {
+                                branch: new Set(),
+                                wok: new Set(),
+                                sto_co: new Set(),
+                            };
+                            data.forEach(item => {
+                                filters.branch.add(item.branch);
+                                filters.wok.add(item.wok);
+                                filters.sto_co.add(item.sto_co);
+                            });
+                            ['branch', 'wok', 'sto_co'].forEach(filter => {
+                                const select = document.getElementById(`${filter}Filter`);
+                                if (!select) return;
+                                select.innerHTML = '<option value="">All</option>';
+                                [...filters[filter]].sort().forEach(value => {
+                                    if (value) {
+                                        const option = document.createElement('option');
+                                        option.value = value;
+                                        option.textContent = value;
+                                        select.appendChild(option);
+                                    }
+                                });
+                            });
+                            const statusHKSelect = document.getElementById('statusHKFilter');
+                            statusHKSelect.innerHTML = '';
+                            const optAll = document.createElement('option');
+                            optAll.value = '';
+                            optAll.textContent = 'All';
+                            statusHKSelect.appendChild(optAll);
+                            const optDone = document.createElement('option');
+                            optDone.value = 'done';
+                            optDone.textContent = 'Done';
+                            statusHKSelect.appendChild(optDone);
+                            const optNotYet = document.createElement('option');
+                            optNotYet.value = 'notyet';
+                            optNotYet.textContent = 'Not Yet';
+                            statusHKSelect.appendChild(optNotYet);
+                        }
+
+                        function filterData(data) {
+                            const branch = document.getElementById('branchFilter').value;
+                            const wok = document.getElementById('wokFilter').value;
+                            const sto = document.getElementById('sto_coFilter').value;
+                            const startDate = document.getElementById('startDate').value;
+                            const endDate = document.getElementById('endDate').value;
+                            const statusHK = document.getElementById('statusHKFilter').value;
+                            return data.filter(item => {
+                                let itemDate;
+                                if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
+                                    itemDate = new Date(item.provi_ts.seconds * 1000);
+                                } else if (typeof item.provi_ts === 'string') {
+                                    itemDate = new Date(item.provi_ts);
+                                } else {
+                                    itemDate = new Date(item.provi_ts);
+                                }
+                                let start = startDate ? new Date(startDate) : null;
+                                let end = endDate ? new Date(endDate) : null;
+                                if (end) end.setHours(23,59,59,999);
+                                let statusHKMatch = true;
+                                if (statusHK === 'done') {
+                                    statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
+                                } else if (statusHK === 'notyet') {
+                                    statusHKMatch = !(item.status_hk && item.status_hk.trim() !== '');
+                                }
+                                return (!branch || item.branch === branch) &&
+                                    (!wok || item.wok === wok) &&
+                                    (!sto || item.sto_co === sto) &&
+                                    statusHKMatch &&
+                                    (!start || itemDate >= start) &&
+                                    (!end || itemDate <= end);
+                            });
+                        }
+
+                        function renderTable(data) {
+                            const tbody = document.getElementById('dataTableBody');
+                            tbody.innerHTML = '';
+                            data.forEach((item, index) => {
+                                const row = document.createElement('tr');
+                                row.dataset.docId = item.id;
+                                row.innerHTML = `
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${index + 1}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.order_id}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${formatDate(item.provi_ts)}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.branch}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.wok}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.sto_co}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.symptom}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <div class="flex items-center">
+                                            <span>${truncateText(item.fallout_reason)}</span>
+                                            <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <select class="status-hk-select border rounded px-2 py-1">
+                                            <option value="">Select Status</option>
+                                            ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                                        </select>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+                                `;
+                                tbody.appendChild(row);
+                            });
+                        }
+
+                        document.addEventListener('DOMContentLoaded', async () => {
+                            await fetchData();
+                            initializeFilters(allData);
+                            renderTable(allData);
+                            document.getElementById('applyFilters').addEventListener('click', () => {
+                                const filteredData = filterData(allData);
+                                renderTable(filteredData);
+                            });
+                            document.getElementById('closeModal').addEventListener('click', () => {
+                                document.getElementById('falloutModal').classList.add('hidden');
+                            });
+                            // Event delegation for details and update
+                            document.getElementById('dataTableBody').addEventListener('click', async (e) => {
+                                if (e.target.classList.contains('details-btn')) {
+                                    const details = e.target.dataset.fallout;
+                                    document.getElementById('falloutDetails').textContent = details;
+                                    document.getElementById('falloutModal').classList.remove('hidden');
+                                }
+                                if (e.target.classList.contains('update-btn')) {
+                                    const row = e.target.closest('tr');
+                                    const docId = row.dataset.docId;
+                                    const statusHK = row.querySelector('.status-hk-select').value;
+                                    const newOrderId = row.querySelector('.new-order-id').value;
+                                    if (!docId) return;
+                                    try {
+                                        await updateDoc(doc(db, "fallout", docId), {
+                                            status_hk: statusHK,
+                                            new_order_id: newOrderId
+                                        });
+                                        alert('Data updated successfully!');
+                                        await fetchData();
+                                        renderTable(allData);
+                                    } catch (err) {
+                                        alert('Error updating data.');
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                </main>
+            </div>
             <!-- Improved Footer -->
             <footer class="w-full bg-gray-100 py-6 mt-8 shadow-inner">
                 <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
@@ -217,330 +441,5 @@
         <script src="vendor/chartjs/Chart.bundle.min.js"></script> 
         <script src="vendor/select2/select2.min.js"></script> 
         <script src="js/main.js"></script>
-        <!-- Chart.js -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <!-- Firebase SDK -->
-        <script type="module">
-          import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-          import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
-
-          const firebaseConfig = {
-            apiKey: "AIzaSyCjBlPnJSlEq18tJett5ZdOAcMl2yPvlOE",
-            authDomain: "fbb-fullfilment.firebaseapp.com",
-            projectId: "fbb-fullfilment",
-            storageBucket: "fbb-fullfilment.firebasestorage.app",
-            messagingSenderId: "842233083514",
-            appId: "1:842233083514:web:beb0ce0ac38fc5825eedc3",
-            measurementId: "G-9RPL0LSY4Q"
-          };
-
-          const app = initializeApp(firebaseConfig);
-          const db = getFirestore(app);
-
-          let allData = [];
-
-          async function fetchData() {
-            const snapshot = await getDocs(collection(db, "fallout"));
-            return snapshot.docs.map(doc => doc.data());
-          }
-
-          function filterData(data, branch, startDate, endDate) {
-            return data.filter(d => {
-              if (branch && (d.branch || '').trim() !== branch.trim()) return false;
-              if (startDate || endDate) {
-                let proviDate = new Date(d.provi_ts);
-                if (startDate && proviDate < startDate) return false;
-                if (endDate) {
-                  let endDateEnd = new Date(endDate);
-                  endDateEnd.setHours(23,59,59,999);
-                  if (proviDate > endDateEnd) return false;
-                }
-              }
-              return true;
-            });
-          }
-
-          function renderPieHK(dataToRender) {
-            const total = dataToRender.length;
-            const filled = dataToRender.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
-            const unfilled = total - filled;
-            const ctx = document.getElementById('pieHK').getContext('2d');
-            if (window.pieHKChart) window.pieHKChart.destroy();
-            window.pieHKChart = new Chart(ctx, {
-              type: 'pie',
-              data: {
-                labels: ['Sudah HK', 'Belum HK'],
-                datasets: [{
-                  data: [filled, unfilled],
-                  backgroundColor: ['#4ade80', '#f87171']
-                }]
-              },
-              options: {
-                plugins: {
-                  datalabels: {
-                    color: '#222',
-                    font: { weight: 'bold', size: 16 },
-                    formatter: function(value, context) {
-                      const percent = total > 0 ? (value / total * 100).toFixed(1) : 0;
-                      return value + ' (' + percent + '%)';
-                    }
-                  },
-                  legend: {
-                    display: true,
-                    position: 'top'
-                  },
-                  title: {
-                    display: true,
-                    text: 'Fallout & HK'
-                  }
-                }
-              },
-              plugins: [ChartDataLabels]
-            });
-          }
-
-          function parseMonth(str) {
-            if (!str) return null;
-            if (typeof str === 'object' && str.seconds) {
-              const date = new Date(str.seconds * 1000);
-              return { month: date.getMonth() + 1, year: date.getFullYear() };
-            }
-            if (typeof str !== 'string') str = String(str);
-            const match = str.match(/([A-Za-z]+)\s+\d{1,2},\s+(\d{4})/);
-            if (!match) return null;
-            const monthStr = match[1];
-            const yearStr = match[2];
-            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-            const month = months.findIndex(m => m.toLowerCase() === monthStr.toLowerCase());
-            return { month: month+1, year: parseInt(yearStr) };
-          }
-
-          function renderBarTrend(dataToRender) {
-            const months = Array.from({length: 12}, (_, i) => i+1);
-            const falloutPerMonth = months.map(m => dataToRender.filter(d => {
-              const parsed = parseMonth(d.provi_ts);
-              return d.order_id && d.order_id !== '' && parsed && parsed.month === m;
-            }).length);
-            const psPerMonth = months.map(m => dataToRender.filter(d => {
-              const parsed = parseMonth(d.provi_ts);
-              return d.order_id && d.order_id !== '' && d.status_ps === "PS" && parsed && parsed.month === m;
-            }).length);
-            
-            const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
-
-            const maxBar = Math.max(...falloutPerMonth, ...psPerMonth);
-            const maxPercent = Math.max(...percentPerMonth.map(x => Number(x) || 0));
-
-            const ctx = document.getElementById('barTrend').getContext('2d');
-            if(window.barTrendChart) window.barTrendChart.destroy();
-            window.barTrendChart = new Chart(ctx, {
-              type: 'bar',
-              data: {
-                labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
-                datasets: [
-                  { 
-                    label: 'Fallout', 
-                    data: falloutPerMonth, 
-                    backgroundColor: '#60a5fa', 
-                    yAxisID: 'y',
-                    barPercentage: 0.5,
-                    categoryPercentage: 0.5
-                  },
-                  { 
-                    label: 'PS', 
-                    data: psPerMonth, 
-                    backgroundColor: '#fbbf24', 
-                    yAxisID: 'y',
-                    barPercentage: 0.5,
-                    categoryPercentage: 0.5
-                  },
-                  { 
-                    label: 'Fallout to PS (%)', 
-                    data: percentPerMonth, 
-                    type: 'line', 
-                    borderColor: '#ef4444', 
-                    backgroundColor: '#ef4444', 
-                    fill: false, 
-                    yAxisID: 'y1', 
-                    tension: 0.3,
-                    order: 99,
-                    pointRadius: 4,
-                    borderWidth: 3
-                  }
-                ]
-              },
-              options: {
-                responsive: true,
-                plugins: {
-                  legend: { position: 'top' },
-                  title: { display: true, text: 'Trend Fallout to PS' }
-                },
-                scales: {
-                  y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 2 : 5), title: { display: true, text: 'Jumlah' } },
-                  y1: {
-                    beginAtZero: true,
-                    max: (maxPercent > 0 ? maxPercent * 2 : 100),
-                    position: 'right',
-                    title: { display: true, text: 'Fallout to PS (%)' },
-                    grid: { drawOnChartArea: false },
-                    ticks: { callback: v => v + '%' }
-                  }
-                }
-              }
-            });
-          }
-
-          function renderProgressSymptom(dataToRender) {
-            const status = {};
-            dataToRender.forEach(d => {
-              if (d.status_ps === 'PS') return;
-              let key = d.status_hk;
-              if (!key || key.trim() === "") key = "Stay Fallout";
-              status[key] = (status[key] || 0) + 1;
-            });
-            const total = Object.values(status).reduce((a, b) => a + b, 0);
-            let arr = Object.entries(status).map(([label, value]) => ({
-              label,
-              value,
-              percent: total > 0 ? (value / total * 100) : 0
-            }));
-            arr.sort((a, b) => b.percent - a.percent);
-            const maxValue = Math.max(...arr.map(x => x.value)) + 2;
-            new Chart(document.getElementById('progressSymptom'), {
-              type: 'bar',
-              data: {
-                labels: arr.map(x => x.label),
-                datasets: [{
-                  label: 'Jumlah',
-                  data: arr.map(x => x.value),
-                  backgroundColor: '#34d399',
-                  borderRadius: 12,
-                  barPercentage: 0.7,
-                  categoryPercentage: 0.7
-                }]
-              },
-              options: {
-                indexAxis: 'y',
-                plugins: {
-                  legend: { display: false },
-                  title: { display: true, text: 'Progress House Keeping (Symptom)' },
-                  datalabels: {
-                    anchor: 'end',
-                    align: 'end',
-                    color: '#222',
-                    font: { weight: 'bold', size: 14 },
-                    clip: false,
-                    formatter: function(value, context) {
-                      const percent = arr[context.dataIndex].percent;
-                      return value + ' (' + percent.toFixed(1) + '%)';
-                    }
-                  }
-                },
-                layout: { padding: { right: 40 } },
-                scales: {
-                  x: { beginAtZero: true, title: { display: true, text: 'Jumlah' }, max: maxValue },
-                  y: { title: { display: true, text: 'Status HK' } }
-                }
-              },
-              plugins: [ChartDataLabels]
-            });
-          }
-
-          function renderTableSymptom(data) {
-            const group = {};
-            data.forEach(d => {
-              if (!group[d.symptom]) group[d.symptom] = { total: 0, ps: 0 };
-              group[d.symptom].total++;
-              if (d.status_ps === "PS") group[d.symptom].ps++;
-            });
-            let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th></tr>`;
-            let total = 0, ps = 0;
-            for (const [symptom, val] of Object.entries(group)) {
-              html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
-              total += val.total; ps += val.ps;
-            }
-            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`;
-            document.getElementById('tableSymptom').innerHTML = html;
-          }
-
-          function renderTableNop(data) {
-            const group = {};
-            data.forEach(d => {
-              if (!group[d.branch]) group[d.branch] = { total: 0, ps: 0 };
-              group[d.branch].total++;
-              if (d.status_ps === "PS") group[d.branch].ps++;
-            });
-            let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th></tr>`;
-            let total = 0, ps = 0;
-            for (const [branch, val] of Object.entries(group)) {
-              html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
-              total += val.total; ps += val.ps;
-            }
-            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`;
-            document.getElementById('tableNop').innerHTML = html;
-          }
-
-          function renderTableHK(data) {
-            const group = {};
-            data.forEach(d => {
-              let key = d.status_hk;
-              if (!key || key.trim() === "") key = "Stay Fallout";
-              if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
-              group[key].total++;
-              if (d.status_ps === "PS") group[key].ps++;
-              else if (d.status_ps === "Cancel") group[key].cancel++;
-              else group[key].stay++;
-            });
-            let html = `<tr><th>House Keeping</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
-            let total = 0, ps = 0, cancel = 0, stay = 0;
-            for (const [hk, val] of Object.entries(group)) {
-              html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
-              total += val.total;
-              ps += val.ps;
-              cancel += val.cancel;
-              stay += val.stay;
-            }
-            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th><th>${cancel}</th><th>${stay}</th></tr>`;
-            document.getElementById('tableHK').innerHTML = html;
-          }
-
-          function renderBranchFilter(data) {
-            const unique = {};
-            data.forEach(d => {
-              const norm = (d.branch || '').trim().toUpperCase();
-              if (norm && !unique[norm]) unique[norm] = (d.branch || '').trim();
-            });
-            const branches = Object.values(unique);
-            document.getElementById('branchFilter').innerHTML =
-              `<option value="">All Branch</option>` +
-              branches.map(b => `<option value="${b}">${b}</option>`).join('');
-          }
-
-          function renderDashboard(data) {
-            renderBranchFilter(allData);
-            renderPieHK(data);
-            renderBarTrend(data);
-            renderProgressSymptom(data);
-            renderTableSymptom(data);
-            renderTableNop(data);
-            renderTableHK(data);
-          }
-
-          window.applyFilters = function() {
-            const branch = document.getElementById('branchFilter').value;
-            const startDateRaw = document.getElementById('startDate').value;
-            const endDateRaw = document.getElementById('endDate').value;
-            const startDate = startDateRaw ? new Date(startDateRaw) : null;
-            const endDate = endDateRaw ? new Date(endDateRaw) : null;
-            const filtered = filterData(allData, branch, startDate, endDate);
-            renderDashboard(filtered);
-          }
-
-          document.addEventListener('DOMContentLoaded', async function() {
-            allData = await fetchData();
-            renderDashboard(allData);
-          });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     </body> 
-</html>
+</html> 
