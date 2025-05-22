@@ -392,6 +392,7 @@
               percent: total > 0 ? (value / total * 100) : 0
             }));
             arr.sort((a, b) => b.percent - a.percent);
+            const maxValue = Math.max(...arr.map(x => x.value)) + 1;
             new Chart(document.getElementById('progressSymptom'), {
               type: 'bar',
               data: {
@@ -424,7 +425,7 @@
                 },
                 layout: { padding: { right: 40 } },
                 scales: {
-                  x: { beginAtZero: true, title: { display: true, text: 'Jumlah' } },
+                  x: { beginAtZero: true, title: { display: true, text: 'Jumlah' }, max: maxValue },
                   y: { title: { display: true, text: 'Status HK' } }
                 }
               },
