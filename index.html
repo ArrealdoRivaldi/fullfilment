@@ -513,8 +513,11 @@
 
           window.applyFilters = async function() {
             const branch = document.getElementById('branchFilter').value;
-            const startDate = document.getElementById('startDate').value;
-            const endDate = document.getElementById('endDate').value;
+            // Konversi input date ke objek Date jika ada value
+            const startDateRaw = document.getElementById('startDate').value;
+            const endDateRaw = document.getElementById('endDate').value;
+            const startDate = startDateRaw ? new Date(startDateRaw) : null;
+            const endDate = endDateRaw ? new Date(endDateRaw) : null;
             allData = await fetchData(branch, startDate, endDate);
             renderDashboard();
           }
