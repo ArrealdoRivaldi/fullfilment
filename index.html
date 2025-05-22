@@ -513,7 +513,6 @@
 
           window.applyFilters = async function() {
             const branch = document.getElementById('branchFilter').value;
-            // Konversi input date ke objek Date jika ada value
             const startDateRaw = document.getElementById('startDate').value;
             const endDateRaw = document.getElementById('endDate').value;
             const startDate = startDateRaw ? new Date(startDateRaw) : null;
@@ -522,11 +521,11 @@
             renderDashboard();
           }
 
-          // Initial load
-          (async function() {
+          // Inisialisasi dashboard setelah DOM siap
+          document.addEventListener('DOMContentLoaded', async function() {
             allData = await fetchData();
             renderDashboard();
-          })();
+          });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     </body> 
