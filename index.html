@@ -493,4 +493,10 @@
               html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
               total += val.total; ps += val.ps;
             }
-            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`
+            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`;
+            document.getElementById('tableNop').innerHTML = html;
+          }
+        </script>
+    </div>
+</body>
+</html>
