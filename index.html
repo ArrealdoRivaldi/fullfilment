@@ -374,7 +374,18 @@
                 responsive: true,
                 plugins: {
                   legend: { position: 'top' },
-                  title: { display: true, text: 'Trend Fallout to PS' }
+                  title: { display: true, text: 'Trend Fallout to PS' },
+                  datalabels: {
+                    display: true,
+                    color: '#222',
+                    font: { weight: 'bold', size: 12 },
+                    anchor: 'end',
+                    align: 'end',
+                    formatter: function(value, context) {
+                      if (context.dataset.type === 'line') return '';
+                      return value;
+                    }
+                  }
                 },
                 scales: {
                   y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 2 : 5), title: { display: true, text: 'Jumlah' } },
@@ -387,7 +398,8 @@
                     ticks: { callback: v => v + '%' }
                   }
                 }
-              }
+              },
+              plugins: [ChartDataLabels]
             });
           }
 
@@ -476,89 +488,4 @@
               html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
               total += val.total; ps += val.ps;
             }
-            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`;
-            document.getElementById('tableNop').innerHTML = html;
-          }
-
-          function renderTableHK(data) {
-            const group = {};
-            data.forEach(d => {
-              let key = d.status_hk;
-              if (!key || key.trim() === "") key = "Stay Fallout";
-              if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
-              group[key].total++;
-              if (d.status_ps === "PS") group[key].ps++;
-              else if (d.status_ps === "Cancel") group[key].cancel++;
-              else group[key].stay++;
-            });
-            let html = `<tr><th>House Keeping</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
-            let total = 0, ps = 0, cancel = 0, stay = 0;
-            for (const [hk, val] of Object.entries(group)) {
-              html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
-              total += val.total;
-              ps += val.ps;
-              cancel += val.cancel;
-              stay += val.stay;
-            }
-            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th><th>${cancel}</th><th>${stay}</th></tr>`;
-            document.getElementById('tableHK').innerHTML = html;
-          }
-
-          function renderBranchFilter(data) {
-            const unique = {};
-            data.forEach(d => {
-              const norm = (d.branch || '').trim().toUpperCase();
-              if (norm && !unique[norm]) unique[norm] = (d.branch || '').trim();
-            });
-            const branches = Object.values(unique);
-            document.getElementById('branchFilter').innerHTML =
-              `<option value="">All Branch</option>` +
-              branches.map(b => `<option value="${b}">${b}</option>`).join('');
-          }
-
-          function renderDashboard(data) {
-            renderBranchFilter(allData);
-            renderPieHK(data);
-            renderBarTrend(data);
-            renderProgressSymptom(data);
-            renderTableSymptom(data);
-            renderTableNop(data);
-            renderTableHK(data);
-          }
-
-          window.applyFilters = function() {
-            const branch = document.getElementById('branchFilter').value;
-            const startDateRaw = document.getElementById('startDate').value;
-            const endDateRaw = document.getElementById('endDate').value;
-            const startDate = startDateRaw ? new Date(startDateRaw) : null;
-            const endDate = endDateRaw ? new Date(endDateRaw) : null;
-            const filtered = filterData(allData, branch, startDate, endDate);
-            renderDashboard(filtered);
-          }
-
-          document.addEventListener('DOMContentLoaded', async function() {
-            allData = await fetchData();
-            renderDashboard(allData);
-          });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-        <!-- Mobile Menu Script -->
-        <script>
-          const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-          const mobileMenu = document.getElementById('mobileMenu');
-          const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-          const closeMobileMenu = document.getElementById('closeMobileMenu');
-          function openMenu() {
-            mobileMenu.classList.remove('-translate-x-full');
-            mobileMenuOverlay.classList.remove('hidden');
-          }
-          function closeMenu() {
-            mobileMenu.classList.add('-translate-x-full');
-            mobileMenuOverlay.classList.add('hidden');
-          }
-          if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
-          if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeMenu);
-          if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
-        </script>
-    </body> 
-</html>
+            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th></tr>`
