@@ -31,30 +31,22 @@
         margin: 0 auto;
         background: #f7fafc;
         border-radius: 18px;
-        padding: 16px 4px 32px 4px;
+        padding: 32px 24px 32px 24px;
         min-height: 100vh;
       }
       .dashboard-row {
         display: flex;
-        flex-direction: column;
-        gap: 16px;
-        margin-bottom: 24px;
-      }
-      @media (min-width: 1024px) {
-        .dashboard-row {
-          flex-direction: row;
-          gap: 32px;
-          margin-bottom: 32px;
-        }
+        gap: 32px;
+        margin-bottom: 32px;
       }
       .dashboard-row > div {
         flex: 1 1 0;
         background: #fff;
         border-radius: 16px;
         box-shadow: 0 2px 12px 0 #0001;
-        padding: 16px 6px 16px 6px;
+        padding: 24px 16px 24px 16px;
         min-width: 0;
-        min-height: 320px;
+        min-height: 420px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -154,47 +146,47 @@
                 </div>
             </div>
             <main class="main-content">
-                <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
-                <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6 items-end">
-                    <select id="branchFilter" class="border rounded px-2 py-1 text-xs sm:text-sm"></select>
-                    <input type="date" id="startDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
-                    <input type="date" id="endDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
-                    <button onclick="applyFilters()" class="bg-blue-500 text-white px-3 sm:px-4 py-1 rounded text-xs sm:text-sm">Filter</button>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Overview</h2>
+                <div class="flex flex-wrap gap-4 mb-6 items-end">
+                    <select id="branchFilter" class="border rounded px-2 py-1"></select>
+                    <input type="date" id="startDate" class="border rounded px-2 py-1">
+                    <input type="date" id="endDate" class="border rounded px-2 py-1">
+                    <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded">Filter</button>
                 </div>
                 <div class="dashboard-row">
                     <div>
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Fallout & HK</h3>
-                        <div class="w-full"><canvas id="pieHK" class="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto" style="height:220px;"></canvas></div>
+                        <h3 class="font-bold mb-2">Fallout & HK</h3>
+                        <canvas id="pieHK" width="260" height="260"></canvas>
                     </div>
                     <div>
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Symptom</h3>
-                        <div class="w-full"><canvas id="progressSymptom" class="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto" style="height:220px;"></canvas></div>
+                        <h3 class="font-bold mb-2">Symptom</h3>
+                        <canvas id="progressSymptom" width="420" height="260"></canvas>
                     </div>
                 </div>
                 <div class="dashboard-row">
-                    <div class="w-full max-w-full">
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Trend Fallout to PS</h3>
-                        <div class="w-full"><canvas id="barTrend" class="w-full max-w-2xl mx-auto" style="height:260px;"></canvas></div>
+                    <div style="flex: 1 1 100%; max-width: 100%;">
+                        <h3 class="font-bold mb-2">Trend Fallout to PS</h3>
+                        <canvas id="barTrend" width="900" height="320"></canvas>
                     </div>
                 </div>
                 <div class="dashboard-row">
-                    <div class="overflow-x-auto w-full">
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Symptom to PS</h3>
-                        <table id="tableSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                    <div style="overflow-x:auto;">
+                        <h3 class="font-bold mb-2">Symptom to PS</h3>
+                        <table id="tableSymptom" class="min-w-full text-xs"></table>
                     </div>
-                    <div class="overflow-x-auto w-full">
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Fallout NOP to PS</h3>
-                        <table id="tableNop" class="min-w-full text-xs sm:text-sm"></table>
+                    <div style="overflow-x:auto;">
+                        <h3 class="font-bold mb-2">Fallout NOP to PS</h3>
+                        <table id="tableNop" class="min-w-full text-xs"></table>
                     </div>
-                    <div class="overflow-x-auto w-full">
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Result House Keeping</h3>
-                        <table id="tableHK" class="min-w-full text-xs sm:text-sm"></table>
+                    <div style="overflow-x:auto;">
+                        <h3 class="font-bold mb-2">Result House Keeping</h3>
+                        <table id="tableHK" class="min-w-full text-xs"></table>
                     </div>
                 </div>
             </main>
             <!-- Improved Footer -->
             <footer class="w-full bg-gray-100 py-6 mt-8 shadow-inner">
-                <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-2 sm:px-6">
+                <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
                     <div class="flex items-center gap-2 mb-2 md:mb-0">
                         <img src="images/icon/logo.png" alt="FBB" class="h-8 w-auto">
                         <span class="text-gray-700 font-semibold">FBB Telkomsel</span>
@@ -247,9 +239,7 @@
 
           async function fetchData() {
             const snapshot = await getDocs(collection(db, "fallout"));
-            const data = snapshot.docs.map(doc => doc.data());
-            console.log("Data dari Firestore:", data);
-            return data;
+            return snapshot.docs.map(doc => doc.data());
           }
 
           function filterData(data, branch, startDate, endDate) {
@@ -381,18 +371,7 @@
                 responsive: true,
                 plugins: {
                   legend: { position: 'top' },
-                  title: { display: true, text: 'Trend Fallout to PS' },
-                  datalabels: {
-                    display: true,
-                    color: '#222',
-                    font: { weight: 'bold', size: 12 },
-                    anchor: 'end',
-                    align: 'end',
-                    formatter: function(value, context) {
-                      if (context.dataset.type === 'line') return '';
-                      return value;
-                    }
-                  }
+                  title: { display: true, text: 'Trend Fallout to PS' }
                 },
                 scales: {
                   y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 2 : 5), title: { display: true, text: 'Jumlah' } },
@@ -405,8 +384,7 @@
                     ticks: { callback: v => v + '%' }
                   }
                 }
-              },
-              plugins: [ChartDataLabels]
+              }
             });
           }
 
@@ -499,14 +477,85 @@
             document.getElementById('tableNop').innerHTML = html;
           }
 
-          const filtered = filterData(allData, '', null, null);
-          console.log("Data setelah filter:", filtered);
-          renderPieHK(filtered);
-          renderBarTrend(filtered);
-          renderProgressSymptom(filtered);
-          renderTableSymptom(filtered);
-          renderTableNop(filtered);
+          function renderTableHK(data) {
+            const group = {};
+            data.forEach(d => {
+              let key = d.status_hk;
+              if (!key || key.trim() === "") key = "Stay Fallout";
+              if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+              else if (d.status_ps === "Cancel") group[key].cancel++;
+              else group[key].stay++;
+            });
+            let html = `<tr><th>House Keeping</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
+            let total = 0, ps = 0, cancel = 0, stay = 0;
+            for (const [hk, val] of Object.entries(group)) {
+              html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
+              total += val.total;
+              ps += val.ps;
+              cancel += val.cancel;
+              stay += val.stay;
+            }
+            html += `<tr><th>Grand Total</th><th>${total}</th><th>${ps}</th><th>${cancel}</th><th>${stay}</th></tr>`;
+            document.getElementById('tableHK').innerHTML = html;
+          }
+
+          function renderBranchFilter(data) {
+            const unique = {};
+            data.forEach(d => {
+              const norm = (d.branch || '').trim().toUpperCase();
+              if (norm && !unique[norm]) unique[norm] = (d.branch || '').trim();
+            });
+            const branches = Object.values(unique);
+            document.getElementById('branchFilter').innerHTML =
+              `<option value="">All Branch</option>` +
+              branches.map(b => `<option value="${b}">${b}</option>`).join('');
+          }
+
+          function renderDashboard(data) {
+            renderBranchFilter(allData);
+            renderPieHK(data);
+            renderBarTrend(data);
+            renderProgressSymptom(data);
+            renderTableSymptom(data);
+            renderTableNop(data);
+            renderTableHK(data);
+          }
+
+          window.applyFilters = function() {
+            const branch = document.getElementById('branchFilter').value;
+            const startDateRaw = document.getElementById('startDate').value;
+            const endDateRaw = document.getElementById('endDate').value;
+            const startDate = startDateRaw ? new Date(startDateRaw) : null;
+            const endDate = endDateRaw ? new Date(endDateRaw) : null;
+            const filtered = filterData(allData, branch, startDate, endDate);
+            renderDashboard(filtered);
+          }
+
+          document.addEventListener('DOMContentLoaded', async function() {
+            allData = await fetchData();
+            renderDashboard(allData);
+          });
         </script>
-    </div>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+        <!-- Mobile Menu Script -->
+        <script>
+          const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+          const mobileMenu = document.getElementById('mobileMenu');
+          const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+          const closeMobileMenu = document.getElementById('closeMobileMenu');
+          function openMenu() {
+            mobileMenu.classList.remove('-translate-x-full');
+            mobileMenuOverlay.classList.remove('hidden');
+          }
+          function closeMenu() {
+            mobileMenu.classList.add('-translate-x-full');
+            mobileMenuOverlay.classList.add('hidden');
+          }
+          if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+          if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeMenu);
+          if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
+        </script>
+    </body> 
 </html>
