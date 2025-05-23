@@ -340,6 +340,10 @@
             const maxBar = Math.max(...falloutPerMonth, ...psPerMonth);
             const maxPercent = Math.max(...percentPerMonth.map(x => Number(x) || 0));
 
+            // Hitung total Fallout dan PS untuk label legend
+            const totalFallout = falloutPerMonth.reduce((a, b) => a + b, 0);
+            const totalPS = psPerMonth.reduce((a, b) => a + b, 0);
+
             const ctx = document.getElementById('barTrend').getContext('2d');
             if(window.barTrendChart) window.barTrendChart.destroy();
             window.barTrendChart = new Chart(ctx, {
@@ -348,20 +352,34 @@
                 labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
                 datasets: [
                   { 
-                    label: 'Fallout', 
+                    label: `Fallout (${totalFallout})`, 
                     data: falloutPerMonth, 
                     backgroundColor: '#60a5fa', 
                     yAxisID: 'y',
                     barPercentage: 0.5,
-                    categoryPercentage: 0.5
+                    categoryPercentage: 0.5,
+                    datalabels: {
+                      anchor: 'end',
+                      align: 'end',
+                      color: '#222',
+                      font: { weight: 'bold', size: 12 },
+                      formatter: function(value) { return value > 0 ? value : ''; }
+                    }
                   },
                   { 
-                    label: 'PS', 
+                    label: `PS (${totalPS})`, 
                     data: psPerMonth, 
                     backgroundColor: '#fbbf24', 
                     yAxisID: 'y',
                     barPercentage: 0.5,
-                    categoryPercentage: 0.5
+                    categoryPercentage: 0.5,
+                    datalabels: {
+                      anchor: 'end',
+                      align: 'end',
+                      color: '#222',
+                      font: { weight: 'bold', size: 12 },
+                      formatter: function(value) { return value > 0 ? value : ''; }
+                    }
                   },
                   { 
                     label: 'Fallout to PS (%)', 
@@ -374,7 +392,8 @@
                     tension: 0.3,
                     order: 99,
                     pointRadius: 4,
-                    borderWidth: 3
+                    borderWidth: 3,
+                    datalabels: { display: false }
                   }
                 ]
               },
@@ -382,7 +401,8 @@
                 responsive: true,
                 plugins: {
                   legend: { position: 'top' },
-                  title: { display: true, text: 'Trend Fallout to PS' }
+                  title: { display: true, text: 'Trend Fallout to PS' },
+                  datalabels: { display: true }
                 },
                 scales: {
                   y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 2 : 5), title: { display: true, text: 'Jumlah' } },
