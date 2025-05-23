@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
     <title>Menu Dashboard FBB</title>
 
     <!-- CSS Files -->
@@ -159,8 +162,8 @@
                     <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded text-xs sm:text-sm">Filter</button>
                 </div>
                 <div class="dashboard-row">
-                    <div>                  
-                        <div class="w-full max-w-[70vw] sm:max-w-xs md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto overflow-hidden p-2">
+                    <div>                 
+                        <div class="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
                           <div class="relative w-full" style="aspect-ratio:1/1;">
                             <canvas id="pieHK" class="w-full h-full absolute top-0 left-0" style="max-width:100%;max-height:100%;"></canvas>
                           </div>
@@ -280,8 +283,7 @@
                 labels: ['Sudah HK', 'Belum HK'],
                 datasets: [{
                   data: [filled, unfilled],
-                  backgroundColor: ['#4ade80', '#f87171'],
-                  borderWidth: 0
+                  backgroundColor: ['#4ade80', '#f87171']
                 }]
               },
               options: {
@@ -340,10 +342,6 @@
             const maxBar = Math.max(...falloutPerMonth, ...psPerMonth);
             const maxPercent = Math.max(...percentPerMonth.map(x => Number(x) || 0));
 
-            // Hitung total Fallout dan PS untuk label legend
-            const totalFallout = falloutPerMonth.reduce((a, b) => a + b, 0);
-            const totalPS = psPerMonth.reduce((a, b) => a + b, 0);
-
             const ctx = document.getElementById('barTrend').getContext('2d');
             if(window.barTrendChart) window.barTrendChart.destroy();
             window.barTrendChart = new Chart(ctx, {
@@ -352,34 +350,20 @@
                 labels: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
                 datasets: [
                   { 
-                    label: `Fallout (${totalFallout})`, 
+                    label: 'Fallout', 
                     data: falloutPerMonth, 
                     backgroundColor: '#60a5fa', 
                     yAxisID: 'y',
                     barPercentage: 0.5,
-                    categoryPercentage: 0.5,
-                    datalabels: {
-                      anchor: 'end',
-                      align: 'end',
-                      color: '#222',
-                      font: { weight: 'bold', size: 12 },
-                      formatter: function(value) { return value > 0 ? value : ''; }
-                    }
+                    categoryPercentage: 0.5
                   },
                   { 
-                    label: `PS (${totalPS})`, 
+                    label: 'PS', 
                     data: psPerMonth, 
                     backgroundColor: '#fbbf24', 
                     yAxisID: 'y',
                     barPercentage: 0.5,
-                    categoryPercentage: 0.5,
-                    datalabels: {
-                      anchor: 'end',
-                      align: 'end',
-                      color: '#222',
-                      font: { weight: 'bold', size: 12 },
-                      formatter: function(value) { return value > 0 ? value : ''; }
-                    }
+                    categoryPercentage: 0.5
                   },
                   { 
                     label: 'Fallout to PS (%)', 
@@ -392,8 +376,7 @@
                     tension: 0.3,
                     order: 99,
                     pointRadius: 4,
-                    borderWidth: 3,
-                    datalabels: { display: false }
+                    borderWidth: 3
                   }
                 ]
               },
@@ -401,8 +384,7 @@
                 responsive: true,
                 plugins: {
                   legend: { position: 'top' },
-                  title: { display: true, text: 'Trend Fallout to PS' },
-                  datalabels: { display: true }
+                  title: { display: true, text: 'Trend Fallout to PS' }
                 },
                 scales: {
                   y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 2 : 5), title: { display: true, text: 'Jumlah' } },
