@@ -248,7 +248,7 @@
           if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeMenu);
           if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
         </script>
-        <div id="output" style="margin: 24px 0; padding: 12px; background: #f3f4f6; border-radius: 8px;"></div>
+        <!-- Main script for Dashboard -->
         <script>
         // Ambil data dari API, lalu render dashboard
         let allData = [];
@@ -272,7 +272,44 @@
         function renderPieHK(dataToRender) {
           // ... kode lama ...
         }
-        // dst (copy semua fungsi render dari kode lama)
+
+        function parseMonth(str) {
+          // ... existing date parsing logic ...
+        }
+
+        function renderBarTrend(dataToRender) {
+          // ... existing chart rendering logic ...
+        }
+
+        function renderProgressSymptom(dataToRender) {
+          // ... existing chart rendering logic ...
+        }
+
+        function renderTableSymptom(data) {
+          // ... existing table rendering logic ...
+        }
+
+        function renderTableNop(data) {
+          // ... existing table rendering logic ...
+        }
+
+        function renderTableHK(data) {
+          // ... existing table rendering logic ...
+        }
+
+        function renderBranchFilter(data) {
+          // ... existing filter rendering logic ...
+        }
+
+        function renderDashboard(data) {
+          renderBranchFilter(allData); // Filter options based on all data
+          renderPieHK(data);
+          renderBarTrend(data);
+          renderProgressSymptom(data);
+          renderTableSymptom(data);
+          renderTableNop(data);
+          renderTableHK(data);
+        }
 
         window.applyFilters = function() {
           const branch = document.getElementById('branchFilter').value;
@@ -285,13 +322,20 @@
         }
 
         document.addEventListener('DOMContentLoaded', async function() {
-          fetch('/api/firestore')
-            .then(res => res.json())
-            .then(data => {
-              allData = data;
-              renderDashboard(allData);
-            });
+          try {
+            const response = await fetch('/api/firestore');
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            allData = data; // Simpan data ke variabel global
+            renderDashboard(allData); // Render dashboard dengan semua data awal
+          } catch (error) {
+            console.error('Error fetching data:', error);
+            // Tampilkan pesan error di halaman jika perlu
+          }
         });
         </script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     </body> 
 </html>

@@ -187,24 +187,7 @@
                         </div>
                     </div>
 
-                    <div id="output" style="margin: 24px 0; padding: 12px; background: #f3f4f6; border-radius: 8px;"></div>
-                    <script>
-                    fetch('/api/firestore')
-                      .then(res => res.json())
-                      .then(data => {
-                        console.log('Data dari Firestore:', data);
-                        const outputDiv = document.getElementById('output');
-                        if (Array.isArray(data)) {
-                          outputDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-                        } else {
-                          outputDiv.textContent = 'Gagal mengambil data.';
-                        }
-                      })
-                      .catch(err => {
-                        document.getElementById('output').textContent = 'Error: ' + err;
-                      });
-                    </script>
-
+                    <!-- Main script for Table and Filters -->
                     <script>
                     // Ambil data dari API, lalu render tabel dan filter
                     const statusHKOptions = [
@@ -356,28 +339,38 @@
                     }
 
                     document.addEventListener('DOMContentLoaded', async () => {
-                        fetch('/api/firestore')
-                          .then(res => res.json())
-                          .then(data => {
-                            allData = data;
+                        try {
+                            const response = await fetch('/api/firestore');
+                             if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            const data = await response.json();
+                            allData = data; // Simpan data ke variabel global
                             initializeFilters(allData);
                             renderTable(allData);
-                          });
-                        document.getElementById('applyFilters').addEventListener('click', () => {
-                            const filteredData = filterData(allData);
-                            renderTable(filteredData);
-                        });
-                        document.getElementById('closeModal').addEventListener('click', () => {
-                            document.getElementById('falloutModal').classList.add('hidden');
-                        });
-                        document.getElementById('dataTableBody').addEventListener('click', async (e) => {
-                            if (e.target.classList.contains('details-btn')) {
-                                const details = e.target.dataset.fallout;
-                                document.getElementById('falloutDetails').textContent = details;
-                                document.getElementById('falloutModal').classList.remove('hidden');
-                            }
-                            // Update data ke Firestore hanya bisa dilakukan dari backend, jadi bagian ini perlu diubah jika ingin update lewat API
-                        });
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                            // Tampilkan pesan error di halaman jika perlu
+                        }
+                    });
+
+                    document.getElementById('applyFilters').addEventListener('click', () => {
+                        const filteredData = filterData(allData);
+                        renderTable(filteredData);
+                    });
+
+                    document.getElementById('closeModal').addEventListener('click', () => {
+                        document.getElementById('falloutModal').classList.add('hidden');
+                    });
+
+                    document.getElementById('dataTableBody').addEventListener('click', async (e) => {
+                         if (e.target.classList.contains('details-btn')) {
+                            const details = e.target.dataset.fallout;
+                            document.getElementById('falloutDetails').textContent = details;
+                            document.getElementById('falloutModal').classList.remove('hidden');
+                        }
+                        // Bagian update data ke Firestore perlu API backend terpisah
+                        // if (e.target.classList.contains('update-btn')) { ... kode update lama ... }
                     });
                     </script>
                 </main>
