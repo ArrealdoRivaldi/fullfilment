@@ -203,22 +203,27 @@
 
                     function formatDate(dateStr) {
                         if (!dateStr) return '';
-                        if (typeof dateStr === 'object' && dateStr.seconds) {
-                            const date = new Date(dateStr.seconds * 1000);
-                            return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
-                        }
-                        let date = new Date(dateStr);
-                        if (!isNaN(date.getTime())) {
-                            return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
-                        }
-                        const match = dateStr.match(/([A-Za-z]+ \d{1,2}, \d{4})/);
-                        if (match) {
-                            date = new Date(match[1]);
-                            if (!isNaN(date.getTime())) {
-                                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                        try {
+                            // Coba parse sebagai Firebase Timestamp (object dengan seconds dan nanoseconds)
+                            if (typeof dateStr === 'object' && dateStr !== null && typeof dateStr.seconds === 'number') {
+                                const date = new Date(dateStr.seconds * 1000);
+                                if (!isNaN(date.getTime())) {
+                                    return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                                }
                             }
+                            // Coba parse sebagai string date format apa pun yang dikenali Date constructor
+                            if (typeof dateStr === 'string' && dateStr.trim() !== '') {
+                                const date = new Date(dateStr);
+                                if (!isNaN(date.getTime())) {
+                                     return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                                }
+                            }
+                            // Jika tidak cocok dengan format yang dikenal
+                            return 'Invalid Date'; // Atau bisa juga return dateStr kalau mau menampilkan nilai aslinya
+                        } catch (e) {
+                            console.error('Error formatting date:', dateStr, e);
+                            return 'Format Error'; // Handle error saat parsing
                         }
-                        return dateStr;
                     }
 
                     function truncateText(text, maxLength = 50) {
