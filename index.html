@@ -349,23 +349,37 @@
         }
 
         function parseMonth(item) {
+             console.log('Parsing month for item:', item); // --- LOG item being parsed
              // Pastikan provi_ts ada sebelum memproses
-             if (!item || !item.provi_ts) return null;
+             if (!item || !item.provi_ts) {
+                 console.log('parseMonth: provi_ts is missing or null', item ? item.provi_ts : 'item is null'); // --- LOG missing provi_ts
+                 return null;
+             }
              
+             console.log('parseMonth: provi_ts value:', item.provi_ts, 'Type:', typeof item.provi_ts); // --- LOG provi_ts value and type
+
              let date;
              // Coba parse sebagai Firebase Timestamp
              if (typeof item.provi_ts === 'object' && item.provi_ts !== null && typeof item.provi_ts.seconds === 'number') {
+                  console.log('parseMonth: Attempting to parse as Timestamp'); // --- LOG Timestamp attempt
                   date = new Date(item.provi_ts.seconds * 1000);
              // Coba parse sebagai string date format apa pun yang dikenali Date constructor
              } else if (typeof item.provi_ts === 'string' && item.provi_ts.trim() !== '') {
+                 console.log('parseMonth: Attempting to parse as String'); // --- LOG String attempt
                  date = new Date(item.provi_ts);
              } else {
+                 console.log('parseMonth: Unknown provi_ts type or format'); // --- LOG unknown format
                  return null; // Jika format tidak dikenali, abaikan
              }
 
-             if (isNaN(date.getTime())) return null; // Abaikan jika tanggal invalid
+             if (isNaN(date.getTime())) {
+                  console.log('parseMonth: Failed to parse into a valid Date (Invalid Date)'); // --- LOG invalid date
+                  return null; // Abaikan jika tanggal invalid
+             }
 
-             return { month: date.getMonth() + 1, year: date.getFullYear() };
+             const result = { month: date.getMonth() + 1, year: date.getFullYear() };
+             console.log('parseMonth: Successfully parsed date:', date, 'Result:', result); // --- LOG successful parse
+             return result;
         }
 
         function renderBarTrend(dataToRender) {
@@ -377,17 +391,27 @@
             if (!ctx) { console.error('Canvas element #barTrend not found for Bar Chart'); return; }
 
             const monthsLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-            const years = [...new Set(dataToRender.map(item => parseMonth(item)?.year).filter(Boolean))].sort(); // Ambil tahun unik dari data
-            console.log('Years found:', years); // --- LOG years found
+            // Filter out items where parseMonth returns null before getting unique years
+            const validItemsWithMonth = dataToRender.map(item => ({ item, parsed: parseMonth(item) })).filter(entry => entry.parsed !== null);
+            const years = [...new Set(validItemsWithMonth.map(entry => entry.parsed.year))].sort(); // Ambil tahun unik dari data yang valid
+
+            console.log('Years found (after filtering invalid dates):', years); // --- LOG years found after filtering
 
             let datasets = [];
 
             years.forEach(year => {
-                 const dataForYear = dataToRender.filter(item => parseMonth(item)?.year === year);
-                 const falloutPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '').length);
-                 const psPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS").length);
+                 // Filter data lagi hanya untuk tahun ini dan item yang valid
+                 const dataForYear = validItemsWithMonth.filter(entry => entry.parsed.year === year).map(entry => entry.item);
+                 const falloutPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => {
+                      const parsed = parseMonth(item); // Re-parse or use a cached parsed value if performance is an issue
+                      return parsed && parsed.month === i + 1 && item.order_id && item.order_id !== '';
+                 }).length);
+                 const psPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => {
+                      const parsed = parseMonth(item);
+                      return parsed && parsed.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS";
+                 }).length);
                  
-                 console.log(`Data for year ${year}:`, { falloutPerMonth, psPerMonth }); // --- LOG data per year/month
+                 console.log(`Data counts per month for year ${year}:`, { fallout: falloutPerMonth, ps: psPerMonth }); // --- LOG data counts per month/year
 
                  // Hanya tambahkan dataset jika ada data untuk tahun ini
                  if (falloutPerMonth.some(count => count > 0) || psPerMonth.some(count => count > 0)) {
@@ -417,12 +441,19 @@
              // Tambahkan line chart untuk % Fallout to PS (hanya untuk tahun terbaru)
              if (years.length > 0) {
                  const latestYear = Math.max(...years);
-                 const dataForLatestYear = dataToRender.filter(item => parseMonth(item)?.year === latestYear);
-                 const falloutPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '').length);
-                 const psPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS").length);
+                 // Filter data lagi hanya untuk tahun terbaru dan item yang valid
+                 const dataForLatestYear = validItemsWithMonth.filter(entry => entry.parsed.year === latestYear).map(entry => entry.item);
+                 const falloutPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => {
+                     const parsed = parseMonth(item);
+                     return parsed && parsed.month === i + 1 && item.order_id && item.order_id !== '';
+                 }).length);
+                 const psPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => {
+                     const parsed = parseMonth(item);
+                     return parsed && parsed.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS";
+                 }).length);
                  const percentPerMonth = falloutPerMonthLatest.map((f, i) => f > 0 ? (psPerMonthLatest[i] / f * 100).toFixed(2) : 0);
                  
-                 console.log(`Percent data for latest year (${latestYear}):`, percentPerMonth); // --- LOG percent data
+                 console.log(`Percent data per month for latest year (${latestYear}):`, percentPerMonth); // --- LOG percent data per month
 
                  datasets.push({
                      label: `Fallout to PS (%) (${latestYear})`, 
