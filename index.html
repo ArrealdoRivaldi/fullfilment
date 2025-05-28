@@ -253,12 +253,15 @@
         // Ambil data dari API, lalu render dashboard
         let allData = [];
 
+        console.log('Script index.html loaded.'); // Log saat script dimuat
+
         function filterData(data, branch, startDate, endDate) {
+          console.log('Filtering data...', { branch, startDate, endDate }); // Log saat filter dipanggil
           return data.filter(d => {
             // Pastikan provi_ts ada sebelum mencoba memprosesnya
-            if (!d.provi_ts) return false; 
+            if (!d.provi_ts) { /* console.log('Skipping item due to missing provi_ts:', d); */ return false; }
 
-            if (branch && (d.branch || '').trim() !== branch.trim()) return false;
+            if (branch && (d.branch || '').trim() !== branch.trim()) { /* console.log('Filtering out by branch:', d.branch); */ return false; }
 
             if (startDate || endDate) {
               let proviDate;
@@ -268,10 +271,10 @@
               } else if (typeof d.provi_ts === 'string') {
                    proviDate = new Date(d.provi_ts);
               } else {
-                   return false; // Jika format tidak dikenali, abaikan
+                   /* console.log('Skipping item due to unparsable provi_ts format:', d.provi_ts); */ return false; // Jika format tidak dikenali, abaikan
               }
 
-              if (isNaN(proviDate.getTime())) return false; // Abaikan jika tanggal invalid
+              if (isNaN(proviDate.getTime())) { /* console.log('Skipping item due to invalid provi_ts date:', d.provi_ts); */ return false; } // Abaikan jika tanggal invalid
 
               if (startDate) {
                   const start = new Date(startDate);
@@ -293,14 +296,16 @@
                    }
               }
             }
+            // console.log('Item passed filter:', d); // Log item yang lolos filter
             return true;
           });
         }
 
         function renderPieHK(dataToRender) {
+           console.log('Rendering Pie Chart...', dataToRender.length, 'items'); // Log rendering Pie Chart
            // Pastikan elemen canvas ada sebelum merender chart
            const ctx = document.getElementById('pieHK');
-           if (!ctx) { console.error('Canvas element #pieHK not found'); return; }
+           if (!ctx) { console.error('Canvas element #pieHK not found for Pie Chart'); return; }
            const total = dataToRender.length;
            const filled = dataToRender.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
            const unfilled = total - filled;
@@ -364,9 +369,10 @@
         }
 
         function renderBarTrend(dataToRender) {
+            console.log('Rendering Bar Chart...', dataToRender.length, 'items'); // Log rendering Bar Chart
             // Pastikan elemen canvas ada sebelum merender chart
             const ctx = document.getElementById('barTrend');
-            if (!ctx) { console.error('Canvas element #barTrend not found'); return; }
+            if (!ctx) { console.error('Canvas element #barTrend not found for Bar Chart'); return; }
 
             const monthsLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
             const years = [...new Set(dataToRender.map(item => parseMonth(item)?.year).filter(Boolean))].sort(); // Ambil tahun unik dari data
@@ -465,9 +471,10 @@
         }
 
         function renderProgressSymptom(dataToRender) {
+            console.log('Rendering Progress Symptom Chart...', dataToRender.length, 'items'); // Log rendering Progress Symptom Chart
             // Pastikan elemen canvas ada
             const ctx = document.getElementById('progressSymptom');
-            if (!ctx) { console.error('Canvas element #progressSymptom not found'); return; }
+            if (!ctx) { console.error('Canvas element #progressSymptom not found for Progress Symptom Chart'); return; }
 
             const group = {};
             dataToRender.forEach(d => {
@@ -545,6 +552,7 @@
         }
 
         function renderTableSymptom(data) {
+            console.log('Rendering Symptom Table...', data.length, 'items'); // Log rendering Table Symptom
             // Pastikan elemen tabel ada
             const tbody = document.getElementById('tableSymptom');
             if (!tbody) { console.error('Table element #tableSymptom not found'); return; }
@@ -576,6 +584,7 @@
         }
 
         function renderTableNop(data) {
+             console.log('Rendering NOP Table...', data.length, 'items'); // Log rendering Table NOP
              // Pastikan elemen tabel ada
             const tbody = document.getElementById('tableNop');
              if (!tbody) { console.error('Table element #tableNop not found'); return; }
@@ -607,6 +616,7 @@
         }
 
         function renderTableHK(data) {
+             console.log('Rendering HK Table...', data.length, 'items'); // Log rendering Table HK
              // Pastikan elemen tabel ada
              const tbody = document.getElementById('tableHK');
              if (!tbody) { console.error('Table element #tableHK not found'); return; }
@@ -641,6 +651,7 @@
         }
 
         function renderBranchFilter(data) {
+             console.log('Rendering Branch Filter...'); // Log rendering Branch Filter
              // Pastikan elemen select ada
              const select = document.getElementById('branchFilter');
              if (!select) { console.error('Select element #branchFilter not found'); return; }
@@ -658,6 +669,7 @@
         }
 
         function renderDashboard(data) {
+          console.log('Rendering Dashboard...', data.length, 'items received'); // Log rendering Dashboard
           // Pastikan data valid sebelum rendering
           if (!Array.isArray(data) || data.length === 0) {
              console.warn('No data available for dashboard rendering');
@@ -682,6 +694,7 @@
         }
 
         window.applyFilters = function() {
+          console.log('Apply Filters button clicked.'); // Log klik filter
           const branch = document.getElementById('branchFilter').value;
           const startDateRaw = document.getElementById('startDate').value;
           const endDateRaw = document.getElementById('endDate').value;
@@ -692,15 +705,16 @@
         }
 
         document.addEventListener('DOMContentLoaded', async function() {
-          console.log('DOM fully loaded and parsed. Fetching data...');
+          console.log('DOM fully loaded and parsed. Fetching data...'); // Log DOM ready dan fetch mulai
           try {
             const response = await fetch('/api/firestore');
             if (!response.ok) {
               const errorText = await response.text();
+              console.error('Fetch response not OK:', response.status, errorText); // Log error response
               throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
             }
             const data = await response.json();
-            console.log('Data fetched successfully:', data);
+            console.log('Data fetched successfully:', data); // Log data yang berhasil diambil
             allData = data; // Simpan data ke variabel global
             renderDashboard(allData); // Render dashboard dengan semua data awal
           } catch (error) {
