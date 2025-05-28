@@ -1,9 +1,15 @@
-const { initializeApp, applicationDefault, getApps } = require('firebase-admin/app');
+const { initializeApp, getApps, applicationDefault, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 
 if (!getApps().length) {
+  let credential;
+  if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+    credential = cert(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT));
+  } else {
+    credential = applicationDefault();
+  }
   initializeApp({
-    credential: applicationDefault(),
+    credential,
     // projectId: 'fbb-fullfilment', // tambahkan jika perlu
   });
 }
