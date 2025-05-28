@@ -255,14 +255,42 @@
 
         function filterData(data, branch, startDate, endDate) {
           return data.filter(d => {
+            // Pastikan provi_ts ada sebelum mencoba memprosesnya
+            if (!d.provi_ts) return false; 
+
             if (branch && (d.branch || '').trim() !== branch.trim()) return false;
+
             if (startDate || endDate) {
-              let proviDate = new Date(d.provi_ts);
-              if (startDate && proviDate < startDate) return false;
+              let proviDate;
+              // Coba parse sebagai Firebase Timestamp atau string
+              if (typeof d.provi_ts === 'object' && d.provi_ts !== null && typeof d.provi_ts.seconds === 'number') {
+                   proviDate = new Date(d.provi_ts.seconds * 1000);
+              } else if (typeof d.provi_ts === 'string') {
+                   proviDate = new Date(d.provi_ts);
+              } else {
+                   return false; // Jika format tidak dikenali, abaikan
+              }
+
+              if (isNaN(proviDate.getTime())) return false; // Abaikan jika tanggal invalid
+
+              if (startDate) {
+                  const start = new Date(startDate);
+                  // Bandingkan hanya bagian tanggal
+                  if (proviDate.getFullYear() < start.getFullYear() || 
+                     (proviDate.getFullYear() === start.getFullYear() && proviDate.getMonth() < start.getMonth()) ||
+                     (proviDate.getFullYear() === start.getFullYear() && proviDate.getMonth() === start.getMonth() && proviDate.getDate() < start.getDate())) {
+                      return false;
+                  }
+              }
+
               if (endDate) {
-                let endDateEnd = new Date(endDate);
-                endDateEnd.setHours(23,59,59,999);
-                if (proviDate > endDateEnd) return false;
+                   const end = new Date(endDate);
+                   // Bandingkan hanya bagian tanggal
+                   if (proviDate.getFullYear() > end.getFullYear() ||
+                      (proviDate.getFullYear() === end.getFullYear() && proviDate.getMonth() > end.getMonth()) ||
+                      (proviDate.getFullYear() === end.getFullYear() && proviDate.getMonth() === end.getMonth() && proviDate.getDate() > end.getDate())) {
+                      return false;
+                   }
               }
             }
             return true;
@@ -270,39 +298,381 @@
         }
 
         function renderPieHK(dataToRender) {
-          // ... kode lama ...
+           // Pastikan elemen canvas ada sebelum merender chart
+           const ctx = document.getElementById('pieHK');
+           if (!ctx) { console.error('Canvas element #pieHK not found'); return; }
+           const total = dataToRender.length;
+           const filled = dataToRender.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
+           const unfilled = total - filled;
+
+           if (window.pieHKChart) window.pieHKChart.destroy();
+
+           window.pieHKChart = new Chart(ctx.getContext('2d'), {
+             type: 'pie',
+             data: {
+               labels: ['Sudah HK', 'Belum HK'],
+               datasets: [{
+                 data: [filled, unfilled],
+                 backgroundColor: ['#4ade80', '#f87171']
+               }]
+             },
+             options: {
+               responsive: true, // Tambahkan responsive
+               maintainAspectRatio: false, // Penting untuk kontrol ukuran dengan CSS
+               plugins: {
+                 datalabels: {
+                   color: '#222',
+                   font: { weight: 'bold', size: 12 }, // Sesuaikan ukuran font
+                   formatter: function(value, context) {
+                     const percent = total > 0 ? (value / total * 100).toFixed(1) : 0;
+                     return value > 0 ? value + ' (' + percent + '%)' : ''; // Hanya tampilkan label jika value > 0
+                   }
+                 },
+                 legend: {
+                   display: true,
+                   position: 'top'
+                 },
+                 title: {
+                   display: true,
+                   text: 'Fallout & HK'
+                 }
+               }
+             },
+             // ChartDataLabels plugin perlu diimpor secara terpisah atau lewat CDN
+             // plugins: [ChartDataLabels]
+           });
         }
 
-        function parseMonth(str) {
-          // ... existing date parsing logic ...
+        function parseMonth(item) {
+             // Pastikan provi_ts ada sebelum memproses
+             if (!item || !item.provi_ts) return null;
+             
+             let date;
+             // Coba parse sebagai Firebase Timestamp
+             if (typeof item.provi_ts === 'object' && item.provi_ts !== null && typeof item.provi_ts.seconds === 'number') {
+                  date = new Date(item.provi_ts.seconds * 1000);
+             // Coba parse sebagai string date format apa pun yang dikenali Date constructor
+             } else if (typeof item.provi_ts === 'string' && item.provi_ts.trim() !== '') {
+                 date = new Date(item.provi_ts);
+             } else {
+                 return null; // Jika format tidak dikenali, abaikan
+             }
+
+             if (isNaN(date.getTime())) return null; // Abaikan jika tanggal invalid
+
+             return { month: date.getMonth() + 1, year: date.getFullYear() };
         }
 
         function renderBarTrend(dataToRender) {
-          // ... existing chart rendering logic ...
+            // Pastikan elemen canvas ada sebelum merender chart
+            const ctx = document.getElementById('barTrend');
+            if (!ctx) { console.error('Canvas element #barTrend not found'); return; }
+
+            const monthsLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+            const years = [...new Set(dataToRender.map(item => parseMonth(item)?.year).filter(Boolean))].sort(); // Ambil tahun unik dari data
+
+            let datasets = [];
+
+            years.forEach(year => {
+                 const dataForYear = dataToRender.filter(item => parseMonth(item)?.year === year);
+                 const falloutPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '').length);
+                 const psPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS").length);
+                 
+                 // Hanya tambahkan dataset jika ada data untuk tahun ini
+                 if (falloutPerMonth.some(count => count > 0) || psPerMonth.some(count => count > 0)) {
+                      datasets.push(
+                          { 
+                              label: `Fallout (${year})`, 
+                              data: falloutPerMonth, 
+                              backgroundColor: `rgba(96, 165, 250, ${year === Math.max(...years) ? 1 : 0.6})`, // Warna lebih gelap untuk tahun terbaru
+                              yAxisID: 'y',
+                              barPercentage: 0.7,
+                              categoryPercentage: 0.8,
+                              order: years.indexOf(year) // Order berdasarkan tahun
+                          },
+                          { 
+                              label: `PS (${year})`, 
+                              data: psPerMonth, 
+                              backgroundColor: `rgba(251, 191, 36, ${year === Math.max(...years) ? 1 : 0.6})`, // Warna lebih gelap untuk tahun terbaru
+                              yAxisID: 'y',
+                              barPercentage: 0.7,
+                              categoryPercentage: 0.8,
+                               order: years.indexOf(year) // Order berdasarkan tahun
+                          }
+                      );
+                 }
+            });
+
+             // Tambahkan line chart untuk % Fallout to PS (hanya untuk tahun terbaru)
+             if (years.length > 0) {
+                 const latestYear = Math.max(...years);
+                 const dataForLatestYear = dataToRender.filter(item => parseMonth(item)?.year === latestYear);
+                 const falloutPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '').length);
+                 const psPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS").length);
+                 const percentPerMonth = falloutPerMonthLatest.map((f, i) => f > 0 ? (psPerMonthLatest[i] / f * 100).toFixed(2) : 0);
+
+                 datasets.push({
+                     label: `Fallout to PS (%) (${latestYear})`, 
+                     data: percentPerMonth, 
+                     type: 'line', 
+                     borderColor: '#ef4444', 
+                     backgroundColor: '#ef4444', 
+                     fill: false, 
+                     yAxisID: 'y1', 
+                     tension: 0.3,
+                     order: 99,
+                     pointRadius: 4,
+                     borderWidth: 3
+                 });
+             }
+
+            const allValues = datasets.flatMap(dataset => dataset.data);
+            const maxBar = Math.max(...allValues.filter(v => typeof v === 'number' && !isNaN(v)), 0); // Hitung max dari semua data bar
+            const maxPercent = Math.max(...datasets.filter(ds => ds.type === 'line').flatMap(ds => ds.data).map(x => Number(x) || 0), 100); // Hitung max % (min 100)
+
+            if(window.barTrendChart) window.barTrendChart.destroy();
+            window.barTrendChart = new Chart(ctx.getContext('2d'), {
+              type: 'bar',
+              data: {
+                labels: monthsLabels,
+                datasets: datasets
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false, // Penting untuk kontrol ukuran dengan CSS
+                plugins: {
+                  legend: { position: 'top' },
+                  title: { display: true, text: 'Trend Fallout to PS' },
+                   datalabels: { // Non-aktifkan datalabels default untuk bar
+                       display: false
+                   }
+                },
+                scales: {
+                  y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 1.2 : 10), title: { display: true, text: 'Jumlah' } }, // Sesuaikan max Y axis bar
+                  y1: {
+                    beginAtZero: true,
+                    max: maxPercent, // Sesuaikan max Y axis line
+                    position: 'right',
+                    title: { display: true, text: 'Fallout to PS (%)' },
+                    grid: { drawOnChartArea: false },
+                    ticks: { callback: v => v + '%' }
+                  }
+                },
+                 // Tambahkan datalabels hanya untuk line chart
+                 plugins: [ChartDataLabels]
+              }
+            });
         }
 
         function renderProgressSymptom(dataToRender) {
-          // ... existing chart rendering logic ...
+            // Pastikan elemen canvas ada
+            const ctx = document.getElementById('progressSymptom');
+            if (!ctx) { console.error('Canvas element #progressSymptom not found'); return; }
+
+            const group = {};
+            dataToRender.forEach(d => {
+              // Pastikan symptom ada
+              let key = (d.symptom || "Unknown").trim();
+              if (key === '') key = 'Unknown';
+              // Hanya hitung jika belum PS
+              if (d.status_ps !== 'PS') {
+                 group[key] = (group[key] || 0) + 1;
+              }
+            });
+            
+            let arr = Object.entries(group).map(([label, value]) => ({
+              label,
+              value,
+              percent: 0 // Akan dihitung nanti
+            }));
+
+            const total = arr.reduce((sum, item) => sum + item.value, 0);
+             arr = arr.map(item => ({
+                 ...item,
+                 percent: total > 0 ? (item.value / total * 100) : 0
+             }));
+
+            arr.sort((a, b) => b.value - a.value); // Urutkan berdasarkan jumlah
+
+            // Ambil top N atau semua jika sedikit
+            const displayLimit = 15; // Tampilkan top 15 symptom
+            const dataToDisplay = arr.slice(0, displayLimit);
+
+            const maxValue = Math.max(...dataToDisplay.map(x => x.value), 0) * 1.2; // Sesuaikan max X axis
+
+             if (window.progressSymptomChart) window.progressSymptomChart.destroy();
+
+            window.progressSymptomChart = new Chart(ctx.getContext('2d'), {
+              type: 'bar',
+              data: {
+                labels: dataToDisplay.map(x => x.label), // Gunakan data yang sudah difilter
+                datasets: [{
+                  label: 'Jumlah',
+                  data: dataToDisplay.map(x => x.value), // Gunakan data yang sudah difilter
+                  backgroundColor: '#34d399',
+                  borderRadius: 4,
+                  barPercentage: 0.8,
+                  categoryPercentage: 0.8
+                }]
+              },
+              options: {
+                indexAxis: 'y',
+                responsive: true, // Tambahkan responsive
+                maintainAspectRatio: false, // Penting untuk kontrol ukuran dengan CSS
+                plugins: {
+                  legend: { display: false },
+                  title: { display: true, text: 'Progress House Keeping (Symptom)' },
+                  datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    color: '#222',
+                    font: { weight: 'bold', size: 12 }, // Sesuaikan ukuran font
+                    clip: false,
+                    formatter: function(value, context) {
+                       const item = dataToDisplay[context.dataIndex];
+                       return value > 0 ? `${value} (${item.percent.toFixed(1)}%)` : ''; // Tampilkan hanya jika > 0
+                    }
+                  }
+                },
+                layout: { padding: { right: 60 } }, // Beri padding kanan untuk datalabels
+                scales: {
+                  x: { beginAtZero: true, title: { display: true, text: 'Jumlah Fallout Belum PS' }, max: maxValue }, // Sesuaikan label dan max X axis
+                  y: { title: { display: true, text: 'Symptom' } }
+                }
+              },
+              plugins: [ChartDataLabels]
+            });
         }
 
         function renderTableSymptom(data) {
-          // ... existing table rendering logic ...
+            // Pastikan elemen tabel ada
+            const tbody = document.getElementById('tableSymptom');
+            if (!tbody) { console.error('Table element #tableSymptom not found'); return; }
+
+            const group = {};
+            data.forEach(d => {
+              // Pastikan symptom ada
+              let key = (d.symptom || "Unknown").trim();
+               if (key === '') key = 'Unknown';
+               
+              if (!group[key]) group[key] = { total: 0, ps: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+            });
+            
+            let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+
+            let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th></tr>`;
+            let grandTotal = 0, grandPs = 0;
+
+            sortedGroups.forEach(([symptom, val]) => {
+              html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
+              grandTotal += val.total;
+              grandPs += val.ps;
+            });
+
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th></tr>`;
+            tbody.innerHTML = html;
         }
 
         function renderTableNop(data) {
-          // ... existing table rendering logic ...
+             // Pastikan elemen tabel ada
+            const tbody = document.getElementById('tableNop');
+             if (!tbody) { console.error('Table element #tableNop not found'); return; }
+
+            const group = {};
+            data.forEach(d => {
+               // Pastikan branch ada
+              let key = (d.branch || "Unknown").trim();
+              if (key === '') key = 'Unknown';
+
+              if (!group[key]) group[key] = { total: 0, ps: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+            });
+
+            let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+
+            let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th></tr>`;
+            let grandTotal = 0, grandPs = 0;
+
+            sortedGroups.forEach(([branch, val]) => {
+               html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
+               grandTotal += val.total;
+               grandPs += val.ps;
+            });
+
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th></tr>`;
+            tbody.innerHTML = html;
         }
 
         function renderTableHK(data) {
-          // ... existing table rendering logic ...
+             // Pastikan elemen tabel ada
+             const tbody = document.getElementById('tableHK');
+             if (!tbody) { console.error('Table element #tableHK not found'); return; }
+
+            const group = {};
+            data.forEach(d => {
+              let key = (d.status_hk || "Stay Fallout").trim();
+               if (key === '') key = 'Stay Fallout';
+
+              if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+              else if (d.status_ps === "Cancel") group[key].cancel++;
+              else group[key].stay++;
+            });
+
+             let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+
+            let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
+            let grandTotal = 0, grandPs = 0, grandCancel = 0, grandStay = 0;
+
+            sortedGroups.forEach(([hk, val]) => {
+               html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
+               grandTotal += val.total;
+               grandPs += val.ps;
+               grandCancel += val.cancel;
+               grandStay += val.stay;
+            });
+
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandCancel}</th><th>${grandStay}</th></tr>`;
+            tbody.innerHTML = html;
         }
 
         function renderBranchFilter(data) {
-          // ... existing filter rendering logic ...
+             // Pastikan elemen select ada
+             const select = document.getElementById('branchFilter');
+             if (!select) { console.error('Select element #branchFilter not found'); return; }
+
+            const unique = new Set();
+            data.forEach(d => {
+              const norm = (d.branch || '').trim();
+              if (norm) unique.add(norm);
+            });
+            const branches = [...unique].sort();
+
+            select.innerHTML =
+              `<option value="">All Branch</option>` +
+              branches.map(b => `<option value="${b}">${b}</option>`).join('');
         }
 
         function renderDashboard(data) {
-          renderBranchFilter(allData); // Filter options based on all data
+          // Pastikan data valid sebelum rendering
+          if (!Array.isArray(data) || data.length === 0) {
+             console.warn('No data available for dashboard rendering');
+             // Opsional: Kosongkan chart dan tabel atau tampilkan pesan
+             if (window.pieHKChart) window.pieHKChart.destroy();
+             if (window.barTrendChart) window.barTrendChart.destroy();
+             if (window.progressSymptomChart) window.progressSymptomChart.destroy();
+             document.getElementById('tableSymptom').innerHTML = '';
+             document.getElementById('tableNop').innerHTML = '';
+             document.getElementById('tableHK').innerHTML = '';
+             document.getElementById('branchFilter').innerHTML = '<option value="">All Branch</option>';
+             return;
+          }
+
+          renderBranchFilter(allData); // Filter options based on all original data
           renderPieHK(data);
           renderBarTrend(data);
           renderProgressSymptom(data);
@@ -322,20 +692,23 @@
         }
 
         document.addEventListener('DOMContentLoaded', async function() {
+          console.log('DOM fully loaded and parsed. Fetching data...');
           try {
             const response = await fetch('/api/firestore');
             if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+              const errorText = await response.text();
+              throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
             }
             const data = await response.json();
+            console.log('Data fetched successfully:', data);
             allData = data; // Simpan data ke variabel global
             renderDashboard(allData); // Render dashboard dengan semua data awal
           } catch (error) {
-            console.error('Error fetching data:', error);
-            // Tampilkan pesan error di halaman jika perlu
+            console.error('Error fetching data or rendering dashboard:', error);
+            // Tampilkan pesan error di halaman jika perlu, misal di #output (kalau dikembalikan lagi)
           }
         });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-    </body> 
+    </body>
 </html>
