@@ -205,221 +205,180 @@
                       });
                     </script>
 
-                    <script type="module">
-                        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-                        import { getFirestore, collection, getDocs, updateDoc, doc, addDoc } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+                    <script>
+                    // Ambil data dari API, lalu render tabel dan filter
+                    const statusHKOptions = [
+                        { value: "Cancel", label: "Cancel" },
+                        { value: "PT2", label: "PT2" },
+                        { value: "PT3", label: "PT3" },
+                        { value: "Reorder", label: "Reorder" },
+                        { value: "Revoke", label: "Revoke" },
+                        { value: "Stay Fallout", label: "Stay Fallout" },
+                        { value: "Offering Orbit", label: "Offering Orbit" }
+                    ];
+                    let allData = [];
 
-                        const firebaseConfig = {
-                            apiKey: "AIzaSyCjBlPnJSlEq18tJett5ZdOAcMl2yPvlOE",
-                            authDomain: "fbb-fullfilment.firebaseapp.com",
-                            projectId: "fbb-fullfilment",
-                            storageBucket: "fbb-fullfilment.appspot.com",
-                            messagingSenderId: "842233083514",
-                            appId: "1:842233083514:web:beb0ce0ac38fc5825eedc3",
-                            measurementId: "G-9RPL0LSY4Q"
-                        };
-                        const app = initializeApp(firebaseConfig);
-                        const db = getFirestore(app);
-
-                        const statusHKOptions = [
-                            { value: "Cancel", label: "Cancel" },
-                            { value: "PT2", label: "PT2" },
-                            { value: "PT3", label: "PT3" },
-                            { value: "Reorder", label: "Reorder" },
-                            { value: "Revoke", label: "Revoke" },
-                            { value: "Stay Fallout", label: "Stay Fallout" },
-                            { value: "Offering Orbit", label: "Offering Orbit" }
-                        ];
-
-                        let allData = [];
-
-                        async function fetchData() {
-                            try {
-                                const querySnapshot = await getDocs(collection(db, "fallout"));
-                                allData = querySnapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
-                                return allData;
-                            } catch (error) {
-                                console.error('Error fetching data from Firestore:', error);
-                                allData = [];
-                                return [];
-                            }
+                    function formatDate(dateStr) {
+                        if (!dateStr) return '';
+                        if (typeof dateStr === 'object' && dateStr.seconds) {
+                            const date = new Date(dateStr.seconds * 1000);
+                            return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
                         }
-
-                        function formatDate(dateStr) {
-                            if (!dateStr) return '';
-                            if (typeof dateStr === 'object' && dateStr.seconds) {
-                                const date = new Date(dateStr.seconds * 1000);
-                                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
-                            }
-                            let date = new Date(dateStr);
+                        let date = new Date(dateStr);
+                        if (!isNaN(date.getTime())) {
+                            return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                        }
+                        const match = dateStr.match(/([A-Za-z]+ \d{1,2}, \d{4})/);
+                        if (match) {
+                            date = new Date(match[1]);
                             if (!isNaN(date.getTime())) {
                                 return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
                             }
-                            const match = dateStr.match(/([A-Za-z]+ \d{1,2}, \d{4})/);
-                            if (match) {
-                                date = new Date(match[1]);
-                                if (!isNaN(date.getTime())) {
-                                    return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
-                                }
-                            }
-                            return dateStr;
                         }
+                        return dateStr;
+                    }
 
-                        function truncateText(text, maxLength = 50) {
-                            if (text && text.length > maxLength) {
-                                return text.substring(0, maxLength) + '...';
-                            }
-                            return text || '';
+                    function truncateText(text, maxLength = 50) {
+                        if (text && text.length > maxLength) {
+                            return text.substring(0, maxLength) + '...';
                         }
+                        return text || '';
+                    }
 
-                        function initializeFilters(data) {
-                            const filters = {
-                                branch: new Set(),
-                                wok: new Set(),
-                                sto_co: new Set(),
-                            };
-                            data.forEach(item => {
-                                filters.branch.add(item.branch);
-                                filters.wok.add(item.wok);
-                                filters.sto_co.add(item.sto_co);
-                            });
-                            ['branch', 'wok', 'sto_co'].forEach(filter => {
-                                const select = document.getElementById(`${filter}Filter`);
-                                if (!select) return;
-                                select.innerHTML = '<option value="">All</option>';
-                                [...filters[filter]].sort().forEach(value => {
-                                    if (value) {
-                                        const option = document.createElement('option');
-                                        option.value = value;
-                                        option.textContent = value;
-                                        select.appendChild(option);
-                                    }
-                                });
-                            });
-                            const statusHKSelect = document.getElementById('statusHKFilter');
-                            statusHKSelect.innerHTML = '';
-                            const optAll = document.createElement('option');
-                            optAll.value = '';
-                            optAll.textContent = 'All';
-                            statusHKSelect.appendChild(optAll);
-                            const optDone = document.createElement('option');
-                            optDone.value = 'done';
-                            optDone.textContent = 'Done';
-                            statusHKSelect.appendChild(optDone);
-                            const optNotYet = document.createElement('option');
-                            optNotYet.value = 'notyet';
-                            optNotYet.textContent = 'Not Yet';
-                            statusHKSelect.appendChild(optNotYet);
-                        }
-
-                        function filterData(data) {
-                            const branch = document.getElementById('branchFilter').value;
-                            const wok = document.getElementById('wokFilter').value;
-                            const sto = document.getElementById('sto_coFilter').value;
-                            const startDate = document.getElementById('startDate').value;
-                            const endDate = document.getElementById('endDate').value;
-                            const statusHK = document.getElementById('statusHKFilter').value;
-                            return data.filter(item => {
-                                let itemDate;
-                                if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
-                                    itemDate = new Date(item.provi_ts.seconds * 1000);
-                                } else if (typeof item.provi_ts === 'string') {
-                                    itemDate = new Date(item.provi_ts);
-                                } else {
-                                    itemDate = new Date(item.provi_ts);
-                                }
-                                let start = startDate ? new Date(startDate) : null;
-                                let end = endDate ? new Date(endDate) : null;
-                                if (end) end.setHours(23,59,59,999);
-                                let statusHKMatch = true;
-                                if (statusHK === 'done') {
-                                    statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
-                                } else if (statusHK === 'notyet') {
-                                    statusHKMatch = !(item.status_hk && item.status_hk.trim() !== '');
-                                }
-                                return (!branch || item.branch === branch) &&
-                                    (!wok || item.wok === wok) &&
-                                    (!sto || item.sto_co === sto) &&
-                                    statusHKMatch &&
-                                    (!start || itemDate >= start) &&
-                                    (!end || itemDate <= end);
-                            });
-                        }
-
-                        function renderTable(data) {
-                            const tbody = document.getElementById('dataTableBody');
-                            tbody.innerHTML = '';
-                            data.forEach((item, index) => {
-                                const row = document.createElement('tr');
-                                row.dataset.docId = item.id;
-                                row.innerHTML = `
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${index + 1}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                        <div class="flex items-center">
-                                            <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
-                                            <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
-                                        </div>
-                                    </td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                        <select class="status-hk-select border rounded px-2 py-1">
-                                            <option value="">Select Status</option>
-                                            ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
-                                        </select>
-                                    </td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                        <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
-                                    </td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
-                                    <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
-                                `;
-                                tbody.appendChild(row);
-                            });
-                        }
-
-                        document.addEventListener('DOMContentLoaded', async () => {
-                            await fetchData();
-                            initializeFilters(allData);
-                            renderTable(allData);
-                            document.getElementById('applyFilters').addEventListener('click', () => {
-                                const filteredData = filterData(allData);
-                                renderTable(filteredData);
-                            });
-                            document.getElementById('closeModal').addEventListener('click', () => {
-                                document.getElementById('falloutModal').classList.add('hidden');
-                            });
-                            // Event delegation for details and update
-                            document.getElementById('dataTableBody').addEventListener('click', async (e) => {
-                                if (e.target.classList.contains('details-btn')) {
-                                    const details = e.target.dataset.fallout;
-                                    document.getElementById('falloutDetails').textContent = details;
-                                    document.getElementById('falloutModal').classList.remove('hidden');
-                                }
-                                if (e.target.classList.contains('update-btn')) {
-                                    const row = e.target.closest('tr');
-                                    const docId = row.dataset.docId;
-                                    const statusHK = row.querySelector('.status-hk-select').value;
-                                    const newOrderId = row.querySelector('.new-order-id').value;
-                                    if (!docId) return;
-                                    try {
-                                        await updateDoc(doc(db, "fallout", docId), {
-                                            status_hk: statusHK,
-                                            new_order_id: newOrderId
-                                        });
-                                        alert('Data updated successfully!');
-                                        await fetchData();
-                                        renderTable(allData);
-                                    } catch (err) {
-                                        alert('Error updating data.');
-                                    }
+                    function initializeFilters(data) {
+                        const filters = {
+                            branch: new Set(),
+                            wok: new Set(),
+                            sto_co: new Set(),
+                        };
+                        data.forEach(item => {
+                            filters.branch.add(item.branch);
+                            filters.wok.add(item.wok);
+                            filters.sto_co.add(item.sto_co);
+                        });
+                        ['branch', 'wok', 'sto_co'].forEach(filter => {
+                            const select = document.getElementById(`${filter}Filter`);
+                            if (!select) return;
+                            select.innerHTML = '<option value="">All</option>';
+                            [...filters[filter]].sort().forEach(value => {
+                                if (value) {
+                                    const option = document.createElement('option');
+                                    option.value = value;
+                                    option.textContent = value;
+                                    select.appendChild(option);
                                 }
                             });
                         });
+                        const statusHKSelect = document.getElementById('statusHKFilter');
+                        statusHKSelect.innerHTML = '';
+                        const optAll = document.createElement('option');
+                        optAll.value = '';
+                        optAll.textContent = 'All';
+                        statusHKSelect.appendChild(optAll);
+                        const optDone = document.createElement('option');
+                        optDone.value = 'done';
+                        optDone.textContent = 'Done';
+                        statusHKSelect.appendChild(optDone);
+                        const optNotYet = document.createElement('option');
+                        optNotYet.value = 'notyet';
+                        optNotYet.textContent = 'Not Yet';
+                        statusHKSelect.appendChild(optNotYet);
+                    }
+
+                    function filterData(data) {
+                        const branch = document.getElementById('branchFilter').value;
+                        const wok = document.getElementById('wokFilter').value;
+                        const sto = document.getElementById('sto_coFilter').value;
+                        const startDate = document.getElementById('startDate').value;
+                        const endDate = document.getElementById('endDate').value;
+                        const statusHK = document.getElementById('statusHKFilter').value;
+                        return data.filter(item => {
+                            let itemDate;
+                            if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
+                                itemDate = new Date(item.provi_ts.seconds * 1000);
+                            } else if (typeof item.provi_ts === 'string') {
+                                itemDate = new Date(item.provi_ts);
+                            } else {
+                                itemDate = new Date(item.provi_ts);
+                            }
+                            let start = startDate ? new Date(startDate) : null;
+                            let end = endDate ? new Date(endDate) : null;
+                            if (end) end.setHours(23,59,59,999);
+                            let statusHKMatch = true;
+                            if (statusHK === 'done') {
+                                statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
+                            } else if (statusHK === 'notyet') {
+                                statusHKMatch = !(item.status_hk && item.status_hk.trim() !== '');
+                            }
+                            return (!branch || item.branch === branch) &&
+                                (!wok || item.wok === wok) &&
+                                (!sto || item.sto_co === sto) &&
+                                statusHKMatch &&
+                                (!start || itemDate >= start) &&
+                                (!end || itemDate <= end);
+                        });
+                    }
+
+                    function renderTable(data) {
+                        const tbody = document.getElementById('dataTableBody');
+                        tbody.innerHTML = '';
+                        data.forEach((item, index) => {
+                            const row = document.createElement('tr');
+                            row.dataset.docId = item.id;
+                            row.innerHTML = `
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${index + 1}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                                    <div class="flex items-center">
+                                        <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
+                                        <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                                    </div>
+                                </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                                    <select class="status-hk-select border rounded px-2 py-1">
+                                        <option value="">Select Status</option>
+                                        ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                                    </select>
+                                </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                                    <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
+                                </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    }
+
+                    document.addEventListener('DOMContentLoaded', async () => {
+                        fetch('/api/firestore')
+                          .then(res => res.json())
+                          .then(data => {
+                            allData = data;
+                            initializeFilters(allData);
+                            renderTable(allData);
+                          });
+                        document.getElementById('applyFilters').addEventListener('click', () => {
+                            const filteredData = filterData(allData);
+                            renderTable(filteredData);
+                        });
+                        document.getElementById('closeModal').addEventListener('click', () => {
+                            document.getElementById('falloutModal').classList.add('hidden');
+                        });
+                        document.getElementById('dataTableBody').addEventListener('click', async (e) => {
+                            if (e.target.classList.contains('details-btn')) {
+                                const details = e.target.dataset.fallout;
+                                document.getElementById('falloutDetails').textContent = details;
+                                document.getElementById('falloutModal').classList.remove('hidden');
+                            }
+                            // Update data ke Firestore hanya bisa dilakukan dari backend, jadi bagian ini perlu diubah jika ingin update lewat API
+                        });
+                    });
                     </script>
                 </main>
             </div>
