@@ -370,12 +370,15 @@
 
         function renderBarTrend(dataToRender) {
             console.log('Rendering Bar Chart...', dataToRender.length, 'items'); // Log rendering Bar Chart
+            console.log('Data received by renderBarTrend:', dataToRender); // --- LOG data received
+
             // Pastikan elemen canvas ada sebelum merender chart
             const ctx = document.getElementById('barTrend');
             if (!ctx) { console.error('Canvas element #barTrend not found for Bar Chart'); return; }
 
             const monthsLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
             const years = [...new Set(dataToRender.map(item => parseMonth(item)?.year).filter(Boolean))].sort(); // Ambil tahun unik dari data
+            console.log('Years found:', years); // --- LOG years found
 
             let datasets = [];
 
@@ -384,6 +387,8 @@
                  const falloutPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '').length);
                  const psPerMonth = monthsLabels.map((_, i) => dataForYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS").length);
                  
+                 console.log(`Data for year ${year}:`, { falloutPerMonth, psPerMonth }); // --- LOG data per year/month
+
                  // Hanya tambahkan dataset jika ada data untuk tahun ini
                  if (falloutPerMonth.some(count => count > 0) || psPerMonth.some(count => count > 0)) {
                       datasets.push(
@@ -416,6 +421,8 @@
                  const falloutPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '').length);
                  const psPerMonthLatest = monthsLabels.map((_, i) => dataForLatestYear.filter(item => parseMonth(item)?.month === i + 1 && item.order_id && item.order_id !== '' && item.status_ps === "PS").length);
                  const percentPerMonth = falloutPerMonthLatest.map((f, i) => f > 0 ? (psPerMonthLatest[i] / f * 100).toFixed(2) : 0);
+                 
+                 console.log(`Percent data for latest year (${latestYear}):`, percentPerMonth); // --- LOG percent data
 
                  datasets.push({
                      label: `Fallout to PS (%) (${latestYear})`, 
@@ -431,6 +438,8 @@
                      borderWidth: 3
                  });
              }
+
+            console.log('Final datasets for Chart.js:', datasets); // --- LOG final datasets
 
             const allValues = datasets.flatMap(dataset => dataset.data);
             const maxBar = Math.max(...allValues.filter(v => typeof v === 'number' && !isNaN(v)), 0); // Hitung max dari semua data bar
