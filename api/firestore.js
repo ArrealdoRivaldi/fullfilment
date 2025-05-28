@@ -14,7 +14,7 @@ if (!getApps().length) {
   });
 }
 const db = getFirestore();
-
+  
 module.exports = async (req, res) => {
   try {
     const snapshot = await db.collection('fallout').get();
@@ -24,3 +24,4 @@ module.exports = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+ 
