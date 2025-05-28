@@ -1,6 +1,7 @@
 {
-  "private": true,
+  "name": "fbb-fullfilment",
+  "version": "1.0.0",
   "dependencies": {
-    "@vercel/edge": "^0.1.2"
+    "firebase-admin": "^11.10.1"
   }
 }
