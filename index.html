@@ -266,8 +266,8 @@
             if (startDate || endDate) {
               let proviDate;
               // Coba parse sebagai Firebase Timestamp atau string
-              if (typeof d.provi_ts === 'object' && d.provi_ts !== null && typeof d.provi_ts.seconds === 'number') {
-                   proviDate = new Date(d.provi_ts.seconds * 1000);
+              if (typeof d.provi_ts === 'object' && d.provi_ts !== null && typeof d.provi_ts._seconds === 'number') {
+                   proviDate = new Date(d.provi_ts._seconds * 1000);
               } else if (typeof d.provi_ts === 'string') {
                    proviDate = new Date(d.provi_ts);
               } else {
@@ -360,9 +360,9 @@
 
              let date;
              // Coba parse sebagai Firebase Timestamp
-             if (typeof item.provi_ts === 'object' && item.provi_ts !== null && typeof item.provi_ts.seconds === 'number') {
+             if (typeof item.provi_ts === 'object' && item.provi_ts !== null && typeof item.provi_ts._seconds === 'number') {
                   console.log('parseMonth: Attempting to parse as Timestamp'); // --- LOG Timestamp attempt
-                  date = new Date(item.provi_ts.seconds * 1000);
+                  date = new Date(item.provi_ts._seconds * 1000);
              // Coba parse sebagai string date format apa pun yang dikenali Date constructor
              } else if (typeof item.provi_ts === 'string' && item.provi_ts.trim() !== '') {
                  console.log('parseMonth: Attempting to parse as String'); // --- LOG String attempt
