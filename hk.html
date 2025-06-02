@@ -375,8 +375,29 @@
                             document.getElementById('falloutDetails').textContent = details;
                             document.getElementById('falloutModal').classList.remove('hidden');
                         }
-                        // Bagian update data ke Firestore perlu API backend terpisah
-                        // if (e.target.classList.contains('update-btn')) { ... kode update lama ... }
+                        if (e.target.classList.contains('update-btn')) {
+                            const row = e.target.closest('tr');
+                            const id = row.dataset.docId;
+                            const status_hk = row.querySelector('.status-hk-select').value;
+                            const new_order_id = row.querySelector('.new-order-id').value;
+                            // Tambahkan field lain jika ingin diupdate
+                            try {
+                                const response = await fetch('/api/realtime', {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ id, status_hk, new_order_id })
+                                });
+                                const result = await response.json();
+                                if (result.success) {
+                                    alert('Update berhasil!');
+                                    // Optional: refresh data dari backend
+                                } else {
+                                    alert('Update gagal: ' + (result.error || 'Unknown error'));
+                                }
+                            } catch (err) {
+                                alert('Update gagal: ' + err.message);
+                            }
+                        }
                     });
                     </script>
                 </main>
