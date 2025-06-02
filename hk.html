@@ -390,7 +390,7 @@
                                 const result = await response.json();
                                 if (result.success) {
                                     alert('Update berhasil!');
-                                    // Optional: refresh data dari backend
+                                    location.reload(); // Refresh halaman setelah update
                                 } else {
                                     alert('Update gagal: ' + (result.error || 'Unknown error'));
                                 }
