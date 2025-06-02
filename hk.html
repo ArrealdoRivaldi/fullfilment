@@ -200,6 +200,8 @@
                         { value: "Offering Orbit", label: "Offering Orbit" }
                     ];
                     let allData = [];
+                    let currentPage = 1;
+                    const rowsPerPage = 10;
 
                     function formatDate(dateStr) {
                         if (!dateStr) return '';
@@ -310,11 +312,16 @@
                     function renderTable(data) {
                         const tbody = document.getElementById('dataTableBody');
                         tbody.innerHTML = '';
-                        data.forEach((item, index) => {
+                        // Pagination
+                        const startIdx = (currentPage - 1) * rowsPerPage;
+                        const endIdx = startIdx + rowsPerPage;
+                        const pageData = data.slice(startIdx, endIdx);
+
+                        pageData.forEach((item, index) => {
                             const row = document.createElement('tr');
                             row.dataset.docId = item.id;
                             row.innerHTML = `
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${index + 1}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
@@ -341,6 +348,59 @@
                             `;
                             tbody.appendChild(row);
                         });
+
+                        renderPaginationControls(data.length);
+                    }
+
+                    function renderPaginationControls(totalRows) {
+                        const controls = document.getElementById('pagination-controls');
+                        controls.innerHTML = '';
+                        const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+                        if (totalPages <= 1) return;
+
+                        // Prev button
+                        const prevBtn = document.createElement('button');
+                        prevBtn.textContent = 'Prev';
+                        prevBtn.disabled = currentPage === 1;
+                        prevBtn.onclick = () => { currentPage--; renderTable(allData); };
+                        controls.appendChild(prevBtn);
+
+                        // Page numbers
+                        for (let i = 1; i <= totalPages; i++) {
+                            const btn = document.createElement('button');
+                            btn.textContent = i;
+                            btn.className = (i === currentPage) ? 'bg-blue-500 text-white px-2 rounded' : 'px-2';
+                            btn.onclick = () => { currentPage = i; renderTable(allData); };
+                            controls.appendChild(btn);
+                        }
+
+                        // Next button
+                        const nextBtn = document.createElement('button');
+                        nextBtn.textContent = 'Next';
+                        nextBtn.disabled = currentPage === totalPages;
+                        nextBtn.onclick = () => { currentPage++; renderTable(allData); };
+                        controls.appendChild(nextBtn);
+                    }
+
+                    function exportToCSV(data) {
+                        if (!data.length) return;
+                        const headers = Object.keys(data[0]);
+                        const csvRows = [
+                            headers.join(','), // header row
+                            ...data.map(row => headers.map(field => `"${(row[field] ?? '').toString().replace(/"/g, '""')}"`).join(','))
+                        ];
+                        const csvContent = csvRows.join('\n');
+                        const blob = new Blob([csvContent], { type: 'text/csv' });
+                        const url = URL.createObjectURL(blob);
+
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'export.csv';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
                     }
 
                     document.addEventListener('DOMContentLoaded', async () => {
@@ -377,6 +437,10 @@
                         }
                         // Bagian update data ke Firestore perlu API backend terpisah
                         // if (e.target.classList.contains('update-btn')) { ... kode update lama ... }
+                    });
+
+                    document.getElementById('export-csv').addEventListener('click', () => {
+                        exportToCSV(allData);
                     });
                     </script>
                 </main>
