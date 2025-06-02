@@ -18,7 +18,7 @@ const db = getDatabase();
 module.exports = async (req, res) => {
   try {
     // Ganti 'your_path' dengan path data yang ingin diambil, misal 'fallout'
-    const ref = db.ref('data');
+    const ref = db.ref();
     ref.once('value', (snapshot) => {
       res.status(200).json(snapshot.val());
     }, (error) => {
