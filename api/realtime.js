@@ -16,19 +16,8 @@ if (!getApps().length) {
 const db = getDatabase();
 
 module.exports = async (req, res) => {
-  if (req.method === 'PATCH') {
-    // Update data by id (index)
-    try {
-      const { id, ...fields } = req.body;
-      if (!id) return res.status(400).json({ error: 'Missing id' });
-      await db.ref(id).update(fields);
-      return res.status(200).json({ success: true });
-    } catch (error) {
-      return res.status(500).json({ error: error.message });
-    }
-  }
-  // GET: fetch all data
   try {
+    // Ganti 'your_path' dengan path data yang ingin diambil, misal 'fallout'
     const ref = db.ref();
     ref.once('value', (snapshot) => {
       res.status(200).json(snapshot.val());
@@ -37,5 +26,5 @@ module.exports = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
-  }
+  }  
 }; 
