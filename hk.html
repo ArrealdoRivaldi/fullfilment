@@ -345,7 +345,7 @@
 
                     document.addEventListener('DOMContentLoaded', async () => {
                         try {
-                            const response = await fetch('/api/firestore');
+                            const response = await fetch('/api/realtime');
                              if (!response.ok) {
                                 throw new Error(`HTTP error! status: ${response.status}`);
                             }

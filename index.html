@@ -747,7 +747,7 @@
         document.addEventListener('DOMContentLoaded', async function() {
           console.log('DOM fully loaded and parsed. Fetching data...'); // Log DOM ready dan fetch mulai
           try {
-            const response = await fetch('/api/firestore');
+            const response = await fetch('/api/realtime');
             if (!response.ok) {
               const errorText = await response.text();
               console.error('Fetch response not OK:', response.status, errorText); // Log error response
