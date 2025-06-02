@@ -350,7 +350,7 @@
                                 throw new Error(`HTTP error! status: ${response.status}`);
                             }
                             const data = await response.json();
-                            const dataArray = Array.isArray(data) ? data : Object.values(data);
+                            const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
                             allData = dataArray;
                             initializeFilters(allData);
                             renderTable(allData);

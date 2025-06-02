@@ -754,7 +754,7 @@
               throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
             }
             const data = await response.json();
-            const dataArray = Array.isArray(data) ? data : Object.values(data);
+            const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
             allData = dataArray;
             renderDashboard(allData); // Render dashboard dengan semua data awal
           } catch (error) {
