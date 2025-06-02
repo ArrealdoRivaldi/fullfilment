@@ -314,23 +314,6 @@
                         });
                     }
 
-                    function renderPagination(totalItems, currentPage, pageSize) {
-                        const totalPages = Math.ceil(totalItems / pageSize);
-                        const paginationContainer = document.getElementById('paginationContainer');
-                        if (!paginationContainer) return;
-                        paginationContainer.innerHTML = '';
-                        if (totalPages <= 1) return;
-                        for (let i = 1; i <= totalPages; i++) {
-                            const btn = document.createElement('button');
-                            btn.textContent = i;
-                            btn.className = 'mx-1 px-2 py-1 rounded ' + (i === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-blue-100');
-                            btn.addEventListener('click', () => {
-                                renderTable(window.filteredData || allData, i);
-                            });
-                            paginationContainer.appendChild(btn);
-                        }
-                    }
-
                     function renderTable(data, page = 1) {
                         const tbody = document.getElementById('dataTableBody');
                         tbody.innerHTML = '';
@@ -368,8 +351,6 @@
                             `;
                             tbody.appendChild(row);
                         });
-                        renderPagination(data.length, page, pageSize);
-                        currentPage = page;
                         // Destroy DataTable jika sudah ada
                         if (window.jQuery && window.jQuery.fn && window.jQuery.fn.DataTable && window.jQuery.fn.DataTable.isDataTable('.min-w-full')) {
                             window.jQuery('.min-w-full').DataTable().destroy();
@@ -384,17 +365,6 @@
                             searching: false // search tetap pakai filter custom
                         });
                     }
-
-                    // Tambahkan container pagination di bawah tabel
-                    document.addEventListener('DOMContentLoaded', () => {
-                        let table = document.querySelector('table.min-w-full');
-                        if (table && !document.getElementById('paginationContainer')) {
-                            const pagDiv = document.createElement('div');
-                            pagDiv.id = 'paginationContainer';
-                            pagDiv.className = 'flex justify-center items-center my-4';
-                            table.parentElement.appendChild(pagDiv);
-                        }
-                    });
 
                     document.addEventListener('DOMContentLoaded', async () => {
                         try {
