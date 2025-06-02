@@ -754,8 +754,8 @@
               throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
             }
             const data = await response.json();
-            console.log('Data fetched successfully:', data); // Log data yang berhasil diambil
-            allData = data; // Simpan data ke variabel global
+            const dataArray = Array.isArray(data) ? data : Object.values(data);
+            allData = dataArray;
             renderDashboard(allData); // Render dashboard dengan semua data awal
           } catch (error) {
             console.error('Error fetching data or rendering dashboard:', error);

@@ -350,7 +350,8 @@
                                 throw new Error(`HTTP error! status: ${response.status}`);
                             }
                             const data = await response.json();
-                            allData = data; // Simpan data ke variabel global
+                            const dataArray = Array.isArray(data) ? data : Object.values(data);
+                            allData = dataArray;
                             initializeFilters(allData);
                             renderTable(allData);
                         } catch (error) {
