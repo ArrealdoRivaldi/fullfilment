@@ -16,10 +16,22 @@ if (!getApps().length) {
 const db = getDatabase();
 
 module.exports = async (req, res) => {
-  const { method } = req;
+  const { method, query } = req;
+  if (method === 'GET' && query.last_updated) {
+    try {
+      const ref = db.ref('last_updated');
+      ref.once('value', (snapshot) => {
+        res.status(200).json({ last_updated: snapshot.val() });
+      }, (error) => {
+        res.status(500).json({ error: error.message });
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+    return;
+  }
   if (method === 'GET') {
     try {
-      // Ganti 'your_path' dengan path data yang ingin diambil, misal 'fallout'
       const ref = db.ref();
       ref.once('value', (snapshot) => {
         res.status(200).json(snapshot.val());
@@ -32,11 +44,11 @@ module.exports = async (req, res) => {
   } else if (method === 'PUT') {
     try {
       let body = req.body;
-      // Untuk Vercel/Netlify, body bisa berupa string
       if (typeof body === 'string') body = JSON.parse(body);
       const { id, ...updateData } = body;
       if (typeof id === 'undefined') return res.status(400).json({ error: 'Missing id' });
       await db.ref(id).update(updateData);
+      await db.ref('last_updated').set(Date.now());
       res.status(200).json({ success: true });
     } catch (error) {
       res.status(500).json({ error: error.message });

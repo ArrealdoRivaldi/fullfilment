@@ -93,7 +93,7 @@
             <div class="w-full bg-white shadow px-4 sm:px-8 py-3 z-10" style="position:sticky;top:0;">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <span class="text-xl sm:text-2xl font-bold text-gray-800 tracking-tight text-center sm:text-left">Data Fallout House Keeping</span>
-                  <span class="text-xs sm:text-sm text-gray-400 flex items-center justify-center gap-1"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: Senin 4/24/2025</span>
+                  <span class="text-xs sm:text-sm text-gray-400 flex items-center justify-center gap-1"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: <span id="lastUpdated">-</span></span>
                 </div>
             </div>
             <div class="main-content p-0 m-0">
@@ -391,7 +391,30 @@
                         renderPagination(allData.length);
                     }
 
+                    // Tambahkan fungsi untuk fetch last updated
+                    async function fetchLastUpdated() {
+                        try {
+                            const response = await fetch('/api/realtime?last_updated=1');
+                            if (response.ok) {
+                                const data = await response.json();
+                                if (data.last_updated) {
+                                    const date = new Date(data.last_updated);
+                                    document.getElementById('lastUpdated').textContent = formatLastUpdated(date);
+                                } else {
+                                    document.getElementById('lastUpdated').textContent = '-';
+                                }
+                            }
+                        } catch (e) {
+                            document.getElementById('lastUpdated').textContent = '-';
+                        }
+                    }
+                    function formatLastUpdated(date) {
+                        const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+                        return `${hari[date.getDay()]} ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+                    }
+
                     document.addEventListener('DOMContentLoaded', async () => {
+                        await fetchLastUpdated();
                         try {
                             const response = await fetch('/api/realtime');
                              if (!response.ok) {
@@ -441,6 +464,7 @@
                                 if (result.success) {
                                     alert('Update berhasil!');
                                     location.reload(); // Refresh halaman setelah update
+                                    fetchLastUpdated();
                                 } else {
                                     alert('Update gagal: ' + (result.error || 'Unknown error'));
                                 }
@@ -457,10 +481,9 @@
                         document.getElementById('startDate').value = '';
                         document.getElementById('endDate').value = '';
                         document.getElementById('statusHKFilter').value = '';
-                        // Reset data ke allData awal (tanpa filter)
                         currentPage = 1;
-                        // Ambil ulang data dari backend agar benar-benar fresh
                         document.dispatchEvent(new Event('DOMContentLoaded'));
+                        fetchLastUpdated();
                     });
                     </script>
                 </main>
