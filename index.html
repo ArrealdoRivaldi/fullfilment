@@ -755,7 +755,7 @@
             }
             const data = await response.json();
             const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
-            allData = dataArray;
+            allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
             renderDashboard(allData); // Render dashboard dengan semua data awal
           } catch (error) {
             console.error('Error fetching data or rendering dashboard:', error);
