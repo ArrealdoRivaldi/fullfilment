@@ -206,7 +206,7 @@
 
                     // Tambahkan variabel global untuk pagination
                     let currentPage = 1;
-                    const pageSize = 50;
+                    let pageSize = 50;
 
                     function formatDate(dateStr) {
                         if (!dateStr) return '';
@@ -318,17 +318,36 @@
                         const totalPages = Math.ceil(totalItems / pageSize);
                         const pagination = document.getElementById('pagination');
                         if (!pagination) return;
-                        let html = `<button ${currentPage === 1 ? 'disabled' : ''} id="prevPage">Prev</button>`;
+
+                        // Dropdown page
+                        let pageOptions = '';
                         for (let i = 1; i <= totalPages; i++) {
-                            html += `<button class="page-btn" data-page="${i}" ${i === currentPage ? 'disabled' : ''}>${i}</button>`;
+                            pageOptions += `<option value="${i}" ${i === currentPage ? 'selected' : ''}>${i}</option>`;
                         }
-                        html += `<button ${currentPage === totalPages ? 'disabled' : ''} id="nextPage">Next</button>`;
-                        pagination.innerHTML = html;
+
+                        // Dropdown page size
+                        const pageSizes = [10, 25, 50, 100, 200];
+                        let sizeOptions = '';
+                        for (let size of pageSizes) {
+                            sizeOptions += `<option value="${size}" ${size === pageSize ? 'selected' : ''}>${size}</option>`;
+                        }
+
+                        pagination.innerHTML = `
+                            <span class="mr-2">${totalItems} Total Data</span>
+                            <button id="prevPage" ${currentPage === 1 ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 mr-1">&larr;</button>
+                            <label>Page <select id="pageSelect" class="border rounded px-2 py-1 mx-1">${pageOptions}</select> of ${totalPages}</label>
+                            <button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 ml-1">&rarr;</button>
+                            <label class="ml-4">Show <select id="sizeSelect" class="border rounded px-2 py-1 mx-1">${sizeOptions}</select></label>
+                        `;
+
                         document.getElementById('prevPage').onclick = () => { if (currentPage > 1) { currentPage--; renderTableWithPagination(); } };
                         document.getElementById('nextPage').onclick = () => { if (currentPage < totalPages) { currentPage++; renderTableWithPagination(); } };
-                        document.querySelectorAll('.page-btn').forEach(btn => {
-                            btn.onclick = () => { currentPage = parseInt(btn.dataset.page); renderTableWithPagination(); };
-                        });
+                        document.getElementById('pageSelect').onchange = (e) => { currentPage = parseInt(e.target.value); renderTableWithPagination(); };
+                        document.getElementById('sizeSelect').onchange = (e) => {
+                            pageSize = parseInt(e.target.value);
+                            currentPage = 1;
+                            renderTableWithPagination();
+                        };
                     }
 
                     function renderTableWithPagination() {
