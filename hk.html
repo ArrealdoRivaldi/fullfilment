@@ -170,6 +170,9 @@
                         </div>
                     </div>
 
+                    <!-- Pagination Controls -->
+                    <div id="pagination" class="flex flex-wrap gap-1 justify-center items-center mt-4"></div>
+
                     <!-- Modal for Fallout Reason Details -->
                     <div id="falloutModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
                         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
@@ -200,6 +203,10 @@
                         { value: "Offering Orbit", label: "Offering Orbit" }
                     ];
                     let allData = [];
+
+                    // Tambahkan variabel global untuk pagination
+                    let currentPage = 1;
+                    const pageSize = 50;
 
                     function formatDate(dateStr) {
                         if (!dateStr) return '';
@@ -307,14 +314,34 @@
                         });
                     }
 
-                    function renderTable(data) {
+                    function renderPagination(totalItems) {
+                        const totalPages = Math.ceil(totalItems / pageSize);
+                        const pagination = document.getElementById('pagination');
+                        if (!pagination) return;
+                        let html = `<button ${currentPage === 1 ? 'disabled' : ''} id="prevPage">Prev</button>`;
+                        for (let i = 1; i <= totalPages; i++) {
+                            html += `<button class="page-btn" data-page="${i}" ${i === currentPage ? 'disabled' : ''}>${i}</button>`;
+                        }
+                        html += `<button ${currentPage === totalPages ? 'disabled' : ''} id="nextPage">Next</button>`;
+                        pagination.innerHTML = html;
+                        document.getElementById('prevPage').onclick = () => { if (currentPage > 1) { currentPage--; renderTableWithPagination(); } };
+                        document.getElementById('nextPage').onclick = () => { if (currentPage < totalPages) { currentPage++; renderTableWithPagination(); } };
+                        document.querySelectorAll('.page-btn').forEach(btn => {
+                            btn.onclick = () => { currentPage = parseInt(btn.dataset.page); renderTableWithPagination(); };
+                        });
+                    }
+
+                    function renderTableWithPagination() {
                         const tbody = document.getElementById('dataTableBody');
                         tbody.innerHTML = '';
-                        data.forEach((item, index) => {
+                        const startIdx = (currentPage - 1) * pageSize;
+                        const endIdx = startIdx + pageSize;
+                        const pageData = allData.slice(startIdx, endIdx);
+                        pageData.forEach((item, index) => {
                             const row = document.createElement('tr');
                             row.dataset.docId = item.id;
                             row.innerHTML = `
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${index + 1}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
@@ -341,6 +368,7 @@
                             `;
                             tbody.appendChild(row);
                         });
+                        renderPagination(allData.length);
                     }
 
                     document.addEventListener('DOMContentLoaded', async () => {
@@ -353,7 +381,7 @@
                             const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
                             allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
                             initializeFilters(allData);
-                            renderTable(allData);
+                            renderTableWithPagination();
                         } catch (error) {
                             console.error('Error fetching data:', error);
                             // Tampilkan pesan error di halaman jika perlu
@@ -362,7 +390,9 @@
 
                     document.getElementById('applyFilters').addEventListener('click', () => {
                         const filteredData = filterData(allData);
-                        renderTable(filteredData);
+                        allData = filteredData;
+                        currentPage = 1;
+                        renderTableWithPagination();
                     });
 
                     document.getElementById('closeModal').addEventListener('click', () => {
