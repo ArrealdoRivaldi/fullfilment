@@ -19,9 +19,25 @@ module.exports = async (req, res) => {
   const { method, query } = req;
   if (method === 'GET' && query.last_updated) {
     try {
-      const ref = db.ref('last_updated');
+      const ref = db.ref();
       ref.once('value', (snapshot) => {
-        res.status(200).json({ last_updated: snapshot.val() });
+        const data = snapshot.val();
+        let maxUpdateTs = null;
+        Object.values(data || {}).forEach(item => {
+          if (item && item.update_ts) {
+            const ts = new Date(item.update_ts).getTime() || Number(item.update_ts);
+            if (!isNaN(ts)) {
+              if (maxUpdateTs === null || ts > maxUpdateTs) {
+                maxUpdateTs = ts;
+              }
+            }
+          }
+        });
+        if (maxUpdateTs) {
+          res.status(200).json({ last_updated: new Date(maxUpdateTs).toISOString() });
+        } else {
+          res.status(200).json({ last_updated: null });
+        }
       }, (error) => {
         res.status(500).json({ error: error.message });
       });
@@ -47,8 +63,8 @@ module.exports = async (req, res) => {
       if (typeof body === 'string') body = JSON.parse(body);
       const { id, ...updateData } = body;
       if (typeof id === 'undefined') return res.status(400).json({ error: 'Missing id' });
+      updateData.update_ts = new Date().toISOString();
       await db.ref(id).update(updateData);
-      await db.ref('last_updated').set(Date.now());
       res.status(200).json({ success: true });
     } catch (error) {
       res.status(500).json({ error: error.message });
