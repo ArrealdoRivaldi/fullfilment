@@ -417,18 +417,18 @@
                  if (falloutPerMonth.some(count => count > 0) || psPerMonth.some(count => count > 0)) {
                       datasets.push(
                           { 
-                              label: `Fallout (${year})`, 
+                              label: `Fallout`, 
                               data: falloutPerMonth, 
-                              backgroundColor: `rgba(96, 165, 250, ${year === Math.max(...years) ? 1 : 0.6})`, // Warna lebih gelap untuk tahun terbaru
+                              backgroundColor: `rgba(96, 165, 250, ${year === Math.max(...years) ? 1 : 0.6})`,
                               yAxisID: 'y',
                               barPercentage: 0.7,
                               categoryPercentage: 0.8,
                               order: years.indexOf(year) // Order berdasarkan tahun
                           },
                           { 
-                              label: `PS (${year})`, 
+                              label: `PS`, 
                               data: psPerMonth, 
-                              backgroundColor: `rgba(251, 191, 36, ${year === Math.max(...years) ? 1 : 0.6})`, // Warna lebih gelap untuk tahun terbaru
+                              backgroundColor: `rgba(251, 191, 36, ${year === Math.max(...years) ? 1 : 0.6})`,
                               yAxisID: 'y',
                               barPercentage: 0.7,
                               categoryPercentage: 0.8,
@@ -456,7 +456,7 @@
                  console.log(`Percent data per month for latest year (${latestYear}):`, percentPerMonth); // --- LOG percent data per month
 
                  datasets.push({
-                     label: `Fallout to PS (%) (${latestYear})`, 
+                     label: `Fallout to PS (%)`, 
                      data: percentPerMonth, 
                      type: 'line', 
                      borderColor: '#ef4444', 
@@ -491,6 +491,18 @@
                   title: { display: true, text: 'Trend Fallout to PS' },
                    datalabels: { // Non-aktifkan datalabels default untuk bar
                        display: false
+                   },
+                   tooltip: {
+                      callbacks: {
+                        label: function(context) {
+                          // Ambil label dataset tanpa tahun
+                          let label = context.dataset.label || '';
+                          if (label) {
+                            return label + ': ' + context.formattedValue;
+                          }
+                          return context.formattedValue;
+                        }
+                      }
                    }
                 },
                 scales: {
