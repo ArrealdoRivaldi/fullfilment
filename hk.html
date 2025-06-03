@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Tool House Keeping Fullfilment FBB untuk pelacakan dan pengelolaan data fallout.">
+    <meta name="keywords" content="Fullfilment, FBB, House Keeping, Tool, Fallout, Monitoring, Telkom">
+    <meta name="author" content="Tim Fullfilment FBB">
+    <title>Fullfilment FBB - Tool House Keeping</title>
+    <link rel="canonical" href="/hk.html"/>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Fullfilment FBB - Tool House Keeping"/>
+    <meta property="og:description" content="Tool interaktif untuk pelacakan dan pengelolaan data fallout House Keeping FBB."/>
+    <meta property="og:image" content="images/icon/logo.png"/>
+    <meta property="og:type" content="website"/>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Fullfilment FBB - Tool House Keeping"/>
+    <meta name="twitter:description" content="Tool interaktif untuk pelacakan dan pengelolaan data fallout House Keeping FBB."/>
+    <meta name="twitter:image" content="images/icon/logo.png"/>
+    <!-- CSS Files -->
+    <link href="/css/font-face.css" rel="stylesheet">
+    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/animsition/animsition.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <link href="/vendor/wow/animate.css" rel="stylesheet">
+    <link href="/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet">
+    <link href="/vendor/slick/slick.css" rel="stylesheet">
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet">
+    <link href="/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="/css/theme.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ... (CSS tetap, bisa dirapikan jika perlu) ... */
+    </style>
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- Header Mobile -->
+        <header class="header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid">
+                    <div class="header-mobile-inner">
+                        <a class="logo" href="/index.html">
+                            <img src="/images/icon/logo.png" alt="CoolAdmin">
+                        </a>
+                        <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar-mobile">
+                <div class="container-fluid">
+                    <ul class="navbar-mobile__list list-unstyled">
+                        <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                        <li><a href="chart.html"><i class="fas fa-chart-bar"></i>Charts</a></li>
+                        <li><a href="table.html"><i class="fas fa-table"></i>Tables</a></li>
+                        <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i>Calendar</a></li>
+                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a></li>
+                        <li><a href="register.html"><i class="fas fa-user-plus"></i>Register</a></li>
+                        <li><a href="forget-pass.html"><i class="fas fa-key"></i>Forget Password</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
+        <!-- Sidebar -->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="/index.html">
+                    <img src="/images/icon/logo.png" alt="FBB">
+                </a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#"><i class="fas fa-house-user"></i>House Keeping</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                  <a class="js-arrow" href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                                </li>
+                                <li class="active has-sub">
+                                  <a class="js-arrow" href="hk.html"><i class="fas fa-tools"></i> Tool House Keeping</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Headbar Menu (moved here) -->
+            <div class="w-full bg-white shadow px-4 sm:px-8 py-3 z-10" style="position:sticky;top:0;">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight text-center sm:text-left">Fullfilment FBB Tool House Keeping</h1>
+                  <span class="text-xs sm:text-sm text-gray-400 flex items-center justify-center gap-1"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: <span id="lastUpdated">-</span></span>
+                </div>
+            </div>
+            <div class="main-content p-0 m-0">
+                <main class="flex-1 pt-4 px-6 pb-8">            
+                    <!-- Filters Section -->
+                    <div class="bg-white p-4 rounded-lg shadow mb-6">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Branch</label>
+                                <select id="branchFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">WOK</label>
+                                <select id="wokFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">STO</label>
+                                <select id="sto_coFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Start Date</label>
+                                <input type="date" id="startDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">End Date</label>
+                                <input type="date" id="endDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Status HK</label>
+                                <select id="statusHKFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mt-4">
+                            <button id="resetFilters" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 mr-2">Reset</button>
+                            <button id="applyFilters" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                Apply Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Table Section -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full border border-gray-300 text-xs">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">No</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Provi ts</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">WOK</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">STO</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Symptom</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Fallout Reason</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Status HK</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">New Order ID</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Status PS</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dataTableBody" class="bg-white">
+                                    <!-- Data will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div id="pagination" class="flex flex-wrap gap-1 justify-center items-center mt-4"></div>
+
+                    <!-- Modal for Fallout Reason Details -->
+                    <div id="falloutModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+                        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                            <div class="mt-3 text-center">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">Fallout Reason Details</h3>
+                                <div class="mt-2 px-7 py-3">
+                                    <p id="falloutDetails" class="text-sm text-gray-500"></p>
+                                </div>
+                                <div class="items-center px-4 py-3">
+                                    <button id="closeModal" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main script for Table and Filters -->
+                    <script>
+                    // Ambil data dari API, lalu render tabel dan filter
+                    const statusHKOptions = [
+                        { value: "Cancel", label: "Cancel" },
+                        { value: "PT2", label: "PT2" },
+                        { value: "PT3", label: "PT3" },
+                        { value: "Reorder", label: "Reorder" },
+                        { value: "Revoke", label: "Revoke" },
+                        { value: "Stay Fallout", label: "Stay Fallout" },
+                        { value: "Offering Orbit", label: "Offering Orbit" }
+                    ];
+                    let allData = [];
+
+                    // Tambahkan variabel global untuk pagination
+                    let currentPage = 1;
+                    let pageSize = 50;
+
+                    function formatDate(dateStr) {
+                        if (!dateStr) return '';
+                        try {
+                            // Coba parse sebagai Firebase Timestamp (object dengan seconds dan nanoseconds)
+                            if (typeof dateStr === 'object' && dateStr !== null && typeof dateStr.seconds === 'number') {
+                                const date = new Date(dateStr.seconds * 1000);
+                                if (!isNaN(date.getTime())) {
+                                    return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                                }
+                            }
+                            // Coba parse sebagai string date format apa pun yang dikenali Date constructor
+                            if (typeof dateStr === 'string' && dateStr.trim() !== '') {
+                                const date = new Date(dateStr);
+                                if (!isNaN(date.getTime())) {
+                                     return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+                                }
+                            }
+                            // Jika tidak cocok dengan format yang dikenal
+                            return 'Invalid Date'; // Atau bisa juga return dateStr kalau mau menampilkan nilai aslinya
+                        } catch (e) {
+                            console.error('Error formatting date:', dateStr, e);
+                            return 'Format Error'; // Handle error saat parsing
+                        }
+                    }
+
+                    function truncateText(text, maxLength = 50) {
+                        if (text && text.length > maxLength) {
+                            return text.substring(0, maxLength) + '...';
+                        }
+                        return text || '';
+                    }
+
+                    function initializeFilters(data) {
+                        const filters = {
+                            branch: new Set(),
+                            wok: new Set(),
+                            sto_co: new Set(),
+                        };
+                        data.forEach(item => {
+                            filters.branch.add(item.branch);
+                            filters.wok.add(item.wok);
+                            filters.sto_co.add(item.sto_co);
+                        });
+                        ['branch', 'wok', 'sto_co'].forEach(filter => {
+                            const select = document.getElementById(`${filter}Filter`);
+                            if (!select) return;
+                            select.innerHTML = '<option value="">All</option>';
+                            [...filters[filter]].sort().forEach(value => {
+                                if (value) {
+                                    const option = document.createElement('option');
+                                    option.value = value;
+                                    option.textContent = value;
+                                    select.appendChild(option);
+                                }
+                            });
+                        });
+                        const statusHKSelect = document.getElementById('statusHKFilter');
+                        statusHKSelect.innerHTML = '';
+                        const optAll = document.createElement('option');
+                        optAll.value = '';
+                        optAll.textContent = 'All';
+                        statusHKSelect.appendChild(optAll);
+                        const optDone = document.createElement('option');
+                        optDone.value = 'done';
+                        optDone.textContent = 'Done';
+                        statusHKSelect.appendChild(optDone);
+                        const optNotYet = document.createElement('option');
+                        optNotYet.value = 'notyet';
+                        optNotYet.textContent = 'Not Yet';
+                        statusHKSelect.appendChild(optNotYet);
+                    }
+
+                    function filterData(data) {
+                        const branch = document.getElementById('branchFilter').value;
+                        const wok = document.getElementById('wokFilter').value;
+                        const sto = document.getElementById('sto_coFilter').value;
+                        const startDate = document.getElementById('startDate').value;
+                        const endDate = document.getElementById('endDate').value;
+                        const statusHK = document.getElementById('statusHKFilter').value;
+                        return data.filter(item => {
+                            let itemDate;
+                            if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
+                                itemDate = new Date(item.provi_ts.seconds * 1000);
+                            } else if (typeof item.provi_ts === 'string') {
+                                itemDate = new Date(item.provi_ts);
+                            } else {
+                                itemDate = new Date(item.provi_ts);
+                            }
+                            let start = startDate ? new Date(startDate) : null;
+                            let end = endDate ? new Date(endDate) : null;
+                            if (end) end.setHours(23,59,59,999);
+                            let statusHKMatch = true;
+                            if (statusHK === 'done') {
+                                statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
+                            } else if (statusHK === 'notyet') {
+                                statusHKMatch = !(item.status_hk && item.status_hk.trim() !== '');
+                            }
+                            return (!branch || item.branch === branch) &&
+                                (!wok || item.wok === wok) &&
+                                (!sto || item.sto_co === sto) &&
+                                statusHKMatch &&
+                                (!start || itemDate >= start) &&
+                                (!end || itemDate <= end);
+                        });
+                    }
+
+                    function renderPagination(totalItems) {
+                        const totalPages = Math.ceil(totalItems / pageSize);
+                        const pagination = document.getElementById('pagination');
+                        if (!pagination) return;
+
+                        // Dropdown page
+                        let pageOptions = '';
+                        for (let i = 1; i <= totalPages; i++) {
+                            pageOptions += `<option value="${i}" ${i === currentPage ? 'selected' : ''}>${i}</option>`;
+                        }
+
+                        // Dropdown page size
+                        const pageSizes = [10, 25, 50, 100, 200];
+                        let sizeOptions = '';
+                        for (let size of pageSizes) {
+                            sizeOptions += `<option value="${size}" ${size === pageSize ? 'selected' : ''}>${size}</option>`;
+                        }
+
+                        pagination.innerHTML = `
+                            <span class="mr-2">${totalItems} Total Data</span>
+                            <button id="prevPage" ${currentPage === 1 ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 mr-1">&larr;</button>
+                            <label>Page <select id="pageSelect" class="border rounded px-2 py-1 mx-1">${pageOptions}</select> of ${totalPages}</label>
+                            <button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 ml-1">&rarr;</button>
+                            <label class="ml-4">Show <select id="sizeSelect" class="border rounded px-2 py-1 mx-1">${sizeOptions}</select></label>
+                        `;
+
+                        document.getElementById('prevPage').onclick = () => { if (currentPage > 1) { currentPage--; renderTableWithPagination(); } };
+                        document.getElementById('nextPage').onclick = () => { if (currentPage < totalPages) { currentPage++; renderTableWithPagination(); } };
+                        document.getElementById('pageSelect').onchange = (e) => { currentPage = parseInt(e.target.value); renderTableWithPagination(); };
+                        document.getElementById('sizeSelect').onchange = (e) => {
+                            pageSize = parseInt(e.target.value);
+                            currentPage = 1;
+                            renderTableWithPagination();
+                        };
+                    }
+
+                    function renderTableWithPagination() {
+                        const tbody = document.getElementById('dataTableBody');
+                        tbody.innerHTML = '';
+                        const startIdx = (currentPage - 1) * pageSize;
+                        const endIdx = startIdx + pageSize;
+                        const pageData = allData.slice(startIdx, endIdx);
+                        pageData.forEach((item, index) => {
+                            const row = document.createElement('tr');
+                            row.dataset.docId = item.id;
+                            row.innerHTML = `
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                                    <div class="flex items-center">
+                                        <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
+                                        <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                                    </div>
+                                </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                                    <select class="status-hk-select border rounded px-2 py-1">
+                                        <option value="">Select Status</option>
+                                        ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                                    </select>
+                                </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                                    <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
+                                </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                        renderPagination(allData.length);
+                    }
+
+                    // Tambahkan fungsi untuk fetch last updated
+                    async function fetchLastUpdated() {
+                        try {
+                            const response = await fetch('/api/realtime?last_updated=1');
+                            if (response.ok) {
+                                const data = await response.json();
+                                if (data.last_updated) {
+                                    const date = new Date(data.last_updated);
+                                    document.getElementById('lastUpdated').textContent = formatLastUpdated(date);
+                                } else {
+                                    document.getElementById('lastUpdated').textContent = '-';
+                                }
+                            }
+                        } catch (e) {
+                            document.getElementById('lastUpdated').textContent = '-';
+                        }
+                    }
+                    function formatLastUpdated(date) {
+                        const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+                        return `${hari[date.getDay()]} ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+                    }
+
+                    document.addEventListener('DOMContentLoaded', async () => {
+                        await fetchLastUpdated();
+                        try {
+                            const response = await fetch('/api/realtime');
+                             if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            const data = await response.json();
+                            const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
+                            allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+                            initializeFilters(allData);
+                            renderTableWithPagination();
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                            // Tampilkan pesan error di halaman jika perlu
+                        }
+                    });
+
+                    document.getElementById('applyFilters').addEventListener('click', () => {
+                        const filteredData = filterData(allData);
+                        allData = filteredData;
+                        currentPage = 1;
+                        renderTableWithPagination();
+                    });
+
+                    document.getElementById('closeModal').addEventListener('click', () => {
+                        document.getElementById('falloutModal').classList.add('hidden');
+                    });
+
+                    document.getElementById('dataTableBody').addEventListener('click', async (e) => {
+                         if (e.target.classList.contains('details-btn')) {
+                            const details = e.target.dataset.fallout;
+                            document.getElementById('falloutDetails').textContent = details;
+                            document.getElementById('falloutModal').classList.remove('hidden');
+                        }
+                        if (e.target.classList.contains('update-btn')) {
+                            const row = e.target.closest('tr');
+                            const id = row.dataset.docId;
+                            const status_hk = row.querySelector('.status-hk-select').value;
+                            const new_order_id = row.querySelector('.new-order-id').value;
+                            // Tambahkan field lain jika ingin diupdate
+                            try {
+                                const response = await fetch('/api/realtime', {
+                                    method: 'PUT',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ id, status_hk, new_order_id })
+                                });
+                                const result = await response.json();
+                                if (result.success) {
+                                    alert('Update berhasil!');
+                                    location.reload(); // Refresh halaman setelah update
+                                    fetchLastUpdated();
+                                } else {
+                                    alert('Update gagal: ' + (result.error || 'Unknown error'));
+                                }
+                            } catch (err) {
+                                alert('Update gagal: ' + err.message);
+                            }
+                        }
+                    });
+
+                    document.getElementById('resetFilters').addEventListener('click', () => {
+                        document.getElementById('branchFilter').value = '';
+                        document.getElementById('wokFilter').value = '';
+                        document.getElementById('sto_coFilter').value = '';
+                        document.getElementById('startDate').value = '';
+                        document.getElementById('endDate').value = '';
+                        document.getElementById('statusHKFilter').value = '';
+                        currentPage = 1;
+                        document.dispatchEvent(new Event('DOMContentLoaded'));
+                        fetchLastUpdated();
+                    });
+                    </script>
+                </main>
+            </div>
+            <!-- Improved Footer -->
+            <footer class="w-full bg-gray-100 py-6 mt-8 shadow-inner">
+                <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+                    <div class="flex items-center gap-2 mb-2 md:mb-0">
+                        <img src="/images/icon/logo.png" alt="FBB" class="h-8 w-auto">
+                        <span class="text-gray-700 font-semibold">FBB Telkomsel</span>
+                    </div>
+                    <div class="text-gray-500 text-sm">&copy; 2025 FBB Telkomsel. All rights reserved.</div>
+                    <div class="flex gap-3 mt-2 md:mt-0">
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- JS Files -->
+        <script src="/vendor/jquery-3.2.1.min.js"></script>
+        <script src="/vendor/bootstrap-4.1/popper.min.js"></script>
+        <script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+        <script src="/vendor/slick/slick.min.js"></script>
+        <script src="/vendor/wow/wow.min.js"></script>
+        <script src="/vendor/animsition/animsition.min.js"></script>
+        <script src="/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <script src="/vendor/counter-up/jquery.waypoints.min.js"></script>
+        <script src="/vendor/counter-up/jquery.counterup.min.js"></script> 
+        <script src="/vendor/circle-progress/circle-progress.min.js"></script> 
+        <script src="/vendor/perfect-scrollbar/perfect-scrollbar.js"></script> 
+        <script src="/vendor/chartjs/Chart.bundle.min.js"></script> 
+        <script src="/vendor/select2/select2.min.js"></script> 
+        <script src="/js/main.js"></script>
+    </body> 
+</html> 
