@@ -728,7 +728,23 @@
         });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+        <script>
+        // Deteksi 404 di halaman utama
+        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+          document.body.innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f7fafc;">
+              <div style="text-align:center;background:#fff;padding:40px 32px;border-radius:16px;box-shadow:0 2px 16px #0001;">
+                <img src="/images/icon/logo.png" alt="Fullfilment FBB" width="80" style="margin-bottom:1.5em;">
+                <h1 style="font-size:5rem;color:#e53e3e;margin-bottom:0.5em;">404</h1>
+                <h2 style="font-size:2rem;color:#2d3748;margin-bottom:1em;">Halaman Tidak Ditemukan</h2>
+                <p style="color:#4a5568;margin-bottom:2em;">Maaf, halaman yang Anda cari tidak tersedia.<br>Anda akan diarahkan ke halaman utama dalam 5 detik.</p>
+                <a href="/" style="display:inline-block;background:#3182ce;color:#fff;padding:0.75em 2em;border-radius:8px;text-decoration:none;font-weight:bold;">Kembali ke Beranda</a>
+              </div>
+            </div>
+          `;
+          setTimeout(() => { window.location.href = '/'; }, 5000);
+        }
+        </script>
     </div>
-    <!-- Tambahkan script untuk redirect ke 404 jika halaman tidak ditemukan -->
 </body>
 </html>

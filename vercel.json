@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/hk/:path*", "destination": "/hk/index.html" },
+    { "source": "/:path*", "destination": "/index.html" }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false
+} 
