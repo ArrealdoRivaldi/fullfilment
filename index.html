@@ -161,7 +161,7 @@
             <div class="w-full bg-white shadow px-4 sm:px-8 py-3 z-10" style="position:sticky;top:0;">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight text-center sm:text-left">Fullfilment FBB Dashboard</h1>
-                  <span class="text-xs sm:text-sm text-gray-400 flex items-center justify-center gap-1"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: Senin 4/24/2025</span>
+                  <span class="text-xs sm:text-sm text-gray-400 flex items-center justify-center gap-1"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: <span id="lastUpdated">-</span></span>
                 </div>
             </div>
             <main class="main-content">
@@ -744,6 +744,34 @@
           `;
           setTimeout(() => { window.location.href = '/'; }, 5000);
         }
+        </script>
+        <script>
+        async function fetchLastUpdated() {
+          try {
+            const response = await fetch('/api/realtime?last_updated=1');
+            if (response.ok) {
+              const data = await response.json();
+              if (data.last_updated) {
+                const date = new Date(data.last_updated);
+                document.getElementById('lastUpdated').textContent = formatLastUpdated(date);
+              } else {
+                document.getElementById('lastUpdated').textContent = '-';
+              }
+            }
+          } catch (e) {
+            document.getElementById('lastUpdated').textContent = '-';
+          }
+        }
+        function pad2(n) { return n.toString().padStart(2, '0'); }
+        function formatLastUpdated(date) {
+          const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+          // WIB (UTC+7), WITA (UTC+8), WIT (UTC+9)
+          const wib = new Date(date.getTime() + (7 - date.getTimezoneOffset() / 60) * 60 * 60 * 1000 - 7 * 60 * 60 * 1000);
+          const wita = new Date(wib.getTime() + 1 * 60 * 60 * 1000);
+          const wit = new Date(wib.getTime() + 2 * 60 * 60 * 1000);
+          return `${hari[wib.getDay()]} ${pad2(wib.getDate())}/${pad2(wib.getMonth()+1)}/${wib.getFullYear()} ${pad2(wib.getHours())}:${pad2(wib.getMinutes())} WIB / ${pad2(wita.getHours())}:${pad2(wita.getMinutes())} WITA / ${pad2(wit.getHours())}:${pad2(wit.getMinutes())} WIT`;
+        }
+        document.addEventListener('DOMContentLoaded', fetchLastUpdated);
         </script>
     </div>
 </body>

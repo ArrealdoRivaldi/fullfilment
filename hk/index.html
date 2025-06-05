@@ -421,9 +421,14 @@
                             document.getElementById('lastUpdated').textContent = '-';
                         }
                     }
+                    function pad2(n) { return n.toString().padStart(2, '0'); }
                     function formatLastUpdated(date) {
                         const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-                        return `${hari[date.getDay()]} ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+                        // WIB (UTC+7), WITA (UTC+8), WIT (UTC+9)
+                        const wib = new Date(date.getTime() + (7 - date.getTimezoneOffset() / 60) * 60 * 60 * 1000 - 7 * 60 * 60 * 1000);
+                        const wita = new Date(wib.getTime() + 1 * 60 * 60 * 1000);
+                        const wit = new Date(wib.getTime() + 2 * 60 * 60 * 1000);
+                        return `${hari[wib.getDay()]} ${pad2(wib.getDate())}/${pad2(wib.getMonth()+1)}/${wib.getFullYear()} ${pad2(wib.getHours())}:${pad2(wib.getMinutes())} WIB / ${pad2(wita.getHours())}:${pad2(wita.getMinutes())} WITA / ${pad2(wit.getHours())}:${pad2(wit.getMinutes())} WIT`;
                     }
 
                     document.addEventListener('DOMContentLoaded', async () => {
