@@ -765,11 +765,14 @@
         function pad2(n) { return n.toString().padStart(2, '0'); }
         function formatLastUpdated(date) {
           const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
-          // WIB (UTC+7), WITA (UTC+8), WIT (UTC+9)
-          const wib = new Date(date.getTime() + (7 - date.getTimezoneOffset() / 60) * 60 * 60 * 1000 - 7 * 60 * 60 * 1000);
-          const wita = new Date(wib.getTime() + 1 * 60 * 60 * 1000);
-          const wit = new Date(wib.getTime() + 2 * 60 * 60 * 1000);
-          return `${hari[wib.getDay()]} ${pad2(wib.getDate())}/${pad2(wib.getMonth()+1)}/${wib.getFullYear()} ${pad2(wib.getHours())}:${pad2(wib.getMinutes())} WIB / ${pad2(wita.getHours())}:${pad2(wita.getMinutes())} WITA / ${pad2(wit.getHours())}:${pad2(wit.getMinutes())} WIT`;
+          const utc = date.getTime();
+          const wib = new Date(utc + 7 * 60 * 60 * 1000);
+          const wita = new Date(utc + 8 * 60 * 60 * 1000);
+          const wit = new Date(utc + 9 * 60 * 60 * 1000);
+          return `${hari[wib.getUTCDay()]} ${pad2(wib.getUTCDate())}/${pad2(wib.getUTCMonth()+1)}/${wib.getUTCFullYear()} ` +
+                 `<span style=\"background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wib.getUTCHours())}:${pad2(wib.getUTCMinutes())} WIB</span> / ` +
+                 `<span style=\"background:#2563eb;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wita.getUTCHours())}:${pad2(wita.getUTCMinutes())} WITA</span> / ` +
+                 `<span style=\"background:#1e293b;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wit.getUTCHours())}:${pad2(wit.getUTCMinutes())} WIT</span>`;
         }
         document.addEventListener('DOMContentLoaded', fetchLastUpdated);
         </script>
