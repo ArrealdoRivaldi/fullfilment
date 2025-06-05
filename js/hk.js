@@ -215,3 +215,21 @@ searchInput.addEventListener('input', debounce(function() {
 // Modularisasi: pisahkan fungsi per fitur
 // ... (sudah modular di atas)
 // End of hk.js 
+
+document.addEventListener('DOMContentLoaded', async () => {
+    showLoading(true);
+    try {
+        const response = await fetch('/api/realtime');
+        if (!response.ok) throw new Error('Gagal fetch data');
+        const data = await response.json();
+        // Data bisa object atau array, normalisasi ke array
+        const dataArray = Array.isArray(data) ? data : Object.values(data || {});
+        allDataOriginal = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+        allData = allDataOriginal.slice();
+        initializeFilters(allDataOriginal);
+        renderTableWithPagination();
+    } catch (err) {
+        showToast('Gagal mengambil data: ' + err.message, false);
+    }
+    showLoading(false);
+}); 
