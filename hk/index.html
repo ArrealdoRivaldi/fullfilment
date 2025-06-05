@@ -417,20 +417,20 @@
                             tbody.appendChild(row);
                         });
                         renderPagination(allData.length);
-                        // Inisialisasi DataTables (hanya sekali)
-                        if (!$.fn.DataTable.isDataTable('.min-w-full')) {
-                            setTimeout(() => {
-                                $('.min-w-full').DataTable({
-                                    dom: 'Bfrtip',
-                                    buttons: [
-                                        'copy', 'csv', 'excel', 'pdf', 'print'
-                                    ],
-                                    paging: false,
-                                    searching: false,
-                                    info: false
-                                });
-                            }, 100);
+                        // Destroy DataTables jika sudah ada
+                        if ($.fn.DataTable.isDataTable('.min-w-full')) {
+                            $('.min-w-full').DataTable().destroy();
                         }
+                        // Inisialisasi ulang DataTables
+                        setTimeout(() => {
+                            $('.min-w-full').DataTable({
+                                dom: 'Bfrtip',
+                                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                                paging: false,
+                                searching: false,
+                                info: false
+                            });
+                        }, 100);
                     }
 
                     // Tambahkan fungsi untuk fetch last updated
