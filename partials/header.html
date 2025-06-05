@@ -78,16 +78,20 @@
 (function(){
   // Helper: cocokkan path dengan href (support trailing slash)
   function isActive(href) {
+    if (!href || href === '#') return false;
     const path = window.location.pathname.replace(/\/index\.html$/, '/');
     if(href === '/') return path === '/';
     return path.startsWith(href);
   }
-  // Sidebar desktop
-  document.querySelectorAll('.menu-sidebar a.js-arrow').forEach(function(link){
+  // Sidebar desktop: hanya submenu yang dapat class active
+  document.querySelectorAll('.menu-sidebar .navbar__sub-list a.js-arrow').forEach(function(link){
     if(isActive(link.getAttribute('href'))){
       link.classList.add('active');
       const li = link.closest('li');
       if(li) li.classList.add('active');
+      // Expand parent menu
+      const parent = link.closest('.has-sub');
+      if(parent) parent.classList.add('open');
     }
   });
   // Mobile menu
