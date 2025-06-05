@@ -412,7 +412,7 @@
                                 const data = await response.json();
                                 if (data.last_updated) {
                                     const date = new Date(data.last_updated);
-                                    document.getElementById('lastUpdated').textContent = formatLastUpdated(date);
+                                    document.getElementById('lastUpdated').innerHTML = formatLastUpdated(date);
                                 } else {
                                     document.getElementById('lastUpdated').textContent = '-';
                                 }
