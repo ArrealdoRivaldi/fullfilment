@@ -33,7 +33,8 @@
     <link href="/vendor/select2/select2.min.css" rel="stylesheet">
     <link href="/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
     <link href="/css/theme.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       .main-content {
@@ -100,28 +101,25 @@
 <body class="animsition">
     <div class="page-wrapper">
         <!-- Header Mobile Responsive -->
-        <header class="block lg:hidden">
-          <div class="flex items-center justify-between px-4 py-2 bg-white shadow">
+        <header class="d-block d-lg-none bg-white shadow-sm mb-3">
+          <div class="container-fluid d-flex align-items-center justify-content-between py-2">
             <a class="logo" href="/">
-              <img src="/images/icon/logo.png" alt="FBB" class="h-8">
+              <img src="/images/icon/logo.png" alt="FBB" style="height:2rem;">
             </a>
-            <button id="mobileMenuBtn" class="text-2xl focus:outline-none">
-              <i class="fas fa-bars"></i>
-            </button>
+            <button id="mobileMenuBtn" class="btn btn-link p-0 text-dark" style="font-size:1.5rem;"><i class="fas fa-bars"></i></button>
           </div>
-          <!-- Overlay & Menu -->
-          <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden"></div>
-          <nav id="mobileMenu" class="fixed top-0 left-0 w-64 h-full bg-white z-50 transform -translate-x-full transition-transform duration-300">
-            <div class="p-4 border-b flex items-center justify-between">
-              <span class="font-bold text-lg">Menu</span>
-              <button id="closeMobileMenu" class="text-xl"><i class="fas fa-times"></i></button>
+          <div id="mobileMenuOverlay" class="position-fixed w-100 h-100 bg-dark" style="opacity:.4;z-index:1040;display:none;"></div>
+          <nav id="mobileMenu" class="position-fixed top-0 left-0 bg-white h-100" style="width:260px;z-index:1050;transform:translateX(-100%);transition:transform .3s;">
+            <div class="border-bottom d-flex align-items-center justify-content-between p-3">
+              <span class="font-weight-bold">Menu</span>
+              <button id="closeMobileMenu" class="btn btn-link p-0 text-dark" style="font-size:1.25rem;"><i class="fas fa-times"></i></button>
             </div>
-            <ul class="mt-4 space-y-2">
+            <ul class="list-unstyled mt-3">
               <li>
-                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100"><i class="fas fa-house-user mr-2"></i> House Keeping</a>
-                <ul class="ml-6 mt-1 space-y-1">
-                  <li><a href="/" class="flex items-center px-2 py-1 hover:bg-gray-100"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a></li>
-                  <li><a href="/hk/" class="flex items-center px-2 py-1 hover:bg-gray-100"><i class="fas fa-tools mr-2"></i> Tool House Keeping</a></li>
+                <a href="#" class="d-flex align-items-center px-3 py-2"><i class="fas fa-house-user mr-2"></i> House Keeping</a>
+                <ul class="list-unstyled ml-4 mt-1">
+                  <li><a href="/" class="d-flex align-items-center px-2 py-1"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a></li>
+                  <li><a href="/hk/" class="d-flex align-items-center px-2 py-1"><i class="fas fa-tools mr-2"></i> Tool House Keeping</a></li>
                 </ul>
               </li>
             </ul>
@@ -130,29 +128,19 @@
         <!-- END Header Mobile Responsive -->
         
         <!-- Sidebar -->
-        <aside class="menu-sidebar d-none d-lg-block">
-            <div class="logo">
-                <a href="#">
-                    <img src="/images/icon/logo.png" alt="FBB">
-                </a>
-            </div>
-            <div class="menu-sidebar__content js-scrollbar1">
-              <nav class="navbar-sidebar">
-                  <ul class="list-unstyled navbar__list">
-                      <li class="has-sub">
-                          <a class="js-arrow" href="#"><i class="fas fa-house-user"></i>House Keeping</a>
-                          <ul class="list-unstyled navbar__sub-list js-sub-list">
-                              <li class="active has-sub">
-                                <a class="js-arrow" href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                              </li>
-                              <li>
-                                <a class="js-arrow" href="/hk/"><i class="fas fa-tools"></i> Tool House Keeping</a>
-                              </li>
-                          </ul>
-                      </li>
-                  </ul>
-              </nav>
+        <aside class="d-none d-lg-block bg-white border-right" style="min-width:220px;max-width:260px;min-height:100vh;">
+          <div class="p-3 border-bottom">
+            <a href="#">
+              <img src="/images/icon/logo.png" alt="FBB" style="height:2rem;">
+            </a>
           </div>
+          <nav class="nav flex-column p-3">
+            <a class="nav-link font-weight-bold" href="#"><i class="fas fa-house-user mr-2"></i>House Keeping</a>
+            <nav class="nav flex-column ml-3">
+              <a class="nav-link pl-0" href="/"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a>
+              <a class="nav-link pl-0" href="/hk/"><i class="fas fa-tools mr-2"></i> Tool House Keeping</a>
+            </nav>
+          </nav>
         </aside>
 
         <!-- Page Container -->
@@ -165,62 +153,95 @@
                 </div>
             </div>
             <main class="main-content">
-                <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6 items-end">
-                    <select id="branchFilter" class="border rounded px-2 py-1 text-xs sm:text-sm"></select>
-                    <input type="date" id="startDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
-                    <input type="date" id="endDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
-                    <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded text-xs sm:text-sm">Filter</button>
+                <form class="form-row mb-4 align-items-end">
+                  <div class="form-group col-auto">
+                    <label for="branchFilter">Branch</label>
+                    <select id="branchFilter" name="branchFilter" class="form-control form-control-sm"></select>
+                  </div>
+                  <div class="form-group col-auto">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" class="form-control form-control-sm">
+                  </div>
+                  <div class="form-group col-auto">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" name="endDate" class="form-control form-control-sm">
+                  </div>
+                  <div class="form-group col-auto">
+                    <button type="button" onclick="applyFilters()" class="btn btn-primary btn-sm">Filter</button>
+                  </div>
+                </form>
+                <div class="row mb-4">
+                  <div class="col-lg-6 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column align-items-center justify-content-center" style="height:350px;">
+                        <canvas id="pieHK" style="max-width:100%;max-height:100%;"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column align-items-center justify-content-center" style="height:350px;">
+                        <canvas id="progressSymptom" style="max-width:100%"></canvas>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="dashboard-row">
-                    <div>                 
-                        <div class="w-full max-w-[220px] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
-                          <div class="relative w-full" style="aspect-ratio:4/5;">
-                            <canvas id="pieHK" class="w-full h-full absolute top-0 left-0" style="max-width:100%;max-height:100%;"></canvas>
-                          </div>
-                        </div>
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <canvas id="barTrend" style="max-width:100%;height:350px;"></canvas>
+                      </div>
                     </div>
-                    <div>
-                        <div class="w-full max-w-lg mx-auto">
-                          <canvas id="progressSymptom" class="w-full h-48 sm:h-60" style="max-width:100%"></canvas>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-                <div class="dashboard-row">
-                    <div class="w-full max-w-4xl mx-auto">
-                        <div class="w-full">
-                          <canvas id="barTrend" class="w-full h-56 sm:h-80" style="max-width:100%"></canvas>
+                <div class="row mb-4">
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h3 class="font-weight-bold mb-2">Symptom to PS</h3>
+                        <div class="table-responsive">
+                          <table id="tableSymptom" class="table table-sm"></table>
                         </div>
+                      </div>
                     </div>
-                </div>
-                <div class="dashboard-row">
-                    <div class="overflow-x-auto w-full">
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Symptom to PS</h3>
-                        <table id="tableSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h3 class="font-weight-bold mb-2">Fallout NOP to PS</h3>
+                        <div class="table-responsive">
+                          <table id="tableNop" class="table table-sm"></table>
+                        </div>
+                      </div>
                     </div>
-                    <div class="overflow-x-auto w-full">
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Fallout NOP to PS</h3>
-                        <table id="tableNop" class="min-w-full text-xs sm:text-sm"></table>
+                  </div>
+                  <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                      <div class="card-body">
+                        <h3 class="font-weight-bold mb-2">Result House Keeping</h3>
+                        <div class="table-responsive">
+                          <table id="tableHK" class="table table-sm"></table>
+                        </div>
+                      </div>
                     </div>
-                    <div class="overflow-x-auto w-full">
-                        <h3 class="font-bold mb-2 text-base sm:text-lg">Result House Keeping</h3>
-                        <table id="tableHK" class="min-w-full text-xs sm:text-sm"></table>
-                    </div>
+                  </div>
                 </div>
             </main>
             <!-- Improved Footer -->
-            <footer class="w-full bg-gray-100 py-4 sm:py-6 mt-8 shadow-inner">
-                <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-2 sm:px-6">
-                    <div class="flex items-center gap-2 mb-2 md:mb-0">
-                        <img src="/images/icon/logo.png" alt="FBB" class="h-8 w-auto">
-                        <span class="text-gray-700 font-semibold text-sm sm:text-base">FBB Telkomsel</span>
-                    </div>
-                    <div class="text-gray-500 text-xs sm:text-sm">&copy; 2025 FBB Telkomsel. All rights reserved.</div>
-                    <div class="flex gap-3 mt-2 md:mt-0">
-                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
-                    </div>
+            <footer class="bg-light py-4 mt-5 border-top">
+              <div class="container-fluid d-flex flex-column flex-md-row justify-content-between align-items-center px-3">
+                <div class="d-flex align-items-center mb-2 mb-md-0">
+                  <img src="/images/icon/logo.png" alt="FBB" style="height:2rem;">
+                  <span class="text-dark font-weight-bold ml-2">FBB Telkomsel</span>
                 </div>
+                <div class="text-secondary small">&copy; 2025 FBB Telkomsel. All rights reserved.</div>
+                <div class="d-flex gap-3 mt-2 mt-md-0">
+                  <a href="#" class="text-secondary"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="text-secondary"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="text-secondary"><i class="fab fa-linkedin"></i></a>
+                </div>
+              </div>
             </footer>
         </div>
         <!-- JS Files -->
