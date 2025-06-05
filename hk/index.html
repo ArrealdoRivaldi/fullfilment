@@ -233,6 +233,9 @@
                     let currentPage = 1;
                     let pageSize = 50;
 
+                    // Tambahkan variabel global untuk DataTable
+                    let dataTableInstance = null;
+
                     function formatDate(dateStr) {
                         if (!dateStr) return '';
                         try {
@@ -380,57 +383,55 @@
                     }
 
                     function renderTableWithPagination() {
-                        const tbody = document.getElementById('dataTableBody');
-                        tbody.innerHTML = '';
                         const startIdx = (currentPage - 1) * pageSize;
                         const endIdx = startIdx + pageSize;
                         const pageData = allData.slice(startIdx, endIdx);
-                        pageData.forEach((item, index) => {
-                            const row = document.createElement('tr');
-                            row.dataset.docId = item.id;
-                            row.innerHTML = `
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                    <div class="flex items-center">
-                                        <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
-                                        <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
-                                    </div>
-                                </td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                    <select class="status-hk-select border rounded px-2 py-1">
-                                        <option value="">Select Status</option>
-                                        ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
-                                    </select>
-                                </td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                    <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
-                                </td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
-                            `;
-                            tbody.appendChild(row);
-                        });
-                        renderPagination(allData.length);
-                        // Destroy DataTables jika sudah ada
-                        if ($.fn.DataTable.isDataTable('.min-w-full')) {
-                            $('.min-w-full').DataTable().destroy();
-                        }
-                        // Inisialisasi ulang DataTables
-                        setTimeout(() => {
-                            $('.min-w-full').DataTable({
+                        // Siapkan data array untuk DataTables
+                        const tableData = pageData.map((item, index) => [
+                            startIdx + index + 1,
+                            item.order_id,
+                            formatDate(item.provi_ts),
+                            item.branch,
+                            item.wok,
+                            item.sto_co,
+                            `<div class='flex items-center'><span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span><button class='ml-2 text-blue-600 hover:text-blue-800 details-btn' data-fallout='${item.fallout_reason}'>Details</button></div>`,
+                            item.symptom,
+                            `<select class='status-hk-select border rounded px-2 py-1'><option value=''>Select Status</option>${statusHKOptions.map(opt => `<option value='${opt.value}' ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}</select>`,
+                            `<input type='text' class='new-order-id border rounded px-2 py-1' value='${item.new_order_id ? item.new_order_id.trim() : ''}' placeholder='Enter New Order ID'>`,
+                            item.status_ps ? item.status_ps : '',
+                            `<button class='update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600'>Update</button>`
+                        ]);
+                        // Inisialisasi DataTables hanya sekali
+                        if (!dataTableInstance) {
+                            dataTableInstance = $('.min-w-full').DataTable({
                                 dom: 'Bfrtip',
-                                buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                                buttons: [
+                                    'copy', 'csv', 'excel',
+                                    {
+                                        extend: 'pdfHtml5',
+                                        orientation: 'landscape',
+                                        pageSize: 'A4',
+                                        exportOptions: { columns: ':visible' },
+                                        customize: function (doc) {
+                                            doc.defaultStyle.fontSize = 8;
+                                            doc.styles.tableHeader.fontSize = 10;
+                                            doc.content[1].table.widths = Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                                        }
+                                    },
+                                    'print'
+                                ],
                                 paging: false,
                                 searching: false,
-                                info: false
+                                info: false,
+                                data: tableData,
+                                destroy: true
                             });
-                        }, 100);
+                        } else {
+                            dataTableInstance.clear();
+                            dataTableInstance.rows.add(tableData);
+                            dataTableInstance.draw();
+                        }
+                        renderPagination(allData.length);
                     }
 
                     // Tambahkan fungsi untuk fetch last updated
