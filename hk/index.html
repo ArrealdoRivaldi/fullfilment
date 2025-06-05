@@ -40,6 +40,12 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
     <style>
         /* ... (CSS tetap, bisa dirapikan jika perlu) ... */
+        table.dataTable, table.dataTable th, table.dataTable td {
+            border: 1px solid #d1d5db !important;
+        }
+        table.dataTable {
+            border-collapse: collapse !important;
+        }
     </style>
 </head>
 
@@ -174,6 +180,7 @@
                             <table class="min-w-full border border-gray-300 text-xs">
                                 <thead class="bg-gray-50">
                                     <tr>
+                                        <th style="display:none">ID</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">No</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Order ID</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Provi ts</th>
@@ -388,6 +395,7 @@
                         const pageData = allData.slice(startIdx, endIdx);
                         // Siapkan data array untuk DataTables
                         const tableData = pageData.map((item, index) => [
+                            item.id,
                             startIdx + index + 1,
                             item.order_id,
                             formatDate(item.provi_ts),
@@ -424,7 +432,10 @@
                                 searching: false,
                                 info: false,
                                 data: tableData,
-                                destroy: true
+                                destroy: true,
+                                columnDefs: [
+                                    { targets: 0, visible: false } // Sembunyikan kolom id
+                                ]
                             });
                         } else {
                             dataTableInstance.clear();
@@ -493,35 +504,29 @@
                         document.getElementById('falloutModal').classList.add('hidden');
                     });
 
-                    document.getElementById('dataTableBody').addEventListener('click', async (e) => {
-                         if (e.target.classList.contains('details-btn')) {
-                            const details = e.target.dataset.fallout;
-                            document.getElementById('falloutDetails').textContent = details;
-                            document.getElementById('falloutModal').classList.remove('hidden');
-                        }
-                        if (e.target.classList.contains('update-btn')) {
-                            const row = e.target.closest('tr');
-                            const id = row.dataset.docId;
-                            const status_hk = row.querySelector('.status-hk-select').value;
-                            const new_order_id = row.querySelector('.new-order-id').value;
-                            // Tambahkan field lain jika ingin diupdate
-                            try {
-                                const response = await fetch('/api/realtime', {
-                                    method: 'PUT',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify({ id, status_hk, new_order_id })
-                                });
-                                const result = await response.json();
-                                if (result.success) {
-                                    alert('Update berhasil!');
-                                    location.reload(); // Refresh halaman setelah update
-                                    fetchLastUpdated();
-                                } else {
-                                    alert('Update gagal: ' + (result.error || 'Unknown error'));
-                                }
-                            } catch (err) {
-                                alert('Update gagal: ' + err.message);
+                    $(document).off('click', '.update-btn').on('click', '.update-btn', async function() {
+                        const row = $(this).closest('tr');
+                        const table = $('.min-w-full').DataTable();
+                        const rowData = table.row(row).data();
+                        const id = rowData[0]; // id ada di kolom tersembunyi
+                        const status_hk = row.find('.status-hk-select').val();
+                        const new_order_id = row.find('.new-order-id').val();
+                        try {
+                            const response = await fetch('/api/realtime', {
+                                method: 'PUT',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ id, status_hk, new_order_id })
+                            });
+                            const result = await response.json();
+                            if (result.success) {
+                                alert('Update berhasil!');
+                                location.reload();
+                                fetchLastUpdated();
+                            } else {
+                                alert('Update gagal: ' + (result.error || 'Unknown error'));
                             }
+                        } catch (err) {
+                            alert('Update gagal: ' + err.message);
                         }
                     });
 
