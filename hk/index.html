@@ -19,7 +19,7 @@
     <meta name="twitter:title" content="Fullfilment FBB - Tool House Keeping"/>
     <meta name="twitter:description" content="Tool interaktif untuk pelacakan dan pengelolaan data fallout House Keeping FBB."/>
     <meta name="twitter:image" content="images/icon/logo.png"/>
-    <!-- CSS Files (penting untuk sidebar/menu) -->
+    <!-- CSS Files -->
     <link href="/css/font-face.css" rel="stylesheet">
     <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet">
     <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet">
@@ -42,7 +42,64 @@
 
 <body class="animsition">
     <div class="page-wrapper">
-        <div id="header-placeholder"></div>
+        <!-- Header Mobile -->
+        <header class="header-mobile d-block d-lg-none">
+            <div class="header-mobile__bar">
+                <div class="container-fluid">
+                    <div class="header-mobile-inner">
+                        <a class="logo" href="/">
+                            <img src="/images/icon/logo.png" alt="CoolAdmin">
+                        </a>
+                        <button class="hamburger hamburger--slider" type="button">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar-mobile">
+                <div class="container-fluid">
+                    <ul class="navbar-mobile__list list-unstyled">
+                        <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+                        <li><a href="chart.html"><i class="fas fa-chart-bar"></i>Charts</a></li>
+                        <li><a href="table.html"><i class="fas fa-table"></i>Tables</a></li>
+                        <li><a href="calendar.html"><i class="fas fa-calendar-alt"></i>Calendar</a></li>
+                        <li><a href="map.html"><i class="fas fa-map-marker-alt"></i>Maps</a></li>
+                        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i>Login</a></li>
+                        <li><a href="register.html"><i class="fas fa-user-plus"></i>Register</a></li>
+                        <li><a href="forget-pass.html"><i class="fas fa-key"></i>Forget Password</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        
+        <!-- Sidebar -->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="/">
+                    <img src="/images/icon/logo.png" alt="FBB">
+                </a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+                <nav class="navbar-sidebar">
+                    <ul class="list-unstyled navbar__list">
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#"><i class="fas fa-house-user"></i>House Keeping</a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li>
+                                  <a class="js-arrow" href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                                </li>
+                                <li class="active has-sub">
+                                  <a class="js-arrow" href="/hk/"><i class="fas fa-tools"></i> Tool House Keeping</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
         <!-- Page Container -->
         <div class="page-container">
             <!-- Headbar Menu (moved here) -->
@@ -460,35 +517,36 @@
                     </script>
                 </main>
             </div>
+            <!-- Improved Footer -->
+            <footer class="w-full bg-gray-100 py-6 mt-8 shadow-inner">
+                <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+                    <div class="flex items-center gap-2 mb-2 md:mb-0">
+                        <img src="/images/icon/logo.png" alt="FBB" class="h-8 w-auto">
+                        <span class="text-gray-700 font-semibold">FBB Telkomsel</span>
+                    </div>
+                    <div class="text-gray-500 text-sm">&copy; 2025 FBB Telkomsel. All rights reserved.</div>
+                    <div class="flex gap-3 mt-2 md:mt-0">
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </footer>
         </div>
-        <div id="footer-placeholder"></div>
-    </div>
-    <!-- JS Files -->
-    <script src="/vendor/jquery-3.2.1.min.js"></script>
-    <script src="/vendor/bootstrap-4.1/popper.min.js"></script>
-    <script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
-    <script src="/vendor/slick/slick.min.js"></script>
-    <script src="/vendor/wow/wow.min.js"></script>
-    <script src="/vendor/animsition/animsition.min.js"></script>
-    <script src="/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <script src="/vendor/counter-up/jquery.waypoints.min.js"></script>
-    <script src="/vendor/counter-up/jquery.counterup.min.js"></script> 
-    <script src="/vendor/circle-progress/circle-progress.min.js"></script> 
-    <script src="/vendor/perfect-scrollbar/perfect-scrollbar.js"></script> 
-    <script src="/vendor/chartjs/Chart.bundle.min.js"></script> 
-    <script src="/vendor/select2/select2.min.js"></script> 
-    <script src="/js/main.js"></script>
-    <!-- Load header/footer partials -->
-    <script>
-      async function loadPartial(id, url) {
-        const el = document.getElementById(id);
-        if (el) {
-          const res = await fetch(url);
-          el.innerHTML = await res.text();
-        }
-      }
-      loadPartial('header-placeholder', '/partials/header.html');
-      loadPartial('footer-placeholder', '/partials/footer.html');
-    </script>
-</body> 
+        <!-- JS Files -->
+        <script src="/vendor/jquery-3.2.1.min.js"></script>
+        <script src="/vendor/bootstrap-4.1/popper.min.js"></script>
+        <script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+        <script src="/vendor/slick/slick.min.js"></script>
+        <script src="/vendor/wow/wow.min.js"></script>
+        <script src="/vendor/animsition/animsition.min.js"></script>
+        <script src="/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <script src="/vendor/counter-up/jquery.waypoints.min.js"></script>
+        <script src="/vendor/counter-up/jquery.counterup.min.js"></script> 
+        <script src="/vendor/circle-progress/circle-progress.min.js"></script> 
+        <script src="/vendor/perfect-scrollbar/perfect-scrollbar.js"></script> 
+        <script src="/vendor/chartjs/Chart.bundle.min.js"></script> 
+        <script src="/vendor/select2/select2.min.js"></script> 
+        <script src="/js/main.js"></script>
+    </body> 
 </html> 
