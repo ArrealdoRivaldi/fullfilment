@@ -149,6 +149,14 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Symptom</label>
+                                <select id="symptomFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="flex justify-end mt-4">
                             <button id="resetFilters" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 mr-2">Reset</button>
                             <button id="applyFilters" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
@@ -169,8 +177,8 @@
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Branch</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">WOK</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">STO</th>
-                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Symptom</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Fallout Reason</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Symptom</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Status HK</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">New Order ID</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Status PS</th>
@@ -259,13 +267,15 @@
                             branch: new Set(),
                             wok: new Set(),
                             sto_co: new Set(),
+                            symptom: new Set(),
                         };
                         data.forEach(item => {
                             filters.branch.add(item.branch);
                             filters.wok.add(item.wok);
                             filters.sto_co.add(item.sto_co);
+                            filters.symptom.add(item.symptom);
                         });
-                        ['branch', 'wok', 'sto_co'].forEach(filter => {
+                        ['branch', 'wok', 'sto_co', 'symptom'].forEach(filter => {
                             const select = document.getElementById(`${filter}Filter`);
                             if (!select) return;
                             select.innerHTML = '<option value="">All</option>';
@@ -301,6 +311,7 @@
                         const startDate = document.getElementById('startDate').value;
                         const endDate = document.getElementById('endDate').value;
                         const statusHK = document.getElementById('statusHKFilter').value;
+                        const symptom = document.getElementById('symptomFilter').value;
                         return data.filter(item => {
                             let itemDate;
                             if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
@@ -322,6 +333,7 @@
                             return (!branch || item.branch === branch) &&
                                 (!wok || item.wok === wok) &&
                                 (!sto || item.sto_co === sto) &&
+                                (!symptom || item.symptom === symptom) &&
                                 statusHKMatch &&
                                 (!start || itemDate >= start) &&
                                 (!end || itemDate <= end);
@@ -380,13 +392,13 @@
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">
                                     <div class="flex items-center">
                                         <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
                                         <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
                                     </div>
                                 </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">
                                     <select class="status-hk-select border rounded px-2 py-1">
                                         <option value="">Select Status</option>
@@ -502,6 +514,7 @@
                         document.getElementById('startDate').value = '';
                         document.getElementById('endDate').value = '';
                         document.getElementById('statusHKFilter').value = '';
+                        document.getElementById('symptomFilter').value = '';
                         currentPage = 1;
                         document.dispatchEvent(new Event('DOMContentLoaded'));
                         fetchLastUpdated();
