@@ -166,10 +166,12 @@
             </div>
             <main class="main-content">
                 <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6 items-end">
+                    <div id="activeFilters" class="flex flex-wrap gap-2 mb-2"></div>
                     <select id="branchFilter" class="border rounded px-2 py-1 text-xs sm:text-sm"></select>
                     <input type="date" id="startDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
                     <input type="date" id="endDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
                     <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded text-xs sm:text-sm">Filter</button>
+                    <button id="resetFilters" class="bg-gray-300 text-gray-700 px-4 py-1 rounded text-xs sm:text-sm ml-2">Reset</button>
                 </div>
                 <div class="dashboard-row">
                     <div>                 
@@ -698,15 +700,58 @@
         }
 
         window.applyFilters = function() {
-          console.log('Apply Filters button clicked.'); // Log klik filter
           const branch = document.getElementById('branchFilter').value;
           const startDateRaw = document.getElementById('startDate').value;
           const endDateRaw = document.getElementById('endDate').value;
+          updateActiveFilters(branch, startDateRaw, endDateRaw);
           const startDate = startDateRaw ? new Date(startDateRaw) : null;
           const endDate = endDateRaw ? new Date(endDateRaw) : null;
           const filtered = filterData(allData, branch, startDate, endDate);
           renderDashboard(filtered);
         }
+
+        function updateActiveFilters(branch, startDate, endDate) {
+          const container = document.getElementById('activeFilters');
+          container.innerHTML = '';
+
+          // Branch filter chip
+          if (branch) {
+            const chip = document.createElement('span');
+            chip.className = 'bg-blue-100 text-blue-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+            chip.innerHTML = `<i class="fa fa-code-branch"></i> ${branch} <button class="ml-1 text-blue-500 hover:text-red-500" onclick="removeFilter('branch')"><i class="fa fa-times"></i></button>`;
+            container.appendChild(chip);
+          }
+
+          // Start date chip
+          if (startDate) {
+            const chip = document.createElement('span');
+            chip.className = 'bg-green-100 text-green-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+            chip.innerHTML = `<i class="fa fa-calendar"></i> Dari: ${startDate} <button class="ml-1 text-green-500 hover:text-red-500" onclick="removeFilter('startDate')"><i class="fa fa-times"></i></button>`;
+            container.appendChild(chip);
+          }
+
+          // End date chip
+          if (endDate) {
+            const chip = document.createElement('span');
+            chip.className = 'bg-yellow-100 text-yellow-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+            chip.innerHTML = `<i class="fa fa-calendar"></i> Sampai: ${endDate} <button class="ml-1 text-yellow-500 hover:text-red-500" onclick="removeFilter('endDate')"><i class="fa fa-times"></i></button>`;
+            container.appendChild(chip);
+          }
+        }
+
+        function removeFilter(type) {
+          if (type === 'branch') document.getElementById('branchFilter').value = '';
+          if (type === 'startDate') document.getElementById('startDate').value = '';
+          if (type === 'endDate') document.getElementById('endDate').value = '';
+          applyFilters();
+        }
+
+        document.getElementById('resetFilters').onclick = function() {
+          document.getElementById('branchFilter').value = '';
+          document.getElementById('startDate').value = '';
+          document.getElementById('endDate').value = '';
+          applyFilters();
+        };
 
         document.addEventListener('DOMContentLoaded', async function() {
           console.log('DOM fully loaded and parsed. Fetching data...'); // Log DOM ready dan fetch mulai
