@@ -113,6 +113,7 @@
                 <main class="flex-1 pt-4 px-6 pb-8">            
                     <!-- Filters Section -->
                     <div class="bg-white p-4 rounded-lg shadow mb-6">
+                        <div id="activeFilters" class="flex flex-wrap gap-2 mb-2"></div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Branch</label>
@@ -340,6 +341,80 @@
                         });
                     }
 
+                    function updateActiveFilters() {
+                        const branch = document.getElementById('branchFilter').value;
+                        const wok = document.getElementById('wokFilter').value;
+                        const sto = document.getElementById('sto_coFilter').value;
+                        const startDate = document.getElementById('startDate').value;
+                        const endDate = document.getElementById('endDate').value;
+                        const statusHK = document.getElementById('statusHKFilter').value;
+                        const symptom = document.getElementById('symptomFilter').value;
+                        const container = document.getElementById('activeFilters');
+                        container.innerHTML = '';
+                        if (branch) {
+                            const chip = document.createElement('span');
+                            chip.className = 'bg-blue-100 text-blue-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+                            chip.innerHTML = `<i class=\"fa fa-code-branch\"></i> ${branch} <button class=\"ml-1 text-blue-500 hover:text-red-500\" onclick=\"removeFilter('branch')\"><i class=\"fa fa-times\"></i></button>`;
+                            container.appendChild(chip);
+                        }
+                        if (wok) {
+                            const chip = document.createElement('span');
+                            chip.className = 'bg-purple-100 text-purple-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+                            chip.innerHTML = `<i class=\"fa fa-industry\"></i> ${wok} <button class=\"ml-1 text-purple-500 hover:text-red-500\" onclick=\"removeFilter('wok')\"><i class=\"fa fa-times\"></i></button>`;
+                            container.appendChild(chip);
+                        }
+                        if (sto) {
+                            const chip = document.createElement('span');
+                            chip.className = 'bg-pink-100 text-pink-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+                            chip.innerHTML = `<i class=\"fa fa-warehouse\"></i> ${sto} <button class=\"ml-1 text-pink-500 hover:text-red-500\" onclick=\"removeFilter('sto')\"><i class=\"fa fa-times\"></i></button>`;
+                            container.appendChild(chip);
+                        }
+                        if (startDate) {
+                            const chip = document.createElement('span');
+                            chip.className = 'bg-green-100 text-green-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+                            chip.innerHTML = `<i class=\"fa fa-calendar\"></i> Dari: ${startDate} <button class=\"ml-1 text-green-500 hover:text-red-500\" onclick=\"removeFilter('startDate')\"><i class=\"fa fa-times\"></i></button>`;
+                            container.appendChild(chip);
+                        }
+                        if (endDate) {
+                            const chip = document.createElement('span');
+                            chip.className = 'bg-yellow-100 text-yellow-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+                            chip.innerHTML = `<i class=\"fa fa-calendar\"></i> Sampai: ${endDate} <button class=\"ml-1 text-yellow-500 hover:text-red-500\" onclick=\"removeFilter('endDate')\"><i class=\"fa fa-times\"></i></button>`;
+                            container.appendChild(chip);
+                        }
+                        if (statusHK) {
+                            const chip = document.createElement('span');
+                            chip.className = 'bg-orange-100 text-orange-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+                            let label = statusHK === 'done' ? 'Done' : (statusHK === 'notyet' ? 'Not Yet' : statusHK);
+                            chip.innerHTML = `<i class=\"fa fa-check-circle\"></i> ${label} <button class=\"ml-1 text-orange-500 hover:text-red-500\" onclick=\"removeFilter('statusHK')\"><i class=\"fa fa-times\"></i></button>`;
+                            container.appendChild(chip);
+                        }
+                        if (symptom) {
+                            const chip = document.createElement('span');
+                            chip.className = 'bg-teal-100 text-teal-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+                            chip.innerHTML = `<i class=\"fa fa-stethoscope\"></i> ${symptom} <button class=\"ml-1 text-teal-500 hover:text-red-500\" onclick=\"removeFilter('symptom')\"><i class=\"fa fa-times\"></i></button>`;
+                            container.appendChild(chip);
+                        }
+                    }
+
+                    function removeFilter(type) {
+                        if (type === 'branch') document.getElementById('branchFilter').value = '';
+                        if (type === 'wok') document.getElementById('wokFilter').value = '';
+                        if (type === 'sto') document.getElementById('sto_coFilter').value = '';
+                        if (type === 'startDate') document.getElementById('startDate').value = '';
+                        if (type === 'endDate') document.getElementById('endDate').value = '';
+                        if (type === 'statusHK') document.getElementById('statusHKFilter').value = '';
+                        if (type === 'symptom') document.getElementById('symptomFilter').value = '';
+                        applyFiltersWithChips();
+                    }
+
+                    function applyFiltersWithChips() {
+                        updateActiveFilters();
+                        const filteredData = filterData(allData);
+                        allData = filteredData;
+                        currentPage = 1;
+                        renderTableWithPagination();
+                    }
+
                     function renderPagination(totalItems) {
                         const totalPages = Math.ceil(totalItems / pageSize);
                         const pagination = document.getElementById('pagination');
@@ -464,12 +539,7 @@
                         }
                     });
 
-                    document.getElementById('applyFilters').addEventListener('click', () => {
-                        const filteredData = filterData(allData);
-                        allData = filteredData;
-                        currentPage = 1;
-                        renderTableWithPagination();
-                    });
+                    document.getElementById('applyFilters').addEventListener('click', applyFiltersWithChips);
 
                     document.getElementById('closeModal').addEventListener('click', () => {
                         document.getElementById('falloutModal').classList.add('hidden');
@@ -516,9 +586,13 @@
                         document.getElementById('statusHKFilter').value = '';
                         document.getElementById('symptomFilter').value = '';
                         currentPage = 1;
+                        updateActiveFilters();
                         document.dispatchEvent(new Event('DOMContentLoaded'));
                         fetchLastUpdated();
                     });
+
+                    // Panggil updateActiveFilters saat halaman pertama kali dimuat
+                    document.addEventListener('DOMContentLoaded', updateActiveFilters);
 
                     // Deteksi 404 di halaman tool house keeping
                     if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
