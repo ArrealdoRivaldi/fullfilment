@@ -673,10 +673,10 @@
             // 3. Fungsi hitung aging (dalam hari)
             function hitungAgingHari(provi_ts) {
                 if (!provi_ts) return null;
-                // Format: dd/mm/yyyy HH:mm
+                // Format: MM/DD/YYYY HH:mm
                 let [tgl, jam] = provi_ts.split(' ');
                 if (!tgl) return null;
-                let [d, m, y] = tgl.split('/');
+                let [m, d, y] = tgl.split('/');
                 if (!d || !m || !y) return null;
                 d = parseInt(d, 10);
                 m = parseInt(m, 10) - 1; // Bulan di JS mulai dari 0
