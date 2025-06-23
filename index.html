@@ -664,24 +664,43 @@
         }
 
         function renderTableAgingSymptom(data) {
-            console.log('Rendering Aging Symptom Table...', data.length, 'items');
+            console.log('Rendering Aging Symptom Pivot Table...', data.length, 'items');
             const tbody = document.getElementById('tableAgingSymptom');
             if (!tbody) { console.error('Table element #tableAgingSymptom not found'); return; }
+            // Definisikan urutan aging
+            const agingCategories = ['1-3 hari', '4-7 hari', '8-14 hari', '14-30 hari', '> 30 Hari'];
+            // Grouping: symptom -> aging -> count
             const group = {};
             data.forEach(d => {
-                let key = (d.symptom || "Unknown").trim();
-                if (key === '') key = 'Unknown';
-                if (!group[key]) group[key] = { total: 0, sumAging: 0 };
-                group[key].total++;
-                let aging = Number(d.aging_fallout);
-                if (!isNaN(aging)) group[key].sumAging += aging;
+                let symptom = (d.symptom || 'Unknown').trim();
+                if (!symptom) symptom = 'Unknown';
+                let aging = (d.aging_fallout || '').trim();
+                if (!agingCategories.includes(aging)) aging = '> 30 Hari'; // fallback jika aging tidak sesuai kategori
+                if (!group[symptom]) group[symptom] = { total: 0 };
+                if (!group[symptom][aging]) group[symptom][aging] = 0;
+                group[symptom][aging]++;
+                group[symptom].total++;
             });
+            // Sort symptom by total desc
             let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-            let html = `<tr><th>Symptom</th><th>Rata-rata Aging (hari)</th></tr>`;
+            // Header
+            let html = `<tr><th>Symptom</th>` + agingCategories.map(a => `<th>${a}</th>`).join('') + `<th>Grand Total</th></tr>`;
+            // Rows
             sortedGroups.forEach(([symptom, val]) => {
-                const avgAging = val.total > 0 ? (val.sumAging / val.total).toFixed(2) : '-';
-                html += `<tr><td>${symptom}</td><td>${avgAging}</td></tr>`;
+                html += `<tr><td>${symptom}</td>`;
+                agingCategories.forEach(cat => {
+                    html += `<td>${val[cat] || 0}</td>`;
+                });
+                html += `<td>${val.total}</td></tr>`;
             });
+            // Grand total row
+            let grand = { total: 0 };
+            agingCategories.forEach(cat => grand[cat] = 0);
+            sortedGroups.forEach(([, val]) => {
+                agingCategories.forEach(cat => grand[cat] += (val[cat] || 0));
+                grand.total += val.total;
+            });
+            html += `<tr><th>Grand Total</th>` + agingCategories.map(cat => `<th>${grand[cat]}</th>`).join('') + `<th>${grand.total}</th></tr>`;
             tbody.innerHTML = html;
         }
 
