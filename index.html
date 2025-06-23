@@ -207,6 +207,11 @@
                         <h3 class="font-bold mb-2 text-base sm:text-lg">Result House Keeping</h3>
                         <table id="tableHK" class="min-w-full text-xs sm:text-sm"></table>
                     </div>
+                     <!-- Tabel baru Aging Symptom -->
+                    <div class="overflow-x-auto w-full">
+                      <h3 class="font-bold mb-2 text-base sm:text-lg">Aging Symptom</h3>
+                      <table id="tableAgingSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                    </div>
                 </div>
             </main>
             <!-- Improved Footer -->
@@ -821,6 +826,65 @@
         }
         document.addEventListener('DOMContentLoaded', fetchLastUpdated);
         </script>
+        <script>
+        // Fungsi kategori aging
+        function getAgingCategory(days) {
+          if (days <= 3) return '1-3 hari';
+          if (days <= 7) return '4-7 hari';
+          if (days <= 14) return '8-14 hari';
+          if (days <= 30) return '14-30 hari';
+          return '> 30 Hari';
+        }
+
+        function renderAgingSymptomTable(dataToRender) {
+          const table = document.getElementById('tableAgingSymptom');
+          if (!table) return;
+
+          const agingData = {};
+
+          dataToRender.forEach(item => {
+            const symptom = item.symptom || 'Unknown';
+            const aging = item.aging_fallout;
+            if (!Number.isInteger(aging)) return;
+            const bucket = getAgingCategory(aging);
+            if (!agingData[symptom]) {
+              agingData[symptom] = {
+                '1-3 hari': 0, '4-7 hari': 0, '8-14 hari': 0, '14-30 hari': 0, '> 30 Hari': 0
+              };
+            }
+            agingData[symptom][bucket]++;
+          });
+
+          const headers = ['Row Labels', '1-3 hari', '4-7 hari', '8-14 hari', '14-30 hari', '> 30 Hari', 'Grand Total'];
+          let html = '<tr>' + headers.map(h => `<th>${h}</th>`).join('') + '</tr>';
+
+          let grandTotals = [0, 0, 0, 0, 0, 0];
+
+          for (const [symptom, counts] of Object.entries(agingData)) {
+            const row = [
+              symptom,
+              counts['1-3 hari'],
+              counts['4-7 hari'],
+              counts['8-14 hari'],
+              counts['14-30 hari'],
+              counts['> 30 Hari']
+            ];
+            const total = row.slice(1).reduce((sum, val) => sum + val, 0);
+            html += `<tr>${row.map(v => `<td>${v}</td>`).join('')}<td>${total}</td></tr>`;
+            row.slice(1).forEach((v, i) => grandTotals[i] += v);
+            grandTotals[5] += total;
+          }
+
+          html += `<tr><th>Grand Total</th>${grandTotals.slice(0, 5).map(v => `<th>${v}</th>`).join('')}<th>${grandTotals[5]}</th></tr>`;
+          table.innerHTML = html;
+        }
+
+        // Tambahkan panggilan fungsi ini di bagian renderDashboard
+        function renderDashboard(data) {
+          // (fungsi-fungsi render lain)
+          renderAgingSymptomTable(data);
+        }
+        </script> 
     </div>
 </body>
 </html>
