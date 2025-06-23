@@ -690,12 +690,11 @@
 
             // 4. Fungsi mapping aging
             function mapAging(hari) {
-                if (hari == null) return '> 30 Hari';
                 if (hari <= 3) return '1-3 hari';
-                if (hari <= 7) return '4-7 hari';
-                if (hari <= 14) return '8-14 hari';
-                if (hari <= 30) return '14-30 hari';
-                return '> 30 Hari';
+                else if (hari <= 7) return '4-7 hari';
+                else if (hari <= 14) return '8-14 hari';
+                else if (hari <= 30) return '14-30 hari';
+                else return '> 30 Hari';
             }
 
             // 5. Grouping: symptom -> aging -> count
