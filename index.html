@@ -669,13 +669,24 @@
             if (!tbody) { console.error('Table element #tableAgingSymptom not found'); return; }
             // Definisikan urutan aging
             const agingCategories = ['1-3 hari', '4-7 hari', '8-14 hari', '14-30 hari', '> 30 Hari'];
+            // Fungsi mapping aging
+            function mapAging(raw) {
+                if (!raw) return '> 30 Hari';
+                const val = raw.toString().toLowerCase().replace(/\s+/g, '');
+                if (val.includes('1-3')) return '1-3 hari';
+                if (val.includes('4-7')) return '4-7 hari';
+                if (val.includes('8-14')) return '8-14 hari';
+                if (val.includes('14-30')) return '14-30 hari';
+                if (val.includes('>30') || val.includes('>30hari') || val.includes('> 30')) return '> 30 Hari';
+                // fallback: jika tidak cocok, masukkan ke '> 30 Hari'
+                return '> 30 Hari';
+            }
             // Grouping: symptom -> aging -> count
             const group = {};
             data.forEach(d => {
                 let symptom = (d.symptom || 'Unknown').trim();
                 if (!symptom) symptom = 'Unknown';
-                let aging = (d.aging_fallout || '').trim();
-                if (!agingCategories.includes(aging)) aging = '> 30 Hari'; // fallback jika aging tidak sesuai kategori
+                let aging = mapAging(d.aging_fallout);
                 if (!group[symptom]) group[symptom] = { total: 0 };
                 if (!group[symptom][aging]) group[symptom][aging] = 0;
                 group[symptom][aging]++;
