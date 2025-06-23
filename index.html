@@ -664,39 +664,60 @@
         }
 
         function renderTableAgingSymptom(data) {
-            console.log('Rendering Aging Symptom Pivot Table...', data.length, 'items');
-            const tbody = document.getElementById('tableAgingSymptom');
-            if (!tbody) { console.error('Table element #tableAgingSymptom not found'); return; }
-            // Definisikan urutan aging
+            // 1. Filter hanya status_ps ≠ "PS"
+            const filtered = data.filter(d => d.status_ps !== "PS");
+
+            // 2. Definisikan kategori aging
             const agingCategories = ['1-3 hari', '4-7 hari', '8-14 hari', '14-30 hari', '> 30 Hari'];
-            // Fungsi mapping aging
-            function mapAging(raw) {
-                if (!raw) return '> 30 Hari';
-                const val = raw.toString().toLowerCase().replace(/\s+/g, '');
-                if (val.includes('1-3')) return '1-3 hari';
-                if (val.includes('4-7')) return '4-7 hari';
-                if (val.includes('8-14')) return '8-14 hari';
-                if (val.includes('14-30')) return '14-30 hari';
-                if (val.includes('>30') || val.includes('>30hari') || val.includes('> 30')) return '> 30 Hari';
-                // fallback: jika tidak cocok, masukkan ke '> 30 Hari'
+
+            // 3. Fungsi hitung aging (dalam hari)
+            function hitungAgingHari(provi_ts) {
+                if (!provi_ts) return null;
+                // Format: dd/mm/yyyy HH:mm
+                let [tgl, jam] = provi_ts.split(' ');
+                if (!tgl) return null;
+                let [d, m, y] = tgl.split('/');
+                if (!d || !m || !y) return null;
+                let dateStr = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+                if (jam) dateStr += `T${jam}`;
+                let proviDate = new Date(dateStr);
+                if (isNaN(proviDate.getTime())) return null;
+                let now = new Date();
+                let diffMs = now - proviDate;
+                let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                return diffHari;
+            }
+
+            // 4. Fungsi mapping aging
+            function mapAging(hari) {
+                if (hari == null) return '> 30 Hari';
+                if (hari <= 3) return '1-3 hari';
+                if (hari <= 7) return '4-7 hari';
+                if (hari <= 14) return '8-14 hari';
+                if (hari <= 30) return '14-30 hari';
                 return '> 30 Hari';
             }
-            // Grouping: symptom -> aging -> count
+
+            // 5. Grouping: symptom -> aging -> count
             const group = {};
-            data.forEach(d => {
+            filtered.forEach(d => {
                 let symptom = (d.symptom || 'Unknown').trim();
                 if (!symptom) symptom = 'Unknown';
-                let aging = mapAging(d.aging_fallout);
+                let agingHari = hitungAgingHari(d.provi_ts);
+                let aging = mapAging(agingHari);
                 if (!group[symptom]) group[symptom] = { total: 0 };
                 if (!group[symptom][aging]) group[symptom][aging] = 0;
                 group[symptom][aging]++;
                 group[symptom].total++;
             });
-            // Sort symptom by total desc
+
+            // 6. Sort symptom by total desc
             let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-            // Header
+
+            // 7. Header
             let html = `<tr><th>Symptom</th>` + agingCategories.map(a => `<th>${a}</th>`).join('') + `<th>Grand Total</th></tr>`;
-            // Rows
+
+            // 8. Rows
             sortedGroups.forEach(([symptom, val]) => {
                 html += `<tr><td>${symptom}</td>`;
                 agingCategories.forEach(cat => {
@@ -704,7 +725,8 @@
                 });
                 html += `<td>${val.total}</td></tr>`;
             });
-            // Grand total row
+
+            // 9. Grand total row
             let grand = { total: 0 };
             agingCategories.forEach(cat => grand[cat] = 0);
             sortedGroups.forEach(([, val]) => {
@@ -712,7 +734,10 @@
                 grand.total += val.total;
             });
             html += `<tr><th>Grand Total</th>` + agingCategories.map(cat => `<th>${grand[cat]}</th>`).join('') + `<th>${grand.total}</th></tr>`;
-            tbody.innerHTML = html;
+
+            // 10. Render
+            const tbody = document.getElementById('tableAgingSymptom');
+            if (tbody) tbody.innerHTML = html;
         }
 
         function renderBranchFilter(data) {
