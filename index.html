@@ -688,7 +688,7 @@
                     min = parseInt(mm, 10) || 0;
                 }
                 let proviDate = new Date(y, m, d, h, min);
-                if (isNaN(proviDate.getTime())) return null;
+                if (isNaN(proviDate.getTime())) return null; 
                 let now = new Date();
                 let diffMs = now - proviDate;
                 let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
