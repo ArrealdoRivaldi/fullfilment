@@ -718,24 +718,7 @@
             });
 
             // 6. Sort symptom by total desc
-            const symptomOrder = [
-                "Kendala Izin",
-                "Kendala Jalur/Rute Tarikan",
-                "Kendala NTE/Device",
-                "ODP BELUM GO LIVE",
-                "ODP Full",
-                "ODP Jauh",
-                "ODP tidak ditemukan",
-                "ODP Unspec"
-            ];
-            let sortedGroups = Object.entries(group).sort((a, b) => {
-                const idxA = symptomOrder.indexOf(a[0]);
-                const idxB = symptomOrder.indexOf(b[0]);
-                if (idxA === -1 && idxB === -1) return a[0].localeCompare(b[0]);
-                if (idxA === -1) return 1;
-                if (idxB === -1) return -1;
-                return idxA - idxB;
-            });
+            let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
 
             // 7. Header
             let html = `<tr><th>Symptom</th>` + agingCategories.map(a => `<th>${a}</th>`).join('') + `<th>Grand Total</th></tr>`;
