@@ -208,6 +208,13 @@
                         <table id="tableHK" class="min-w-full text-xs sm:text-sm"></table>
                     </div>
                 </div>
+                <!-- New Aging Symptom Table -->
+                <div class="dashboard-row">
+                    <div class="overflow-x-auto w-full">
+                        <h3 class="font-bold mb-2 text-base sm:text-lg">Aging Symptom</h3>
+                        <table id="tableAgingSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                    </div>
+                </div>
             </main>
             <!-- Improved Footer -->
             <footer class="w-full bg-gray-100 py-4 sm:py-6 mt-8 shadow-inner">
@@ -656,6 +663,28 @@
             tbody.innerHTML = html;
         }
 
+        function renderTableAgingSymptom(data) {
+            console.log('Rendering Aging Symptom Table...', data.length, 'items');
+            const tbody = document.getElementById('tableAgingSymptom');
+            if (!tbody) { console.error('Table element #tableAgingSymptom not found'); return; }
+            const group = {};
+            data.forEach(d => {
+                let key = (d.symptom || "Unknown").trim();
+                if (key === '') key = 'Unknown';
+                if (!group[key]) group[key] = { total: 0, sumAging: 0 };
+                group[key].total++;
+                let aging = Number(d.aging_fallout);
+                if (!isNaN(aging)) group[key].sumAging += aging;
+            });
+            let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+            let html = `<tr><th>Symptom</th><th>Rata-rata Aging (hari)</th></tr>`;
+            sortedGroups.forEach(([symptom, val]) => {
+                const avgAging = val.total > 0 ? (val.sumAging / val.total).toFixed(2) : '-';
+                html += `<tr><td>${symptom}</td><td>${avgAging}</td></tr>`;
+            });
+            tbody.innerHTML = html;
+        }
+
         function renderBranchFilter(data) {
              console.log('Rendering Branch Filter...'); // Log rendering Branch Filter
              // Pastikan elemen select ada
@@ -697,6 +726,7 @@
           renderTableSymptom(data);
           renderTableNop(data);
           renderTableHK(data);
+          renderTableAgingSymptom(data);
         }
 
         window.applyFilters = function() {
