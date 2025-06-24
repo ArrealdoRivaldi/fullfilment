@@ -623,16 +623,17 @@
             
             let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
 
-            let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th></tr>`;
+            let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th><th>Acv</th></tr>`;
             let grandTotal = 0, grandPs = 0;
 
             sortedGroups.forEach(([symptom, val]) => {
-              html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
+              const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+              html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
               grandTotal += val.total;
               grandPs += val.ps;
             });
-
-            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th></tr>`;
+            const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
             tbody.innerHTML = html;
         }
 
@@ -655,16 +656,17 @@
 
             let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
 
-            let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th></tr>`;
+            let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th><th>Acv</th></tr>`;
             let grandTotal = 0, grandPs = 0;
 
             sortedGroups.forEach(([branch, val]) => {
-               html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
+               const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+               html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
                grandTotal += val.total;
                grandPs += val.ps;
             });
-
-            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th></tr>`;
+            const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
             tbody.innerHTML = html;
         }
 
