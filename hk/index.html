@@ -545,10 +545,10 @@
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">
                                     <select class="status-hk-select border rounded px-2 py-1" ${isStatusPsFilled ? 'disabled' : ''}>
                                         <option value="">Select Status</option>
-                                        <!-- Hidden options for PS and Cancel -->
-                                        <option value="PS" style="display:none;">PS</option>
-                                        <option value="Cancel" style="display:none;">Cancel</option>
-                                        ${statusHKOptions.map(opt => {
+                                        <!-- Hidden options for PS and Cancel, selected if needed -->
+                                        <option value="PS" style="display:none;" ${(item.status_ps === 'PS') ? 'selected' : ''}>PS</option>
+                                        <option value="Cancel" style="display:none;" ${(item.status_ps === 'Cancel') ? 'selected' : ''}>Cancel</option>
+                                        ${statusHKOptions.filter(opt => opt.value !== 'PS' && opt.value !== 'Cancel').map(opt => {
                                             let selected = '';
                                             if (isStatusPsFilled && opt.value === item.status_ps) selected = 'selected';
                                             else if (!isStatusPsFilled && item.status_hk && item.status_hk.trim() === opt.value) selected = 'selected';
