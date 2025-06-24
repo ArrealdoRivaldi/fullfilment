@@ -676,8 +676,9 @@
 
             const group = {};
             data.forEach(d => {
-              let key = (d.status_hk || "Stay Fallout").trim();
-               if (key === '') key = 'Stay Fallout';
+              // Hanya proses data yang memiliki status_hk yang tidak kosong
+              let key = d.status_hk?.trim();
+              if (!key) return; // Skip data yang tidak memiliki status_hk
 
               if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
               group[key].total++;
