@@ -523,6 +523,19 @@
                         pageData.forEach((item, index) => {
                             // Jika status_ps ada isinya, status_hk otomatis sama dengan status_ps
                             if (item.status_ps && item.status_ps.trim() !== '') {
+                                // Update otomatis ke backend jika status_hk belum sama dengan status_ps
+                                if (item.status_hk !== item.status_ps) {
+                                    fetch('/api/realtime', {
+                                        method: 'PUT',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ id: item.id, status_hk: item.status_ps, new_order_id: item.new_order_id || '' })
+                                    }).then(res => res.json())
+                                      .then(result => {
+                                          if (result.success) {
+                                              item.status_hk = item.status_ps; // update di frontend juga
+                                          }
+                                      });
+                                }
                                 item.status_hk = item.status_ps;
                             }
                             const isStatusPsFilled = item.status_ps && item.status_ps.trim() !== '';
