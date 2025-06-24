@@ -64,16 +64,31 @@
         box-shadow: 0 2px 12px 0 #0001;
         padding: 16px 8px 16px 8px;
         min-width: 0;
-        min-height: 320px;
+        min-height: 220px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        width: 100%;
+        max-width: 100%;
       }
       @media (min-width: 640px) {
         .dashboard-row > div {
           padding: 24px 16px 24px 16px;
-          min-height: 420px;
+          min-height: 320px;
+        }
+      }
+      @media (max-width: 640px) {
+        .main-content {
+          padding: 8px 2vw 16px 2vw;
+        }
+        .dashboard-row > div {
+          min-height: 180px;
+          padding: 10px 2px;
+        }
+        table th, table td {
+          padding: 6px 6px;
+          font-size: 12px;
         }
       }
       table {
@@ -81,6 +96,7 @@
         width: 100%;
         background: #fff;
         margin-top: 8px;
+        font-size: 14px;
       }
       th, td {
         border: 1px solid #e5e7eb;
@@ -93,6 +109,24 @@
       }
       tr:nth-child(even) td {
         background: #f9fafb;
+      }
+      /* Responsive chart container */
+      .chart-responsive {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        aspect-ratio: 4/5;
+        min-height: 220px;
+        max-height: 400px;
+        position: relative;
+        margin: 0 auto;
+      }
+      @media (max-width: 640px) {
+        .chart-responsive {
+          aspect-ratio: 1/1;
+          min-height: 160px;
+          max-height: 260px;
+        }
       }
     </style>
 </head>
@@ -175,44 +209,50 @@
                 </div>
                 <div class="dashboard-row">
                     <div>                 
-                        <div class="w-full max-w-[220px] sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto">
-                          <div class="relative w-full" style="aspect-ratio:4/5;">
-                            <canvas id="pieHK" class="w-full h-full absolute top-0 left-0" style="max-width:100%;max-height:100%;"></canvas>
-                          </div>
+                        <div class="chart-responsive">
+                          <canvas id="pieHK" class="w-full h-full absolute top-0 left-0"></canvas>
                         </div>
                     </div>
                     <div>
-                        <div class="w-full max-w-lg mx-auto">
-                          <canvas id="progressSymptom" class="w-full h-48 sm:h-60" style="max-width:100%"></canvas>
+                        <div class="chart-responsive" style="aspect-ratio: 4/3;">
+                          <canvas id="progressSymptom" class="w-full h-full absolute top-0 left-0"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="dashboard-row">
                     <div class="w-full max-w-4xl mx-auto">
-                        <div class="w-full">
-                          <canvas id="barTrend" class="w-full h-56 sm:h-80" style="max-width:100%"></canvas>
+                        <div class="chart-responsive" style="aspect-ratio: 6/2;">
+                          <canvas id="barTrend" class="w-full h-full absolute top-0 left-0"></canvas>
                         </div>
                     </div>
                 </div>
                 <div class="dashboard-row">
                     <div class="overflow-x-auto w-full">
                         <h3 class="font-bold mb-2 text-base sm:text-lg">Symptom to PS</h3>
-                        <table id="tableSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
                     </div>
                     <div class="overflow-x-auto w-full">
                         <h3 class="font-bold mb-2 text-base sm:text-lg">Fallout NOP to PS</h3>
-                        <table id="tableNop" class="min-w-full text-xs sm:text-sm"></table>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableNop" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
                     </div>
                     <div class="overflow-x-auto w-full">
                         <h3 class="font-bold mb-2 text-base sm:text-lg">Result House Keeping</h3>
-                        <table id="tableHK" class="min-w-full text-xs sm:text-sm"></table>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableHK" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
                     </div>
                 </div>
                 <!-- New Aging Symptom Table -->
                 <div class="dashboard-row">
                     <div class="overflow-x-auto w-full">
                         <h3 class="font-bold mb-2 text-base sm:text-lg">Aging Symptom</h3>
-                        <table id="tableAgingSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableAgingSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
                     </div>
                 </div>
             </main>
