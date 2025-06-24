@@ -521,6 +521,11 @@
                         const endIdx = startIdx + pageSize;
                         const pageData = allData.slice(startIdx, endIdx);
                         pageData.forEach((item, index) => {
+                            // Jika status_ps ada isinya, status_hk otomatis sama dengan status_ps
+                            if (item.status_ps && item.status_ps.trim() !== '') {
+                                item.status_hk = item.status_ps;
+                            }
+                            const isStatusPsFilled = item.status_ps && item.status_ps.trim() !== '';
                             const row = document.createElement('tr');
                             row.dataset.docId = item.id;
                             row.innerHTML = `
@@ -538,9 +543,14 @@
                                 </td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                    <select class="status-hk-select border rounded px-2 py-1">
+                                    <select class="status-hk-select border rounded px-2 py-1" ${isStatusPsFilled ? 'disabled' : ''}>
                                         <option value="">Select Status</option>
-                                        ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                                        ${statusHKOptions.map(opt => {
+                                            let selected = '';
+                                            if (isStatusPsFilled && opt.value === item.status_ps) selected = 'selected';
+                                            else if (!isStatusPsFilled && item.status_hk && item.status_hk.trim() === opt.value) selected = 'selected';
+                                            return `<option value="${opt.value}" ${selected}>${opt.label}</option>`;
+                                        }).join('')}
                                     </select>
                                 </td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">
@@ -551,7 +561,9 @@
                                     const hari = hitungAgingHari(item.provi_ts); 
                                     return mapAging(hari) 
                                 })()}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                                    <button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" ${isStatusPsFilled ? 'disabled' : ''}>Update</button>
+                                </td>
                             `;
                             tbody.appendChild(row);
                         });
