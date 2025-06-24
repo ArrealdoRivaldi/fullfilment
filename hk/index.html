@@ -521,24 +521,6 @@
                         const endIdx = startIdx + pageSize;
                         const pageData = allData.slice(startIdx, endIdx);
                         pageData.forEach((item, index) => {
-                            // Jika status_ps ada isinya, status_hk otomatis sama dengan status_ps
-                            if (item.status_ps && item.status_ps.trim() !== '') {
-                                // Update otomatis ke backend jika status_hk belum sama dengan status_ps
-                                if (item.status_hk !== item.status_ps) {
-                                    fetch('/api/realtime', {
-                                        method: 'PUT',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({ id: item.id, status_hk: item.status_ps, new_order_id: item.new_order_id || '' })
-                                    }).then(res => res.json())
-                                      .then(result => {
-                                          if (result.success) {
-                                              item.status_hk = item.status_ps; // update di frontend juga
-                                          }
-                                      });
-                                }
-                                item.status_hk = item.status_ps;
-                            }
-                            const isStatusPsFilled = item.status_ps && item.status_ps.trim() !== '';
                             const row = document.createElement('tr');
                             row.dataset.docId = item.id;
                             row.innerHTML = `
@@ -556,19 +538,9 @@
                                 </td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                    <select class="status-hk-select border rounded px-2 py-1" ${isStatusPsFilled ? 'disabled' : ''}>
+                                    <select class="status-hk-select border rounded px-2 py-1">
                                         <option value="">Select Status</option>
-                                        <!-- Hidden options for PS and Cancel, selected if needed -->
-                                        <option value="PS" style="display:none;" ${(item.status_ps === 'PS') ? 'selected' : ''}>PS</option>
-                                        <option value="Cancel" style="display:none;" ${(item.status_ps === 'Cancel') ? 'selected' : ''}>Cancel</option>
-                                        ${statusHKOptions.filter(opt => opt.value !== 'PS' && opt.value !== 'Cancel').map(opt => {
-                                            let selected = '';
-                                            if (isStatusPsFilled && opt.value === item.status_ps) selected = 'selected';
-                                            else if (!isStatusPsFilled && item.status_hk && item.status_hk.trim() === opt.value) selected = 'selected';
-                                            return `<option value="${opt.value}" ${selected}>${opt.label}</option>`;
-                                        }).join('')}
-                                        <!-- If status_ps is filled and not in options, show as selected hidden option -->
-                                        ${isStatusPsFilled && !statusHKOptions.some(opt => opt.value === item.status_ps) && item.status_ps !== 'PS' && item.status_ps !== 'Cancel' ? `<option value="${item.status_ps}" selected style="display:none;">${item.status_ps}</option>` : ''}
+                                        ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                                     </select>
                                 </td>
                                 <td class="px-2 py-2 border border-gray-300 text-gray-900">
@@ -579,9 +551,7 @@
                                     const hari = hitungAgingHari(item.provi_ts); 
                                     return mapAging(hari) 
                                 })()}</td>
-                                <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                                    <button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" ${isStatusPsFilled ? 'disabled' : ''}>Update</button>
-                                </td>
+                                <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
                             `;
                             tbody.appendChild(row);
                         });
