@@ -360,6 +360,14 @@
           });
         }
 
+        // Tambahkan fungsi formatAngka dan formatPersen untuk format label chart
+        function formatAngka(num) {
+          return num.toLocaleString('id-ID');
+        }
+        function formatPersen(num) {
+          return num.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
         function renderPieHK(dataToRender) {
            console.log('Rendering Pie Chart...', dataToRender.length, 'items'); // Log rendering Pie Chart
            // Pastikan elemen canvas ada sebelum merender chart
@@ -390,8 +398,8 @@
                    anchor: 'center',
                    align: 'center',
                    formatter: function(value, context) {
-                     const percent = total > 0 ? (value / total * 100).toFixed(1) : 0;
-                     return value > 0 ? value + ' (' + percent + '%)' : '';
+                     const percent = total > 0 ? (value / total * 100) : 0;
+                     return value > 0 ? formatAngka(value) + ' (' + formatPersen(percent) + '%)' : '';
                    }
                  },
                  legend: {
@@ -406,6 +414,18 @@
              },
              plugins: [ChartDataLabels]
            });
+
+           // Tambahkan total di bawah chart
+           let totalDiv = document.getElementById('pieHKTotal');
+           if (!totalDiv) {
+             totalDiv = document.createElement('div');
+             totalDiv.id = 'pieHKTotal';
+             totalDiv.style.textAlign = 'center';
+             totalDiv.style.fontWeight = 'bold';
+             totalDiv.style.marginTop = '12px';
+             ctx.parentNode.appendChild(totalDiv);
+           }
+           totalDiv.innerHTML = 'Total: ' + formatAngka(total) + ' (100%)';
         }
 
         function parseMonth(item) {
