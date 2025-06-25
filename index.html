@@ -414,19 +414,6 @@
              },
              plugins: [ChartDataLabels]
            });
-
-           // RAPIKAN: Hapus elemen total lama jika ada, lalu tambahkan total di bawah chart container
-           let oldTotalDiv = document.getElementById('pieHKTotal');
-           if (oldTotalDiv) oldTotalDiv.remove();
-           let chartContainer = ctx.closest('.chart-responsive') || ctx.parentNode;
-           let totalDiv = document.createElement('div');
-           totalDiv.id = 'pieHKTotal';
-           totalDiv.style.textAlign = 'center';
-           totalDiv.style.fontWeight = 'bold';
-           totalDiv.style.marginTop = '18px';
-           totalDiv.style.fontSize = '1.1em';
-           totalDiv.innerHTML = 'Total: ' + formatAngka(total) + ' (100%)';
-           chartContainer.appendChild(totalDiv);
         }
 
         function parseMonth(item) {
