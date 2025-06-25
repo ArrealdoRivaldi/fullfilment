@@ -381,15 +381,17 @@
                }]
              },
              options: {
-               responsive: true, // Tambahkan responsive
-               maintainAspectRatio: false, // Penting untuk kontrol ukuran dengan CSS
+               responsive: true,
+               maintainAspectRatio: false,
                plugins: {
                  datalabels: {
                    color: '#222',
-                   font: { weight: 'bold', size: 12 }, // Sesuaikan ukuran font
+                   font: { weight: 'bold', size: 14 },
+                   anchor: 'center',
+                   align: 'center',
                    formatter: function(value, context) {
                      const percent = total > 0 ? (value / total * 100).toFixed(1) : 0;
-                     return value > 0 ? value + ' (' + percent + '%)' : ''; // Hanya tampilkan label jika value > 0
+                     return value > 0 ? value + ' (' + percent + '%)' : '';
                    }
                  },
                  legend: {
@@ -402,8 +404,7 @@
                  }
                }
              },
-             // ChartDataLabels plugin perlu diimpor secara terpisah atau lewat CDN
-             // plugins: [ChartDataLabels]
+             plugins: [ChartDataLabels]
            });
         }
 
@@ -486,40 +487,45 @@
               },
               options: {
                 responsive: true,
-                maintainAspectRatio: false, // Penting untuk kontrol ukuran dengan CSS
+                maintainAspectRatio: false,
                 plugins: {
                   legend: { position: 'top' },
                   title: { display: true, text: 'Trend Fallout to PS' },
-                   datalabels: { // Non-aktifkan datalabels default untuk bar
-                       display: false
-                   },
-                   tooltip: {
-                      callbacks: {
-                        label: function(context) {
-                          // Ambil label dataset tanpa tahun
-                          let label = context.dataset.label || '';
-                          if (label) {
-                            return label + ': ' + context.formattedValue;
-                          }
-                          return context.formattedValue;
-                        }
+                  datalabels: {
+                    color: '#222',
+                    font: { weight: 'bold', size: 12 },
+                    anchor: 'end',
+                    align: 'end',
+                    display: function(context) {
+                      // Tampilkan label hanya untuk bar, bukan line
+                      return context.dataset.type !== 'line';
+                    },
+                    formatter: function(value, context) {
+                      return value > 0 ? value : '';
+                    }
+                  },
+                  tooltip: {
+                    callbacks: {
+                      label: function(context) {
+                        let label = context.dataset.label || '';
+                        return label ? label + ': ' + context.formattedValue : context.formattedValue;
                       }
-                   }
+                    }
+                  }
                 },
                 scales: {
-                  y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 1.2 : 10), title: { display: true, text: 'Jumlah' } }, // Sesuaikan max Y axis bar
+                  y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 1.2 : 10), title: { display: true, text: 'Jumlah' } },
                   y1: {
                     beginAtZero: true,
-                    max: maxPercent, // Sesuaikan max Y axis line
+                    max: maxPercent,
                     position: 'right',
                     title: { display: true, text: 'Fallout to PS (%)' },
                     grid: { drawOnChartArea: false },
                     ticks: { callback: v => v + '%' }
                   }
-                },
-                 // Tambahkan datalabels hanya untuk line chart
-                 plugins: [ChartDataLabels]
-              }
+                }
+              },
+              plugins: [ChartDataLabels]
             });
         }
 
@@ -565,10 +571,10 @@
             window.progressSymptomChart = new Chart(ctx.getContext('2d'), {
               type: 'bar',
               data: {
-                labels: dataToDisplay.map(x => x.label), // Gunakan data yang sudah difilter
+                labels: dataToDisplay.map(x => x.label),
                 datasets: [{
                   label: 'Jumlah',
-                  data: dataToDisplay.map(x => x.value), // Gunakan data yang sudah difilter
+                  data: dataToDisplay.map(x => x.value),
                   backgroundColor: '#34d399',
                   borderRadius: 4,
                   barPercentage: 0.8,
@@ -577,8 +583,8 @@
               },
               options: {
                 indexAxis: 'y',
-                responsive: true, // Tambahkan responsive
-                maintainAspectRatio: false, // Penting untuk kontrol ukuran dengan CSS
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                   legend: { display: false },
                   title: { display: true, text: 'Progress House Keeping (Symptom)' },
@@ -586,17 +592,17 @@
                     anchor: 'end',
                     align: 'end',
                     color: '#222',
-                    font: { weight: 'bold', size: 12 }, // Sesuaikan ukuran font
+                    font: { weight: 'bold', size: 12 },
                     clip: false,
                     formatter: function(value, context) {
                        const item = dataToDisplay[context.dataIndex];
-                       return value > 0 ? `${value} (${item.percent.toFixed(1)}%)` : ''; // Tampilkan hanya jika > 0
+                       return value > 0 ? `${value} (${item.percent.toFixed(1)}%)` : '';
                     }
                   }
                 },
-                layout: { padding: { right: 60 } }, // Beri padding kanan untuk datalabels
+                layout: { padding: { right: 60 } },
                 scales: {
-                  x: { beginAtZero: true, title: { display: true, text: 'Jumlah Fallout Belum PS' }, max: maxValue }, // Sesuaikan label dan max X axis
+                  x: { beginAtZero: true, title: { display: true, text: 'Jumlah Fallout Belum PS' }, max: maxValue },
                   y: { title: { display: true, text: 'Symptom' } }
                 }
               },
