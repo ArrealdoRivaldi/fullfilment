@@ -500,16 +500,18 @@
                   legend: { position: 'top' },
                   title: { display: true, text: 'Trend Fallout to PS' },
                   datalabels: {
-                    color: '#222',
-                    font: { weight: 'bold', size: 12 },
-                    anchor: 'end',
-                    align: 'end',
                     display: function(context) {
-                      // Tampilkan label hanya untuk bar, bukan line
-                      return context.dataset.type !== 'line';
+                      // Tampilkan label hanya untuk dataset line (persen)
+                      return context.dataset.type === 'line';
                     },
+                    color: '#ef4444',
+                    font: { weight: 'bold', size: 13 },
+                    anchor: 'end',
+                    align: 'start',
+                    offset: 4,
                     formatter: function(value, context) {
-                      return value > 0 ? value : '';
+                      // Format persen dua desimal dan koma
+                      return value > 0 ? Number(value).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' : '';
                     }
                   },
                   tooltip: {
