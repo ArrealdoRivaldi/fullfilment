@@ -501,17 +501,39 @@
                   title: { display: true, text: 'Trend Fallout to PS' },
                   datalabels: {
                     display: function(context) {
-                      // Tampilkan label hanya untuk dataset line (persen)
-                      return context.dataset.type === 'line';
+                      // Tampilkan label untuk bar dan line
+                      return true;
                     },
-                    color: '#ef4444',
-                    font: { weight: 'bold', size: 13 },
-                    anchor: 'end',
-                    align: 'start',
-                    offset: 4,
+                    color: function(context) {
+                      // Bar: hitam, Line: merah
+                      return context.dataset.type === 'line' ? '#ef4444' : '#222';
+                    },
+                    font: function(context) {
+                      // Bar: 12px, Line: 13px
+                      return context.dataset.type === 'line'
+                        ? { weight: 'bold', size: 13 }
+                        : { weight: 'bold', size: 12 };
+                    },
+                    anchor: function(context) {
+                      // Bar: end, Line: end
+                      return 'end';
+                    },
+                    align: function(context) {
+                      // Bar: start (di atas bar), Line: end (di atas titik line)
+                      return context.dataset.type === 'line' ? 'end' : 'start';
+                    },
+                    offset: function(context) {
+                      // Bar: 2px, Line: -8px (lebih tinggi)
+                      return context.dataset.type === 'line' ? -8 : 2;
+                    },
                     formatter: function(value, context) {
-                      // Format persen dua desimal dan koma
-                      return value > 0 ? Number(value).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' : '';
+                      if (context.dataset.type === 'line') {
+                        // Format persen dua desimal dan koma
+                        return value > 0 ? Number(value).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' : '';
+                      } else {
+                        // Format ribuan untuk bar
+                        return value > 0 ? Number(value).toLocaleString('id-ID') : '';
+                      }
                     }
                   },
                   tooltip: {
