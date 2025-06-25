@@ -89,27 +89,34 @@
       if (user) {
         document.getElementById('loginStatus').textContent = 'Memeriksa akses...';
         try {
-          // Cek whitelist di Firestore: login/users/{email}
-          const q = await firestore.collection('login').doc('users').collection('users').where('email', '==', user.email).get();
-          if (!q.empty) {
-            const userData = q.docs[0].data();
-            // Simpan info user/role di sessionStorage
-            sessionStorage.setItem('user', JSON.stringify({
-              email: userData.email,
-              role: userData.role
-            }));
-            document.getElementById('loginStatus').style.color = 'green';
-            document.getElementById('loginStatus').textContent = `Login sukses! Mengarahkan...`;
-            // Redirect sesuai role
-            setTimeout(() => {
-              if (userData.role === 'admin') {
-                window.location.href = '/admin.html';
-              } else {
-                window.location.href = '/dashboard.html';
-              }
-            }, 1000);
+          // Ambil dokumen 'users' di koleksi 'login'
+          const userDoc = await firestore.collection('login').doc('users').get();
+          if (userDoc.exists) {
+            const data = userDoc.data();
+            // Cek apakah email dan role cocok
+            if (data.email && data.email === user.email) {
+              // Simpan info user/role di sessionStorage
+              sessionStorage.setItem('user', JSON.stringify({
+                email: data.email,
+                role: data.role
+              }));
+              document.getElementById('loginStatus').style.color = 'green';
+              document.getElementById('loginStatus').textContent = `Login sukses! Mengarahkan...`;
+              setTimeout(() => {
+                if (data.role === 'admin') {
+                  window.location.href = '/admin.html';
+                } else {
+                  window.location.href = '/dashboard.html';
+                }
+              }, 1000);
+            } else {
+              // Email tidak cocok
+              await auth.signOut();
+              document.getElementById('loginStatus').style.color = '#e53e3e';
+              document.getElementById('loginStatus').textContent = 'Akses ditolak: Email tidak terdaftar.';
+            }
           } else {
-            // Tidak di whitelist
+            // Dokumen users tidak ada
             await auth.signOut();
             document.getElementById('loginStatus').style.color = '#e53e3e';
             document.getElementById('loginStatus').textContent = 'Akses ditolak: Email tidak terdaftar.';

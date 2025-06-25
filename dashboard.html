@@ -21,12 +21,12 @@
     if (!user) {
       window.location.href = '/login.html';
     } else {
-      const q = await firestore.collection('login').doc('users').collection('users').where('email', '==', user.email).get();
-      if (q.empty) {
+      const userDoc = await firestore.collection('login').doc('users').get();
+      if (!userDoc.exists || userDoc.data().email !== user.email) {
         await auth.signOut();
         alert('Akses ditolak: Email tidak terdaftar.');
         window.location.href = '/login.html';
-      } // Jika role admin atau user, lanjutkan akses dashboard
+      } // Jika cocok, lanjutkan akses dashboard
     }
   });
 
