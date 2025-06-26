@@ -312,10 +312,10 @@
         // Ambil data dari API, lalu render dashboard
         let allData = [];
 
-        console.log('Script dashboard.html loaded.'); // Log saat script dimuat
+        // console.log('Script dashboard.html loaded.'); // Log saat script dimuat
 
         function filterData(data, branch, startDate, endDate) {
-          console.log('Filtering data...', { branch, startDate, endDate }); // Log saat filter dipanggil
+          // console.log('Filtering data...', { branch, startDate, endDate }); // Log saat filter dipanggil
           return data.filter(d => {
             // Pastikan provi_ts ada sebelum mencoba memprosesnya
             if (!d.provi_ts) { /* console.log('Skipping item due to missing provi_ts:', d); */ return false; }
@@ -369,10 +369,10 @@
         }
 
         function renderPieHK(dataToRender) {
-           console.log('Rendering Pie Chart...', dataToRender.length, 'items'); // Log rendering Pie Chart
+           // console.log('Rendering Pie Chart...', dataToRender.length, 'items'); // Log rendering Pie Chart
            // Pastikan elemen canvas ada sebelum merender chart
            const ctx = document.getElementById('pieHK');
-           if (!ctx) { console.error('Canvas element #pieHK not found for Pie Chart'); return; }
+           if (!ctx) { /* console.error('Canvas element #pieHK not found for Pie Chart'); */ return; }
            const total = dataToRender.length;
            const filled = dataToRender.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
            const unfilled = total - filled;
@@ -417,53 +417,53 @@
         }
 
         function parseMonth(item) {
-             console.log('Parsing month for item:', item); // --- LOG item being parsed
+             // console.log('Parsing month for item:', item); // --- LOG item being parsed
              // Pastikan provi_ts ada sebelum memproses
              if (!item || !item.provi_ts) {
-                 console.log('parseMonth: provi_ts is missing or null', item ? item.provi_ts : 'item is null'); // --- LOG missing provi_ts
+                 // console.log('parseMonth: provi_ts is missing or null', item ? item.provi_ts : 'item is null'); // --- LOG missing provi_ts
                  return null;
              }
              
-             console.log('parseMonth: provi_ts value:', item.provi_ts, 'Type:', typeof item.provi_ts); // --- LOG provi_ts value and type
+             // console.log('parseMonth: provi_ts value:', item.provi_ts, 'Type:', typeof item.provi_ts); // --- LOG provi_ts value and type
 
              let date;
              // Coba parse sebagai Firebase Timestamp
              if (typeof item.provi_ts === 'object' && item.provi_ts !== null && typeof item.provi_ts._seconds === 'number') {
-                  console.log('parseMonth: Attempting to parse as Timestamp'); // --- LOG Timestamp attempt
+                  // console.log('parseMonth: Attempting to parse as Timestamp'); // --- LOG Timestamp attempt
                   date = new Date(item.provi_ts._seconds * 1000);
              // Coba parse sebagai string date format apa pun yang dikenali Date constructor
              } else if (typeof item.provi_ts === 'string' && item.provi_ts.trim() !== '') {
-                 console.log('parseMonth: Attempting to parse as String'); // --- LOG String attempt
+                 // console.log('parseMonth: Attempting to parse as String'); // --- LOG String attempt
                  date = new Date(item.provi_ts);
              } else {
-                 console.log('parseMonth: Unknown provi_ts type or format'); // --- LOG unknown format
+                 // console.log('parseMonth: Unknown provi_ts type or format'); // --- LOG unknown format
                  return null; // Jika format tidak dikenali, abaikan
              }
 
              if (isNaN(date.getTime())) {
-                  console.log('parseMonth: Failed to parse into a valid Date (Invalid Date)'); // --- LOG invalid date
+                  // console.log('parseMonth: Failed to parse into a valid Date (Invalid Date)'); // --- LOG invalid date
                   return null; // Abaikan jika tanggal invalid
              }
 
              const result = { month: date.getMonth() + 1, year: date.getFullYear() };
-             console.log('parseMonth: Successfully parsed date:', date, 'Result:', result); // --- LOG successful parse
+             // console.log('parseMonth: Successfully parsed date:', date, 'Result:', result); // --- LOG successful parse
              return result;
         }
 
         function renderBarTrend(dataToRender) {
-            console.log('Rendering Bar Chart...', dataToRender.length, 'items'); // Log rendering Bar Chart
-            console.log('Data received by renderBarTrend:', dataToRender); // --- LOG data received
+            // console.log('Rendering Bar Chart...', dataToRender.length, 'items'); // Log rendering Bar Chart
+            // console.log('Data received by renderBarTrend:', dataToRender); // --- LOG data received
 
             // Pastikan elemen canvas ada sebelum merender chart
             const ctx = document.getElementById('barTrend');
-            if (!ctx) { console.error('Canvas element #barTrend not found for Bar Chart'); return; }
+            if (!ctx) { /* console.error('Canvas element #barTrend not found for Bar Chart'); */ return; }
 
             const monthsLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
             // Filter out items where parseMonth returns null before getting unique years
             const validItemsWithMonth = dataToRender.map(item => ({ item, parsed: parseMonth(item) })).filter(entry => entry.parsed !== null);
             const years = [...new Set(validItemsWithMonth.map(entry => entry.parsed.year))].sort(); // Ambil tahun unik dari data yang valid
 
-            console.log('Years found (after filtering invalid dates):', years); // --- LOG years found after filtering
+            // console.log('Years found (after filtering invalid dates):', years); // --- LOG years found after filtering
 
             // Gabungkan Fallout dan PS dari semua tahun per bulan
             const falloutPerMonth = monthsLabels.map((_, i) =>
@@ -480,7 +480,7 @@
               { label: "Fallout to PS (%)", data: percentPerMonth, type: "line", borderColor: "#ef4444", backgroundColor: "#ef4444", fill: false, yAxisID: "y1", tension: 0.3, order: 99, pointRadius: 4, borderWidth: 3 }
             ];
 
-            console.log('Final datasets for Chart.js:', datasets); // --- LOG final datasets
+            // console.log('Final datasets for Chart.js:', datasets); // --- LOG final datasets
 
             const allValues = datasets.flatMap(dataset => dataset.data);
             const maxBar = Math.max(...allValues.filter(v => typeof v === 'number' && !isNaN(v)), 0); // Hitung max dari semua data bar
@@ -562,10 +562,10 @@
         }
 
         function renderProgressSymptom(dataToRender) {
-            console.log('Rendering Progress Symptom Chart...', dataToRender.length, 'items'); // Log rendering Progress Symptom Chart
+            // console.log('Rendering Progress Symptom Chart...', dataToRender.length, 'items'); // Log rendering Progress Symptom Chart
             // Pastikan elemen canvas ada
             const ctx = document.getElementById('progressSymptom');
-            if (!ctx) { console.error('Canvas element #progressSymptom not found for Progress Symptom Chart'); return; }
+            if (!ctx) { /* console.error('Canvas element #progressSymptom not found for Progress Symptom Chart'); */ return; }
 
             const group = {};
             dataToRender.forEach(d => {
@@ -643,10 +643,10 @@
         }
 
         function renderTableSymptom(data) {
-            console.log('Rendering Symptom Table...', data.length, 'items'); // Log rendering Table Symptom
+            // console.log('Rendering Symptom Table...', data.length, 'items'); // Log rendering Table Symptom
             // Pastikan elemen tabel ada
             const tbody = document.getElementById('tableSymptom');
-            if (!tbody) { console.error('Table element #tableSymptom not found'); return; }
+            if (!tbody) { /* console.error('Table element #tableSymptom not found'); */ return; }
 
             const group = {};
             data.forEach(d => {
@@ -676,10 +676,10 @@
         }
 
         function renderTableNop(data) {
-             console.log('Rendering NOP Table...', data.length, 'items'); // Log rendering Table NOP
+             // console.log('Rendering NOP Table...', data.length, 'items'); // Log rendering Table NOP
              // Pastikan elemen tabel ada
             const tbody = document.getElementById('tableNop');
-             if (!tbody) { console.error('Table element #tableNop not found'); return; }
+             if (!tbody) { /* console.error('Table element #tableNop not found'); */ return; }
 
             const group = {};
             data.forEach(d => {
@@ -709,10 +709,10 @@
         }
 
         function renderTableHK(data) {
-             console.log('Rendering HK Table...', data.length, 'items'); // Log rendering Table HK
+             // console.log('Rendering HK Table...', data.length, 'items'); // Log rendering Table HK
              // Pastikan elemen tabel ada
              const tbody = document.getElementById('tableHK');
-             if (!tbody) { console.error('Table element #tableHK not found'); return; }
+             if (!tbody) { /* console.error('Table element #tableHK not found'); */ return; }
 
             const group = {};
             data.forEach(d => {
@@ -847,10 +847,10 @@
         }
 
         function renderBranchFilter(data) {
-             console.log('Rendering Branch Filter...'); // Log rendering Branch Filter
+             // console.log('Rendering Branch Filter...'); // Log rendering Branch Filter
              // Pastikan elemen select ada
              const select = document.getElementById('branchFilter');
-             if (!select) { console.error('Select element #branchFilter not found'); return; }
+             if (!select) { /* console.error('Select element #branchFilter not found'); */ return; }
 
             const unique = new Set();
             data.forEach(d => {
@@ -865,10 +865,10 @@
         }
 
         function renderDashboard(data) {
-          console.log('Rendering Dashboard...', data.length, 'items received'); // Log rendering Dashboard
+          // console.log('Rendering Dashboard...', data.length, 'items received'); // Log rendering Dashboard
           // Pastikan data valid sebelum rendering
           if (!Array.isArray(data) || data.length === 0) {
-             console.warn('No data available for dashboard rendering');
+             // console.warn('No data available for dashboard rendering');
              // Opsional: Kosongkan chart dan tabel atau tampilkan pesan
              if (window.pieHKChart) window.pieHKChart.destroy();
              if (window.barTrendChart) window.barTrendChart.destroy();
@@ -945,42 +945,25 @@
         };
 
         document.addEventListener('DOMContentLoaded', async function() {
-          console.log('DOM fully loaded and parsed. Fetching data...'); // Log DOM ready dan fetch mulai
+          // console.log('DOM fully loaded and parsed. Fetching data...'); // Log DOM ready dan fetch mulai
           try {
             const response = await fetch('/api/realtime');
             if (!response.ok) {
-              const errorText = await response.text();
-              console.error('Fetch response not OK:', response.status, errorText); // Log error response
-              throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+              // const errorText = await response.text();
+              // console.error('Fetch response not OK:', response.status, errorText); // Log error response
+              throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
             const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
             allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
             renderDashboard(allData); // Render dashboard dengan semua data awal
           } catch (error) {
-            console.error('Error fetching data or rendering dashboard:', error);
+            // console.error('Error fetching data or rendering dashboard:', error);
             // Tampilkan pesan error di halaman jika perlu, misal di #output (kalau dikembalikan lagi)
           }
         });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-        <script>
-        // Deteksi 404 di halaman utama
-        if (window.location.pathname !== '/hk/:path*' && window.location.pathname !== '/dashboard') {
-          document.body.innerHTML = `
-            <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f7fafc;">
-              <div style="text-align:center;background:#fff;padding:40px 32px;border-radius:16px;box-shadow:0 2px 16px #0001;">
-                <img src="/images/icon/logo.png" alt="Fullfilment FBB" width="80" style="margin-bottom:1.5em;">
-                <h1 style="font-size:5rem;color:#e53e3e;margin-bottom:0.5em;">404</h1>
-                <h2 style="font-size:2rem;color:#2d3748;margin-bottom:1em;">Halaman Tidak Ditemukan</h2>
-                <p style="color:#4a5568;margin-bottom:2em;">Maaf, halaman yang Anda cari tidak tersedia.<br>Anda akan diarahkan ke halaman utama dalam 5 detik.</p>
-                <a href="/" style="display:inline-block;background:#3182ce;color:#fff;padding:0.75em 2em;border-radius:8px;text-decoration:none;font-weight:bold;">Kembali ke Beranda</a>
-              </div>
-            </div>
-          `;
-          setTimeout(() => { window.location.href = '/'; }, 5000);
-        }
-        </script>
         <script>
         async function fetchLastUpdated() {
           try {
