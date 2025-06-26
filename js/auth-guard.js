@@ -16,16 +16,11 @@
       }
       // Check user access in Firestore
       try {
-        const userDoc = await firestore.collection('login').doc('users').get();
-        if (userDoc.exists) {
-          const data = userDoc.data();
-          if (data.email && data.email === user.email) {
-            // Show user info in navbar
-            showUserInfo(user, data);
-          } else {
-            await auth.signOut();
-            window.location.href = '/index.html';
-          }
+        const querySnapshot = await firestore.collection('login').where('email', '==', user.email).get();
+        if (!querySnapshot.empty) {
+          const data = querySnapshot.docs[0].data();
+          // Show user info in navbar
+          showUserInfo(user, data);
         } else {
           await auth.signOut();
           window.location.href = '/index.html';
