@@ -111,11 +111,22 @@
     });
 
     // Tombol login Google
-    document.getElementById('loginGoogle').onclick = function() {
+    const loginBtn = document.getElementById('loginGoogle');
+    let loginInProgress = false;
+    loginBtn.onclick = function() {
+      if (loginInProgress) return;
+      loginInProgress = true;
       setStatus('Membuka Google Login...', '#333');
+      loginBtn.disabled = true;
+      loginBtn.style.opacity = 0.7;
       const provider = new firebase.auth.GoogleAuthProvider();
       window._firebase.auth.signInWithPopup(provider)
-        .catch((error) => setStatus(error.message));
+        .catch((error) => {
+          setStatus(error.message);
+          loginBtn.disabled = false;
+          loginBtn.style.opacity = 1;
+          loginInProgress = false;
+        });
     };
   </script>
 </body>
