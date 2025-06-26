@@ -499,12 +499,24 @@ async function openRemarkModal(docId) {
         if (!text) { alert('Remark tidak boleh kosong!'); return; }
         const newRemark = { email: user.email, text, timestamp: new Date().toISOString() };
         remarks.push(newRemark);
-        // Simpan ke Firestore (atau API)
-        await updateRemarkFirestore(docId, remarks, { email: user.email, time: newRemark.timestamp });
-        item.remarks = remarks;
-        item.lastEdited = { email: user.email, time: newRemark.timestamp };
-        renderTableWithPagination();
-        openRemarkModal(docId); // refresh modal
+        try {
+            const response = await fetch('/api/realtime', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: docId, remarks, lastEdited: { email: user.email, time: newRemark.timestamp } })
+            });
+            const result = await response.json();
+            if (result.success) {
+                item.remarks = remarks;
+                item.lastEdited = { email: user.email, time: newRemark.timestamp };
+                renderTableWithPagination();
+                openRemarkModal(docId); // refresh modal
+            } else {
+                alert('Update remark gagal: ' + (result.error || 'Unknown error'));
+            }
+        } catch (err) {
+            alert('Update remark gagal: ' + err.message);
+        }
     };
     // Edit remark
     historyDiv.querySelectorAll('.edit-remark-btn').forEach(btn => {
@@ -517,12 +529,24 @@ async function openRemarkModal(docId) {
                 if (!text) { alert('Remark tidak boleh kosong!'); return; }
                 remarks[idx].text = text;
                 remarks[idx].timestamp = new Date().toISOString();
-                // Simpan ke Firestore (atau API)
-                await updateRemarkFirestore(docId, remarks, { email: user.email, time: remarks[idx].timestamp });
-                item.remarks = remarks;
-                item.lastEdited = { email: user.email, time: remarks[idx].timestamp };
-                renderTableWithPagination();
-                openRemarkModal(docId); // refresh modal
+                try {
+                    const response = await fetch('/api/realtime', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: docId, remarks, lastEdited: { email: user.email, time: remarks[idx].timestamp } })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        item.remarks = remarks;
+                        item.lastEdited = { email: user.email, time: remarks[idx].timestamp };
+                        renderTableWithPagination();
+                        openRemarkModal(docId); // refresh modal
+                    } else {
+                        alert('Update remark gagal: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (err) {
+                    alert('Update remark gagal: ' + err.message);
+                }
             };
         };
     });
@@ -536,11 +560,6 @@ function formatDateTime(dt) {
     if (!dt) return '-';
     const d = new Date(dt);
     return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
-}
-async function updateRemarkFirestore(docId, remarks, lastEdited) {
-    // Firestore update logic
-    const db = firebase.firestore();
-    await db.collection('hk').doc(docId).update({ remarks, lastEdited });
 }
 // 404 redirect logic
 if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
