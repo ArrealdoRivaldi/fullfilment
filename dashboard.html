@@ -8,7 +8,7 @@
     <meta name="keywords" content="Fullfilment, FBB, Dashboard, House Keeping, Monitoring, Performance, Telkom">
     <meta name="author" content="Tim Fullfilment FBB">
     <title>Fullfilment FBB - Dashboard House Keeping & Performance</title>
-    <link rel="canonical" href="/index.html"/>
+    <link rel="canonical" href="/dashboard.html"/>
     <!-- Open Graph / Facebook -->
     <meta property="og:title" content="Fullfilment FBB - Dashboard House Keeping & Performance"/>
     <meta property="og:description" content="Dashboard interaktif untuk monitoring House Keeping dan performa FBB."/>
@@ -312,7 +312,7 @@
         // Ambil data dari API, lalu render dashboard
         let allData = [];
 
-        console.log('Script index.html loaded.'); // Log saat script dimuat
+        console.log('Script dashboard.html loaded.'); // Log saat script dimuat
 
         function filterData(data, branch, startDate, endDate) {
           console.log('Filtering data...', { branch, startDate, endDate }); // Log saat filter dipanggil
@@ -966,7 +966,7 @@
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
         <script>
         // Deteksi 404 di halaman utama
-        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+        if (window.location.pathname !== '/' && window.location.pathname !== '/dashboard.html') {
           document.body.innerHTML = `
             <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f7fafc;">
               <div style="text-align:center;background:#fff;padding:40px 32px;border-radius:16px;box-shadow:0 2px 16px #0001;">
