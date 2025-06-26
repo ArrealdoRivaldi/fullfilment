@@ -332,7 +332,7 @@ function bindFilterEvents() {
     });
 }
 
-// MENU LOGIC (Unified for mobile & sidebar)
+// MENU LOGIC (Unified for mobile & sidebar, improved)
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchLastUpdated();
     try {
@@ -349,10 +349,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     updateActiveFilters();
 
-    // Hamburger & Sidebar menu logic
+    // Improved Hamburger & Sidebar menu logic
+    function closeAllSubMenus(menuRoot) {
+        menuRoot.querySelectorAll('.js-sub-list').forEach(sub => {
+            sub.style.display = 'none';
+        });
+        menuRoot.querySelectorAll('.js-arrow').forEach(arrow => {
+            arrow.classList.remove('open');
+        });
+    }
     function toggleSubMenu(e) {
         e.preventDefault();
         const arrow = e.currentTarget;
+        const menuRoot = arrow.closest('nav') || document;
+        // Only one submenu open at a time
+        closeAllSubMenus(menuRoot);
         arrow.classList.toggle('open');
         const subList = arrow.parentElement.querySelector('.js-sub-list');
         if (subList) {
@@ -363,7 +374,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     }
-    document.querySelectorAll('.js-arrow').forEach(el => {
+    // Attach to both sidebar and mobile
+    document.querySelectorAll('.navbar-sidebar .js-arrow, .navbar-mobile .js-arrow').forEach(el => {
         el.addEventListener('click', toggleSubMenu);
     });
     // Hamburger toggle
@@ -381,6 +393,36 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+    // Close mobile menu after click on any menu item
+    document.querySelectorAll('.navbar-mobile__list a').forEach(link => {
+        link.addEventListener('click', function () {
+            const navbarMobile = document.querySelector('.navbar-mobile');
+            if (navbarMobile && window.innerWidth < 992) {
+                navbarMobile.style.display = 'none';
+                if (hamburger) hamburger.classList.remove('is-active');
+            }
+        });
+    });
+    // Set active class based on current URL for both menus
+    function setActiveMenu() {
+        const path = window.location.pathname.replace(/\/$/, '');
+        document.querySelectorAll('.navbar-sidebar a, .navbar-mobile a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && (href === path || (href === '/hk/' && path === '/hk'))) {
+                link.classList.add('active');
+                // Also open parent submenu if exists
+                const parentSub = link.closest('.js-sub-list');
+                if (parentSub) {
+                    parentSub.style.display = 'block';
+                    const parentArrow = parentSub.parentElement.querySelector('.js-arrow');
+                    if (parentArrow) parentArrow.classList.add('open');
+                }
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+    setActiveMenu();
 });
 
 // Fallout modal and update logic
