@@ -1,0 +1,434 @@
+// Main script for Table and Filters (refactored from hk/index.html)
+
+let allData = [];
+let currentPage = 1;
+let pageSize = 50;
+const statusHKOptions = [
+    { value: "Cancel", label: "Cancel" },
+    { value: "PT2", label: "PT2" },
+    { value: "PT3", label: "PT3" },
+    { value: "Reorder", label: "Reorder" },
+    { value: "Revoke", label: "Revoke" },
+    { value: "Offering Orbit", label: "Offering Orbit" }
+];
+
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    try {
+        if (typeof dateStr === 'object' && dateStr !== null && typeof dateStr.seconds === 'number') {
+            const date = new Date(dateStr.seconds * 1000);
+            if (!isNaN(date.getTime())) {
+                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+            }
+        }
+        if (typeof dateStr === 'string' && dateStr.trim() !== '') {
+            const date = new Date(dateStr);
+            if (!isNaN(date.getTime())) {
+                return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+            }
+        }
+        return 'Invalid Date';
+    } catch (e) {
+        console.error('Error formatting date:', dateStr, e);
+        return 'Format Error';
+    }
+}
+function truncateText(text, maxLength = 50) {
+    if (text && text.length > maxLength) {
+        return text.substring(0, maxLength) + '...';
+    }
+    return text || '';
+}
+function initializeFilters(data) {
+    const filters = {
+        branch: new Set(),
+        wok: new Set(),
+        sto_co: new Set(),
+        symptom: new Set(),
+        status_ps: new Set(),
+    };
+    data.forEach(item => {
+        filters.branch.add(item.branch);
+        filters.wok.add(item.wok);
+        filters.sto_co.add(item.sto_co);
+        filters.symptom.add(item.symptom);
+        filters.status_ps.add(item.status_ps);
+    });
+    ['branch', 'wok', 'sto_co', 'symptom', 'status_ps'].forEach(filter => {
+        const select = document.getElementById(`${filter === 'status_ps' ? 'statusPS' : filter}Filter`);
+        if (!select) return;
+        select.innerHTML = '<option value="">All</option>';
+        [...filters[filter]].sort().forEach(value => {
+            if (value) {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            }
+        });
+    });
+    const statusHKSelect = document.getElementById('statusHKFilter');
+    statusHKSelect.innerHTML = '';
+    const optAll = document.createElement('option');
+    optAll.value = '';
+    optAll.textContent = 'All';
+    statusHKSelect.appendChild(optAll);
+    const optDone = document.createElement('option');
+    optDone.value = 'done';
+    optDone.textContent = 'Done';
+    statusHKSelect.appendChild(optDone);
+    const optNotYet = document.createElement('option');
+    optNotYet.value = 'notyet';
+    optNotYet.textContent = 'Not Yet';
+    statusHKSelect.appendChild(optNotYet);
+}
+function hitungAgingHari(provi_ts) {
+    if (!provi_ts) return null;
+    let [tgl, jam] = (typeof provi_ts === 'string' ? provi_ts : '').split(' ');
+    if (!tgl) return null;
+    let [m, d, y] = tgl.split('/');
+    if (!d || !m || !y) return null;
+    d = parseInt(d, 10);
+    m = parseInt(m, 10) - 1;
+    y = parseInt(y, 10);
+    let h = 0, min = 0;
+    if (jam) {
+        let [hh, mm] = jam.split(':');
+        h = parseInt(hh, 10) || 0;
+        min = parseInt(mm, 10) || 0;
+    }
+    let proviDate = new Date(y, m, d, h, min);
+    if (isNaN(proviDate.getTime())) return null;
+    let now = new Date();
+    let diffMs = now - proviDate;
+    let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    return diffHari;
+}
+function mapAging(hari) {
+    if (hari <= 3) return '1-3 hari';
+    else if (hari <= 7) return '4-7 hari';
+    else if (hari <= 14) return '8-14 hari';
+    else if (hari <= 30) return '14-30 hari';
+    else return '> 30 Hari';
+}
+function filterData() {
+    // Always filter from allData
+    const branch = document.getElementById('branchFilter').value;
+    const wok = document.getElementById('wokFilter').value;
+    const sto = document.getElementById('sto_coFilter').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const statusHK = document.getElementById('statusHKFilter').value;
+    const symptom = document.getElementById('symptomFilter').value;
+    const statusPS = document.getElementById('statusPSFilter').value;
+    const agingFallout = document.getElementById('agingFalloutFilter').value;
+    return allData.filter(item => {
+        let itemDate;
+        if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
+            itemDate = new Date(item.provi_ts.seconds * 1000);
+        } else if (typeof item.provi_ts === 'string') {
+            itemDate = new Date(item.provi_ts);
+        } else {
+            itemDate = new Date(item.provi_ts);
+        }
+        let start = startDate ? new Date(startDate) : null;
+        let end = endDate ? new Date(endDate) : null;
+        if (end) end.setHours(23,59,59,999);
+        let statusHKMatch = true;
+        if (statusHK === 'done') {
+            statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
+        } else if (statusHK === 'notyet') {
+            statusHKMatch = !(item.status_hk && item.status_hk.trim() !== '');
+        }
+        let agingMatch = true;
+        if (agingFallout) {
+            const hari = hitungAgingHari(item.provi_ts);
+            const agingCat = mapAging(hari);
+            agingMatch = agingCat === agingFallout;
+        }
+        return (!branch || item.branch === branch) &&
+            (!wok || item.wok === wok) &&
+            (!sto || item.sto_co === sto) &&
+            (!symptom || item.symptom === symptom) &&
+            (!statusPS || item.status_ps === statusPS) &&
+            statusHKMatch &&
+            (!start || itemDate >= start) &&
+            (!end || itemDate <= end) &&
+            agingMatch;
+    });
+}
+function updateActiveFilters() {
+    const branch = document.getElementById('branchFilter').value;
+    const wok = document.getElementById('wokFilter').value;
+    const sto = document.getElementById('sto_coFilter').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const statusHK = document.getElementById('statusHKFilter').value;
+    const symptom = document.getElementById('symptomFilter').value;
+    const statusPS = document.getElementById('statusPSFilter').value;
+    const agingFallout = document.getElementById('agingFalloutFilter').value;
+    const container = document.getElementById('activeFilters');
+    container.innerHTML = '';
+    function addChip(icon, text, color, type) {
+        const chip = document.createElement('span');
+        chip.className = `bg-${color}-100 text-${color}-700 px-2 py-1 rounded flex items-center text-xs gap-1`;
+        chip.innerHTML = `<i class=\"fa ${icon}\"></i> ${text} <button class=\"ml-1 text-${color}-500 hover:text-red-500\" onclick=\"removeFilter('${type}')\"><i class=\"fa fa-times\"></i></button>`;
+        container.appendChild(chip);
+    }
+    if (branch) addChip('fa-code-branch', branch, 'blue', 'branch');
+    if (wok) addChip('fa-industry', wok, 'purple', 'wok');
+    if (sto) addChip('fa-warehouse', sto, 'pink', 'sto');
+    if (startDate) addChip('fa-calendar', `Dari: ${startDate}`, 'green', 'startDate');
+    if (endDate) addChip('fa-calendar', `Sampai: ${endDate}`, 'yellow', 'endDate');
+    if (statusHK) addChip('fa-check-circle', statusHK === 'done' ? 'Done' : (statusHK === 'notyet' ? 'Not Yet' : statusHK), 'orange', 'statusHK');
+    if (symptom) addChip('fa-stethoscope', symptom, 'teal', 'symptom');
+    if (statusPS) addChip('fa-tasks', statusPS, 'indigo', 'statusPS');
+    if (agingFallout) addChip('fa-hourglass-half', `Aging: ${agingFallout}`, 'gray', 'agingFallout');
+}
+function removeFilter(type) {
+    if (type === 'branch') document.getElementById('branchFilter').value = '';
+    if (type === 'wok') document.getElementById('wokFilter').value = '';
+    if (type === 'sto') document.getElementById('sto_coFilter').value = '';
+    if (type === 'startDate') document.getElementById('startDate').value = '';
+    if (type === 'endDate') document.getElementById('endDate').value = '';
+    if (type === 'statusHK') document.getElementById('statusHKFilter').value = '';
+    if (type === 'symptom') document.getElementById('symptomFilter').value = '';
+    if (type === 'statusPS') document.getElementById('statusPSFilter').value = '';
+    if (type === 'agingFallout') document.getElementById('agingFalloutFilter').value = '';
+    applyFiltersWithChips();
+}
+function applyFiltersWithChips() {
+    updateActiveFilters();
+    const filteredData = filterData();
+    if (filteredData.length === 0) {
+        alert('Data tidak ditemukan untuk filter yang dipilih!');
+    }
+    currentPage = 1;
+    renderTableWithPagination(filteredData);
+}
+function renderPagination(totalItems, filteredData) {
+    const totalPages = Math.ceil(totalItems / pageSize);
+    const pagination = document.getElementById('pagination');
+    if (!pagination) return;
+    let pageOptions = '';
+    for (let i = 1; i <= totalPages; i++) {
+        pageOptions += `<option value="${i}" ${i === currentPage ? 'selected' : ''}>${i}</option>`;
+    }
+    const pageSizes = [10, 25, 50, 100, 200];
+    let sizeOptions = '';
+    for (let size of pageSizes) {
+        sizeOptions += `<option value="${size}" ${size === pageSize ? 'selected' : ''}>${size}</option>`;
+    }
+    pagination.innerHTML = `
+        <span class="mr-2">${totalItems} Total Data</span>
+        <button id="prevPage" ${currentPage === 1 ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 mr-1">&larr;</button>
+        <label>Page <select id="pageSelect" class="border rounded px-2 py-1 mx-1">${pageOptions}</select> of ${totalPages}</label>
+        <button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 ml-1">&rarr;</button>
+        <label class="ml-4">Show <select id="sizeSelect" class="border rounded px-2 py-1 mx-1">${sizeOptions}</select></label>
+    `;
+    document.getElementById('prevPage').onclick = () => { if (currentPage > 1) { currentPage--; renderTableWithPagination(filteredData); } };
+    document.getElementById('nextPage').onclick = () => { if (currentPage < totalPages) { currentPage++; renderTableWithPagination(filteredData); } };
+    document.getElementById('pageSelect').onchange = (e) => { currentPage = parseInt(e.target.value); renderTableWithPagination(filteredData); };
+    document.getElementById('sizeSelect').onchange = (e) => {
+        pageSize = parseInt(e.target.value);
+        currentPage = 1;
+        renderTableWithPagination(filteredData);
+    };
+}
+function renderTableWithPagination(filteredData = null) {
+    const tbody = document.getElementById('dataTableBody');
+    tbody.innerHTML = '';
+    const data = filteredData || filterData();
+    const startIdx = (currentPage - 1) * pageSize;
+    const endIdx = startIdx + pageSize;
+    const pageData = data.slice(startIdx, endIdx);
+    pageData.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.dataset.docId = item.id;
+        row.innerHTML = `
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <div class="flex items-center">
+                    <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                </div>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <select class="status-hk-select border rounded px-2 py-1">
+                    <option value="">Select Status</option>
+                    ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                </select>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+        `;
+        tbody.appendChild(row);
+    });
+    renderPagination(data.length, data);
+}
+
+// LAST UPDATED
+async function fetchLastUpdated() {
+    try {
+        const response = await fetch('/api/realtime?last_updated=1');
+        if (response.ok) {
+            const data = await response.json();
+            if (data.last_updated) {
+                const date = new Date(data.last_updated);
+                document.getElementById('lastUpdated').innerHTML = formatLastUpdated(date);
+            } else {
+                document.getElementById('lastUpdated').textContent = '-';
+            }
+        }
+    } catch (e) {
+        document.getElementById('lastUpdated').textContent = '-';
+    }
+}
+function pad2(n) { return n.toString().padStart(2, '0'); }
+function formatLastUpdated(date) {
+    const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    const utc = date.getTime();
+    const wib = new Date(utc + 7 * 60 * 60 * 1000);
+    const wita = new Date(utc + 8 * 60 * 60 * 1000);
+    const wit = new Date(utc + 9 * 60 * 60 * 1000);
+    return `${hari[wib.getUTCDay()]} ${pad2(wib.getUTCDate())}/${pad2(wib.getUTCMonth()+1)}/${wib.getUTCFullYear()} ` +
+           `<span style=\"background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wib.getUTCHours())}:${pad2(wib.getUTCMinutes())} WIB</span> / ` +
+           `<span style=\"background:#2563eb;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wita.getUTCHours())}:${pad2(wita.getUTCMinutes())} WITA</span> / ` +
+           `<span style=\"background:#1e293b;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wit.getUTCHours())}:${pad2(wit.getUTCMinutes())} WIT</span>`;
+}
+
+// FILTER EVENTS
+function bindFilterEvents() {
+    const filterIds = [
+        'branchFilter', 'wokFilter', 'sto_coFilter', 'startDate', 'endDate',
+        'statusHKFilter', 'symptomFilter', 'statusPSFilter', 'agingFalloutFilter'
+    ];
+    filterIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('change', applyFiltersWithChips);
+        }
+    });
+    document.getElementById('applyFilters').addEventListener('click', applyFiltersWithChips);
+    document.getElementById('resetFilters').addEventListener('click', () => {
+        filterIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+        currentPage = 1;
+        updateActiveFilters();
+        renderTableWithPagination(allData);
+        fetchLastUpdated();
+    });
+}
+
+// MENU LOGIC (Unified for mobile & sidebar)
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchLastUpdated();
+    try {
+        const response = await fetch('/api/realtime');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+        const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
+        allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+        initializeFilters(allData);
+        renderTableWithPagination(allData);
+        bindFilterEvents();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+    updateActiveFilters();
+
+    // Hamburger & Sidebar menu logic
+    function toggleSubMenu(e) {
+        e.preventDefault();
+        const arrow = e.currentTarget;
+        arrow.classList.toggle('open');
+        const subList = arrow.parentElement.querySelector('.js-sub-list');
+        if (subList) {
+            if (subList.style.display === 'block') {
+                subList.style.display = 'none';
+            } else {
+                subList.style.display = 'block';
+            }
+        }
+    }
+    document.querySelectorAll('.js-arrow').forEach(el => {
+        el.addEventListener('click', toggleSubMenu);
+    });
+    // Hamburger toggle
+    const hamburger = document.querySelector('.hamburger');
+    if (hamburger) {
+        hamburger.addEventListener('click', function () {
+            this.classList.toggle('is-active');
+            const navbarMobile = document.querySelector('.navbar-mobile');
+            if (navbarMobile) {
+                if (navbarMobile.style.display === 'block') {
+                    navbarMobile.style.display = 'none';
+                } else {
+                    navbarMobile.style.display = 'block';
+                }
+            }
+        });
+    }
+});
+
+// Fallout modal and update logic
+document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('falloutModal').classList.add('hidden');
+});
+document.getElementById('dataTableBody').addEventListener('click', async (e) => {
+    if (e.target.classList.contains('details-btn')) {
+        const details = e.target.dataset.fallout;
+        document.getElementById('falloutDetails').textContent = details;
+        document.getElementById('falloutModal').classList.remove('hidden');
+    }
+    if (e.target.classList.contains('update-btn')) {
+        const row = e.target.closest('tr');
+        const id = row.dataset.docId;
+        const status_hk = row.querySelector('.status-hk-select').value;
+        const new_order_id = row.querySelector('.new-order-id').value;
+        try {
+            const response = await fetch('/api/realtime', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, status_hk, new_order_id })
+            });
+            const result = await response.json();
+            if (result.success) {
+                alert('Update berhasil!');
+                location.reload();
+                fetchLastUpdated();
+            } else {
+                alert('Update gagal: ' + (result.error || 'Unknown error'));
+            }
+        } catch (err) {
+            alert('Update gagal: ' + err.message);
+        }
+    }
+});
+// 404 redirect logic
+if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
+    document.body.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f7fafc;">
+            <div style="text-align:center;background:#fff;padding:40px 32px;border-radius:16px;box-shadow:0 2px 16px #0001;">
+                <img src="/images/icon/logo.png" alt="Fullfilment FBB" width="80" style="margin-bottom:1.5em;">
+                <h1 style="font-size:5rem;color:#e53e3e;margin-bottom:0.5em;">404</h1>
+                <h2 style="font-size:2rem;color:#2d3748;margin-bottom:1em;">Halaman Tidak Ditemukan</h2>
+                <p style="color:#4a5568;margin-bottom:2em;">Maaf, halaman yang Anda cari tidak tersedia.<br>Anda akan diarahkan ke halaman tool house keeping dalam 5 detik.</p>
+                <a href="/hk/" style="display:inline-block;background:#3182ce;color:#fff;padding:0.75em 2em;border-radius:8px;text-decoration:none;font-weight:bold;">Kembali ke Tool House Keeping</a>
+            </div>
+        </div>
+    `;
+    setTimeout(() => { window.location.href = '/hk/'; }, 5000);
+} 
