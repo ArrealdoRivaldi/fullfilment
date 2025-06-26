@@ -71,8 +71,7 @@
 
   <script>
     // Use global firebase config
-    let auth = window._firebase.auth;
-    let firestore = window._firebase.firestore;
+    // (No let/const for auth/firestore)
 
     // Helper untuk set status
     function setStatus(message, color = '#e53e3e') {
@@ -82,11 +81,11 @@
     }
 
     // Cek status login
-    auth.onAuthStateChanged(async (user) => {
+    window._firebase.auth.onAuthStateChanged(async (user) => {
       if (!user) return;
       setStatus('Memeriksa akses...', '#333');
       try {
-        const userDoc = await firestore.collection('login').doc('users').get();
+        const userDoc = await window._firebase.firestore.collection('login').doc('users').get();
         if (userDoc.exists) {
           const data = userDoc.data();
           if (data.email && data.email === user.email) {
@@ -99,11 +98,11 @@
               window.location.href = '/dashboard.html';
             }, 1000);
           } else {
-            await auth.signOut();
+            await window._firebase.auth.signOut();
             setStatus('Akses ditolak: Email tidak terdaftar.');
           }
         } else {
-          await auth.signOut();
+          await window._firebase.auth.signOut();
           setStatus('Akses ditolak: Email tidak terdaftar.');
         }
       } catch (err) {
@@ -115,7 +114,7 @@
     document.getElementById('loginGoogle').onclick = function() {
       setStatus('Membuka Google Login...', '#333');
       const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
+      window._firebase.auth.signInWithPopup(provider)
         .catch((error) => setStatus(error.message));
     };
   </script>
