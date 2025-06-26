@@ -266,7 +266,7 @@ function renderTableWithPagination(filteredData = null) {
                 </select>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                <input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id.trim() : ''}" placeholder="Enter New Order ID">
+                <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
@@ -459,6 +459,89 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
         }
     }
 });
+
+// Event handler untuk tombol remark detail
+document.addEventListener('click', async function(e) {
+    if (e.target.classList.contains('remark-detail-btn')) {
+        const docId = e.target.getAttribute('data-doc-id');
+        openRemarkModal(docId);
+    }
+});
+
+// Modal logic
+async function openRemarkModal(docId) {
+    const modal = document.getElementById('remarkModal');
+    const historyDiv = document.getElementById('remarkHistory');
+    const remarkInput = document.getElementById('remarkInput');
+    const lastEditedInfo = document.getElementById('lastEditedInfo');
+    const submitBtn = document.getElementById('submitRemarkBtn');
+    modal.classList.remove('hidden');
+    // Fetch data dari Firestore (atau allData)
+    const item = allData.find(d => d.id === docId);
+    const user = firebase.auth().currentUser;
+    let remarks = item.remarks || [];
+    // Render riwayat remark
+    historyDiv.innerHTML = remarks.map((r, idx) =>
+        `<div class="mb-2 p-2 rounded ${user && user.email === r.email ? 'bg-blue-50' : 'bg-gray-100'}">
+            <div class="text-xs text-gray-500">[${formatDateTime(r.timestamp)}] ${r.email}:</div>
+            <div class="text-gray-800">${r.text}</div>
+            ${user && user.email === r.email ? `<button class="edit-remark-btn text-xs text-blue-600 mt-1" data-idx="${idx}">Edit</button>` : ''}
+        </div>`
+    ).join('') || '<div class="text-gray-400 italic">Belum ada remark.</div>';
+    // Last edited info
+    lastEditedInfo.textContent = item.lastEdited ? `Last edited: ${formatDateTime(item.lastEdited.time)} by ${item.lastEdited.email}` : '';
+    // Kosongkan textarea
+    remarkInput.value = '';
+    // Submit remark baru
+    submitBtn.onclick = async function() {
+        if (!user) { alert('Anda harus login!'); return; }
+        const text = remarkInput.value.trim();
+        if (!text) { alert('Remark tidak boleh kosong!'); return; }
+        const newRemark = { email: user.email, text, timestamp: new Date().toISOString() };
+        remarks.push(newRemark);
+        // Simpan ke Firestore (atau API)
+        await updateRemarkFirestore(docId, remarks, { email: user.email, time: newRemark.timestamp });
+        item.remarks = remarks;
+        item.lastEdited = { email: user.email, time: newRemark.timestamp };
+        renderTableWithPagination();
+        openRemarkModal(docId); // refresh modal
+    };
+    // Edit remark
+    historyDiv.querySelectorAll('.edit-remark-btn').forEach(btn => {
+        btn.onclick = function() {
+            const idx = parseInt(btn.getAttribute('data-idx'));
+            remarkInput.value = remarks[idx].text;
+            submitBtn.onclick = async function() {
+                if (!user) { alert('Anda harus login!'); return; }
+                const text = remarkInput.value.trim();
+                if (!text) { alert('Remark tidak boleh kosong!'); return; }
+                remarks[idx].text = text;
+                remarks[idx].timestamp = new Date().toISOString();
+                // Simpan ke Firestore (atau API)
+                await updateRemarkFirestore(docId, remarks, { email: user.email, time: remarks[idx].timestamp });
+                item.remarks = remarks;
+                item.lastEdited = { email: user.email, time: remarks[idx].timestamp };
+                renderTableWithPagination();
+                openRemarkModal(docId); // refresh modal
+            };
+        };
+    });
+    // Close modal
+    document.getElementById('closeRemarkModal').onclick = function() {
+        modal.classList.add('hidden');
+    };
+}
+// Helper format tanggal & update Firestore
+function formatDateTime(dt) {
+    if (!dt) return '-';
+    const d = new Date(dt);
+    return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+}
+async function updateRemarkFirestore(docId, remarks, lastEdited) {
+    // Firestore update logic
+    const db = firebase.firestore();
+    await db.collection('hk').doc(docId).update({ remarks, lastEdited });
+}
 // 404 redirect logic
 if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
     document.body.innerHTML = `

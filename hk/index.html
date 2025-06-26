@@ -203,7 +203,7 @@
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Fallout Reason</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Symptom</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Status HK</th>
-                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">New Order ID</th>
+                                        <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Remark</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Status PS</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Aging Fallout</th>
                                         <th class="px-2 py-2 border border-gray-300 text-left font-medium text-gray-500 uppercase tracking-wider">Action</th>
@@ -231,6 +231,26 @@
                                     <button id="closeModal" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
                                         Close
                                     </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal for Remark Details -->
+                    <div id="remarkModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+                        <div class="relative top-20 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
+                            <div class="mt-3 text-center">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-2">Remark History</h3>
+                                <div id="remarkHistory" class="mt-2 px-2 py-2 text-left max-h-60 overflow-y-auto border rounded bg-gray-50 text-sm text-gray-700"></div>
+                                <div class="mt-4">
+                                    <textarea id="remarkInput" class="w-full border rounded p-2" rows="3" placeholder="Tambah remark baru..."></textarea>
+                                </div>
+                                <div class="flex justify-between items-center mt-3">
+                                    <span id="lastEditedInfo" class="text-xs text-gray-400"></span>
+                                    <div>
+                                        <button id="closeRemarkModal" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 mr-2">Close</button>
+                                        <button id="submitRemarkBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Submit</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
