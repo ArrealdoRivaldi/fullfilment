@@ -71,7 +71,8 @@
 
   <script>
     // Use global firebase config
-    const { auth, firestore } = window._firebase;
+    let auth = window._firebase.auth;
+    let firestore = window._firebase.firestore;
 
     // Helper untuk set status
     function setStatus(message, color = '#e53e3e') {
