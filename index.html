@@ -8,6 +8,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="/js/firebase-config.js"></script>
   <style>
     body {
       background: #f7fafc;
@@ -69,20 +70,8 @@
   </div>
 
   <script>
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCjBlPnJSlEq18tJett5ZdOAcMl2yPvlOE",
-      authDomain: "fbb-fullfilment.firebaseapp.com",
-      databaseURL: "https://fbb-fullfilment-default-rtdb.firebaseio.com",
-      projectId: "fbb-fullfilment",
-      storageBucket: "fbb-fullfilment.firebasestorage.app",
-      messagingSenderId: "842233083514",
-      appId: "1:842233083514:web:beb0ce0ac38fc5825eedc3",
-      measurementId: "G-9RPL0LSY4Q"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const firestore = firebase.firestore();
+    // Use global firebase config
+    const { auth, firestore } = window._firebase;
 
     // Helper untuk set status
     function setStatus(message, color = '#e53e3e') {
