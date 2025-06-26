@@ -1,38 +1,1017 @@
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-<button id="logoutBtn" style="position:fixed;top:16px;right:16px;z-index:1000;padding:8px 18px;background:#e53e3e;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">Logout</button>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCjBlPnJSlEq18tJett5ZdOAcMl2yPvlOE",
-    authDomain: "fbb-fullfilment.firebaseapp.com",
-    databaseURL: "https://fbb-fullfilment-default-rtdb.firebaseio.com",
-    projectId: "fbb-fullfilment",
-    storageBucket: "fbb-fullfilment.firebasestorage.app",
-    messagingSenderId: "842233083514",
-    appId: "1:842233083514:web:beb0ce0ac38fc5825eedc3",
-    measurementId: "G-9RPL0LSY4Q"
-  };
-  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const firestore = firebase.firestore();
+<!DOCTYPE html>
+<html lang="id">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Dashboard Fullfilment FBB untuk monitoring House Keeping dan performa operasional.">
+    <meta name="keywords" content="Fullfilment, FBB, Dashboard, House Keeping, Monitoring, Performance, Telkom">
+    <meta name="author" content="Tim Fullfilment FBB">
+    <title>Fullfilment FBB - Dashboard House Keeping & Performance</title>
+    <link rel="canonical" href="/index.html"/>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Fullfilment FBB - Dashboard House Keeping & Performance"/>
+    <meta property="og:description" content="Dashboard interaktif untuk monitoring House Keeping dan performa FBB."/>
+    <meta property="og:image" content="/images/icon/logo.png"/>
+    <meta property="og:type" content="website"/>
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Fullfilment FBB - Dashboard House Keeping & Performance"/>
+    <meta name="twitter:description" content="Dashboard interaktif untuk monitoring House Keeping dan performa FBB."/>
+    <meta name="twitter:image" content="/images/icon/logo.png"/>
+    <!-- CSS Files -->
+    <link href="/css/font-face.css" rel="stylesheet">
+    <link href="/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet">
+    <link href="/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/animsition/animsition.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <link href="/vendor/wow/animate.css" rel="stylesheet">
+    <link href="/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet">
+    <link href="/vendor/slick/slick.css" rel="stylesheet">
+    <link href="/vendor/select2/select2.min.css" rel="stylesheet">
+    <link href="/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet">
+    <link href="/css/theme.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+      .main-content {
+        max-width: 1600px;
+        margin: 0 auto;
+        background: #f7fafc;
+        border-radius: 18px;
+        padding: 16px 4vw 32px 4vw;
+        min-height: 100vh;
+      }
+      .dashboard-row {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      @media (min-width: 1024px) {
+        .dashboard-row {
+          flex-direction: row;
+          gap: 32px;
+          margin-bottom: 32px;
+        }
+      }
+      .dashboard-row > div {
+        flex: 1 1 0;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px 0 #0001;
+        padding: 16px 8px 16px 8px;
+        min-width: 0;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+        max-width: 100%;
+      }
+      @media (min-width: 640px) {
+        .dashboard-row > div {
+          padding: 24px 16px 24px 16px;
+          min-height: 320px;
+        }
+      }
+      @media (max-width: 640px) {
+        .main-content {
+          padding: 8px 2vw 16px 2vw;
+        }
+        .dashboard-row > div {
+          min-height: 180px;
+          padding: 10px 2px;
+        }
+        table th, table td {
+          padding: 6px 6px;
+          font-size: 12px;
+        }
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        background: #fff;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+      th, td {
+        border: 1px solid #e5e7eb;
+        padding: 8px 12px;
+        text-align: left;
+      }
+      th {
+        background: #f3f4f6;
+        font-weight: bold;
+      }
+      tr:nth-child(even) td {
+        background: #f9fafb;
+      }
+      /* Responsive chart container */
+      .chart-responsive {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        aspect-ratio: 4/5;
+        min-height: 220px;
+        max-height: 400px;
+        position: relative;
+        margin: 0 auto;
+      }
+      @media (max-width: 640px) {
+        .chart-responsive {
+          aspect-ratio: 1/1;
+          min-height: 160px;
+          max-height: 260px;
+        }
+      }
+    </style>
+</head>
 
-  auth.onAuthStateChanged(async (user) => {
-    if (!user) {
-      window.location.href = '/login.html';
-    } else {
-      const userDoc = await firestore.collection('login').doc('users').get();
-      if (!userDoc.exists || userDoc.data().email !== user.email) {
-        await auth.signOut();
-        alert('Akses ditolak: Email tidak terdaftar.');
-        window.location.href = '/login.html';
-      } // Jika cocok, lanjutkan akses dashboard
-    }
-  });
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- Header Mobile Responsive -->
+        <header class="block lg:hidden">
+          <div class="flex items-center justify-between px-4 py-2 bg-white shadow">
+            <a class="logo" href="/">
+              <img src="/images/icon/logo.png" alt="FBB" class="h-8">
+            </a>
+            <button id="mobileMenuBtn" class="text-2xl focus:outline-none">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+          <!-- Overlay & Menu -->
+          <div id="mobileMenuOverlay" class="fixed inset-0 bg-black bg-opacity-40 z-40 hidden"></div>
+          <nav id="mobileMenu" class="fixed top-0 left-0 w-64 h-full bg-white z-50 transform -translate-x-full transition-transform duration-300">
+            <div class="p-4 border-b flex items-center justify-between">
+              <span class="font-bold text-lg">Menu</span>
+              <button id="closeMobileMenu" class="text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <ul class="mt-4 space-y-2">
+              <li>
+                <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100"><i class="fas fa-house-user mr-2"></i> House Keeping</a>
+                <ul class="ml-6 mt-1 space-y-1">
+                  <li><a href="/" class="flex items-center px-2 py-1 hover:bg-gray-100"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a></li>
+                  <li><a href="/hk/" class="flex items-center px-2 py-1 hover:bg-gray-100"><i class="fas fa-tools mr-2"></i> Tool House Keeping</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <!-- END Header Mobile Responsive -->
+        
+        <!-- Sidebar -->
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
+                <a href="#">
+                    <img src="/images/icon/logo.png" alt="FBB">
+                </a>
+            </div>
+            <div class="menu-sidebar__content js-scrollbar1">
+              <nav class="navbar-sidebar">
+                  <ul class="list-unstyled navbar__list">
+                      <li class="has-sub">
+                          <a class="js-arrow" href="#"><i class="fas fa-house-user"></i>House Keeping</a>
+                          <ul class="list-unstyled navbar__sub-list js-sub-list">
+                              <li class="active has-sub">
+                                <a class="js-arrow" href="/"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                              </li>
+                              <li>
+                                <a class="js-arrow" href="/hk/"><i class="fas fa-tools"></i> Tool House Keeping</a>
+                              </li>
+                          </ul>
+                      </li>
+                  </ul>
+              </nav>
+          </div>
+        </aside>
 
-  document.getElementById('logoutBtn').onclick = function() {
-    firebase.auth().signOut().then(function() {
-      window.location.href = '/login.html';
-    });
-  };
-</script> 
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Headbar Menu (moved here) -->
+            <div class="w-full bg-white shadow px-4 sm:px-8 py-3 z-10" style="position:sticky;top:0;">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight text-center sm:text-left">Fullfilment FBB Dashboard</h1>
+                  <span class="text-xs sm:text-sm text-gray-400 flex items-center justify-center gap-1"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: <span id="lastUpdated">-</span></span>
+                </div>
+            </div>
+            <main class="main-content">
+                <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6 items-end">
+                    <div id="activeFilters" class="flex flex-wrap gap-2 mb-2"></div>
+                    <select id="branchFilter" class="border rounded px-2 py-1 text-xs sm:text-sm"></select>
+                    <input type="date" id="startDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
+                    <input type="date" id="endDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
+                    <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded text-xs sm:text-sm">Filter</button>
+                    <button id="resetFilters" class="bg-gray-300 text-gray-700 px-4 py-1 rounded text-xs sm:text-sm ml-2">Reset</button>
+                </div>
+                <div class="dashboard-row">
+                    <div>                 
+                        <div class="chart-responsive">
+                          <canvas id="pieHK" class="w-full h-full absolute top-0 left-0"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="chart-responsive" style="aspect-ratio: 4/3;">
+                          <canvas id="progressSymptom" class="w-full h-full absolute top-0 left-0"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-row">
+                    <div class="w-full max-w-4xl mx-auto">
+                        <div class="chart-responsive" style="aspect-ratio: 6/2;">
+                          <canvas id="barTrend" class="w-full h-full absolute top-0 left-0"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-row">
+                    <div class="overflow-x-auto w-full">
+                        <h3 class="font-bold mb-2 text-base sm:text-lg">Symptom to PS</h3>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto w-full">
+                        <h3 class="font-bold mb-2 text-base sm:text-lg">Fallout NOP to PS</h3>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableNop" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto w-full">
+                        <h3 class="font-bold mb-2 text-base sm:text-lg">Result House Keeping</h3>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableHK" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Aging Symptom Table -->
+                <div class="dashboard-row">
+                    <div class="overflow-x-auto w-full">
+                        <h3 class="font-bold mb-2 text-base sm:text-lg">Aging Symptom</h3>
+                        <div class="overflow-x-auto w-full">
+                          <table id="tableAgingSymptom" class="min-w-full text-xs sm:text-sm"></table>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <!-- Improved Footer -->
+            <footer class="w-full bg-gray-100 py-4 sm:py-6 mt-8 shadow-inner">
+                <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-2 sm:px-6">
+                    <div class="flex items-center gap-2 mb-2 md:mb-0">
+                        <img src="/images/icon/logo.png" alt="FBB" class="h-8 w-auto">
+                        <span class="text-gray-700 font-semibold text-sm sm:text-base">FBB Telkomsel</span>
+                    </div>
+                    <div class="text-gray-500 text-xs sm:text-sm">&copy; 2025 FBB Telkomsel. All rights reserved.</div>
+                    <div class="flex gap-3 mt-2 md:mt-0">
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- JS Files -->
+        <script src="/vendor/jquery-3.2.1.min.js"></script>
+        <script src="/vendor/bootstrap-4.1/popper.min.js"></script>
+        <script src="/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+        <script src="/vendor/slick/slick.min.js"></script>
+        <script src="/vendor/wow/wow.min.js"></script>
+        <script src="/vendor/animsition/animsition.min.js"></script>
+        <script src="/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+        <script src="/vendor/counter-up/jquery.waypoints.min.js"></script>
+        <script src="/vendor/counter-up/jquery.counterup.min.js"></script> 
+        <script src="/vendor/circle-progress/circle-progress.min.js"></script> 
+        <script src="/vendor/perfect-scrollbar/perfect-scrollbar.js"></script> 
+        <script src="/vendor/chartjs/Chart.bundle.min.js"></script> 
+        <script src="/vendor/select2/select2.min.js"></script> 
+        <script src="/js/main.js"></script>
+        <!-- Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!-- Mobile Menu Script -->
+        <script>
+          const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+          const mobileMenu = document.getElementById('mobileMenu');
+          const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+          const closeMobileMenu = document.getElementById('closeMobileMenu');
+          function openMenu() {
+            mobileMenu.classList.remove('-translate-x-full');
+            mobileMenuOverlay.classList.remove('hidden');
+          }
+          function closeMenu() {
+            mobileMenu.classList.add('-translate-x-full');
+            mobileMenuOverlay.classList.add('hidden');
+          }
+          if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+          if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeMenu);
+          if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
+        </script>
+        <!-- Main script for Dashboard -->
+        <script>
+        // Ambil data dari API, lalu render dashboard
+        let allData = [];
+
+        console.log('Script index.html loaded.'); // Log saat script dimuat
+
+        function filterData(data, branch, startDate, endDate) {
+          console.log('Filtering data...', { branch, startDate, endDate }); // Log saat filter dipanggil
+          return data.filter(d => {
+            // Pastikan provi_ts ada sebelum mencoba memprosesnya
+            if (!d.provi_ts) { /* console.log('Skipping item due to missing provi_ts:', d); */ return false; }
+
+            if (branch && (d.branch || '').trim() !== branch.trim()) { /* console.log('Filtering out by branch:', d.branch); */ return false; }
+
+            if (startDate || endDate) {
+              let proviDate;
+              // Coba parse sebagai Firebase Timestamp atau string
+              if (typeof d.provi_ts === 'object' && d.provi_ts !== null && typeof d.provi_ts._seconds === 'number') {
+                   proviDate = new Date(d.provi_ts._seconds * 1000);
+              } else if (typeof d.provi_ts === 'string') {
+                   proviDate = new Date(d.provi_ts);
+              } else {
+                   /* console.log('Skipping item due to unparsable provi_ts format:', d.provi_ts); */ return false; // Jika format tidak dikenali, abaikan
+              }
+
+              if (isNaN(proviDate.getTime())) { /* console.log('Skipping item due to invalid provi_ts date:', d.provi_ts); */ return false; } // Abaikan jika tanggal invalid
+
+              if (startDate) {
+                  const start = new Date(startDate);
+                  // Bandingkan hanya bagian tanggal
+                  if (proviDate.getFullYear() < start.getFullYear() || 
+                     (proviDate.getFullYear() === start.getFullYear() && proviDate.getMonth() < start.getMonth()) ||
+                     (proviDate.getFullYear() === start.getFullYear() && proviDate.getMonth() === start.getMonth() && proviDate.getDate() < start.getDate())) {
+                      return false;
+                  }
+              }
+
+              if (endDate) {
+                   const end = new Date(endDate);
+                   // Bandingkan hanya bagian tanggal
+                   if (proviDate.getFullYear() > end.getFullYear() ||
+                      (proviDate.getFullYear() === end.getFullYear() && proviDate.getMonth() > end.getMonth()) ||
+                      (proviDate.getFullYear() === end.getFullYear() && proviDate.getMonth() === end.getMonth() && proviDate.getDate() > end.getDate())) {
+                      return false;
+                   }
+              }
+            }
+            // console.log('Item passed filter:', d); // Log item yang lolos filter
+            return true;
+          });
+        }
+
+        // Tambahkan fungsi formatAngka dan formatPersen untuk format label chart
+        function formatAngka(num) {
+          return num.toLocaleString('id-ID');
+        }
+        function formatPersen(num) {
+          return num.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function renderPieHK(dataToRender) {
+           console.log('Rendering Pie Chart...', dataToRender.length, 'items'); // Log rendering Pie Chart
+           // Pastikan elemen canvas ada sebelum merender chart
+           const ctx = document.getElementById('pieHK');
+           if (!ctx) { console.error('Canvas element #pieHK not found for Pie Chart'); return; }
+           const total = dataToRender.length;
+           const filled = dataToRender.filter(d => d.status_hk && d.status_hk.trim() !== "").length;
+           const unfilled = total - filled;
+
+           if (window.pieHKChart) window.pieHKChart.destroy();
+
+           window.pieHKChart = new Chart(ctx.getContext('2d'), {
+             type: 'pie',
+             data: {
+               labels: ['Sudah HK', 'Belum HK'],
+               datasets: [{
+                 data: [filled, unfilled],
+                 backgroundColor: ['#4ade80', '#f87171']
+               }]
+             },
+             options: {
+               responsive: true,
+               maintainAspectRatio: false,
+               plugins: {
+                 datalabels: {
+                   color: '#222',
+                   font: { weight: 'bold', size: 14 },
+                   anchor: 'center',
+                   align: 'center',
+                   formatter: function(value, context) {
+                     const percent = total > 0 ? (value / total * 100) : 0;
+                     return value > 0 ? formatAngka(value) + ' (' + formatPersen(percent) + '%)' : '';
+                   }
+                 },
+                 legend: {
+                   display: true,
+                   position: 'top'
+                 },
+                 title: {
+                   display: true,
+                   text: 'Fallout & HK'
+                 }
+               }
+             },
+             plugins: [ChartDataLabels]
+           });
+        }
+
+        function parseMonth(item) {
+             console.log('Parsing month for item:', item); // --- LOG item being parsed
+             // Pastikan provi_ts ada sebelum memproses
+             if (!item || !item.provi_ts) {
+                 console.log('parseMonth: provi_ts is missing or null', item ? item.provi_ts : 'item is null'); // --- LOG missing provi_ts
+                 return null;
+             }
+             
+             console.log('parseMonth: provi_ts value:', item.provi_ts, 'Type:', typeof item.provi_ts); // --- LOG provi_ts value and type
+
+             let date;
+             // Coba parse sebagai Firebase Timestamp
+             if (typeof item.provi_ts === 'object' && item.provi_ts !== null && typeof item.provi_ts._seconds === 'number') {
+                  console.log('parseMonth: Attempting to parse as Timestamp'); // --- LOG Timestamp attempt
+                  date = new Date(item.provi_ts._seconds * 1000);
+             // Coba parse sebagai string date format apa pun yang dikenali Date constructor
+             } else if (typeof item.provi_ts === 'string' && item.provi_ts.trim() !== '') {
+                 console.log('parseMonth: Attempting to parse as String'); // --- LOG String attempt
+                 date = new Date(item.provi_ts);
+             } else {
+                 console.log('parseMonth: Unknown provi_ts type or format'); // --- LOG unknown format
+                 return null; // Jika format tidak dikenali, abaikan
+             }
+
+             if (isNaN(date.getTime())) {
+                  console.log('parseMonth: Failed to parse into a valid Date (Invalid Date)'); // --- LOG invalid date
+                  return null; // Abaikan jika tanggal invalid
+             }
+
+             const result = { month: date.getMonth() + 1, year: date.getFullYear() };
+             console.log('parseMonth: Successfully parsed date:', date, 'Result:', result); // --- LOG successful parse
+             return result;
+        }
+
+        function renderBarTrend(dataToRender) {
+            console.log('Rendering Bar Chart...', dataToRender.length, 'items'); // Log rendering Bar Chart
+            console.log('Data received by renderBarTrend:', dataToRender); // --- LOG data received
+
+            // Pastikan elemen canvas ada sebelum merender chart
+            const ctx = document.getElementById('barTrend');
+            if (!ctx) { console.error('Canvas element #barTrend not found for Bar Chart'); return; }
+
+            const monthsLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+            // Filter out items where parseMonth returns null before getting unique years
+            const validItemsWithMonth = dataToRender.map(item => ({ item, parsed: parseMonth(item) })).filter(entry => entry.parsed !== null);
+            const years = [...new Set(validItemsWithMonth.map(entry => entry.parsed.year))].sort(); // Ambil tahun unik dari data yang valid
+
+            console.log('Years found (after filtering invalid dates):', years); // --- LOG years found after filtering
+
+            // Gabungkan Fallout dan PS dari semua tahun per bulan
+            const falloutPerMonth = monthsLabels.map((_, i) =>
+              validItemsWithMonth.filter(entry => entry.parsed.month === i + 1 && entry.item.order_id && entry.item.order_id !== '').length
+            );
+            const psPerMonth = monthsLabels.map((_, i) =>
+              validItemsWithMonth.filter(entry => entry.parsed.month === i + 1 && entry.item.order_id && entry.item.order_id !== '' && entry.item.status_ps === "PS").length
+            );
+            const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
+
+            let datasets = [
+              { label: "Fallout", data: falloutPerMonth, backgroundColor: "rgba(96, 165, 250, 1)", yAxisID: "y", barPercentage: 0.7, categoryPercentage: 0.8, order: 0 },
+              { label: "PS", data: psPerMonth, backgroundColor: "rgba(251, 191, 36, 1)", yAxisID: "y", barPercentage: 0.7, categoryPercentage: 0.8, order: 1 },
+              { label: "Fallout to PS (%)", data: percentPerMonth, type: "line", borderColor: "#ef4444", backgroundColor: "#ef4444", fill: false, yAxisID: "y1", tension: 0.3, order: 99, pointRadius: 4, borderWidth: 3 }
+            ];
+
+            console.log('Final datasets for Chart.js:', datasets); // --- LOG final datasets
+
+            const allValues = datasets.flatMap(dataset => dataset.data);
+            const maxBar = Math.max(...allValues.filter(v => typeof v === 'number' && !isNaN(v)), 0); // Hitung max dari semua data bar
+            const maxPercent = Math.max(...datasets.filter(ds => ds.type === 'line').flatMap(ds => ds.data).map(x => Number(x) || 0), 100); // Hitung max % (min 100)
+
+            if(window.barTrendChart) window.barTrendChart.destroy();
+            window.barTrendChart = new Chart(ctx.getContext('2d'), {
+              type: 'bar',
+              data: {
+                labels: monthsLabels,
+                datasets: datasets
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { position: 'top' },
+                  title: { display: true, text: 'Trend Fallout to PS' },
+                  datalabels: {
+                    display: function(context) {
+                      // Tampilkan label untuk bar dan line
+                      return true;
+                    },
+                    color: function(context) {
+                      // Bar: hitam, Line: merah
+                      return context.dataset.type === 'line' ? '#ef4444' : '#222';
+                    },
+                    font: function(context) {
+                      // Bar: 12px, Line: 13px
+                      return context.dataset.type === 'line'
+                        ? { weight: 'bold', size: 13 }
+                        : { weight: 'bold', size: 12 };
+                    },
+                    anchor: function(context) {
+                      // Bar: end, Line: end
+                      return 'end';
+                    },
+                    align: function(context) {
+                      // Bar: start (di atas bar), Line: end (di atas titik line)
+                      return context.dataset.type === 'line' ? 'end' : 'start';
+                    },
+                    offset: function(context) {
+                      // Bar: 2px, Line: -8px (lebih tinggi)
+                      return context.dataset.type === 'line' ? -8 : 2;
+                    },
+                    formatter: function(value, context) {
+                      if (context.dataset.type === 'line') {
+                        // Format persen dua desimal dan koma
+                        return value > 0 ? Number(value).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' : '';
+                      } else {
+                        // Format ribuan untuk bar
+                        return value > 0 ? Number(value).toLocaleString('id-ID') : '';
+                      }
+                    }
+                  },
+                  tooltip: {
+                    callbacks: {
+                      label: function(context) {
+                        let label = context.dataset.label || '';
+                        return label ? label + ': ' + context.formattedValue : context.formattedValue;
+                      }
+                    }
+                  }
+                },
+                scales: {
+                  y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 1.2 : 10), title: { display: true, text: 'Jumlah' } },
+                  y1: {
+                    beginAtZero: true,
+                    max: maxPercent,
+                    position: 'right',
+                    title: { display: true, text: 'Fallout to PS (%)' },
+                    grid: { drawOnChartArea: false },
+                    ticks: { callback: v => v + '%' }
+                  }
+                }
+              },
+              plugins: [ChartDataLabels]
+            });
+        }
+
+        function renderProgressSymptom(dataToRender) {
+            console.log('Rendering Progress Symptom Chart...', dataToRender.length, 'items'); // Log rendering Progress Symptom Chart
+            // Pastikan elemen canvas ada
+            const ctx = document.getElementById('progressSymptom');
+            if (!ctx) { console.error('Canvas element #progressSymptom not found for Progress Symptom Chart'); return; }
+
+            const group = {};
+            dataToRender.forEach(d => {
+              // Pastikan symptom ada
+              let key = (d.symptom || "Unknown").trim();
+              if (key === '') key = 'Unknown';
+              // Hanya hitung jika belum PS
+              if (d.status_ps !== 'PS') {
+                 group[key] = (group[key] || 0) + 1;
+              }
+            });
+            
+            let arr = Object.entries(group).map(([label, value]) => ({
+              label,
+              value,
+              percent: 0 // Akan dihitung nanti
+            }));
+
+            const total = arr.reduce((sum, item) => sum + item.value, 0);
+             arr = arr.map(item => ({
+                 ...item,
+                 percent: total > 0 ? (item.value / total * 100) : 0
+             }));
+
+            arr.sort((a, b) => b.value - a.value); // Urutkan berdasarkan jumlah
+
+            // Ambil top N atau semua jika sedikit
+            const displayLimit = 15; // Tampilkan top 15 symptom
+            const dataToDisplay = arr.slice(0, displayLimit);
+
+            const maxValue = Math.max(...dataToDisplay.map(x => x.value), 0) * 1.2; // Sesuaikan max X axis
+
+             if (window.progressSymptomChart) window.progressSymptomChart.destroy();
+
+            window.progressSymptomChart = new Chart(ctx.getContext('2d'), {
+              type: 'bar',
+              data: {
+                labels: dataToDisplay.map(x => x.label),
+                datasets: [{
+                  label: 'Jumlah',
+                  data: dataToDisplay.map(x => x.value),
+                  backgroundColor: '#34d399',
+                  borderRadius: 4,
+                  barPercentage: 0.8,
+                  categoryPercentage: 0.8
+                }]
+              },
+              options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { display: false },
+                  title: { display: true, text: 'Progress House Keeping (Symptom)' },
+                  datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    color: '#222',
+                    font: { weight: 'bold', size: 12 },
+                    clip: false,
+                    formatter: function(value, context) {
+                       const item = dataToDisplay[context.dataIndex];
+                       return value > 0 ? `${value} (${item.percent.toFixed(1)}%)` : '';
+                    }
+                  }
+                },
+                layout: { padding: { right: 60 } },
+                scales: {
+                  x: { beginAtZero: true, title: { display: true, text: 'Jumlah Fallout Belum PS' }, max: maxValue },
+                  y: { title: { display: true, text: 'Symptom' } }
+                }
+              },
+              plugins: [ChartDataLabels]
+            });
+        }
+
+        function renderTableSymptom(data) {
+            console.log('Rendering Symptom Table...', data.length, 'items'); // Log rendering Table Symptom
+            // Pastikan elemen tabel ada
+            const tbody = document.getElementById('tableSymptom');
+            if (!tbody) { console.error('Table element #tableSymptom not found'); return; }
+
+            const group = {};
+            data.forEach(d => {
+              // Pastikan symptom ada
+              let key = (d.symptom || "Unknown").trim();
+               if (key === '') key = 'Unknown';
+               
+              if (!group[key]) group[key] = { total: 0, ps: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+            });
+            
+            let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+
+            let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th><th>Acv</th></tr>`;
+            let grandTotal = 0, grandPs = 0;
+
+            sortedGroups.forEach(([symptom, val]) => {
+              const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+              html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
+              grandTotal += val.total;
+              grandPs += val.ps;
+            });
+            const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
+            tbody.innerHTML = html;
+        }
+
+        function renderTableNop(data) {
+             console.log('Rendering NOP Table...', data.length, 'items'); // Log rendering Table NOP
+             // Pastikan elemen tabel ada
+            const tbody = document.getElementById('tableNop');
+             if (!tbody) { console.error('Table element #tableNop not found'); return; }
+
+            const group = {};
+            data.forEach(d => {
+               // Pastikan branch ada
+              let key = (d.branch || "Unknown").trim();
+              if (key === '') key = 'Unknown';
+
+              if (!group[key]) group[key] = { total: 0, ps: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+            });
+
+            let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+
+            let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th><th>Acv</th></tr>`;
+            let grandTotal = 0, grandPs = 0;
+
+            sortedGroups.forEach(([branch, val]) => {
+               const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+               html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
+               grandTotal += val.total;
+               grandPs += val.ps;
+            });
+            const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
+            tbody.innerHTML = html;
+        }
+
+        function renderTableHK(data) {
+             console.log('Rendering HK Table...', data.length, 'items'); // Log rendering Table HK
+             // Pastikan elemen tabel ada
+             const tbody = document.getElementById('tableHK');
+             if (!tbody) { console.error('Table element #tableHK not found'); return; }
+
+            const group = {};
+            data.forEach(d => {
+              // Hanya proses data yang memiliki status_hk yang tidak kosong
+              let key = d.status_hk?.trim();
+              if (!key) return; // Skip data yang tidak memiliki status_hk
+
+              if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
+              group[key].total++;
+              if (d.status_ps === "PS") group[key].ps++;
+              else if (d.status_ps === "Cancel") group[key].cancel++;
+              else group[key].stay++;
+            });
+
+             let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+
+            let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
+            let grandTotal = 0, grandPs = 0, grandCancel = 0, grandStay = 0;
+
+            sortedGroups.forEach(([hk, val]) => {
+               html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
+               grandTotal += val.total;
+               grandPs += val.ps;
+               grandCancel += val.cancel;
+               grandStay += val.stay;
+            });
+
+            html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandCancel}</th><th>${grandStay}</th></tr>`;
+            tbody.innerHTML = html;
+        }
+
+        function renderTableAgingSymptom(data) {
+            // 1. Filter hanya status_ps ≠ "PS"
+            const filtered = data.filter(d => !["PS", "Cancel"].includes(d.status_ps));
+
+
+            // 2. Definisikan kategori aging
+            const agingCategories = ['1-3 hari', '4-7 hari', '8-14 hari', '14-30 hari', '> 30 Hari'];
+
+            // 3. Fungsi hitung aging (dalam hari)
+            function hitungAgingHari(provi_ts) {
+                if (!provi_ts) return null;
+                // Format: MM/DD/YYYY HH:mm
+                let [tgl, jam] = provi_ts.split(' ');
+                if (!tgl) return null;
+                let [m, d, y] = tgl.split('/');
+                if (!d || !m || !y) return null;
+                d = parseInt(d, 10);
+                m = parseInt(m, 10) - 1; // Bulan di JS mulai dari 0
+                y = parseInt(y, 10);
+                let h = 0, min = 0;
+                if (jam) {
+                    let [hh, mm] = jam.split(':');
+                    h = parseInt(hh, 10) || 0;
+                    min = parseInt(mm, 10) || 0;
+                }
+                let proviDate = new Date(y, m, d, h, min);
+                if (isNaN(proviDate.getTime())) return null; 
+                let now = new Date();
+                let diffMs = now - proviDate;
+                let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                return diffHari;
+            }
+
+            // 4. Fungsi mapping aging
+            function mapAging(hari) {
+                if (hari <= 3) return '1-3 hari';
+                else if (hari <= 7) return '4-7 hari';
+                else if (hari <= 14) return '8-14 hari';
+                else if (hari <= 30) return '14-30 hari';
+                else return '> 30 Hari';
+            }
+
+            // 5. Grouping: symptom -> aging -> count
+            const group = {};
+            filtered.forEach(d => {
+                let symptom = (d.symptom || 'Unknown').trim();
+                if (!symptom) symptom = 'Unknown';
+                let agingHari = hitungAgingHari(d.provi_ts);
+                let aging = mapAging(agingHari);
+                if (!group[symptom]) group[symptom] = { total: 0 };
+                if (!group[symptom][aging]) group[symptom][aging] = 0;
+                group[symptom][aging]++;
+                group[symptom].total++;
+            });
+
+            // 6. Urutkan symptom sesuai urutan custom, sisanya di bawah
+            const customOrder = [
+                'Kendala Izin',
+                'Kendala Jalur/Rute Tarikan',
+                'Kendala NTE/Device',
+                'ODP BELUM GO LIVE',
+                'ODP Full',
+                'ODP Jauh',
+                'ODP tidak ditemukan',
+                'ODP Unspec'
+            ];
+            let sortedGroups = Object.entries(group).sort((a, b) => {
+                const idxA = customOrder.indexOf(a[0]);
+                const idxB = customOrder.indexOf(b[0]);
+                if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+                if (idxA !== -1) return -1;
+                if (idxB !== -1) return 1;
+                // Jika keduanya tidak ada di customOrder, urutkan alfabetis
+                return a[0].localeCompare(b[0]);
+            });
+
+            // 7. Header
+            let html = `<tr><th>Symptom</th>` + agingCategories.map(a => `<th>${a}</th>`).join('') + `<th>Grand Total</th></tr>`;
+
+            // 8. Rows
+            sortedGroups.forEach(([symptom, val]) => {
+                html += `<tr><td>${symptom}</td>`;
+                agingCategories.forEach(cat => {
+                    html += `<td>${val[cat] || 0}</td>`;
+                });
+                html += `<td>${val.total}</td></tr>`;
+            });
+
+            // 9. Grand total row
+            let grand = { total: 0 };
+            agingCategories.forEach(cat => grand[cat] = 0);
+            sortedGroups.forEach(([, val]) => {
+                agingCategories.forEach(cat => grand[cat] += (val[cat] || 0));
+                grand.total += val.total;
+            });
+            html += `<tr><th>Grand Total</th>` + agingCategories.map(cat => `<th>${grand[cat]}</th>`).join('') + `<th>${grand.total}</th></tr>`;
+
+            // 10. Render
+            const tbody = document.getElementById('tableAgingSymptom');
+            if (tbody) tbody.innerHTML = html;
+        }
+
+        function renderBranchFilter(data) {
+             console.log('Rendering Branch Filter...'); // Log rendering Branch Filter
+             // Pastikan elemen select ada
+             const select = document.getElementById('branchFilter');
+             if (!select) { console.error('Select element #branchFilter not found'); return; }
+
+            const unique = new Set();
+            data.forEach(d => {
+              const norm = (d.branch || '').trim();
+              if (norm) unique.add(norm);
+            });
+            const branches = [...unique].sort();
+
+            select.innerHTML =
+              `<option value="">All Branch</option>` +
+              branches.map(b => `<option value="${b}">${b}</option>`).join('');
+        }
+
+        function renderDashboard(data) {
+          console.log('Rendering Dashboard...', data.length, 'items received'); // Log rendering Dashboard
+          // Pastikan data valid sebelum rendering
+          if (!Array.isArray(data) || data.length === 0) {
+             console.warn('No data available for dashboard rendering');
+             // Opsional: Kosongkan chart dan tabel atau tampilkan pesan
+             if (window.pieHKChart) window.pieHKChart.destroy();
+             if (window.barTrendChart) window.barTrendChart.destroy();
+             if (window.progressSymptomChart) window.progressSymptomChart.destroy();
+             document.getElementById('tableSymptom').innerHTML = '';
+             document.getElementById('tableNop').innerHTML = '';
+             document.getElementById('tableHK').innerHTML = '';
+             document.getElementById('branchFilter').innerHTML = '<option value="">All Branch</option>';
+             return;
+          }
+
+          renderBranchFilter(allData); // Filter options based on all original data
+          renderPieHK(data);
+          renderBarTrend(data);
+          renderProgressSymptom(data);
+          renderTableSymptom(data);
+          renderTableNop(data);
+          renderTableHK(data);
+          renderTableAgingSymptom(data);
+        }
+ 
+        window.applyFilters = function() {
+          const branch = document.getElementById('branchFilter').value;
+          const startDateRaw = document.getElementById('startDate').value;
+          const endDateRaw = document.getElementById('endDate').value;
+          updateActiveFilters(branch, startDateRaw, endDateRaw);
+          const startDate = startDateRaw ? new Date(startDateRaw) : null;
+          const endDate = endDateRaw ? new Date(endDateRaw) : null;
+          const filtered = filterData(allData, branch, startDate, endDate);
+          renderDashboard(filtered);
+        }
+
+        function updateActiveFilters(branch, startDate, endDate) {
+          const container = document.getElementById('activeFilters');
+          container.innerHTML = '';
+
+          // Branch filter chip
+          if (branch) {
+            const chip = document.createElement('span');
+            chip.className = 'bg-blue-100 text-blue-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+            chip.innerHTML = `<i class="fa fa-code-branch"></i> ${branch} <button class="ml-1 text-blue-500 hover:text-red-500" onclick="removeFilter('branch')"><i class="fa fa-times"></i></button>`;
+            container.appendChild(chip);
+          }
+
+          // Start date chip
+          if (startDate) {
+            const chip = document.createElement('span');
+            chip.className = 'bg-green-100 text-green-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+            chip.innerHTML = `<i class="fa fa-calendar"></i> Dari: ${startDate} <button class="ml-1 text-green-500 hover:text-red-500" onclick="removeFilter('startDate')"><i class="fa fa-times"></i></button>`;
+            container.appendChild(chip);
+          }
+
+          // End date chip
+          if (endDate) {
+            const chip = document.createElement('span');
+            chip.className = 'bg-yellow-100 text-yellow-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+            chip.innerHTML = `<i class="fa fa-calendar"></i> Sampai: ${endDate} <button class="ml-1 text-yellow-500 hover:text-red-500" onclick="removeFilter('endDate')"><i class="fa fa-times"></i></button>`;
+            container.appendChild(chip);
+          }
+        }
+
+        function removeFilter(type) {
+          if (type === 'branch') document.getElementById('branchFilter').value = '';
+          if (type === 'startDate') document.getElementById('startDate').value = '';
+          if (type === 'endDate') document.getElementById('endDate').value = '';
+          applyFilters();
+        }
+
+        document.getElementById('resetFilters').onclick = function() {
+          document.getElementById('branchFilter').value = '';
+          document.getElementById('startDate').value = '';
+          document.getElementById('endDate').value = '';
+          applyFilters();
+        };
+
+        document.addEventListener('DOMContentLoaded', async function() {
+          console.log('DOM fully loaded and parsed. Fetching data...'); // Log DOM ready dan fetch mulai
+          try {
+            const response = await fetch('/api/realtime');
+            if (!response.ok) {
+              const errorText = await response.text();
+              console.error('Fetch response not OK:', response.status, errorText); // Log error response
+              throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
+            }
+            const data = await response.json();
+            const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
+            allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+            renderDashboard(allData); // Render dashboard dengan semua data awal
+          } catch (error) {
+            console.error('Error fetching data or rendering dashboard:', error);
+            // Tampilkan pesan error di halaman jika perlu, misal di #output (kalau dikembalikan lagi)
+          }
+        });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+        <script>
+        // Deteksi 404 di halaman utama
+        if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+          document.body.innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f7fafc;">
+              <div style="text-align:center;background:#fff;padding:40px 32px;border-radius:16px;box-shadow:0 2px 16px #0001;">
+                <img src="/images/icon/logo.png" alt="Fullfilment FBB" width="80" style="margin-bottom:1.5em;">
+                <h1 style="font-size:5rem;color:#e53e3e;margin-bottom:0.5em;">404</h1>
+                <h2 style="font-size:2rem;color:#2d3748;margin-bottom:1em;">Halaman Tidak Ditemukan</h2>
+                <p style="color:#4a5568;margin-bottom:2em;">Maaf, halaman yang Anda cari tidak tersedia.<br>Anda akan diarahkan ke halaman utama dalam 5 detik.</p>
+                <a href="/" style="display:inline-block;background:#3182ce;color:#fff;padding:0.75em 2em;border-radius:8px;text-decoration:none;font-weight:bold;">Kembali ke Beranda</a>
+              </div>
+            </div>
+          `;
+          setTimeout(() => { window.location.href = '/'; }, 5000);
+        }
+        </script>
+        <script>
+        async function fetchLastUpdated() {
+          try {
+            const response = await fetch('/api/realtime?last_updated=1');
+            if (response.ok) {
+              const data = await response.json();
+              if (data.last_updated) {
+                const date = new Date(data.last_updated);
+                document.getElementById('lastUpdated').innerHTML = formatLastUpdated(date);
+              } else {
+                document.getElementById('lastUpdated').textContent = '-';
+              }
+            }
+          } catch (e) {
+            document.getElementById('lastUpdated').textContent = '-';
+          }
+        }
+        function pad2(n) { return n.toString().padStart(2, '0'); }
+        function formatLastUpdated(date) {
+          const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+          const utc = date.getTime();
+          const wib = new Date(utc + 7 * 60 * 60 * 1000);
+          const wita = new Date(utc + 8 * 60 * 60 * 1000);
+          const wit = new Date(utc + 9 * 60 * 60 * 1000);
+          return `${hari[wib.getUTCDay()]} ${pad2(wib.getUTCDate())}/${pad2(wib.getUTCMonth()+1)}/${wib.getUTCFullYear()} ` +
+                 `<span style=\"background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wib.getUTCHours())}:${pad2(wib.getUTCMinutes())} WIB</span> / ` +
+                 `<span style=\"background:#2563eb;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wita.getUTCHours())}:${pad2(wita.getUTCMinutes())} WITA</span> / ` +
+                 `<span style=\"background:#1e293b;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wit.getUTCHours())}:${pad2(wit.getUTCMinutes())} WIT</span>`;
+        }
+        document.addEventListener('DOMContentLoaded', fetchLastUpdated);
+        </script>
+    </div>
+</body>
+</html> 
