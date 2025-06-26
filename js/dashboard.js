@@ -1,0 +1,473 @@
+// dashboard.js
+// Script utama untuk Dashboard Fullfilment FBB
+// Refactor besar: modularisasi, optimasi, dan keterbacaan
+
+// ===================== UTILITY =====================
+const formatAngka = num => num.toLocaleString('id-ID');
+const formatPersen = num => num.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pad2 = n => n.toString().padStart(2, '0');
+
+// ===================== FILTER & DATA =====================
+let allData = [];
+
+function filterData(data, branch, startDate, endDate) {
+  return data.filter(d => {
+    if (!d.provi_ts) return false;
+    if (branch && (d.branch || '').trim() !== branch.trim()) return false;
+    let proviDate;
+    if (typeof d.provi_ts === 'object' && d.provi_ts !== null && typeof d.provi_ts._seconds === 'number') {
+      proviDate = new Date(d.provi_ts._seconds * 1000);
+    } else if (typeof d.provi_ts === 'string') {
+      proviDate = new Date(d.provi_ts);
+    } else {
+      return false;
+    }
+    if (isNaN(proviDate.getTime())) return false;
+    if (startDate && proviDate < startDate) return false;
+    if (endDate && proviDate > endDate) return false;
+    return true;
+  });
+}
+
+// ===================== CHARTS =====================
+function renderPieHK(dataToRender) {
+  const ctx = document.getElementById('pieHK');
+  if (!ctx) return;
+  const total = dataToRender.length;
+  const filled = dataToRender.filter(d => d.status_hk && d.status_hk.trim() !== '').length;
+  const unfilled = total - filled;
+  if (window.pieHKChart) window.pieHKChart.destroy();
+  window.pieHKChart = new Chart(ctx.getContext('2d'), {
+    type: 'pie',
+    data: {
+      labels: ['Sudah HK', 'Belum HK'],
+      datasets: [{ data: [filled, unfilled], backgroundColor: ['#4ade80', '#f87171'] }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        datalabels: {
+          color: '#222', font: { weight: 'bold', size: 14 }, anchor: 'center', align: 'center',
+          formatter: (value, context) => value > 0 ? `${formatAngka(value)} (${formatPersen(total > 0 ? value / total * 100 : 0)}%)` : ''
+        },
+        legend: { display: true, position: 'top' },
+        title: { display: true, text: 'Fallout & HK' }
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+}
+
+function parseMonth(item) {
+  if (!item || !item.provi_ts) return null;
+  let date;
+  if (typeof item.provi_ts === 'object' && item.provi_ts !== null && typeof item.provi_ts._seconds === 'number') {
+    date = new Date(item.provi_ts._seconds * 1000);
+  } else if (typeof item.provi_ts === 'string' && item.provi_ts.trim() !== '') {
+    date = new Date(item.provi_ts);
+  } else {
+    return null;
+  }
+  if (isNaN(date.getTime())) return null;
+  return { month: date.getMonth() + 1, year: date.getFullYear() };
+}
+
+function renderBarTrend(dataToRender) {
+  const ctx = document.getElementById('barTrend');
+  if (!ctx) return;
+  const monthsLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const validItemsWithMonth = dataToRender.map(item => ({ item, parsed: parseMonth(item) })).filter(entry => entry.parsed !== null);
+  const falloutPerMonth = monthsLabels.map((_, i) => validItemsWithMonth.filter(entry => entry.parsed.month === i + 1 && entry.item.order_id && entry.item.order_id !== '').length);
+  const psPerMonth = monthsLabels.map((_, i) => validItemsWithMonth.filter(entry => entry.parsed.month === i + 1 && entry.item.order_id && entry.item.order_id !== '' && entry.item.status_ps === 'PS').length);
+  const percentPerMonth = falloutPerMonth.map((f, i) => f > 0 ? (psPerMonth[i] / f * 100).toFixed(2) : 0);
+  let datasets = [
+    { label: 'Fallout', data: falloutPerMonth, backgroundColor: 'rgba(96, 165, 250, 1)', yAxisID: 'y', barPercentage: 0.7, categoryPercentage: 0.8, order: 0 },
+    { label: 'PS', data: psPerMonth, backgroundColor: 'rgba(251, 191, 36, 1)', yAxisID: 'y', barPercentage: 0.7, categoryPercentage: 0.8, order: 1 },
+    { label: 'Fallout to PS (%)', data: percentPerMonth, type: 'line', borderColor: '#ef4444', backgroundColor: '#ef4444', fill: false, yAxisID: 'y1', tension: 0.3, order: 99, pointRadius: 4, borderWidth: 3 }
+  ];
+  const allValues = datasets.flatMap(dataset => dataset.data);
+  const maxBar = Math.max(...allValues.filter(v => typeof v === 'number' && !isNaN(v)), 0);
+  const maxPercent = Math.max(...datasets.filter(ds => ds.type === 'line').flatMap(ds => ds.data).map(x => Number(x) || 0), 100);
+  if(window.barTrendChart) window.barTrendChart.destroy();
+  window.barTrendChart = new Chart(ctx.getContext('2d'), {
+    type: 'bar',
+    data: { labels: monthsLabels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top' },
+        title: { display: true, text: 'Trend Fallout to PS' },
+        datalabels: {
+          display: () => true,
+          color: ctx => ctx.dataset.type === 'line' ? '#ef4444' : '#222',
+          font: ctx => ctx.dataset.type === 'line' ? { weight: 'bold', size: 13 } : { weight: 'bold', size: 12 },
+          anchor: () => 'end',
+          align: ctx => ctx.dataset.type === 'line' ? 'end' : 'start',
+          offset: ctx => ctx.dataset.type === 'line' ? -8 : 2,
+          formatter: (value, ctx) => ctx.dataset.type === 'line' ? (value > 0 ? Number(value).toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%' : '') : (value > 0 ? Number(value).toLocaleString('id-ID') : '')
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.dataset.label ? ctx.dataset.label + ': ' + ctx.formattedValue : ctx.formattedValue
+          }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, max: (maxBar > 0 ? maxBar * 1.2 : 10), title: { display: true, text: 'Jumlah' } },
+        y1: {
+          beginAtZero: true,
+          max: maxPercent,
+          position: 'right',
+          title: { display: true, text: 'Fallout to PS (%)' },
+          grid: { drawOnChartArea: false },
+          ticks: { callback: v => v + '%' }
+        }
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+}
+
+function renderProgressSymptom(dataToRender) {
+  const ctx = document.getElementById('progressSymptom');
+  if (!ctx) return;
+  const group = {};
+  dataToRender.forEach(d => {
+    let key = (d.symptom || 'Unknown').trim();
+    if (key === '') key = 'Unknown';
+    if (d.status_ps !== 'PS') group[key] = (group[key] || 0) + 1;
+  });
+  let arr = Object.entries(group).map(([label, value]) => ({ label, value, percent: 0 }));
+  const total = arr.reduce((sum, item) => sum + item.value, 0);
+  arr = arr.map(item => ({ ...item, percent: total > 0 ? (item.value / total * 100) : 0 }));
+  arr.sort((a, b) => b.value - a.value);
+  const displayLimit = 15;
+  const dataToDisplay = arr.slice(0, displayLimit);
+  const maxValue = Math.max(...dataToDisplay.map(x => x.value), 0) * 1.2;
+  if (window.progressSymptomChart) window.progressSymptomChart.destroy();
+  window.progressSymptomChart = new Chart(ctx.getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: dataToDisplay.map(x => x.label),
+      datasets: [{ label: 'Jumlah', data: dataToDisplay.map(x => x.value), backgroundColor: '#34d399', borderRadius: 4, barPercentage: 0.8, categoryPercentage: 0.8 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: 'Progress House Keeping (Symptom)' },
+        datalabels: {
+          anchor: 'end', align: 'end', color: '#222', font: { weight: 'bold', size: 12 }, clip: false,
+          formatter: (value, ctx) => {
+            const item = dataToDisplay[ctx.dataIndex];
+            return value > 0 ? `${value} (${item.percent.toFixed(1)}%)` : '';
+          }
+        }
+      },
+      layout: { padding: { right: 60 } },
+      scales: {
+        x: { beginAtZero: true, title: { display: true, text: 'Jumlah Fallout Belum PS' }, max: maxValue },
+        y: { title: { display: true, text: 'Symptom' } }
+      }
+    },
+    plugins: [ChartDataLabels]
+  });
+}
+
+// ===================== TABLES =====================
+function renderTableSymptom(data) {
+  const tbody = document.getElementById('tableSymptom');
+  if (!tbody) return;
+  const group = {};
+  data.forEach(d => {
+    let key = (d.symptom || 'Unknown').trim();
+    if (key === '') key = 'Unknown';
+    if (!group[key]) group[key] = { total: 0, ps: 0 };
+    group[key].total++;
+    if (d.status_ps === 'PS') group[key].ps++;
+  });
+  let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+  let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th><th>Acv</th></tr>`;
+  let grandTotal = 0, grandPs = 0;
+  sortedGroups.forEach(([symptom, val]) => {
+    const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+    html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
+    grandTotal += val.total;
+    grandPs += val.ps;
+  });
+  const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
+  tbody.innerHTML = html;
+}
+
+function renderTableNop(data) {
+  const tbody = document.getElementById('tableNop');
+  if (!tbody) return;
+  const group = {};
+  data.forEach(d => {
+    let key = (d.branch || 'Unknown').trim();
+    if (key === '') key = 'Unknown';
+    if (!group[key]) group[key] = { total: 0, ps: 0 };
+    group[key].total++;
+    if (d.status_ps === 'PS') group[key].ps++;
+  });
+  let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+  let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th><th>Acv</th></tr>`;
+  let grandTotal = 0, grandPs = 0;
+  sortedGroups.forEach(([branch, val]) => {
+    const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+    html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
+    grandTotal += val.total;
+    grandPs += val.ps;
+  });
+  const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
+  tbody.innerHTML = html;
+}
+
+function renderTableHK(data) {
+  const tbody = document.getElementById('tableHK');
+  if (!tbody) return;
+  const group = {};
+  data.forEach(d => {
+    let key = d.status_hk?.trim();
+    if (!key) return;
+    if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
+    group[key].total++;
+    if (d.status_ps === 'PS') group[key].ps++;
+    else if (d.status_ps === 'Cancel') group[key].cancel++;
+    else group[key].stay++;
+  });
+  let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+  let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
+  let grandTotal = 0, grandPs = 0, grandCancel = 0, grandStay = 0;
+  sortedGroups.forEach(([hk, val]) => {
+    html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
+    grandTotal += val.total;
+    grandPs += val.ps;
+    grandCancel += val.cancel;
+    grandStay += val.stay;
+  });
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandCancel}</th><th>${grandStay}</th></tr>`;
+  tbody.innerHTML = html;
+}
+
+function renderTableAgingSymptom(data) {
+  const filtered = data.filter(d => !['PS', 'Cancel'].includes(d.status_ps));
+  const agingCategories = ['1-3 hari', '4-7 hari', '8-14 hari', '14-30 hari', '> 30 Hari'];
+  function hitungAgingHari(provi_ts) {
+    if (!provi_ts) return null;
+    let [tgl, jam] = provi_ts.split(' ');
+    if (!tgl) return null;
+    let [m, d, y] = tgl.split('/');
+    if (!d || !m || !y) return null;
+    d = parseInt(d, 10);
+    m = parseInt(m, 10) - 1;
+    y = parseInt(y, 10);
+    let h = 0, min = 0;
+    if (jam) {
+      let [hh, mm] = jam.split(':');
+      h = parseInt(hh, 10) || 0;
+      min = parseInt(mm, 10) || 0;
+    }
+    let proviDate = new Date(y, m, d, h, min);
+    if (isNaN(proviDate.getTime())) return null;
+    let now = new Date();
+    let diffMs = now - proviDate;
+    let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    return diffHari;
+  }
+  function mapAging(hari) {
+    if (hari <= 3) return '1-3 hari';
+    else if (hari <= 7) return '4-7 hari';
+    else if (hari <= 14) return '8-14 hari';
+    else if (hari <= 30) return '14-30 hari';
+    else return '> 30 Hari';
+  }
+  const group = {};
+  filtered.forEach(d => {
+    let symptom = (d.symptom || 'Unknown').trim();
+    if (!symptom) symptom = 'Unknown';
+    let agingHari = hitungAgingHari(d.provi_ts);
+    let aging = mapAging(agingHari);
+    if (!group[symptom]) group[symptom] = { total: 0 };
+    if (!group[symptom][aging]) group[symptom][aging] = 0;
+    group[symptom][aging]++;
+    group[symptom].total++;
+  });
+  const customOrder = [
+    'Kendala Izin', 'Kendala Jalur/Rute Tarikan', 'Kendala NTE/Device', 'ODP BELUM GO LIVE',
+    'ODP Full', 'ODP Jauh', 'ODP tidak ditemukan', 'ODP Unspec'
+  ];
+  let sortedGroups = Object.entries(group).sort((a, b) => {
+    const idxA = customOrder.indexOf(a[0]);
+    const idxB = customOrder.indexOf(b[0]);
+    if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+    if (idxA !== -1) return -1;
+    if (idxB !== -1) return 1;
+    return a[0].localeCompare(b[0]);
+  });
+  let html = `<tr><th>Symptom</th>` + agingCategories.map(a => `<th>${a}</th>`).join('') + `<th>Grand Total</th></tr>`;
+  sortedGroups.forEach(([symptom, val]) => {
+    html += `<tr><td>${symptom}</td>`;
+    agingCategories.forEach(cat => { html += `<td>${val[cat] || 0}</td>`; });
+    html += `<td>${val.total}</td></tr>`;
+  });
+  let grand = { total: 0 };
+  agingCategories.forEach(cat => grand[cat] = 0);
+  sortedGroups.forEach(([, val]) => {
+    agingCategories.forEach(cat => grand[cat] += (val[cat] || 0));
+    grand.total += val.total;
+  });
+  html += `<tr><th>Grand Total</th>` + agingCategories.map(cat => `<th>${grand[cat]}</th>`).join('') + `<th>${grand.total}</th></tr>`;
+  const tbody = document.getElementById('tableAgingSymptom');
+  if (tbody) tbody.innerHTML = html;
+}
+
+// ===================== FILTER UI =====================
+function renderBranchFilter(data) {
+  const select = document.getElementById('branchFilter');
+  if (!select) return;
+  const unique = new Set();
+  data.forEach(d => { const norm = (d.branch || '').trim(); if (norm) unique.add(norm); });
+  const branches = [...unique].sort();
+  select.innerHTML = `<option value="">All Branch</option>` + branches.map(b => `<option value="${b}">${b}</option>`).join('');
+}
+
+function updateActiveFilters(branch, startDate, endDate) {
+  const container = document.getElementById('activeFilters');
+  container.innerHTML = '';
+  if (branch) {
+    const chip = document.createElement('span');
+    chip.className = 'bg-blue-100 text-blue-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+    chip.innerHTML = `<i class="fa fa-code-branch"></i> ${branch} <button class="ml-1 text-blue-500 hover:text-red-500" onclick="removeFilter('branch')"><i class="fa fa-times"></i></button>`;
+    container.appendChild(chip);
+  }
+  if (startDate) {
+    const chip = document.createElement('span');
+    chip.className = 'bg-green-100 text-green-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+    chip.innerHTML = `<i class="fa fa-calendar"></i> Dari: ${startDate} <button class="ml-1 text-green-500 hover:text-red-500" onclick="removeFilter('startDate')"><i class="fa fa-times"></i></button>`;
+    container.appendChild(chip);
+  }
+  if (endDate) {
+    const chip = document.createElement('span');
+    chip.className = 'bg-yellow-100 text-yellow-700 px-2 py-1 rounded flex items-center text-xs gap-1';
+    chip.innerHTML = `<i class="fa fa-calendar"></i> Sampai: ${endDate} <button class="ml-1 text-yellow-500 hover:text-red-500" onclick="removeFilter('endDate')"><i class="fa fa-times"></i></button>`;
+    container.appendChild(chip);
+  }
+}
+
+function removeFilter(type) {
+  if (type === 'branch') document.getElementById('branchFilter').value = '';
+  if (type === 'startDate') document.getElementById('startDate').value = '';
+  if (type === 'endDate') document.getElementById('endDate').value = '';
+  applyFilters();
+}
+
+// ===================== DASHBOARD RENDER =====================
+function renderDashboard(data) {
+  if (!Array.isArray(data) || data.length === 0) {
+    if (window.pieHKChart) window.pieHKChart.destroy();
+    if (window.barTrendChart) window.barTrendChart.destroy();
+    if (window.progressSymptomChart) window.progressSymptomChart.destroy();
+    document.getElementById('tableSymptom').innerHTML = '';
+    document.getElementById('tableNop').innerHTML = '';
+    document.getElementById('tableHK').innerHTML = '';
+    document.getElementById('branchFilter').innerHTML = '<option value="">All Branch</option>';
+    return;
+  }
+  renderBranchFilter(allData);
+  renderPieHK(data);
+  renderBarTrend(data);
+  renderProgressSymptom(data);
+  renderTableSymptom(data);
+  renderTableNop(data);
+  renderTableHK(data);
+  renderTableAgingSymptom(data);
+}
+
+// ===================== FILTER HANDLER =====================
+window.applyFilters = function() {
+  const branch = document.getElementById('branchFilter').value;
+  const startDateRaw = document.getElementById('startDate').value;
+  const endDateRaw = document.getElementById('endDate').value;
+  updateActiveFilters(branch, startDateRaw, endDateRaw);
+  const startDate = startDateRaw ? new Date(startDateRaw) : null;
+  const endDate = endDateRaw ? new Date(endDateRaw) : null;
+  const filtered = filterData(allData, branch, startDate, endDate);
+  renderDashboard(filtered);
+};
+
+document.getElementById('resetFilters').onclick = function() {
+  document.getElementById('branchFilter').value = '';
+  document.getElementById('startDate').value = '';
+  document.getElementById('endDate').value = '';
+  applyFilters();
+};
+
+// ===================== DATA FETCH =====================
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    const response = await fetch('/api/realtime');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
+    allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+    renderDashboard(allData);
+  } catch (error) {
+    // Error handling: bisa tampilkan pesan error di halaman jika perlu
+  }
+});
+
+// ===================== LAST UPDATED =====================
+async function fetchLastUpdated() {
+  try {
+    const response = await fetch('/api/realtime?last_updated=1');
+    if (response.ok) {
+      const data = await response.json();
+      if (data.last_updated) {
+        const date = new Date(data.last_updated);
+        document.getElementById('lastUpdated').innerHTML = formatLastUpdated(date);
+      } else {
+        document.getElementById('lastUpdated').textContent = '-';
+      }
+    }
+  } catch (e) {
+    document.getElementById('lastUpdated').textContent = '-';
+  }
+}
+function formatLastUpdated(date) {
+  const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const utc = date.getTime();
+  const wib = new Date(utc + 7 * 60 * 60 * 1000);
+  const wita = new Date(utc + 8 * 60 * 60 * 1000);
+  const wit = new Date(utc + 9 * 60 * 60 * 1000);
+  return `${hari[wib.getUTCDay()]} ${pad2(wib.getUTCDate())}/${pad2(wib.getUTCMonth()+1)}/${wib.getUTCFullYear()} ` +
+         `<span style=\"background:#3b82f6;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wib.getUTCHours())}:${pad2(wib.getUTCMinutes())} WIB</span> / ` +
+         `<span style=\"background:#2563eb;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wita.getUTCHours())}:${pad2(wita.getUTCMinutes())} WITA</span> / ` +
+         `<span style=\"background:#1e293b;color:#fff;padding:2px 8px;border-radius:4px;\">${pad2(wit.getUTCHours())}:${pad2(wit.getUTCMinutes())} WIT</span>`;
+}
+document.addEventListener('DOMContentLoaded', fetchLastUpdated);
+
+// ===================== MOBILE MENU =====================
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+  const closeMobileMenu = document.getElementById('closeMobileMenu');
+  function openMenu() {
+    mobileMenu.classList.remove('-translate-x-full');
+    mobileMenuOverlay.classList.remove('hidden');
+  }
+  function closeMenu() {
+    mobileMenu.classList.add('-translate-x-full');
+    mobileMenuOverlay.classList.add('hidden');
+  }
+  if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
+  if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeMenu);
+  if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
+}); 
