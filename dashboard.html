@@ -966,7 +966,7 @@
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
         <script>
         // Deteksi 404 di halaman utama
-        if (window.location.pathname !== '/' && window.location.pathname !== '/dashboard.html') {
+        if (window.location.pathname !== '/hk/:path*' && window.location.pathname !== '/dashboard') {
           document.body.innerHTML = `
             <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f7fafc;">
               <div style="text-align:center;background:#fff;padding:40px 32px;border-radius:16px;box-shadow:0 2px 16px #0001;">
