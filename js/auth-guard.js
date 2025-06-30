@@ -35,7 +35,8 @@
 
   // Helper: show user info and logout button in navbar
   function showUserInfo(firebaseUser, userData) {
-    // Find navbar area
+    // Cari sidebar logo
+    let sidebarLogo = document.querySelector('.menu-sidebar .logo');
     let nav = document.querySelector('.page-container .w-full.bg-white.shadow');
     if (!nav) nav = document.body;
     let userDiv = document.getElementById('userInfoBox');
@@ -46,9 +47,9 @@
     if (!userDiv) {
       userDiv = document.createElement('div');
       userDiv.id = 'userInfoBox';
-      userDiv.className = 'relative flex items-center ml-4';
+      userDiv.className = 'relative flex flex-col items-center mt-4 mb-4';
       userDiv.innerHTML = `
-        <button id="userMenuBtn" class="flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition">
+        <button id="userMenuBtn" class="flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition focus:outline-none">
           <img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full border-2 border-orange-400 shadow-sm">
           <div class="flex flex-col items-start max-w-[120px]">
             <span class="text-gray-800 font-semibold leading-tight truncate" title="${displayName}">${displayName}</span>
@@ -56,7 +57,7 @@
           </div>
           <i class="fa fa-chevron-down text-gray-500 ml-1"></i>
         </button>
-        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+        <div id="userDropdown" class="hidden absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
           <div class="px-4 py-3 border-b flex items-center gap-2">
             <img src="${avatarUrl}" alt="avatar" class="w-10 h-10 rounded-full border-2 border-orange-400">
             <div>
@@ -70,9 +71,15 @@
           </button>
         </div> 
       `;
-      // Place in navbar (right side)
-      nav.style.position = 'relative';
-      nav.appendChild(userDiv);
+      // Tempatkan di bawah logo sidebar jika ada, fallback ke nav jika tidak ada
+      if (sidebarLogo) {
+        let oldUserDiv = document.getElementById('userInfoBox');
+        if (oldUserDiv) oldUserDiv.remove();
+        sidebarLogo.insertAdjacentElement('afterend', userDiv);
+      } else {
+        nav.style.position = 'relative';
+        nav.appendChild(userDiv);
+      }
     } else {
       userDiv.querySelector('span').textContent = displayName;
       userDiv.querySelectorAll('span')[1].textContent = email;
