@@ -270,6 +270,7 @@ function renderTableWithPagination(filteredData = null) {
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id"></td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
         `;
         tbody.appendChild(row);
