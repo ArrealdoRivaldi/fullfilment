@@ -125,4 +125,31 @@
 
   // Expose for use in page scripts
   window.requireLogin = requireLogin;
+})();
+
+// Auto logout on idle
+(function setupAutoLogoutOnIdle() {
+  const IDLE_TIMEOUT_MINUTES = 15; // ganti sesuai kebutuhan
+  let idleTimer = null;
+
+  function resetIdleTimer() {
+    if (idleTimer) clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      // Logout otomatis
+      if (window._firebase && window._firebase.auth) {
+        window._firebase.auth.signOut().then(() => {
+          alert('Anda telah logout otomatis karena tidak ada aktivitas.');
+          window.location.href = '/index.html';
+        });
+      }
+    }, IDLE_TIMEOUT_MINUTES * 60 * 1000);
+  }
+
+  // Event yang dianggap aktivitas
+  ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'].forEach(evt => {
+    window.addEventListener(evt, resetIdleTimer, true);
+  });
+
+  // Mulai timer saat halaman dibuka
+  resetIdleTimer();
 })(); 
