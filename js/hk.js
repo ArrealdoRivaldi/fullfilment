@@ -479,7 +479,7 @@ async function openRemarkModal(docId) {
     // Fetch data dari Firestore (atau allData)
     const item = allData.find(d => d.id === docId);
     const user = firebase.auth().currentUser;
-    let remarks = item.remarks || [];
+    let remarks = item.remark || [];
     // Render riwayat remark
     historyDiv.innerHTML = remarks.map((r, idx) =>
         `<div class="mb-2 p-2 rounded ${user && user.email === r.email ? 'bg-blue-50' : 'bg-gray-100'}">
@@ -503,11 +503,11 @@ async function openRemarkModal(docId) {
             const response = await fetch('/api/realtime', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: docId, remarks, lastEdited: { email: user.email, time: newRemark.timestamp } })
+                body: JSON.stringify({ id: docId, remark: remarks, lastEdited: { email: user.email, time: newRemark.timestamp } })
             });
             const result = await response.json();
             if (result.success) {
-                item.remarks = remarks;
+                item.remark = remarks;
                 item.lastEdited = { email: user.email, time: newRemark.timestamp };
                 renderTableWithPagination();
                 openRemarkModal(docId); // refresh modal
@@ -533,11 +533,11 @@ async function openRemarkModal(docId) {
                     const response = await fetch('/api/realtime', {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ id: docId, remarks, lastEdited: { email: user.email, time: remarks[idx].timestamp } })
+                        body: JSON.stringify({ id: docId, remark: remarks, lastEdited: { email: user.email, time: remarks[idx].timestamp } })
                     });
                     const result = await response.json();
                     if (result.success) {
-                        item.remarks = remarks;
+                        item.remark = remarks;
                         item.lastEdited = { email: user.email, time: remarks[idx].timestamp };
                         renderTableWithPagination();
                         openRemarkModal(docId); // refresh modal
