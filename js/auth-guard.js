@@ -35,7 +35,6 @@
 
   // Helper: show user info and logout button in navbar
   function showUserInfo(firebaseUser, userData) {
-    // Cari sidebar logo
     let sidebarLogo = document.querySelector('.menu-sidebar .logo');
     let nav = document.querySelector('.page-container .w-full.bg-white.shadow');
     if (!nav) nav = document.body;
@@ -44,32 +43,52 @@
     const email = userData.email;
     const role = userData.role || '';
     const avatarUrl = firebaseUser.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=ff7849&color=fff&rounded=true&size=64`;
+    // Inject custom CSS for dropdown arrow and card shadow
+    if (!document.getElementById('userProfileCardStyle')) {
+      const style = document.createElement('style');
+      style.id = 'userProfileCardStyle';
+      style.innerHTML = `
+        #userProfileCard { box-shadow: 0 2px 12px #0001; }
+        #userDropdown::before {
+          content: '';
+          display: block;
+          position: absolute;
+          top: -10px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-left: 10px solid transparent;
+          border-right: 10px solid transparent;
+          border-bottom: 10px solid #fff;
+          z-index: 51;
+        }
+      `;
+      document.head.appendChild(style);
+    }
     if (!userDiv) {
       userDiv = document.createElement('div');
       userDiv.id = 'userInfoBox';
-      userDiv.className = 'relative flex flex-col items-center mt-4 mb-4';
+      userDiv.className = 'w-full flex flex-col items-center';
       userDiv.innerHTML = `
-        <button id="userMenuBtn" class="flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition focus:outline-none">
-          <img src="${avatarUrl}" alt="avatar" class="w-8 h-8 rounded-full border-2 border-orange-400 shadow-sm">
-          <div class="flex flex-col items-start max-w-[120px]">
-            <span class="text-gray-800 font-semibold leading-tight truncate" title="${displayName}">${displayName}</span>
-            <span class="text-xs text-gray-500 truncate" title="${email}">${email}</span>
-          </div>
-          <i class="fa fa-chevron-down text-gray-500 ml-1"></i>
-        </button>
-        <div id="userDropdown" class="hidden absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-          <div class="px-4 py-3 border-b flex items-center gap-2">
-            <img src="${avatarUrl}" alt="avatar" class="w-10 h-10 rounded-full border-2 border-orange-400">
-            <div>
-              <div class="font-bold text-gray-800 text-sm">${displayName}</div>
-              <div class="text-xs text-gray-500">${email}</div>
-              <div class="text-xs text-blue-500 font-semibold">${role}</div>
-            </div>
-          </div>
-          <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center gap-2">
-            <i class="fa fa-sign-out-alt"></i> Logout
+        <div id="userProfileCard" class="bg-white rounded-xl shadow-lg flex flex-col items-center py-4 px-3 mb-2 relative" style="min-width:180px;">
+          <img src="${avatarUrl}" alt="avatar" class="w-14 h-14 rounded-full border-2 border-orange-400 shadow mb-2">
+          <div class="font-bold text-gray-800 text-base text-center">${displayName}</div>
+          <div class="text-xs text-gray-500 text-center truncate w-full" title="${email}">${email}</div>
+          <div class="text-xs text-blue-500 font-semibold text-center">${role}</div>
+          <button id="userMenuBtn" class="mt-2 flex items-center justify-center gap-1 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition focus:outline-none text-sm">
+            <i class="fa fa-chevron-down text-gray-500"></i>
           </button>
-        </div> 
+          <div id="userDropdown" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+            <div class="px-4 py-3 border-b flex flex-col items-center">
+              <img src="${avatarUrl}" alt="avatar" class="w-12 h-12 rounded-full border-2 border-orange-400 mb-2">
+              <div class="font-bold text-gray-800 text-base text-center">${displayName}</div>
+              <div class="text-xs text-gray-500 text-center truncate w-full" title="${email}">${email}</div>
+              <div class="text-xs text-blue-500 font-semibold text-center">${role}</div>
+            </div>
+            <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center gap-2">
+              <i class="fa fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
       `;
       // Tempatkan di bawah logo sidebar jika ada, fallback ke nav jika tidak ada
       if (sidebarLogo) {
@@ -81,8 +100,12 @@
         nav.appendChild(userDiv);
       }
     } else {
-      userDiv.querySelector('span').textContent = displayName;
-      userDiv.querySelectorAll('span')[1].textContent = email;
+      // Update info jika sudah ada
+      const card = userDiv.querySelector('#userProfileCard');
+      card.querySelector('img').src = avatarUrl;
+      card.querySelector('.font-bold').textContent = displayName;
+      card.querySelectorAll('div.text-xs')[0].textContent = email;
+      card.querySelectorAll('div.text-xs')[1].textContent = role;
     }
     // Dropdown logic
     const btn = document.getElementById('userMenuBtn');
