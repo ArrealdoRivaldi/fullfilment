@@ -485,7 +485,7 @@ async function openRemarkModal(docId) {
         `<div class="mb-2 p-2 rounded ${user && user.email === r.email ? 'bg-blue-50' : 'bg-gray-100'}">
             <div class="text-xs text-gray-500">[${formatDateTime(r.timestamp)}] ${r.email}:</div>
             <div class="text-gray-800">${r.text}</div>
-            ${user && user.email === r.email ? `<button class="edit-remark-btn text-xs text-blue-600 mt-1" data-idx="${idx}">Edit</button>` : ''}
+            ${user && user.email === r.email ? `<button class="edit-remark-btn text-xs text-blue-600 mt-1" data-idx="${idx}">Edit</button> <button class="delete-remark-btn text-xs text-red-600 mt-1 ml-2" data-idx="${idx}">Delete</button>` : ''}
         </div>`
     ).join('') || '<div class="text-gray-400 italic">Belum ada remark.</div>';
     // Last edited info
@@ -548,6 +548,32 @@ async function openRemarkModal(docId) {
                     alert('Update remark gagal: ' + err.message);
                 }
             };
+        };
+    });
+    // Delete remark
+    historyDiv.querySelectorAll('.delete-remark-btn').forEach(btn => {
+        btn.onclick = async function() {
+            const idx = parseInt(btn.getAttribute('data-idx'));
+            if (!confirm('Hapus remark ini?')) return;
+            remarks.splice(idx, 1);
+            try {
+                const response = await fetch('/api/realtime', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: docId, remark: remarks, lastEdited: remarks.length > 0 ? { email: user.email, time: new Date().toISOString() } : null })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    item.remark = remarks;
+                    item.lastEdited = remarks.length > 0 ? { email: user.email, time: new Date().toISOString() } : null;
+                    renderTableWithPagination();
+                    openRemarkModal(docId); // refresh modal
+                } else {
+                    alert('Hapus remark gagal: ' + (result.error || 'Unknown error'));
+                }
+            } catch (err) {
+                alert('Hapus remark gagal: ' + err.message);
+            }
         };
     });
     // Close modal
