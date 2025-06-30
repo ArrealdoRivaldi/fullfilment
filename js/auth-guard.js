@@ -77,12 +77,9 @@
           <button id="userMenuBtn" class="mt-2 flex items-center justify-center gap-1 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition focus:outline-none text-sm">
             <i class="fa fa-chevron-down text-gray-500"></i>
           </button>
-          <div id="userDropdown" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
-            <div class="px-4 py-3 border-b flex flex-col items-center">
-              <img src="${avatarUrl}" alt="avatar" class="w-12 h-12 rounded-full border-2 border-orange-400 mb-2">
-              <div class="font-bold text-gray-800 text-base text-center">${displayName}</div>
-              <div class="text-xs text-gray-500 text-center truncate w-full" title="${email}">${email}</div>
-              <div class="text-xs text-blue-500 font-semibold text-center">${role}</div>
+          <div id="userDropdown" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-100 z-50">
+            <div class="relative">
+              <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #fff;"></div>
             </div>
             <button id="logoutBtn" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 flex items-center gap-2">
               <i class="fa fa-sign-out-alt"></i> Logout
