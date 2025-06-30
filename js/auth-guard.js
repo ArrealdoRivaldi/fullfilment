@@ -32,7 +32,7 @@
       }
     });
   }
-
+ 
   // Helper: show user info and logout button in navbar
   function showUserInfo(firebaseUser, userData) {
     let sidebarLogo = document.querySelector('.menu-sidebar .logo');
