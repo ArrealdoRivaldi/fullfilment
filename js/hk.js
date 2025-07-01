@@ -93,7 +93,9 @@ function hitungAgingHari(provi_ts) {
     }
     if (isNaN(proviDate.getTime())) return null;
     let now = new Date();
-    // Hitung aging dengan jam penuh, tanpa set jam ke 00:00:00
+    // Set jam ke 00:00:00 agar hanya beda tanggal
+    proviDate.setHours(0,0,0,0);
+    now.setHours(0,0,0,0);
     let diffMs = now - proviDate;
     let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     return diffHari;
