@@ -17,7 +17,7 @@ function filterData(data, branch, startDate, endDate) {
     let proviDate;
     if (typeof d.provi_ts === 'object' && d.provi_ts !== null && typeof d.provi_ts._seconds === 'number') {
       proviDate = new Date(d.provi_ts._seconds * 1000);
-    } else if (typeof d.provi_ts === 'string') {
+    } else if (typeof d.provi_ts === 'string' && d.provi_ts.trim() !== '') {
       proviDate = new Date(d.provi_ts);
     } else {
       return false;
@@ -288,25 +288,31 @@ function renderTableAgingSymptom(data) {
   const filtered = data.filter(d => !['PS', 'Cancel'].includes(d.status_ps));
   const agingCategories = ['1-3 hari', '4-7 hari', '8-14 hari', '14-30 hari', '> 30 Hari'];
   function hitungAgingHari(provi_ts) {
-    if (!provi_ts) return null;
-    let [tgl, jam] = provi_ts.split(' ');
-    if (!tgl) return null;
-    let [m, d, y] = tgl.split('/');
-    if (!d || !m || !y) return null;
-    d = parseInt(d, 10);
-    m = parseInt(m, 10) - 1;
-    y = parseInt(y, 10);
-    let h = 0, min = 0;
-    if (jam) {
-      let [hh, mm] = jam.split(':');
-      h = parseInt(hh, 10) || 0;
-      min = parseInt(mm, 10) || 0;
+    // Pastikan parsing konsisten dengan filter (MM/DD/YYYY)
+    let proviDate;
+    if (typeof provi_ts === 'object' && provi_ts !== null && typeof provi_ts._seconds === 'number') {
+      proviDate = new Date(provi_ts._seconds * 1000);
+    } else if (typeof provi_ts === 'string' && provi_ts.includes('/')) {
+      // Bisa MM/DD/YYYY atau DD/MM/YYYY, cek dan konversi jika perlu
+      const parts = provi_ts.split(' ')[0].split('/');
+      if (parts[0].length === 2 && parseInt(parts[0], 10) > 12) {
+        // DD/MM/YYYY, konversi ke MM/DD/YYYY
+        proviDate = parseMDYInput(convertDMYtoMDY(parts.join('/')));
+      } else {
+        proviDate = new Date(provi_ts);
+      }
+    } else if (typeof provi_ts === 'string') {
+      proviDate = new Date(provi_ts);
+    } else {
+      proviDate = new Date(provi_ts);
     }
-    let proviDate = new Date(y, m, d, h, min);
     if (isNaN(proviDate.getTime())) return null;
     let now = new Date();
     let diffMs = now - proviDate;
     let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (diffHari < 0) {
+      console.log('Aging < 0:', provi_ts, proviDate, now);
+    }
     return diffHari;
   }
   function mapAging(hari) {
