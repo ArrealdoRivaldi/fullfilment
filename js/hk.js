@@ -604,10 +604,9 @@ if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
     setTimeout(() => { window.location.href = '/hk/'; }, 5000);
 }
 
-// ===== EXPORT BUTTONS =====
+// ===== EXPORT BUTTONS & SEARCH =====
 function exportFilteredData(type) {
-    const filteredData = filterData();
-    // Kolom yang akan diexport (urutan sesuai tabel)
+    const filteredData = getFilteredAndSearchedData();
     const headers = [
         'No', 'Order ID', 'Provi ts', 'Branch', 'WOK', 'STO', 'Fallout Reason', 'Symptom', 'Status HK', 'Remark', 'Status PS', 'Aging Fallout', 'New Order id'
     ];
@@ -638,38 +637,84 @@ function exportFilteredData(type) {
             rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</table>';
         const blob = new Blob([xls], {type: 'application/vnd.ms-excel'});
         saveAs(blob, 'export-housekeeping.xls');
-    } else if (type === 'pdf') {
-        let html = '<table border="1" style="border-collapse:collapse;font-size:10px;"><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>' +
-            rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</table>';
-        const win = window.open('', '', 'width=900,height=700');
-        win.document.write('<html><head><title>Export PDF</title></head><body>' + html + '</body></html>');
-        win.document.close();
-        win.print();
-    } else if (type === 'print') {
-        let html = '<table border="1" style="border-collapse:collapse;font-size:10px;width:100%"><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>' +
-            rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</table>';
-        const win = window.open('', '', 'width=900,height=700');
-        win.document.write('<html><head><title>Print Data</title></head><body>' + html + '</body></html>');
-        win.document.close();
-        win.print();
     }
 }
-// Tambahkan tombol export setelah DOM ready
 function addExportButtons() {
     const btns = [
-        {id:'copy', label:'Copy'},
-        {id:'csv', label:'CSV'},
-        {id:'excel', label:'Excel'},
-        {id:'pdf', label:'PDF'},
-        {id:'print', label:'Print'}
+        {id:'copy', label:'Copy', icon:'<i class="fa fa-copy"></i>', color:'from-blue-400 to-blue-600'},
+        {id:'csv', label:'CSV', icon:'<i class="fa fa-file-csv"></i>', color:'from-green-400 to-green-600'},
+        {id:'excel', label:'Excel', icon:'<i class="fa fa-file-excel"></i>', color:'from-emerald-400 to-emerald-600'}
     ];
     const container = document.getElementById('exportButtons');
     if (!container) return;
-    container.innerHTML = btns.map(b => `<button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-xs font-semibold" id="export-${b.id}">${b.label}</button>`).join(' ');
+    container.innerHTML = btns.map(b => `<button class="export-btn flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${b.color} text-white rounded-lg shadow hover:scale-105 hover:shadow-lg transition-all duration-150 text-xs font-semibold" id="export-${b.id}">${b.icon} ${b.label}</button>`).join(' ');
     btns.forEach(b => {
         document.getElementById('export-' + b.id).onclick = () => exportFilteredData(b.id);
     });
 }
+// Search logic
+function getFilteredAndSearchedData() {
+    const filtered = filterData();
+    const q = (document.getElementById('tableSearch')?.value || '').toLowerCase();
+    if (!q) return filtered;
+    return filtered.filter(item => {
+        return [
+            item.order_id, item.provi_ts, item.branch, item.wok, item.sto_co, item.fallout_reason, item.symptom, item.status_hk, item.status_ps, item.new_order_id,
+            (item.remark && item.remark.length > 0 ? item.remark.map(r => r.text).join(' | ') : '')
+        ].some(val => (val ? val.toString().toLowerCase().includes(q) : false));
+    });
+}
+// Override renderTableWithPagination to use search
+function renderTableWithPagination(filteredData = null) {
+    const tbody = document.getElementById('dataTableBody');
+    tbody.innerHTML = '';
+    const data = filteredData || getFilteredAndSearchedData();
+    const startIdx = (currentPage - 1) * pageSize;
+    const endIdx = startIdx + pageSize;
+    const pageData = data.slice(startIdx, endIdx);
+    pageData.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.dataset.docId = item.id;
+        row.innerHTML = `
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <div class="flex items-center">
+                    <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                </div>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <select class="status-hk-select border rounded px-2 py-1">
+                    <option value="">Select Status</option>
+                    ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                </select>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id"></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+        `;
+        tbody.appendChild(row);
+    });
+    renderPagination(data.length, data);
+}
 document.addEventListener('DOMContentLoaded', function() {
     addExportButtons();
+    // Search event
+    const searchInput = document.getElementById('tableSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            currentPage = 1;
+            renderTableWithPagination();
+        });
+    }
 }); 
