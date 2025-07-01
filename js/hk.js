@@ -140,6 +140,9 @@ function filterData() {
         let start = parseMDYInput(startDate);
         let end = parseMDYInput(endDate);
         if (end) end.setHours(23,59,59,999);
+        if (start || end) {
+            console.log('provi_ts:', item.provi_ts, 'parsed:', itemDate, 'start:', start, 'end:', end);
+        }
         let statusHKMatch = true;
         if (statusHK === 'done') {
             statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
@@ -152,7 +155,7 @@ function filterData() {
             const agingCat = mapAging(hari);
             agingMatch = agingCat === agingFallout;
         }
-        return (!branch || item.branch === branch) &&
+        const lolos = (!branch || item.branch === branch) &&
             (!wok || item.wok === wok) &&
             (!sto || item.sto_co === sto) &&
             (!symptom || item.symptom === symptom) &&
@@ -161,6 +164,10 @@ function filterData() {
             (!start || itemDate >= start) &&
             (!end || itemDate <= end) &&
             agingMatch;
+        if ((start || end) && lolos) {
+            console.log('LOLOS FILTER:', item);
+        }
+        return lolos;
     });
 }
 function updateActiveFilters() {

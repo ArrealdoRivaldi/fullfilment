@@ -23,8 +23,14 @@ function filterData(data, branch, startDate, endDate) {
       return false;
     }
     if (isNaN(proviDate.getTime())) return false;
+    if (startDate || endDate) {
+      console.log('provi_ts:', d.provi_ts, 'parsed:', proviDate, 'startDate:', startDate, 'endDate:', endDate);
+    }
     if (startDate && proviDate < startDate) return false;
     if (endDate && proviDate > endDate) return false;
+    if (startDate || endDate) {
+      console.log('LOLOS FILTER:', d);
+    }
     return true;
   });
 }
