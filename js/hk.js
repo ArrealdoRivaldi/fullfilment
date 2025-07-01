@@ -83,23 +83,19 @@ function initializeFilters(data) {
     statusHKSelect.appendChild(optNotYet);
 }
 function hitungAgingHari(provi_ts) {
-    if (!provi_ts) return null;
-    let [tgl, jam] = (typeof provi_ts === 'string' ? provi_ts : '').split(' ');
-    if (!tgl) return null;
-    let [m, d, y] = tgl.split('/');
-    if (!d || !m || !y) return null;
-    d = parseInt(d, 10);
-    m = parseInt(m, 10) - 1;
-    y = parseInt(y, 10);
-    let h = 0, min = 0;
-    if (jam) {
-        let [hh, mm] = jam.split(':');
-        h = parseInt(hh, 10) || 0;
-        min = parseInt(mm, 10) || 0;
+    let proviDate;
+    if (typeof provi_ts === 'object' && provi_ts !== null && typeof provi_ts.seconds === 'number') {
+        proviDate = new Date(provi_ts.seconds * 1000);
+    } else if (typeof provi_ts === 'string' && provi_ts.trim() !== '') {
+        proviDate = new Date(provi_ts);
+    } else {
+        proviDate = new Date(provi_ts);
     }
-    let proviDate = new Date(y, m, d, h, min);
     if (isNaN(proviDate.getTime())) return null;
     let now = new Date();
+    // Set jam ke 00:00:00 agar hanya beda tanggal
+    proviDate.setHours(0,0,0,0);
+    now.setHours(0,0,0,0);
     let diffMs = now - proviDate;
     let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     return diffHari;
