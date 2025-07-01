@@ -248,7 +248,7 @@ function renderTableWithPagination(filteredData = null) {
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
@@ -678,7 +678,7 @@ function renderTableWithPagination(filteredData = null) {
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDate(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
@@ -717,4 +717,22 @@ document.addEventListener('DOMContentLoaded', function() {
             renderTableWithPagination();
         });
     }
-}); 
+});
+
+function formatDateTimeMDY(dateInput) {
+    let date;
+    if (typeof dateInput === 'object' && dateInput !== null && typeof dateInput.seconds === 'number') {
+        date = new Date(dateInput.seconds * 1000);
+    } else if (typeof dateInput === 'string' && dateInput.trim() !== '') {
+        date = new Date(dateInput);
+    } else {
+        date = new Date(dateInput);
+    }
+    if (isNaN(date.getTime())) return '';
+    const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dd = date.getDate().toString().padStart(2, '0');
+    const yyyy = date.getFullYear();
+    const hh = date.getHours().toString().padStart(2, '0');
+    const min = date.getMinutes().toString().padStart(2, '0');
+    return `${mm}/${dd}/${yyyy} ${hh}:${min}`;
+} 

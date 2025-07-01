@@ -179,6 +179,24 @@ function renderProgressSymptom(dataToRender) {
 }
 
 // ===================== TABLES =====================
+function formatDateTimeMDY(dateInput) {
+    let date;
+    if (typeof dateInput === 'object' && dateInput !== null && typeof dateInput._seconds === 'number') {
+        date = new Date(dateInput._seconds * 1000);
+    } else if (typeof dateInput === 'string' && dateInput.trim() !== '') {
+        date = new Date(dateInput);
+    } else {
+        date = new Date(dateInput);
+    }
+    if (isNaN(date.getTime())) return '';
+    const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dd = date.getDate().toString().padStart(2, '0');
+    const yyyy = date.getFullYear();
+    const hh = date.getHours().toString().padStart(2, '0');
+    const min = date.getMinutes().toString().padStart(2, '0');
+    return `${mm}/${dd}/${yyyy} ${hh}:${min}`;
+}
+
 function renderTableSymptom(data) {
   const tbody = document.getElementById('tableSymptom');
   if (!tbody) return;
@@ -186,21 +204,25 @@ function renderTableSymptom(data) {
   data.forEach(d => {
     let key = (d.symptom || 'Unknown').trim();
     if (key === '') key = 'Unknown';
-    if (!group[key]) group[key] = { total: 0, ps: 0 };
+    if (!group[key]) group[key] = { total: 0, ps: 0, lastProvi: null };
     group[key].total++;
     if (d.status_ps === 'PS') group[key].ps++;
+    // Simpan tanggal terakhir untuk contoh
+    if (!group[key].lastProvi || new Date(d.provi_ts) > new Date(group[key].lastProvi)) {
+      group[key].lastProvi = d.provi_ts;
+    }
   });
   let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-  let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th><th>Acv</th></tr>`;
+  let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th><th>Acv</th><th>Last Provi Date</th></tr>`;
   let grandTotal = 0, grandPs = 0;
   sortedGroups.forEach(([symptom, val]) => {
     const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
-    html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
+    html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td><td>${formatDateTimeMDY(val.lastProvi)}</td></tr>`;
     grandTotal += val.total;
     grandPs += val.ps;
   });
   const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
-  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th><th>-</th></tr>`;
   tbody.innerHTML = html;
 }
 
