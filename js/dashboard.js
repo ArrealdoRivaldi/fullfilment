@@ -336,11 +336,11 @@ function renderTableAgingSymptom(data) {
       proviDate = new Date(d.provi_ts);
     }
     let agingHari = hitungAgingHari(d.provi_ts);
-    // Ambil startDate dan endDate dari filter terakhir (window.lastAgingStartDate, window.lastAgingEndDate)
-    if (window.lastAgingStartDate && window.lastAgingEndDate && proviDate >= window.lastAgingStartDate && proviDate <= window.lastAgingEndDate) {
-      console.log('AGING IN FILTER RANGE:', {provi_ts: d.provi_ts, proviDate, agingHari, status_ps: d.status_ps, symptom});
-    }
     let aging = mapAging(agingHari);
+    // Log hanya anomali: data aging 14-30 hari di filter range
+    if (aging === '14-30 hari' && window.lastAgingStartDate && window.lastAgingEndDate && proviDate >= window.lastAgingStartDate && proviDate <= window.lastAgingEndDate) {
+      console.warn('ANOMALI 14-30 HARI:', {provi_ts: d.provi_ts, proviDate, agingHari, status_ps: d.status_ps, symptom});
+    }
     if (!group[symptom]) group[symptom] = { total: 0 };
     if (!group[symptom][aging]) group[symptom][aging] = 0;
     group[symptom][aging]++;
