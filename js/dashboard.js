@@ -431,8 +431,9 @@ window.applyFilters = function() {
   const startDateRaw = document.getElementById('startDate').value;
   const endDateRaw = document.getElementById('endDate').value;
   updateActiveFilters(branch, startDateRaw, endDateRaw);
-  const startDate = parseMDYInput(startDateRaw);
-  const endDate = parseMDYInput(endDateRaw);
+  const startDate = parseMDYInput(convertDMYtoMDY(startDateRaw));
+  let endDate = parseMDYInput(convertDMYtoMDY(endDateRaw));
+  if (endDate) endDate.setHours(23,59,59,999);
   const filtered = filterData(allData, branch, startDate, endDate);
   renderDashboard(filtered);
 };
@@ -505,4 +506,15 @@ document.addEventListener('DOMContentLoaded', function() {
   if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMenu);
   if(closeMobileMenu) closeMobileMenu.addEventListener('click', closeMenu);
   if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMenu);
-}); 
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.flatpickr) {
+    flatpickr('.date-mdy', { dateFormat: 'd/m/Y', allowInput: true });
+  }
+});
+function convertDMYtoMDY(dmy) {
+  if (!dmy) return '';
+  const [dd, mm, yyyy] = dmy.split('/');
+  return `${mm}/${dd}/${yyyy}`;
+} 

@@ -137,8 +137,8 @@ function filterData() {
         } else {
             itemDate = new Date(item.provi_ts);
         }
-        let start = parseMDYInput(startDate);
-        let end = parseMDYInput(endDate);
+        let start = parseMDYInput(convertDMYtoMDY(startDate));
+        let end = parseMDYInput(convertDMYtoMDY(endDate));
         if (end) end.setHours(23,59,59,999);
         if (start || end) {
             console.log('provi_ts:', item.provi_ts, 'parsed:', itemDate, 'start:', start, 'end:', end);
@@ -748,4 +748,16 @@ function formatDateTimeMDY(dateInput) {
     const hh = date.getHours().toString().padStart(2, '0');
     const min = date.getMinutes().toString().padStart(2, '0');
     return `${mm}/${dd}/${yyyy} ${hh}:${min}`;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.flatpickr) {
+        flatpickr('.date-mdy', { dateFormat: 'd/m/Y', allowInput: true });
+    }
+});
+
+function convertDMYtoMDY(dmy) {
+    if (!dmy) return '';
+    const [dd, mm, yyyy] = dmy.split('/');
+    return `${mm}/${dd}/${yyyy}`;
 } 
