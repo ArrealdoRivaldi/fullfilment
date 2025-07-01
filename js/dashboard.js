@@ -326,8 +326,20 @@ function renderTableAgingSymptom(data) {
   filtered.forEach(d => {
     let symptom = (d.symptom || 'Unknown').trim();
     if (!symptom) symptom = 'Unknown';
+    // Parsing proviDate konsisten dengan filterData
+    let proviDate;
+    if (typeof d.provi_ts === 'object' && d.provi_ts !== null && typeof d.provi_ts._seconds === 'number') {
+      proviDate = new Date(d.provi_ts._seconds * 1000);
+    } else if (typeof d.provi_ts === 'string' && d.provi_ts.trim() !== '') {
+      proviDate = new Date(d.provi_ts);
+    } else {
+      proviDate = new Date(d.provi_ts);
+    }
     let agingHari = hitungAgingHari(d.provi_ts);
-    console.log('AGING DEBUG:', {provi_ts: d.provi_ts, parsed: agingHari !== null ? new Date(new Date() - agingHari * 24 * 60 * 60 * 1000) : null, agingHari, status_ps: d.status_ps, symptom});
+    // Ambil startDate dan endDate dari filter terakhir (window.lastAgingStartDate, window.lastAgingEndDate)
+    if (window.lastAgingStartDate && window.lastAgingEndDate && proviDate >= window.lastAgingStartDate && proviDate <= window.lastAgingEndDate) {
+      console.log('AGING IN FILTER RANGE:', {provi_ts: d.provi_ts, proviDate, agingHari, status_ps: d.status_ps, symptom});
+    }
     let aging = mapAging(agingHari);
     if (!group[symptom]) group[symptom] = { total: 0 };
     if (!group[symptom][aging]) group[symptom][aging] = 0;
@@ -441,6 +453,8 @@ window.applyFilters = function() {
   const startDate = parseMDYInput(convertDMYtoMDY(startDateRaw));
   let endDate = parseMDYInput(convertDMYtoMDY(endDateRaw));
   if (endDate) endDate.setHours(23,59,59,999);
+  window.lastAgingStartDate = startDate;
+  window.lastAgingEndDate = endDate;
   const filtered = filterData(allData, branch, startDate, endDate);
   renderDashboard(filtered);
 };
