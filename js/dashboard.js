@@ -360,6 +360,13 @@ function renderBranchFilter(data) {
   select.innerHTML = `<option value="">All Branch</option>` + branches.map(b => `<option value="${b}">${b}</option>`).join('');
 }
 
+function parseMDYInput(str) {
+  if (!str) return null;
+  const [mm, dd, yyyy] = str.split('/');
+  if (!mm || !dd || !yyyy) return null;
+  return new Date(`${mm}/${dd}/${yyyy}`);
+}
+
 function updateActiveFilters(branch, startDate, endDate) {
   const container = document.getElementById('activeFilters');
   container.innerHTML = '';
@@ -418,8 +425,8 @@ window.applyFilters = function() {
   const startDateRaw = document.getElementById('startDate').value;
   const endDateRaw = document.getElementById('endDate').value;
   updateActiveFilters(branch, startDateRaw, endDateRaw);
-  const startDate = startDateRaw ? new Date(startDateRaw) : null;
-  const endDate = endDateRaw ? new Date(endDateRaw) : null;
+  const startDate = parseMDYInput(startDateRaw);
+  const endDate = parseMDYInput(endDateRaw);
   const filtered = filterData(allData, branch, startDate, endDate);
   renderDashboard(filtered);
 };

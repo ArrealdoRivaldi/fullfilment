@@ -202,8 +202,8 @@
                 <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6 items-end">
                     <div id="activeFilters" class="flex flex-wrap gap-2 mb-2"></div>
                     <select id="branchFilter" class="border rounded px-2 py-1 text-xs sm:text-sm"></select>
-                    <input type="date" id="startDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
-                    <input type="date" id="endDate" class="border rounded px-2 py-1 text-xs sm:text-sm">
+                    <input type="text" id="startDate" class="border rounded px-2 py-1 text-xs sm:text-sm date-mdy" placeholder="MM/DD/YYYY">
+                    <input type="text" id="endDate" class="border rounded px-2 py-1 text-xs sm:text-sm date-mdy" placeholder="MM/DD/YYYY">
                     <button onclick="applyFilters()" class="bg-blue-500 text-white px-4 py-1 rounded text-xs sm:text-sm">Filter</button>
                     <button id="resetFilters" class="bg-gray-300 text-gray-700 px-4 py-1 rounded text-xs sm:text-sm ml-2">Reset</button>
                 </div>

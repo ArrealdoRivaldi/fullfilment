@@ -111,6 +111,12 @@ function mapAging(hari) {
     else if (hari <= 30) return '14-30 hari';
     else return '> 30 Hari';
 }
+function parseMDYInput(str) {
+    if (!str) return null;
+    const [mm, dd, yyyy] = str.split('/');
+    if (!mm || !dd || !yyyy) return null;
+    return new Date(`${mm}/${dd}/${yyyy}`);
+}
 function filterData() {
     // Always filter from allData
     const branch = document.getElementById('branchFilter').value;
@@ -131,8 +137,8 @@ function filterData() {
         } else {
             itemDate = new Date(item.provi_ts);
         }
-        let start = startDate ? new Date(startDate) : null;
-        let end = endDate ? new Date(endDate) : null;
+        let start = parseMDYInput(startDate);
+        let end = parseMDYInput(endDate);
         if (end) end.setHours(23,59,59,999);
         let statusHKMatch = true;
         if (statusHK === 'done') {
