@@ -327,6 +327,7 @@ function renderTableAgingSymptom(data) {
     let symptom = (d.symptom || 'Unknown').trim();
     if (!symptom) symptom = 'Unknown';
     let agingHari = hitungAgingHari(d.provi_ts);
+    console.log('AGING DEBUG:', {provi_ts: d.provi_ts, parsed: agingHari !== null ? new Date(new Date() - agingHari * 24 * 60 * 60 * 1000) : null, agingHari, status_ps: d.status_ps, symptom});
     let aging = mapAging(agingHari);
     if (!group[symptom]) group[symptom] = { total: 0 };
     if (!group[symptom][aging]) group[symptom][aging] = 0;
