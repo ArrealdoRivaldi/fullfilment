@@ -602,4 +602,74 @@ if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
         </div>
     `;
     setTimeout(() => { window.location.href = '/hk/'; }, 5000);
-} 
+}
+
+// ===== EXPORT BUTTONS =====
+function exportFilteredData(type) {
+    const filteredData = filterData();
+    // Kolom yang akan diexport (urutan sesuai tabel)
+    const headers = [
+        'No', 'Order ID', 'Provi ts', 'Branch', 'WOK', 'STO', 'Fallout Reason', 'Symptom', 'Status HK', 'Remark', 'Status PS', 'Aging Fallout', 'New Order id'
+    ];
+    const rows = filteredData.map((item, idx) => [
+        idx + 1,
+        item.order_id || '',
+        formatDate(item.provi_ts),
+        item.branch || '',
+        item.wok || '',
+        item.sto_co || '',
+        item.fallout_reason || '',
+        item.symptom || '',
+        item.status_hk || '',
+        (item.remark && item.remark.length > 0) ? item.remark.map(r => r.text).join(' | ') : '',
+        item.status_ps || '',
+        (() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })(),
+        item.new_order_id || ''
+    ]);
+    if (type === 'copy') {
+        const text = [headers, ...rows].map(r => r.join('\t')).join('\n');
+        navigator.clipboard.writeText(text).then(() => alert('Data copied!'));
+    } else if (type === 'csv') {
+        const csv = [headers, ...rows].map(r => r.map(v => '"' + (v||'').toString().replace(/"/g,'""') + '"').join(',')).join('\n');
+        const blob = new Blob([csv], {type: 'text/csv'});
+        saveAs(blob, 'export-housekeeping.csv');
+    } else if (type === 'excel') {
+        let xls = '<table><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>' +
+            rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</table>';
+        const blob = new Blob([xls], {type: 'application/vnd.ms-excel'});
+        saveAs(blob, 'export-housekeeping.xls');
+    } else if (type === 'pdf') {
+        let html = '<table border="1" style="border-collapse:collapse;font-size:10px;"><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>' +
+            rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</table>';
+        const win = window.open('', '', 'width=900,height=700');
+        win.document.write('<html><head><title>Export PDF</title></head><body>' + html + '</body></html>');
+        win.document.close();
+        win.print();
+    } else if (type === 'print') {
+        let html = '<table border="1" style="border-collapse:collapse;font-size:10px;width:100%"><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>' +
+            rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</table>';
+        const win = window.open('', '', 'width=900,height=700');
+        win.document.write('<html><head><title>Print Data</title></head><body>' + html + '</body></html>');
+        win.document.close();
+        win.print();
+    }
+}
+// Tambahkan tombol export setelah DOM ready
+function addExportButtons() {
+    const btns = [
+        {id:'copy', label:'Copy'},
+        {id:'csv', label:'CSV'},
+        {id:'excel', label:'Excel'},
+        {id:'pdf', label:'PDF'},
+        {id:'print', label:'Print'}
+    ];
+    const container = document.getElementById('exportButtons');
+    if (!container) return;
+    container.innerHTML = btns.map(b => `<button class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-xs font-semibold" id="export-${b.id}">${b.label}</button>`).join(' ');
+    btns.forEach(b => {
+        document.getElementById('export-' + b.id).onclick = () => exportFilteredData(b.id);
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    addExportButtons();
+}); 
