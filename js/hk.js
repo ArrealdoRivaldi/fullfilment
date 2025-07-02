@@ -12,6 +12,10 @@ const statusHKOptions = [
     { value: "Offering Orbit", label: "Offering Orbit" }
 ];
 
+function pad2(n) {
+    return n < 10 ? '0' + n : n;
+}
+
 function formatDate(dateStr) {
     if (!dateStr) return '';
     try {
