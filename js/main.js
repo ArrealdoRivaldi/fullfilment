@@ -1276,7 +1276,6 @@
 
   // Map
   try {
-
     var vmap = $('#vmap');
     if(vmap[0]) {
       vmap.vectorMap( {
@@ -1292,12 +1291,10 @@
         normalizeFunction: 'polynomial'
       });
     }
-
-  }
+  } catch (e) {}
 
   // Europe Map
   try {
-    
     var vmap1 = $('#vmap1');
     if(vmap1[0]) {
       vmap1.vectorMap( {
@@ -1309,14 +1306,11 @@
         showTooltip: true
       });
     }
-
-  }
+  } catch (e) {}
 
   // USA Map
   try {
-    
     var vmap2 = $('#vmap2');
-
     if(vmap2[0]) {
       vmap2.vectorMap( {
         map: 'usa_en',
@@ -1337,12 +1331,10 @@
         }
       });
     }
-
-  }
+  } catch (e) {}
 
   // Germany Map
   try {
-    
     var vmap3 = $('#vmap3');
     if(vmap3[0]) {
       vmap3.vectorMap( {
@@ -1352,17 +1344,14 @@
         backgroundColor: '#fff',
         onRegionClick: function ( element, code, region ) {
             var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
-
             alert( message );
         }
       });
     }
-    
-  }
+  } catch (e) {}
   
   // France Map
   try {
-    
     var vmap4 = $('#vmap4');
     if(vmap4[0]) {
       vmap4.vectorMap( {
@@ -1374,8 +1363,7 @@
         showTooltip: true
       });
     }
-
-  }
+  } catch (e) {}
 
   // Russia Map
   try {
@@ -1394,13 +1382,10 @@
         normalizeFunction: 'polynomial'
       });
     }
-
-
-  }
+  } catch (e) {}
   
   // Brazil Map
   try {
-    
     var vmap6 = $('#vmap6');
     if(vmap6[0]) {
       vmap6.vectorMap( {
@@ -1414,8 +1399,7 @@
         }
       });
     }
-
-  }
+  } catch (e) {}
 
 })(jQuery);
 (function ($) {
@@ -1427,7 +1411,6 @@
       var that = $(this);
       var executed = false;
       $(window).on('load', function () {
-
         that.waypoint(function () {
           if (!executed) {
             executed = true;
@@ -1441,10 +1424,9 @@
         }, {
             offset: 'bottom-in-view'
           });
-
       });
     });
-  }
+  } catch (e) {}
 
 })(jQuery);
 (function ($) {
@@ -1464,7 +1446,7 @@
 
     }
 
-  }
+  } catch (e) {}
 
 })(jQuery);
 (function ($) {
@@ -1473,15 +1455,13 @@
 
   // Select 2
   try {
-
     $(".js-select2").each(function () {
       $(this).select2({
         minimumResultsForSearch: 20,
         dropdownParent: $(this).next('.dropDownSelect2')
       });
     });
-
-  }
+  } catch (e) {}
 
 })(jQuery);
 (function ($) {
@@ -1521,7 +1501,7 @@
       sub_menu_is_showed = -1;
     });
 
-  }
+  } catch (e) {}
 
   var wW = $(window).width();
     // Right Sidebar
@@ -1560,7 +1540,7 @@
       });
     });
 
-  }
+  } catch (e) {}
 
 
   try {
@@ -1575,7 +1555,7 @@
       $(dropdown).slideToggle('500');
       return false;
     });
-  }
+  } catch (e) {}
 
 })(jQuery);
 (function ($) {
@@ -1600,7 +1580,7 @@
       })
 
     }
-  }
+  } catch (e) {}
 
 })(jQuery);
 (function ($) {
@@ -1611,7 +1591,7 @@
     
     $('[data-toggle="tooltip"]').tooltip();
 
-  }
+  } catch (e) {}
 
   // Chatbox
   try {
@@ -1626,6 +1606,6 @@
     });
     
 
-  }
+  } catch (e) {}
 
 })(jQuery);
