@@ -304,7 +304,6 @@ async function fetchLastUpdated() {
         document.getElementById('lastUpdated').textContent = '-';
     }
 }
-function pad2(n) { return n.toString().padStart(2, '0'); }
 function formatLastUpdated(date) {
     const hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
     const utc = date.getTime();
