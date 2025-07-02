@@ -483,6 +483,7 @@
     }
 
   }
+  catch (error) {}
 
 
   try {
@@ -572,6 +573,7 @@
     }
 
   }
+  catch (error) {}
 
   try {
     //WidgetChart 5
@@ -612,6 +614,7 @@
     }
 
   }
+  catch (error) {}
 
   try {
 
@@ -677,6 +680,7 @@
     }
 
   }
+  catch (error) {}
 
   try {
     //Sales chart
@@ -773,6 +777,7 @@
 
 
   }
+  catch (error) {}
 
   try {
 
@@ -861,6 +866,7 @@
 
 
   }
+  catch (error) {}
 
   try {
     //bar chart
@@ -919,6 +925,7 @@
 
 
   }
+  catch (error) {}
 
   try {
 
@@ -967,6 +974,7 @@
     }
 
   }
+  catch (error) {}
 
   try {
 
@@ -1035,6 +1043,7 @@
 
 
   }
+  catch (error) {}
 
 
   try {
@@ -1084,6 +1093,7 @@
 
 
   }
+  catch (error) {}
 
 
   try {
@@ -1132,6 +1142,7 @@
 
 
   }
+  catch (error) {}
 
   try {
 
@@ -1174,6 +1185,7 @@
     }
 
   }
+  catch (error) {}
 
   try {
 
@@ -1222,6 +1234,7 @@
     }
 
   }
+  catch (error) {}
 
 })(jQuery);
 
