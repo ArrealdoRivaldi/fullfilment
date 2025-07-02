@@ -97,6 +97,77 @@
     <div class="status" id="loginStatus" aria-live="polite"></div>
   </div>
 
-  <script src="/js/login.js"></script>
+  <script>
+    // Use global firebase config
+    // (No let/const for auth/firestore)
+
+    // Helper untuk set status
+    function setStatus(message, color = '#e53e3e', icon = null) {
+      const statusEl = document.getElementById('loginStatus');
+      statusEl.innerHTML = '';
+      if (icon) {
+        const iconEl = document.createElement('span');
+        iconEl.className = 'status-icon';
+        iconEl.innerHTML = icon;
+        statusEl.appendChild(iconEl);
+      }
+      const text = document.createElement('span');
+      text.textContent = message;
+      statusEl.appendChild(text);
+      statusEl.style.color = color;
+    }
+
+    // Fokus otomatis ke tombol login
+    window.onload = function() {
+      document.getElementById('loginGoogle').focus();
+    };
+
+    // Cek status login
+    window._firebase.auth.onAuthStateChanged(async (user) => {
+      if (!user) return;
+      setStatus('Memeriksa akses...', '#333', '<svg class="spinner" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle></svg>');
+      try {
+        const querySnapshot = await window._firebase.firestore.collection('login').where('email', '==', user.email).get();
+        if (!querySnapshot.empty) {
+          const data = querySnapshot.docs[0].data();
+          sessionStorage.setItem('user', JSON.stringify({
+            email: data.email,
+            role: data.role
+          }));
+          setStatus('Login sukses! Mengarahkan...', 'green', '<svg class="status-icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#38a169"/><path d="M6 10l2.5 2.5L14 7" stroke="#fff" stroke-width="2" fill="none"/></svg>');
+          setTimeout(() => {
+            window.location.href = '/dashboard.html';
+          }, 1000);
+        } else {
+          await window._firebase.auth.signOut();
+          setStatus('Akses ditolak: Email tidak terdaftar.', '#e53e3e', '<svg class="status-icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#e53e3e"/><path d="M7 7l6 6M13 7l-6 6" stroke="#fff" stroke-width="2"/></svg>');
+        }
+      } catch (err) {
+        setStatus('Terjadi error: ' + err.message, '#e53e3e', '<svg class="status-icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#e53e3e"/><path d="M10 6v4m0 4h.01" stroke="#fff" stroke-width="2"/></svg>');
+      }
+    });
+
+    // Tombol login Google
+    const loginBtn = document.getElementById('loginGoogle');
+    let loginInProgress = false;
+    loginBtn.onclick = function() {
+      if (loginInProgress) return;
+      loginInProgress = true;
+      setStatus('Membuka Google Login...', '#333', '<span class="spinner"></span>');
+      loginBtn.disabled = true;
+      loginBtn.style.opacity = 0.7;
+      // Tambah spinner ke tombol
+      loginBtn.innerHTML = '<span class="spinner"></span> Login dengan Google';
+      const provider = new firebase.auth.GoogleAuthProvider();
+      window._firebase.auth.signInWithPopup(provider)
+        .catch((error) => {
+          setStatus(error.message, '#e53e3e', '<svg class="status-icon" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="#e53e3e"/><path d="M7 7l6 6M13 7l-6 6" stroke="#fff" stroke-width="2"/></svg>');
+          loginBtn.disabled = false;
+          loginBtn.style.opacity = 1;
+          loginBtn.innerHTML = '<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="" style="width:22px;"> Login dengan Google';
+          loginInProgress = false;
+        });
+    };
+  </script>
 </body>
 </html> 
