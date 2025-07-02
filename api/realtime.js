@@ -22,6 +22,10 @@ module.exports = async (req, res) => {
       const ref = db.ref();
       ref.once('value', (snapshot) => {
         const data = snapshot.val();
+        if (!data || typeof data !== 'object') {
+          res.status(500).json({ error: 'Data not found or invalid format' });
+          return;
+        }
         let maxUpdateTs = null;
         Object.values(data || {}).forEach(item => {
           if (item && item.update_ts) {
@@ -39,9 +43,11 @@ module.exports = async (req, res) => {
           res.status(200).json({ last_updated: null });
         }
       }, (error) => {
+        console.error('Firebase error:', error);
         res.status(500).json({ error: error.message });
       });
     } catch (error) {
+      console.error('Catch error:', error);
       res.status(500).json({ error: error.message });
     }
     return;
@@ -50,11 +56,18 @@ module.exports = async (req, res) => {
     try {
       const ref = db.ref();
       ref.once('value', (snapshot) => {
-        res.status(200).json(snapshot.val());
+        const data = snapshot.val();
+        if (!data || typeof data !== 'object') {
+          res.status(500).json({ error: 'Data not found or invalid format' });
+          return;
+        }
+        res.status(200).json(data);
       }, (error) => {
+        console.error('Firebase error:', error);
         res.status(500).json({ error: error.message });
       });
     } catch (error) {
+      console.error('Catch error:', error);
       res.status(500).json({ error: error.message });
     }
   } else if (method === 'PUT') {
@@ -67,6 +80,7 @@ module.exports = async (req, res) => {
       await db.ref(id).update(updateData);
       res.status(200).json({ success: true });
     } catch (error) {
+      console.error('Catch error:', error);
       res.status(500).json({ error: error.message });
     }
   } else {
