@@ -8,9 +8,10 @@ if (!getApps().length) {
   } else {
     credential = applicationDefault();
   }
+  const databaseURL = process.env.FIREBASE_DATABASE_URL || 'https://fbb-fullfilment-default-rtdb.firebaseio.com';
   initializeApp({
     credential,
-    databaseURL: 'https://fbb-fullfilment-default-rtdb.firebaseio.com',
+    databaseURL,
   });
 }
 const db = getDatabase();
