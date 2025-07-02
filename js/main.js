@@ -1,3 +1,4 @@
+
 (function ($) {
   // USE STRICT
   "use strict";
@@ -67,10 +68,8 @@
         }
       });
     }
-  }
-  catch (error) {}
 
-  try {
+
     //WidgetChart 2
     var ctx = document.getElementById("widgetChart2");
     if (ctx) {
@@ -140,10 +139,8 @@
         }
       });
     }
-  }
-  catch (error) {}
 
-  try {
+
     //WidgetChart 3
     var ctx = document.getElementById("widgetChart3");
     if (ctx) {
@@ -212,10 +209,8 @@
         }
       });
     }
-  }
-  catch (error) {}
 
-  try {
+
     //WidgetChart 4
     var ctx = document.getElementById("widgetChart4");
     if (ctx) {
@@ -252,146 +247,150 @@
         }
       });
     }
-  }
-  catch (error) {}
 
-  // Recent Report
-  const brandProduct = 'rgba(0,181,233,0.8)'
-  const brandService = 'rgba(0,173,95,0.8)'
+    // Recent Report
+    const brandProduct = 'rgba(0,181,233,0.8)'
+    const brandService = 'rgba(0,173,95,0.8)'
 
-  var elements = 10
-  var data1 = [52, 60, 55, 50, 65, 80, 57, 70, 105, 115]
-  var data2 = [102, 70, 80, 100, 56, 53, 80, 75, 65, 90]
+    var elements = 10
+    var data1 = [52, 60, 55, 50, 65, 80, 57, 70, 105, 115]
+    var data2 = [102, 70, 80, 100, 56, 53, 80, 75, 65, 90]
 
-  var ctx = document.getElementById("recent-rep-chart");
-  if (ctx) {
-    ctx.height = 250;
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', ''],
-        datasets: [
-          {
-            label: 'My First dataset',
-            backgroundColor: brandService,
-            borderColor: 'transparent',
-            pointHoverBackgroundColor: '#fff',
-            borderWidth: 0,
-            data: data1
+    var ctx = document.getElementById("recent-rep-chart");
+    if (ctx) {
+      ctx.height = 250;
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', ''],
+          datasets: [
+            {
+              label: 'My First dataset',
+              backgroundColor: brandService,
+              borderColor: 'transparent',
+              pointHoverBackgroundColor: '#fff',
+              borderWidth: 0,
+              data: data1
 
+            },
+            {
+              label: 'My Second dataset',
+              backgroundColor: brandProduct,
+              borderColor: 'transparent',
+              pointHoverBackgroundColor: '#fff',
+              borderWidth: 0,
+              data: data2
+
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: true,
+          legend: {
+            display: false
           },
-          {
-            label: 'My Second dataset',
-            backgroundColor: brandProduct,
-            borderColor: 'transparent',
-            pointHoverBackgroundColor: '#fff',
-            borderWidth: 0,
-            data: data2
+          responsive: true,
+          scales: {
+            xAxes: [{
+              gridLines: {
+                drawOnChartArea: true,
+                color: '#f2f2f2'
+              },
+              ticks: {
+                fontFamily: "Poppins",
+                fontSize: 12
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                maxTicksLimit: 5,
+                stepSize: 50,
+                max: 150,
+                fontFamily: "Poppins",
+                fontSize: 12
+              },
+              gridLines: {
+                display: true,
+                color: '#f2f2f2'
 
+              }
+            }]
+          },
+          elements: {
+            point: {
+              radius: 0,
+              hitRadius: 10,
+              hoverRadius: 4,
+              hoverBorderWidth: 3
+            }
           }
-        ]
-      },
-      options: {
-        maintainAspectRatio: true,
-        legend: {
-          display: false
-        },
-        responsive: true,
-        scales: {
-          xAxes: [{
-            gridLines: {
-              drawOnChartArea: true,
-              color: '#f2f2f2'
-            },
-            ticks: {
-              fontFamily: "Poppins",
-              fontSize: 12
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              beginAtZero: true,
-              maxTicksLimit: 5,
-              stepSize: 50,
-              max: 150,
-              fontFamily: "Poppins",
-              fontSize: 12
-            },
-            gridLines: {
-              display: true,
-              color: '#f2f2f2'
 
+
+        }
+      });
+    }
+
+    // Percent Chart
+    var ctx = document.getElementById("percent-chart");
+    if (ctx) {
+      ctx.height = 280;
+      var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [
+            {
+              label: "My First dataset",
+              data: [60, 40],
+              backgroundColor: [
+                '#00b5e9',
+                '#fa4251'
+              ],
+              hoverBackgroundColor: [
+                '#00b5e9',
+                '#fa4251'
+              ],
+              borderWidth: [
+                0, 0
+              ],
+              hoverBorderColor: [
+                'transparent',
+                'transparent'
+              ]
             }
-          }]
+          ],
+          labels: [
+            'Products',
+            'Services'
+          ]
         },
-        elements: {
-          point: {
-            radius: 0,
-            hitRadius: 10,
-            hoverRadius: 4,
-            hoverBorderWidth: 3
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          cutoutPercentage: 55,
+          animation: {
+            animateScale: true,
+            animateRotate: true
+          },
+          legend: {
+            display: false
+          },
+          tooltips: {
+            titleFontFamily: "Poppins",
+            xPadding: 15,
+            yPadding: 10,
+            caretPadding: 0,
+            bodyFontSize: 16
           }
         }
+      });
+    }
 
-
-      }
-    });
+  } catch (error) {
+    console.log(error);
   }
 
-  // Percent Chart
-  var ctx = document.getElementById("percent-chart");
-  if (ctx) {
-    ctx.height = 280;
-    var myChart = new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        datasets: [
-          {
-            label: "My First dataset",
-            data: [60, 40],
-            backgroundColor: [
-              '#00b5e9',
-              '#fa4251'
-            ],
-            hoverBackgroundColor: [
-              '#00b5e9',
-              '#fa4251'
-            ],
-            borderWidth: [
-              0, 0
-            ],
-            hoverBorderColor: [
-              'transparent',
-              'transparent'
-            ]
-          }
-        ],
-        labels: [
-          'Products',
-          'Services'
-        ]
-      },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        cutoutPercentage: 55,
-        animation: {
-          animateScale: true,
-          animateRotate: true
-        },
-        legend: {
-          display: false
-        },
-        tooltips: {
-          titleFontFamily: "Poppins",
-          xPadding: 15,
-          yPadding: 10,
-          caretPadding: 0,
-          bodyFontSize: 16
-        }
-      }
-    });
-  }
+
 
   try {
 
@@ -482,8 +481,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
 
   try {
@@ -572,8 +572,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
     //WidgetChart 5
@@ -613,8 +614,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
 
@@ -679,8 +681,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
     //Sales chart
@@ -776,8 +779,9 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
 
@@ -865,8 +869,9 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
     //bar chart
@@ -924,8 +929,9 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
 
@@ -973,8 +979,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error)
   }
-  catch (error) {}
 
   try {
 
@@ -1042,8 +1049,9 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
 
   try {
@@ -1092,8 +1100,9 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
 
   try {
@@ -1141,8 +1150,9 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
 
@@ -1184,8 +1194,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
   try {
 
@@ -1233,8 +1244,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
-  catch (error) {}
 
 })(jQuery);
 
@@ -1293,6 +1305,8 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
 
   // Europe Map
@@ -1310,6 +1324,8 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
 
   // USA Map
@@ -1338,6 +1354,8 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
 
   // Germany Map
@@ -1358,6 +1376,8 @@
       });
     }
     
+  } catch (error) {
+    console.log(error);
   }
   
   // France Map
@@ -1375,6 +1395,8 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
 
   // Russia Map
@@ -1396,6 +1418,8 @@
     }
 
 
+  } catch (error) {
+    console.log(error);
   }
   
   // Brazil Map
@@ -1415,8 +1439,9 @@
       });
     }
 
+  } catch (error) {
+    console.log(error);
   }
-
 })(jQuery);
 (function ($) {
   // Use Strict
@@ -1444,8 +1469,9 @@
 
       });
     });
+  } catch (err) {
+    console.log(err);
   }
-
 })(jQuery);
 (function ($) {
   // USE STRICT
@@ -1464,6 +1490,8 @@
 
     }
 
+  } catch (error) {
+    console.log(error);
   }
 
 })(jQuery);
@@ -1481,7 +1509,10 @@
       });
     });
 
+  } catch (error) {
+    console.log(error);
   }
+
 
 })(jQuery);
 (function ($) {
@@ -1521,6 +1552,8 @@
       sub_menu_is_showed = -1;
     });
 
+  } catch (error) {
+    console.log(error);
   }
 
   var wW = $(window).width();
@@ -1560,6 +1593,8 @@
       });
     });
 
+  } catch (error) {
+    console.log(error);
   }
 
 
@@ -1575,8 +1610,9 @@
       $(dropdown).slideToggle('500');
       return false;
     });
+  } catch (error) {
+    console.log(error);
   }
-
 })(jQuery);
 (function ($) {
   // USE STRICT
@@ -1600,6 +1636,8 @@
       })
 
     }
+  } catch (error) {
+    console.log(error);
   }
 
 })(jQuery);
@@ -1611,6 +1649,8 @@
     
     $('[data-toggle="tooltip"]').tooltip();
 
+  } catch (error) {
+    console.log(error);
   }
 
   // Chatbox
@@ -1626,6 +1666,8 @@
     });
     
 
+  } catch (error) {
+    console.log(error);
   }
 
 })(jQuery);

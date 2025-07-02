@@ -1609,7 +1609,7 @@ section {
 }
 
 .menu-sidebar .navbar__list .navbar__sub-list {
-    display: block !important;
+    display: none;
     padding-left: 34px;
 }
 
@@ -1791,7 +1791,7 @@ section {
 }
 
 .navbar-mobile-sub__list {
-    display: block !important;
+    display: none;
     padding-left: 30px;
     background: #fff;
 }
@@ -7166,12 +7166,20 @@ section {
     padding-left: 180px;
 }
 
+.m-b-180 {
+    margin-bottom: 180px;
+}
+
 .m-t-180 {
     margin-top: 180px;
 }
 
 .m-r-180 {
     margin-right: 180px;
+}
+
+.m-l-180 {
+    margin-left: 180px;
 }
 
 .p-b-185 {
@@ -9513,16 +9521,16 @@ section {
         margin-bottom: 65px;
     }
 
-    .m-xs-t-70 {
-        margin-top: 70px;
+    .m-xs-t-65 {
+        margin-top: 65px;
     }
 
-    .m-xs-r-70 {
-        margin-right: 70px;
+    .m-xs-r-65 {
+        margin-right: 65px;
     }
 
-    .m-xs-l-70 {
-        margin-left: 70px;
+    .m-xs-l-65 {
+        margin-left: 65px;
     }
 }
 
@@ -10275,6 +10283,10 @@ section {
 }
 
 @media (max-width: 767px) {
+    .p-sm-b-95 {
+        padding-bottom: 95px;
+    }
+
     .p-sm-t-95 {
         padding-top: 95px;
     }

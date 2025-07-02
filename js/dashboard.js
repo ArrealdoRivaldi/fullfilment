@@ -5,6 +5,7 @@
 // ===================== UTILITY =====================
 const formatAngka = num => num.toLocaleString('id-ID');
 const formatPersen = num => num.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pad2 = n => n.toString().padStart(2, '0');
 
 // ===================== FILTER & DATA =====================
 let allData = [];
@@ -23,9 +24,13 @@ function filterData(data, branch, startDate, endDate) {
     }
     if (isNaN(proviDate.getTime())) return false;
     if (startDate || endDate) {
+      console.log('provi_ts:', d.provi_ts, 'parsed:', proviDate, 'startDate:', startDate, 'endDate:', endDate);
     }
     if (startDate && proviDate < startDate) return false;
     if (endDate && proviDate > endDate) return false;
+    if (startDate || endDate) {
+      console.log('LOLOS FILTER:', d);
+    }
     return true;
   });
 }
@@ -324,6 +329,7 @@ function renderTableAgingSymptom(data) {
     let aging = mapAging(agingHari);
     // Log hanya anomali: data aging 14-30 hari di filter range
     if (aging === '14-30 hari' && window.lastAgingStartDate && window.lastAgingEndDate && proviDate >= window.lastAgingStartDate && proviDate <= window.lastAgingEndDate) {
+      console.warn('ANOMALI 14-30 HARI:', {provi_ts: d.provi_ts, proviDate, agingHari, status_ps: d.status_ps, symptom});
     }
     if (!group[symptom]) group[symptom] = { total: 0 };
     if (!group[symptom][aging]) group[symptom][aging] = 0;
