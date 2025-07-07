@@ -1,4 +1,3 @@
-console.log('dashboard.js loaded');
 // dashboard.js
 // Script utama untuk Dashboard Fullfilment FBB
 // Refactor besar: modularisasi, optimasi, dan keterbacaan
@@ -452,50 +451,18 @@ document.getElementById('resetFilters').onclick = function() {
 };
 
 // ===================== DATA FETCH =====================
-function waitForUserAndInitDashboard() {
-  if (window.currentUser) {
-    initDashboardWithUser();
-  } else {
-    setTimeout(waitForUserAndInitDashboard, 100);
+document.addEventListener('DOMContentLoaded', async function() {
+  try {
+    const response = await fetch('/api/realtime');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
+    allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+    renderDashboard(allData);
+  } catch (error) {
+    // Error handling: bisa tampilkan pesan error di halaman jika perlu
   }
-}
-
-setTimeout(() => {
-  if (!window.currentUser) {
-    console.error('window.currentUser belum terisi setelah 2 detik!');
-  }
-}, 2000);
-
-function initDashboardWithUser() {
-  const user = window.currentUser;
-  document.addEventListener('DOMContentLoaded', async function() {
-    try {
-      const response = await fetch('/api/realtime');
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      const data = await response.json();
-      const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
-      allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-      // Branch filtering logic
-      let filteredData = allData;
-      if (user.nop && user.nop.toLowerCase() !== 'kalimantan') {
-        console.log('User NOP:', user.nop);
-        console.log('Semua branch di allData:', allData.map(d => d.branch));
-        filteredData = allData.filter(d => (d.branch || '').trim().toLowerCase() === (user.nop || '').trim().toLowerCase());
-        console.log('Filtered data:', filteredData);
-        // Hide branch filter UI for non-kalimantan
-        const branchFilter = document.getElementById('branchFilter');
-        if (branchFilter) {
-          branchFilter.style.display = 'none';
-        }
-      }
-      renderDashboard(filteredData);
-    } catch (error) {
-      // Error handling: bisa tampilkan pesan error di halaman jika perlu
-    }
-  });
-}
-
-waitForUserAndInitDashboard();
+});
 
 // ===================== LAST UPDATED =====================
 async function fetchLastUpdated() {

@@ -19,15 +19,6 @@
         const querySnapshot = await firestore.collection('login').where('email', '==', user.email).get();
         if (!querySnapshot.empty) {
           const data = querySnapshot.docs[0].data();
-          // Expose user info globally for use in dashboard/hk
-          window.currentUser = {
-            ...data,
-            email: user.email,
-            uid: user.uid,
-            // fallback for NOP and branch if not present
-            nop: data.nop || '-',
-            branch: data.branch || (data.cabang || '') || ''
-          };
           // Show user info in navbar
           showUserInfo(user, data);
         } else {

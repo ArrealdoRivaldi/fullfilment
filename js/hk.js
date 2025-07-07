@@ -1,4 +1,3 @@
-console.log('hk.js loaded');
 // Main script for Table and Filters (refactored from hk/index.html)
 
 let allData = [];
@@ -760,54 +759,4 @@ function convertDMYtoMDY(dmy) {
     if (!dmy) return '';
     const [dd, mm, yyyy] = dmy.split('/');
     return `${mm}/${dd}/${yyyy}`;
-}
-
-function waitForUserAndInitHK() {
-    if (window.currentUser) {
-        initHKWithUser();
-    } else {
-        setTimeout(waitForUserAndInitHK, 100);
-    }
-}
-
-setTimeout(() => {
-    if (!window.currentUser) {
-        console.error('window.currentUser belum terisi setelah 2 detik!');
-    }
-}, 2000);
-
-function initHKWithUser() {
-    const user = window.currentUser;
-    document.addEventListener('DOMContentLoaded', async () => {
-        await fetchLastUpdated();
-        try {
-            const response = await fetch('/api/realtime');
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
-            allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-            // Branch filtering logic
-            let filteredData = allData;
-            if (user.nop && user.nop.toLowerCase() !== 'kalimantan') {
-                console.log('User NOP:', user.nop);
-                console.log('Semua branch di allData:', allData.map(d => d.branch));
-                filteredData = allData.filter(d => (d.branch || '').trim().toLowerCase() === (user.nop || '').trim().toLowerCase());
-                console.log('Filtered data:', filteredData);
-                // Hide branch filter UI for non-kalimantan
-                const branchFilter = document.getElementById('branchFilter');
-                if (branchFilter) {
-                    branchFilter.style.display = 'none';
-                }
-            }
-            initializeFilters(filteredData);
-            renderTableWithPagination(filteredData);
-            bindFilterEvents();
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-        updateActiveFilters();
-        // ... existing code ...
-    });
-}
-
-waitForUserAndInitHK(); 
+} 
