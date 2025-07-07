@@ -782,7 +782,7 @@ function initHKWithUser() {
             // Branch filtering logic
             let filteredData = allData;
             if (user.nop && user.nop.toLowerCase() !== 'kalimantan') {
-                filteredData = allData.filter(d => (d.branch || '').trim().toLowerCase() === (user.branch || '').trim().toLowerCase());
+                filteredData = allData.filter(d => (d.branch || '').trim().toLowerCase() === (user.nop || '').trim().toLowerCase());
                 // Hide branch filter UI for non-kalimantan
                 const branchFilter = document.getElementById('branchFilter');
                 if (branchFilter) {
