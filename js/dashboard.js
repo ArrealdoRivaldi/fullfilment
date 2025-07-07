@@ -8,6 +8,8 @@ const formatPersen = num => num.toLocaleString('id-ID', { minimumFractionDigits:
 
 // ===================== FILTER & DATA =====================
 let allData = [];
+let filteredByNopData = [];
+let userNop = null;
 
 function filterData(data, branch, startDate, endDate) {
   return data.filter(d => {
@@ -28,6 +30,15 @@ function filterData(data, branch, startDate, endDate) {
     if (endDate && proviDate > endDate) return false;
     return true;
   });
+}
+
+// Fungsi filter berdasarkan NOP user
+function filterByNopUser(data) {
+  if (!userNop) return [];
+  if (userNop.trim().toLowerCase() === 'kalimantan') {
+    return data;
+  }
+  return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
 }
 
 // ===================== CHARTS =====================
@@ -439,7 +450,9 @@ window.applyFilters = function() {
   if (endDate) endDate.setHours(23,59,59,999);
   window.lastAgingStartDate = startDate;
   window.lastAgingEndDate = endDate;
-  const filtered = filterData(allData, branch, startDate, endDate);
+  // Terapkan filter NOP user terlebih dahulu
+  const baseData = filterByNopUser(allData);
+  const filtered = filterData(baseData, branch, startDate, endDate);
   renderDashboard(filtered);
 };
 
@@ -452,13 +465,36 @@ document.getElementById('resetFilters').onclick = function() {
 
 // ===================== DATA FETCH =====================
 document.addEventListener('DOMContentLoaded', async function() {
+  // Tunggu sampai userNop tersedia di DOM
+  function getUserNopFromDOM() {
+    const el = document.getElementById('user-nop');
+    return el ? el.textContent.trim() : null;
+  }
+  function waitForUserNop(retry = 0) {
+    return new Promise(resolve => {
+      const tryGet = () => {
+        const nop = getUserNopFromDOM();
+        if (nop && nop !== '-') {
+          resolve(nop);
+        } else if (retry < 30) {
+          setTimeout(() => tryGet(++retry), 100);
+        } else {
+          resolve(null);
+        }
+      };
+      tryGet();
+    });
+  }
+  userNop = await waitForUserNop();
   try {
     const response = await fetch('/api/realtime');
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
     const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
     allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-    renderDashboard(allData);
+    // Terapkan filter NOP user sebelum renderDashboard
+    filteredByNopData = filterByNopUser(allData);
+    renderDashboard(filteredByNopData);
   } catch (error) {
     // Error handling: bisa tampilkan pesan error di halaman jika perlu
   }
