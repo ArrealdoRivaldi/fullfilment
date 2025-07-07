@@ -267,6 +267,11 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${
+                item.latitude && item.longitude
+                    ? `<a href="https://www.google.com/maps?q=${item.latitude},${item.longitude}" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">📍 Map</a>`
+                    : '-'
+            }</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <div class="flex items-center">
                     <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
@@ -750,6 +755,11 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${
+                item.latitude && item.longitude
+                    ? `<a href="https://www.google.com/maps?q=${item.latitude},${item.longitude}" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">📍 Map</a>`
+                    : '-'
+            }</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <div class="flex items-center">
                     <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
