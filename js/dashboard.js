@@ -451,18 +451,41 @@ document.getElementById('resetFilters').onclick = function() {
 };
 
 // ===================== DATA FETCH =====================
-document.addEventListener('DOMContentLoaded', async function() {
-  try {
-    const response = await fetch('/api/realtime');
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    const data = await response.json();
-    const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
-    allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-    renderDashboard(allData);
-  } catch (error) {
-    // Error handling: bisa tampilkan pesan error di halaman jika perlu
+function waitForUserAndInitDashboard() {
+  if (window.currentUser) {
+    initDashboardWithUser();
+  } else {
+    setTimeout(waitForUserAndInitDashboard, 100);
   }
-});
+}
+
+function initDashboardWithUser() {
+  const user = window.currentUser;
+  document.addEventListener('DOMContentLoaded', async function() {
+    try {
+      const response = await fetch('/api/realtime');
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const data = await response.json();
+      const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
+      allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+      // Branch filtering logic
+      let filteredData = allData;
+      if (user.nop && user.nop.toLowerCase() !== 'kalimantan') {
+        filteredData = allData.filter(d => (d.branch || '').trim() === (user.branch || '').trim());
+        // Hide branch filter UI for non-kalimantan
+        const branchFilter = document.getElementById('branchFilter');
+        if (branchFilter) {
+          branchFilter.style.display = 'none';
+        }
+      }
+      renderDashboard(filteredData);
+    } catch (error) {
+      // Error handling: bisa tampilkan pesan error di halaman jika perlu
+    }
+  });
+}
+
+waitForUserAndInitDashboard();
 
 // ===================== LAST UPDATED =====================
 async function fetchLastUpdated() {
