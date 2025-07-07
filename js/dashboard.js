@@ -1,3 +1,4 @@
+console.log('dashboard.js loaded');
 // dashboard.js
 // Script utama untuk Dashboard Fullfilment FBB
 // Refactor besar: modularisasi, optimasi, dan keterbacaan
@@ -458,6 +459,12 @@ function waitForUserAndInitDashboard() {
     setTimeout(waitForUserAndInitDashboard, 100);
   }
 }
+
+setTimeout(() => {
+  if (!window.currentUser) {
+    console.error('window.currentUser belum terisi setelah 2 detik!');
+  }
+}, 2000);
 
 function initDashboardWithUser() {
   const user = window.currentUser;

@@ -1,3 +1,4 @@
+console.log('hk.js loaded');
 // Main script for Table and Filters (refactored from hk/index.html)
 
 let allData = [];
@@ -768,6 +769,12 @@ function waitForUserAndInitHK() {
         setTimeout(waitForUserAndInitHK, 100);
     }
 }
+
+setTimeout(() => {
+    if (!window.currentUser) {
+        console.error('window.currentUser belum terisi setelah 2 detik!');
+    }
+}, 2000);
 
 function initHKWithUser() {
     const user = window.currentUser;
