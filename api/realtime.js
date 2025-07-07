@@ -55,14 +55,33 @@ module.exports = async (req, res) => {
   }
   if (method === 'GET') {
     try {
-      const ref = db.ref();
+      const { branch, startDate, endDate, limit } = query;
+      let ref = db.ref();
+      if (branch) {
+        ref = ref.orderByChild('branch').equalTo(branch);
+      }
+      if (limit) {
+        ref = ref.limitToLast(Number(limit));
+      }
       ref.once('value', (snapshot) => {
-        const data = snapshot.val();
+        let data = snapshot.val();
         if (!data || typeof data !== 'object') {
           res.status(500).json({ error: 'Data not found or invalid format' });
           return;
         }
-        res.status(200).json(data);
+        let dataArr = Object.values(data);
+        if (startDate || endDate) {
+          const start = startDate ? new Date(startDate) : null;
+          const end = endDate ? new Date(endDate) : null;
+          dataArr = dataArr.filter(item => {
+            if (!item.provi_ts) return false;
+            const proviDate = new Date(item.provi_ts);
+            if (start && proviDate < start) return false;
+            if (end && proviDate > end) return false;
+            return true;
+          });
+        }
+        res.status(200).json(dataArr);
       }, (error) => {
         console.error('Firebase error:', error);
         res.status(500).json({ error: error.message });
