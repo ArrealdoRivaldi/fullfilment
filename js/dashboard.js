@@ -453,35 +453,7 @@ document.getElementById('resetFilters').onclick = function() {
 // ===================== DATA FETCH =====================
 document.addEventListener('DOMContentLoaded', async function() {
   try {
-    // Ambil filter dari UI jika ada, jika tidak pakai default
-    let branch = '';
-    let startDate = '';
-    let endDate = '';
-    let limit = 200; // default limit
-    const branchInput = document.getElementById('branchFilter');
-    if (branchInput && branchInput.value) branch = branchInput.value;
-    const startDateInput = document.getElementById('startDate');
-    const endDateInput = document.getElementById('endDate');
-    // Default: 1 bulan terakhir
-    const now = new Date();
-    if (startDateInput && startDateInput.value) {
-      startDate = parseMDYInput(convertDMYtoMDY(startDateInput.value));
-    } else {
-      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
-      startDate = firstDay.toISOString().slice(0,10);
-    }
-    if (endDateInput && endDateInput.value) {
-      endDate = parseMDYInput(convertDMYtoMDY(endDateInput.value));
-    } else {
-      endDate = now.toISOString().slice(0,10);
-    }
-    // Format tanggal ke yyyy-mm-dd agar backend bisa parse
-    const params = new URLSearchParams();
-    if (branch) params.append('branch', branch);
-    if (startDate) params.append('startDate', startDate);
-    if (endDate) params.append('endDate', endDate);
-    if (limit) params.append('limit', limit);
-    const response = await fetch('/api/realtime?' + params.toString());
+    const response = await fetch('/api/realtime');
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
     const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
