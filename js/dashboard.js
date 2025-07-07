@@ -498,6 +498,21 @@ document.addEventListener('DOMContentLoaded', async function() {
   } catch (error) {
     // Error handling: bisa tampilkan pesan error di halaman jika perlu
   }
+  // Sembunyikan filter branch jika userNop bukan 'kalimantan'
+  const branchFilter = document.getElementById('branchFilter');
+  const activeFilters = document.getElementById('activeFilters');
+  if (userNop && userNop.trim().toLowerCase() !== 'kalimantan') {
+    if (branchFilter) branchFilter.style.display = 'none';
+    // Sembunyikan chip branch di filter aktif jika ada
+    if (activeFilters) {
+      const chips = activeFilters.querySelectorAll('span');
+      chips.forEach(chip => {
+        if (chip.textContent.includes('Branch')) chip.style.display = 'none';
+      });
+    }
+  } else {
+    if (branchFilter) branchFilter.style.display = '';
+  }
 });
 
 // ===================== LAST UPDATED =====================
