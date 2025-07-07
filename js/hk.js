@@ -11,6 +11,8 @@ const statusHKOptions = [
     { value: "Revoke", label: "Revoke" },
     { value: "Offering Orbit", label: "Offering Orbit" }
 ];
+let userNop = null;
+let filteredByNopData = [];
 
 function pad2(n) {
     return n < 10 ? '0' + n : n;
@@ -118,7 +120,7 @@ function parseMDYInput(str) {
     return new Date(`${mm}/${dd}/${yyyy}`);
 }
 function filterData() {
-    // Always filter from allData
+    // Always filter from filteredByNopData
     const branch = document.getElementById('branchFilter').value;
     const wok = document.getElementById('wokFilter').value;
     const sto = document.getElementById('sto_coFilter').value;
@@ -128,7 +130,7 @@ function filterData() {
     const symptom = document.getElementById('symptomFilter').value;
     const statusPS = document.getElementById('statusPSFilter').value;
     const agingFallout = document.getElementById('agingFalloutFilter').value;
-    return allData.filter(item => {
+    return filteredByNopData.filter(item => {
         let itemDate;
         if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
             itemDate = new Date(item.provi_ts.seconds * 1000);
@@ -347,6 +349,27 @@ function bindFilterEvents() {
 
 // MENU LOGIC (Unified for mobile & sidebar, improved)
 document.addEventListener('DOMContentLoaded', async () => {
+    // Tunggu sampai userNop tersedia di DOM
+    function getUserNopFromDOM() {
+        const el = document.getElementById('user-nop');
+        return el ? el.textContent.trim() : null;
+    }
+    function waitForUserNop(retry = 0) {
+        return new Promise(resolve => {
+            const tryGet = () => {
+                const nop = getUserNopFromDOM();
+                if (nop && nop !== '-') {
+                    resolve(nop);
+                } else if (retry < 30) {
+                    setTimeout(() => tryGet(++retry), 100);
+                } else {
+                    resolve(null);
+                }
+            };
+            tryGet();
+        });
+    }
+    userNop = await waitForUserNop();
     await fetchLastUpdated();
     try {
         const response = await fetch('/api/realtime');
@@ -354,13 +377,38 @@ document.addEventListener('DOMContentLoaded', async () => {
         const data = await response.json();
         const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
         allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-        initializeFilters(allData);
-        renderTableWithPagination(allData);
+        // Filter by NOP user
+        function filterByNopUser(data) {
+            if (!userNop) return [];
+            if (userNop.trim().toLowerCase() === 'kalimantan') {
+                return data;
+            }
+            return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+        }
+        filteredByNopData = filterByNopUser(allData);
+        initializeFilters(filteredByNopData);
+        renderTableWithPagination(filteredByNopData);
         bindFilterEvents();
     } catch (error) {
         console.error('Error fetching data:', error);
     }
     updateActiveFilters();
+
+    // Sembunyikan filter branch jika userNop bukan 'kalimantan'
+    const branchFilter = document.getElementById('branchFilter');
+    const activeFilters = document.getElementById('activeFilters');
+    if (userNop && userNop.trim().toLowerCase() !== 'kalimantan') {
+        if (branchFilter) branchFilter.style.display = 'none';
+        // Sembunyikan chip branch di filter aktif jika ada
+        if (activeFilters) {
+            const chips = activeFilters.querySelectorAll('span');
+            chips.forEach(chip => {
+                if (chip.textContent.includes('Branch')) chip.style.display = 'none';
+            });
+        }
+    } else {
+        if (branchFilter) branchFilter.style.display = '';
+    }
 
     // Improved Hamburger & Sidebar menu logic
     function closeAllSubMenus(menuRoot) {
