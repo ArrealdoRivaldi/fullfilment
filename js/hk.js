@@ -406,8 +406,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (chip.textContent.includes('Branch')) chip.style.display = 'none';
             });
         }
+        // Ubah grid filter jadi 2 kolom agar rapi
+        const filterGrid1 = document.getElementById('filterGrid1');
+        if (filterGrid1) filterGrid1.classList.remove('md:grid-cols-3');
+        if (filterGrid1) filterGrid1.classList.add('md:grid-cols-2');
     } else {
         if (branchFilter && branchFilter.parentElement) branchFilter.parentElement.style.display = '';
+        // Kembalikan grid filter ke 3 kolom
+        const filterGrid1 = document.getElementById('filterGrid1');
+        if (filterGrid1) filterGrid1.classList.remove('md:grid-cols-2');
+        if (filterGrid1) filterGrid1.classList.add('md:grid-cols-3');
     }
 
     // Improved Hamburger & Sidebar menu logic
