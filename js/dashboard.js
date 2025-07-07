@@ -471,7 +471,10 @@ function initDashboardWithUser() {
       // Branch filtering logic
       let filteredData = allData;
       if (user.nop && user.nop.toLowerCase() !== 'kalimantan') {
+        console.log('User NOP:', user.nop);
+        console.log('Semua branch di allData:', allData.map(d => d.branch));
         filteredData = allData.filter(d => (d.branch || '').trim().toLowerCase() === (user.nop || '').trim().toLowerCase());
+        console.log('Filtered data:', filteredData);
         // Hide branch filter UI for non-kalimantan
         const branchFilter = document.getElementById('branchFilter');
         if (branchFilter) {
