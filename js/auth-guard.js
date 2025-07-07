@@ -42,6 +42,7 @@
     const displayName = userData.name || firebaseUser.displayName || userData.email.split('@')[0];
     const email = userData.email;
     const role = userData.role || '';
+    const nop = userData.nop || '-';
     const avatarUrl = firebaseUser.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=ff7849&color=fff&rounded=true&size=64`;
     // Inject custom CSS for dropdown arrow and card shadow
     if (!document.getElementById('userProfileCardStyle')) {
@@ -73,6 +74,7 @@
           <img src="${avatarUrl}" alt="avatar" class="w-14 h-14 rounded-full border-2 border-orange-400 shadow mb-2">
           <div class="font-bold text-gray-800 text-base text-center">${displayName}</div>
           <div class="text-xs text-gray-500 text-center truncate w-full" title="${email}">${email}</div>
+          <div class="text-xs text-green-600 font-semibold text-center">NOP: <span id='user-nop'>${nop}</span></div>
           <div class="text-xs text-blue-500 font-semibold text-center">${role}</div>
           <button id="userMenuBtn" class="mt-2 flex items-center justify-center gap-1 px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition focus:outline-none text-sm">
             <i class="fa fa-chevron-down text-gray-500"></i>
@@ -102,7 +104,8 @@
       card.querySelector('img').src = avatarUrl;
       card.querySelector('.font-bold').textContent = displayName;
       card.querySelectorAll('div.text-xs')[0].textContent = email;
-      card.querySelectorAll('div.text-xs')[1].textContent = role;
+      card.querySelectorAll('div.text-xs')[1].innerHTML = `NOP: <span id='user-nop'>${nop}</span>`;
+      card.querySelectorAll('div.text-xs')[2].textContent = role;
     }
     // Dropdown logic
     const btn = document.getElementById('userMenuBtn');
