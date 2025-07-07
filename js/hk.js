@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const branchFilter = document.getElementById('branchFilter');
     const activeFilters = document.getElementById('activeFilters');
     if (userNop && userNop.trim().toLowerCase() !== 'kalimantan') {
-        if (branchFilter) branchFilter.style.display = 'none';
+        if (branchFilter && branchFilter.parentElement) branchFilter.parentElement.style.display = 'none';
         // Sembunyikan chip branch di filter aktif jika ada
         if (activeFilters) {
             const chips = activeFilters.querySelectorAll('span');
@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         }
     } else {
-        if (branchFilter) branchFilter.style.display = '';
+        if (branchFilter && branchFilter.parentElement) branchFilter.parentElement.style.display = '';
     }
 
     // Improved Hamburger & Sidebar menu logic
