@@ -216,7 +216,7 @@ function applyFiltersWithChips() {
     updateActiveFilters();
     const filteredData = filterData();
     if (filteredData.length === 0) {
-        alert('Data tidak ditemukan untuk filter yang dipilih!');
+        showToast('Data tidak ditemukan untuk filter yang dipilih!', 'info');
     }
     currentPage = 1;
     renderTableWithPagination(filteredData);
@@ -524,11 +524,11 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
         const statusChanged = status_hk && String(status_hk).trim() !== String(item?.status_hk ?? '').trim();
         const newOrderIdChanged = new_order_id && String(new_order_id).trim() !== String(item?.new_order_id ?? '').trim();
         if (new_order_id && !isValidNewOrderId(new_order_id)) {
-            alert('New Order ID hanya boleh huruf, angka, strip, dan maksimal 32 karakter!');
+            showToast('New Order ID hanya boleh huruf, angka, strip, dan maksimal 32 karakter!', 'error');
             return;
         }
         if (!statusChanged && !newOrderIdChanged) {
-            alert('Tidak ada perubahan status_hk atau new_order_id.');
+            showToast('Tidak ada perubahan status_hk atau new_order_id.', 'info');
             return;
         }
         try {
@@ -539,14 +539,14 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
             });
             const result = await response.json();
             if (result.success) {
-                alert('Update berhasil!');
+                showToast('Update berhasil!', 'success');
                 location.reload();
                 fetchLastUpdated();
             } else {
-                alert('Update gagal: ' + (result.error || 'Unknown error'));
+                showToast('Update gagal: ' + (result.error || 'Unknown error'), 'error');
             }
         } catch (err) {
-            alert('Update gagal: ' + err.message);
+            showToast('Update gagal: ' + err.message, 'error');
         }
     }
 });
@@ -585,9 +585,9 @@ async function openRemarkModal(docId) {
     remarkInput.value = '';
     // Submit remark baru
     submitBtn.onclick = async function() {
-        if (!user) { alert('Anda harus login!'); return; }
+        if (!user) { showToast('Anda harus login!', 'error'); return; }
         const text = remarkInput.value.trim();
-        if (!text) { alert('Remark tidak boleh kosong!'); return; }
+        if (!text) { showToast('Remark tidak boleh kosong!', 'error'); return; }
         const newRemark = { email: user.email, text, timestamp: new Date().toISOString() };
         remarks.push(newRemark);
         try {
@@ -603,10 +603,10 @@ async function openRemarkModal(docId) {
                 renderTableWithPagination();
                 openRemarkModal(docId); // refresh modal
             } else {
-                alert('Update remark gagal: ' + (result.error || 'Unknown error'));
+                showToast('Update remark gagal: ' + (result.error || 'Unknown error'), 'error');
             }
         } catch (err) {
-            alert('Update remark gagal: ' + err.message);
+            showToast('Update remark gagal: ' + err.message, 'error');
         }
     };
     // Edit remark
@@ -615,9 +615,9 @@ async function openRemarkModal(docId) {
             const idx = parseInt(btn.getAttribute('data-idx'));
             remarkInput.value = remarks[idx].text;
             submitBtn.onclick = async function() {
-                if (!user) { alert('Anda harus login!'); return; }
+                if (!user) { showToast('Anda harus login!', 'error'); return; }
                 const text = remarkInput.value.trim();
-                if (!text) { alert('Remark tidak boleh kosong!'); return; }
+                if (!text) { showToast('Remark tidak boleh kosong!', 'error'); return; }
                 remarks[idx].text = text;
                 remarks[idx].timestamp = new Date().toISOString();
                 try {
@@ -633,10 +633,10 @@ async function openRemarkModal(docId) {
                         renderTableWithPagination();
                         openRemarkModal(docId); // refresh modal
                     } else {
-                        alert('Update remark gagal: ' + (result.error || 'Unknown error'));
+                        showToast('Update remark gagal: ' + (result.error || 'Unknown error'), 'error');
                     }
                 } catch (err) {
-                    alert('Update remark gagal: ' + err.message);
+                    showToast('Update remark gagal: ' + err.message, 'error');
                 }
             };
         };
@@ -660,10 +660,10 @@ async function openRemarkModal(docId) {
                     renderTableWithPagination();
                     openRemarkModal(docId); // refresh modal
                 } else {
-                    alert('Hapus remark gagal: ' + (result.error || 'Unknown error'));
+                    showToast('Hapus remark gagal: ' + (result.error || 'Unknown error'), 'error');
                 }
             } catch (err) {
-                alert('Hapus remark gagal: ' + err.message);
+                showToast('Hapus remark gagal: ' + err.message, 'error');
             }
         };
     });
@@ -717,7 +717,7 @@ function exportFilteredData(type) {
     ]);
     if (type === 'copy') {
         const text = [headers, ...rows].map(r => r.join('\t')).join('\n');
-        navigator.clipboard.writeText(text).then(() => alert('Data copied!'));
+        navigator.clipboard.writeText(text).then(() => showToast('Data copied!', 'success'));
     } else if (type === 'csv') {
         const csv = [headers, ...rows].map(r => r.map(v => '"' + (v||'').toString().replace(/"/g,'""') + '"').join(',')).join('\n');
         const blob = new Blob([csv], {type: 'text/csv'});
@@ -1123,3 +1123,42 @@ startUploadBtn.addEventListener('click', async () => {
   finishUploadModal(done, fail, errors);
   setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
 }); 
+
+// ===== Custom Toast/Popup UI =====
+function showToast(msg, type = 'info', duration = 2500) {
+  let toast = document.getElementById('customToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'customToast';
+    toast.style.position = 'fixed';
+    toast.style.top = '32px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.zIndex = '9999';
+    toast.style.minWidth = '240px';
+    toast.style.maxWidth = '90vw';
+    toast.style.padding = '16px 24px';
+    toast.style.borderRadius = '12px';
+    toast.style.boxShadow = '0 4px 24px rgba(0,0,0,0.12)';
+    toast.style.display = 'flex';
+    toast.style.alignItems = 'center';
+    toast.style.gap = '12px';
+    toast.style.fontSize = '1rem';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s, top 0.3s';
+    document.body.appendChild(toast);
+  }
+  let icon = '';
+  if (type === 'success') icon = '<i class="fa fa-check-circle text-green-500"></i>';
+  else if (type === 'error') icon = '<i class="fa fa-times-circle text-red-500"></i>';
+  else icon = '<i class="fa fa-info-circle text-blue-500"></i>';
+  toast.innerHTML = `${icon}<span>${msg}</span>`;
+  toast.style.background = type === 'success' ? '#e6fffa' : type === 'error' ? '#ffeaea' : '#f0f4ff';
+  toast.style.color = type === 'success' ? '#059669' : type === 'error' ? '#dc2626' : '#2563eb';
+  toast.style.opacity = '1';
+  toast.style.top = '32px';
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.top = '0px';
+  }, duration);
+}
