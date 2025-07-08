@@ -1097,15 +1097,39 @@ function handleFile(file) {
       showToast('Jumlah baris maksimal 1000. File terlalu besar.', 'error');
       return;
     }
-    // Validasi perubahan saja
-    let changedRows = rows.filter(row => {
+    // Fungsi normalisasi untuk bandingkan string (trim + lowercase)
+    function normalize(val) {
+      return String(val ?? '').trim().toLowerCase();
+    }
+    // Fungsi mapping kolom file ke field standar
+    function mapColumns(row) {
+      const mapped = {};
+      for (const key in row) {
+        const normKey = key.replace(/\s|_/g, '').toLowerCase();
+        if (normKey === 'orderid') mapped.order_id = row[key];
+        if (normKey === 'statushk') mapped.status_hk = row[key];
+        if (normKey === 'remark') mapped.remark = row[key];
+        if (normKey === 'neworderid') mapped.new_order_id = row[key];
+      }
+      return mapped;
+    }
+    // Mapping semua row dari file ke field standar
+    let mappedRows = rows.map(mapColumns);
+    // Validasi perubahan status_hk, remark, new_order_id saja, order_id harus ada di database
+    let changedRows = mappedRows.filter(row => {
+      if (!row.order_id) return false;
       const old = oldMap[row.order_id];
-      if (!old) return true;
-      // Hanya upload jika status_hk berubah
-      return (row.status_hk && String(row.status_hk).trim() !== String(old.status_hk ?? '').trim())
-        || (row.remark && String(row.remark).trim() !== String(old.remark ?? '').trim())
-        || (row.new_order_id && String(row.new_order_id).trim() !== String(old.new_order_id ?? '').trim());
-    });
+      if (!old) return false; // order_id tidak ada di database, skip
+      // Upload jika ada perubahan status_hk, remark, atau new_order_id
+      return (row.status_hk && normalize(row.status_hk) !== normalize(old.status_hk))
+        || (row.remark && normalize(row.remark) !== normalize(old.remark))
+        || (row.new_order_id && normalize(row.new_order_id) !== normalize(old.new_order_id));
+    }).map(row => ({
+      order_id: row.order_id,
+      status_hk: row.status_hk,
+      ...(row.remark !== undefined ? {remark: row.remark} : {}),
+      ...(row.new_order_id !== undefined ? {new_order_id: row.new_order_id} : {})
+    }));
     if (!changedRows.length) {
       showToast('Tidak ada perubahan status_hk, remark, atau new_order_id yang perlu diupdate.', 'info');
       return;
