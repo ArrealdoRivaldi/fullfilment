@@ -1149,12 +1149,23 @@ function showToast(msg, type = 'info', duration = 2500) {
     document.body.appendChild(toast);
   }
   let icon = '';
-  if (type === 'success') icon = '<i class="fa fa-check-circle text-green-500"></i>';
-  else if (type === 'error') icon = '<i class="fa fa-times-circle text-red-500"></i>';
-  else icon = '<i class="fa fa-info-circle text-blue-500"></i>';
+  if (type === 'success') icon = '<i class="fa fa-check-circle" style="color:#059669"></i>';
+  else if (type === 'error') icon = '<i class="fa fa-exclamation-triangle" style="color:#dc2626"></i>';
+  else icon = '<i class="fa fa-info-circle" style="color:#2563eb"></i>';
   toast.innerHTML = `${icon}<span>${msg}</span>`;
-  toast.style.background = type === 'success' ? '#e6fffa' : type === 'error' ? '#ffeaea' : '#f0f4ff';
-  toast.style.color = type === 'success' ? '#059669' : type === 'error' ? '#dc2626' : '#2563eb';
+  if (type === 'success') {
+    toast.style.background = '#e6fffa';
+    toast.style.color = '#059669';
+    toast.style.border = '1.5px solid #2dd4bf';
+  } else if (type === 'error') {
+    toast.style.background = '#ffeaea';
+    toast.style.color = '#dc2626';
+    toast.style.border = '1.5px solid #dc2626';
+  } else {
+    toast.style.background = '#f0f4ff';
+    toast.style.color = '#2563eb';
+    toast.style.border = '1.5px solid #60a5fa';
+  }
   toast.style.opacity = '1';
   toast.style.top = '32px';
   setTimeout(() => {
