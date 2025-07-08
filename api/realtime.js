@@ -84,6 +84,42 @@ module.exports = async (req, res) => {
       console.error('Catch error:', error);
       res.status(500).json({ error: error.message });
     }
+  } else if (method === 'POST' && req.url.includes('update-status-hk')) {
+    // Batch update status_hk berdasarkan order_id
+    try {
+      let body = req.body;
+      if (typeof body === 'string') body = JSON.parse(body);
+      const { data } = body;
+      if (!Array.isArray(data)) return res.status(400).json({ success: false, error: 'Data harus array' });
+      const ref = db.ref();
+      const snapshot = await ref.once('value');
+      const allData = snapshot.val();
+      let updated = 0, failed = 0, errors = [];
+      for (const row of data) {
+        if (!row.order_id || typeof row.status_hk === 'undefined') {
+          failed++;
+          errors.push(`order_id/status_hk kosong`);
+          continue;
+        }
+        // Cari key child yang order_id-nya cocok
+        const key = Object.keys(allData).find(k => allData[k] && allData[k].order_id == row.order_id);
+        if (key) {
+          try {
+            await db.ref(key).update({ status_hk: row.status_hk, update_ts: new Date().toISOString() });
+            updated++;
+          } catch (e) {
+            failed++;
+            errors.push(`order_id ${row.order_id}: ${e.message}`);
+          }
+        } else {
+          failed++;
+          errors.push(`order_id ${row.order_id} tidak ditemukan`);
+        }
+      }
+      res.status(200).json({ success: true, updated, failed, errors });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
   } else {
     res.status(405).json({ error: 'Method not allowed' });
   }

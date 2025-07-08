@@ -863,4 +863,143 @@ if (typeof document !== 'undefined') {
             }
         }
     });
-} 
+}
+
+// ===== Upload Status HK (xls/csv/json) =====
+// SheetJS loader
+function loadSheetJS(cb) {
+  if (window.XLSX) return cb();
+  const s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+  s.onload = cb;
+  document.head.appendChild(s);
+}
+
+const uploadArea = document.getElementById('uploadArea');
+const fileInput = document.getElementById('fileInput');
+const startUploadBtn = document.getElementById('startUploadBtn');
+const selectedFileName = document.getElementById('selectedFileName');
+const uploadPreview = document.getElementById('uploadPreview');
+const uploadProgress = document.getElementById('uploadProgress');
+const uploadProgressBar = document.getElementById('uploadProgressBar');
+const uploadResult = document.getElementById('uploadResult');
+
+let uploadData = [];
+let chunkSize = 100;
+
+function resetUploadUI() {
+  selectedFileName.textContent = '';
+  uploadPreview.innerHTML = '';
+  uploadProgress.classList.add('hidden');
+  uploadProgressBar.style.width = '0%';
+  uploadResult.textContent = '';
+  startUploadBtn.disabled = true;
+  uploadData = [];
+}
+
+function previewTable(data) {
+  if (!data || !data.length) return;
+  let html = '<table class="min-w-full border text-xs"><thead><tr>';
+  Object.keys(data[0]).forEach(k => html += `<th class='border px-2 py-1 bg-gray-100'>${k}</th>`);
+  html += '</tr></thead><tbody>';
+  data.slice(0, 10).forEach(row => {
+    html += '<tr>';
+    Object.values(row).forEach(v => html += `<td class='border px-2 py-1'>${v ?? ''}</td>`);
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  if (data.length > 10) html += `<div class='text-xs text-gray-400 mt-1'>Preview 10 dari ${data.length} baris</div>`;
+  uploadPreview.innerHTML = html;
+}
+
+function handleFile(file) {
+  resetUploadUI();
+  selectedFileName.textContent = file.name;
+  const ext = file.name.split('.').pop().toLowerCase();
+  if (ext === 'json') {
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const json = JSON.parse(e.target.result);
+        if (Array.isArray(json)) {
+          uploadData = json.filter(row => row.order_id && row.status_hk);
+          previewTable(uploadData);
+          startUploadBtn.disabled = !uploadData.length;
+        } else throw 'Format JSON harus array';
+      } catch (err) {
+        uploadPreview.innerHTML = `<span class='text-red-500'>File JSON tidak valid: ${err}</span>`;
+      }
+    };
+    reader.readAsText(file);
+  } else if (['csv', 'xls', 'xlsx'].includes(ext)) {
+    loadSheetJS(() => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        let wb;
+        try {
+          wb = XLSX.read(e.target.result, {type: 'binary'});
+        } catch (err) {
+          uploadPreview.innerHTML = `<span class='text-red-500'>File tidak bisa dibaca: ${err}</span>`;
+          return;
+        }
+        const ws = wb.Sheets[wb.SheetNames[0]];
+        const arr = XLSX.utils.sheet_to_json(ws, {defval: ''});
+        uploadData = arr.filter(row => row.order_id && row.status_hk);
+        previewTable(uploadData);
+        startUploadBtn.disabled = !uploadData.length;
+      };
+      reader.readAsBinaryString(file);
+    });
+  } else {
+    uploadPreview.innerHTML = `<span class='text-red-500'>Format file tidak didukung.</span>`;
+  }
+}
+
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('bg-blue-100'); });
+uploadArea.addEventListener('dragleave', e => { e.preventDefault(); uploadArea.classList.remove('bg-blue-100'); });
+uploadArea.addEventListener('drop', e => {
+  e.preventDefault(); uploadArea.classList.remove('bg-blue-100');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+});
+
+function chunkArray(arr, size) {
+  const out = [];
+  for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+  return out;
+}
+
+startUploadBtn.addEventListener('click', async () => {
+  if (!uploadData.length) return;
+  uploadProgress.classList.remove('hidden');
+  uploadProgressBar.style.width = '0%';
+  uploadResult.textContent = '';
+  startUploadBtn.disabled = true;
+  let chunks = chunkArray(uploadData, chunkSize);
+  let total = uploadData.length, done = 0, fail = 0, errors = [];
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    try {
+      const res = await fetch('/api/update-status-hk', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({data: chunk})
+      });
+      const result = await res.json();
+      if (result && result.success) {
+        done += chunk.length;
+      } else {
+        fail += chunk.length;
+        errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
+      }
+    } catch (err) {
+      fail += chunk.length;
+      errors.push(`Chunk ${i+1}: ${err}`);
+    }
+    uploadProgressBar.style.width = `${Math.round(((i+1)/chunks.length)*100)}%`;
+  }
+  uploadResult.innerHTML = `<span class='text-green-600'>Sukses update: ${done} baris</span> <span class='text-red-500 ml-2'>Gagal: ${fail} baris</span>` + (errors.length ? `<div class='text-xs text-red-500 mt-1'>${errors.join('<br>')}</div>` : '');
+  startUploadBtn.disabled = false;
+}); 
