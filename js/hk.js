@@ -917,6 +917,7 @@ function loadSheetJS(cb) {
 }
 
 const uploadArea = document.getElementById('uploadArea');
+const iconUploadBtn = document.getElementById('iconUploadBtn');
 const fileInput = document.getElementById('fileInput');
 const startUploadBtn = document.getElementById('startUploadBtn');
 const selectedFileName = document.getElementById('selectedFileName');
@@ -1032,19 +1033,15 @@ function handleFile(file) {
       reader.readAsBinaryString(file);
     });
   }
+  showUploadModal(); // Show modal after file selection
 }
 
-uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('bg-blue-100'); });
-uploadArea.addEventListener('dragleave', e => { e.preventDefault(); uploadArea.classList.remove('bg-blue-100'); });
-uploadArea.addEventListener('drop', e => {
-  e.preventDefault(); uploadArea.classList.remove('bg-blue-100');
-  if (e.dataTransfer.files && e.dataTransfer.files.length === 1) handleFile(e.dataTransfer.files[0]);
-  else uploadPreview.innerHTML = `<span class='text-red-500'>Hanya boleh upload 1 file per proses.</span>`;
-});
-fileInput.addEventListener('change', e => {
-  if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
-  // Reset file input agar bisa upload file yang sama lagi jika perlu
-  e.target.value = '';
+iconUploadBtn.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  // Validasi dan parsing file, lalu langsung showUploadModal()
+  handleFile(file);
 });
 
 function chunkArray(arr, size) {
