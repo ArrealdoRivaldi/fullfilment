@@ -731,46 +731,40 @@ function exportFilteredData(type) {
     }
 }
 function addExportButtons() {
-    const exportButtons = document.getElementById('exportButtons');
-    exportButtons.innerHTML = '';
-    const btns = [
-        {id:'copy', label:'Copy', icon:'<i class="fa fa-copy"></i>', color:'from-blue-400 to-blue-600'},
-        {id:'csv', label:'CSV', icon:'<i class="fa fa-file-csv"></i>', color:'from-green-400 to-green-600'},
-        {id:'excel', label:'Excel', icon:'<i class="fa fa-file-excel"></i>', color:'from-emerald-400 to-emerald-600'}
-    ];
-    const container = document.getElementById('exportButtons');
-    if (!container) return;
-    container.innerHTML = btns.map(b => `<button class="export-btn flex items-center gap-2 px-4 py-2 bg-gradient-to-r ${b.color} text-white rounded-lg shadow hover:scale-105 hover:shadow-lg transition-all duration-150 text-xs font-semibold" id="export-${b.id}">${b.icon} ${b.label}</button>`).join(' ');
-    btns.forEach(b => {
-        document.getElementById('export-' + b.id).onclick = () => exportFilteredData(b.id);
-    });
-    // Tambahkan tombol upload jika belum ada
-    if (!document.getElementById('iconUploadBtn')) {
-        const uploadBtn = document.createElement('button');
-        uploadBtn.id = 'iconUploadBtn';
-        uploadBtn.className = 'flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-base';
-        uploadBtn.title = 'Upload File';
-        uploadBtn.innerHTML = '<i class="fa fa-upload"></i> <span class="hidden sm:inline">Upload</span>';
-        exportButtons.appendChild(uploadBtn);
-        // Input file (hidden)
-        let fileInput = document.getElementById('fileInput');
-        if (!fileInput) {
-            fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.id = 'fileInput';
-            fileInput.accept = '.csv,.xls,.xlsx,.json';
-            fileInput.className = 'hidden';
-            exportButtons.appendChild(fileInput);
-        }
-        // if (iconUploadBtn && fileInput) { // This block is now handled by attachUploadEvents
-        //     iconUploadBtn.addEventListener('click', () => fileInput.click());
-        //     fileInput.addEventListener('change', (e) => {
-        //         const file = e.target.files[0];
-        //         if (!file) return;
-        //         handleFile(file);
-        //     });
-        // }
+  const exportButtons = document.getElementById('exportButtons');
+  exportButtons.innerHTML = '';
+  // Tambahkan tombol Upload paling kiri
+  if (!document.getElementById('iconUploadBtn')) {
+    const uploadBtn = document.createElement('button');
+    uploadBtn.id = 'iconUploadBtn';
+    uploadBtn.className = 'flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition text-base';
+    uploadBtn.title = 'Upload File';
+    uploadBtn.innerHTML = '<i class="fa fa-upload"></i> <span class="hidden sm:inline">Upload</span>';
+    exportButtons.appendChild(uploadBtn);
+    // Input file (hidden)
+    let fileInput = document.getElementById('fileInput');
+    if (!fileInput) {
+      fileInput = document.createElement('input');
+      fileInput.type = 'file';
+      fileInput.id = 'fileInput';
+      fileInput.accept = '.csv,.xls,.xlsx,.json';
+      fileInput.className = 'hidden';
+      exportButtons.appendChild(fileInput);
     }
+  }
+  // Tambahkan tombol Copy, CSV, Excel setelah Upload
+  const btns = [
+    {id:'copy', label:'Copy', icon:'<i class="fa fa-copy"></i>', color:'from-blue-400 to-blue-600'},
+    {id:'csv', label:'CSV', icon:'<i class="fa fa-file-csv"></i>', color:'from-green-400 to-green-600'},
+    {id:'excel', label:'Excel', icon:'<i class="fa fa-file-excel"></i>', color:'from-green-500 to-green-700'}
+  ];
+  btns.forEach(b => {
+    const btn = document.createElement('button');
+    btn.id = 'export-' + b.id;
+    btn.className = `flex items-center gap-2 px-4 py-2 rounded text-white bg-gradient-to-r ${b.color} hover:opacity-90 transition text-base`;
+    btn.innerHTML = `${b.icon} <span>${b.label}</span>`;
+    exportButtons.appendChild(btn);
+  });
 }
 function attachUploadEvents() {
   const iconUploadBtn = document.getElementById('iconUploadBtn');
