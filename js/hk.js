@@ -270,10 +270,10 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
                     ? `<div class="flex flex-col items-start gap-1">
-                        <a href="https://www.google.com/maps?q=${item.latitude},${item.longitude}" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">📍 Map</a>
-                        <div class="flex items-center gap-1 text-xs text-gray-600">
-                            <span class="coords-text">${item.latitude}, ${item.longitude}</span>
-                            <button class="copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy coordinates" data-coords="${item.latitude},${item.longitude}"><i class="fa fa-copy"></i></button>
+                        <span class="text-xs text-gray-500 font-semibold">Long, Lat</span>
+                        <div class="flex items-center gap-1 text-xs text-gray-700">
+                            <span class="coords-text">${item.longitude}, ${item.latitude}</span>
+                            <button class="copy-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy & Open Map" data-coords="${item.latitude},${item.longitude}" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-copy"></i></button>
                         </div>
                         <span class="copy-success-msg hidden text-green-500 text-xs ml-1">Copied!</span>
                     </div>`
@@ -765,10 +765,10 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
                     ? `<div class="flex flex-col items-start gap-1">
-                        <a href="https://www.google.com/maps?q=${item.latitude},${item.longitude}" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">📍 Map</a>
-                        <div class="flex items-center gap-1 text-xs text-gray-600">
-                            <span class="coords-text">${item.latitude}, ${item.longitude}</span>
-                            <button class="copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy coordinates" data-coords="${item.latitude},${item.longitude}"><i class="fa fa-copy"></i></button>
+                        <span class="text-xs text-gray-500 font-semibold">Long, Lat</span>
+                        <div class="flex items-center gap-1 text-xs text-gray-700">
+                            <span class="coords-text">${item.longitude}, ${item.latitude}</span>
+                            <button class="copy-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy & Open Map" data-coords="${item.latitude},${item.longitude}" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-copy"></i></button>
                         </div>
                         <span class="copy-success-msg hidden text-green-500 text-xs ml-1">Copied!</span>
                     </div>`
@@ -844,9 +844,10 @@ function convertDMYtoMDY(dmy) {
 // Tambahkan event delegation untuk tombol copy koordinat
 if (typeof document !== 'undefined') {
     document.addEventListener('click', function(e) {
-        if (e.target.closest('.copy-coords-btn')) {
-            const btn = e.target.closest('.copy-coords-btn');
+        if (e.target.closest('.copy-map-btn')) {
+            const btn = e.target.closest('.copy-map-btn');
             const coords = btn.getAttribute('data-coords');
+            const mapUrl = btn.getAttribute('data-mapurl');
             if (coords) {
                 navigator.clipboard.writeText(coords).then(() => {
                     // Tampilkan pesan sukses
@@ -856,6 +857,9 @@ if (typeof document !== 'undefined') {
                         setTimeout(() => msg.classList.add('hidden'), 1200);
                     }
                 });
+            }
+            if (mapUrl) {
+                window.open(mapUrl, '_blank');
             }
         }
     });
