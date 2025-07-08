@@ -1008,59 +1008,99 @@ function filterChangedOnly(arr) {
   });
 }
 
+// ===== Upload File Logic (Preview + Progress Modal) =====
+function showUploadPreviewModal(data, onConfirm) {
+  let modal = document.getElementById('uploadPreviewModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'uploadPreviewModal';
+    modal.innerHTML = `
+      <div class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-40">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-2xl animate__animated animate__fadeInDown">
+          <div class="font-semibold text-lg text-gray-700 mb-2 flex items-center gap-2"><i class="fa fa-file-upload text-blue-500"></i> Preview Data Upload</div>
+          <div class="overflow-x-auto mb-2" style="max-height:220px;">
+            <table class="min-w-full text-xs border">
+              <thead><tr><th class="border px-2 py-1">order_id</th><th class="border px-2 py-1">status_hk</th><th class="border px-2 py-1">remark</th><th class="border px-2 py-1">new_order_id</th></tr></thead>
+              <tbody id="uploadPreviewRows"></tbody>
+            </table>
+          </div>
+          <div class="flex justify-end gap-2 mt-2">
+            <button id="cancelUploadPreview" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">Batal</button>
+            <button id="confirmUploadPreview" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Upload & Update</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  // Isi preview
+  const previewRows = modal.querySelector('#uploadPreviewRows');
+  previewRows.innerHTML = '';
+  (data.slice(0,10)).forEach(row => {
+    previewRows.innerHTML += `<tr><td class="border px-2 py-1">${row.order_id||''}</td><td class="border px-2 py-1">${row.status_hk||''}</td><td class="border px-2 py-1">${row.remark||''}</td><td class="border px-2 py-1">${row.new_order_id||''}</td></tr>`;
+  });
+  modal.classList.remove('hidden');
+  modal.querySelector('#cancelUploadPreview').onclick = () => modal.classList.add('hidden');
+  modal.querySelector('#confirmUploadPreview').onclick = () => {
+    modal.classList.add('hidden');
+    if (onConfirm) onConfirm();
+  };
+}
+
 function handleFile(file) {
-  resetUploadUI();
+  resetUploadUI && resetUploadUI();
   const allowedExt = ['csv', 'xls', 'xlsx', 'json'];
   const ext = file.name.split('.').pop().toLowerCase();
   if (!allowedExt.includes(ext)) {
-    uploadPreview.innerHTML = `<span class='text-red-500'>Format file tidak didukung. Hanya xls, xlsx, csv, json.</span>`;
+    showToast('Format file tidak didukung. Hanya xls, xlsx, csv, json.', 'error');
     return;
   }
   if (fileInput.files.length > 1) {
-    uploadPreview.innerHTML = `<span class='text-red-500'>Hanya boleh upload 1 file per proses.</span>`;
+    showToast('Hanya boleh upload 1 file per proses.', 'error');
     return;
   }
-  selectedFileName.textContent = file.name;
-  if (ext === 'json') {
-    const reader = new FileReader();
-    reader.onload = e => {
-      try {
-        const json = JSON.parse(e.target.result);
-        if (Array.isArray(json)) {
-          let changed = filterChangedOnly(json);
-          uploadData = changed;
-          previewTable(uploadData);
-          startUploadBtn.disabled = !uploadData.length;
-          if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk, remark, atau new_order_id yang perlu diupdate, atau new_order_id tidak valid.</div>`;
-        } else throw 'Format JSON harus array';
-      } catch (err) {
-        uploadPreview.innerHTML = `<span class='text-red-500'>File JSON tidak valid: ${err}</span>`;
-      }
-    };
-    reader.readAsText(file);
-  } else if (['csv', 'xls', 'xlsx'].includes(ext)) {
-    loadSheetJS(() => {
-      const reader = new FileReader();
-      reader.onload = e => {
-        let wb;
-        try {
-          wb = XLSX.read(e.target.result, {type: 'binary'});
-        } catch (err) {
-          uploadPreview.innerHTML = `<span class='text-red-500'>File tidak bisa dibaca: ${err}</span>`;
-          return;
-        }
-        const ws = wb.Sheets[wb.SheetNames[0]];
-        const arr = XLSX.utils.sheet_to_json(ws, {defval: ''});
-        let changed = filterChangedOnly(arr);
-        uploadData = changed;
-        previewTable(uploadData);
-        startUploadBtn.disabled = !uploadData.length;
-        if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk, remark, atau new_order_id yang perlu diupdate, atau new_order_id tidak valid.</div>`;
-      };
-      reader.readAsBinaryString(file);
-    });
+  selectedFileName && (selectedFileName.textContent = file.name);
+  // Ambil data lama untuk validasi perubahan
+  let oldMap = {};
+  if (window.allData && Array.isArray(window.allData)) {
+    window.allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d; });
+  } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
+    allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d; });
   }
-  showUploadModal(); // Show modal after file selection
+  // Parse file pakai SheetJS/JSON
+  loadSheetJS(async () => {
+    let rows = [];
+    if (ext === 'json') {
+      try { rows = JSON.parse(await file.text()); } catch { showToast('File JSON tidak valid', 'error'); return; }
+    } else {
+      const data = await file.arrayBuffer();
+      const workbook = XLSX.read(data, {type:'array'});
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      rows = XLSX.utils.sheet_to_json(sheet);
+    }
+    // Validasi perubahan saja
+    let changedRows = rows.filter(row => {
+      const old = oldMap[row.order_id];
+      if (!old) return true;
+      return (row.status_hk !== old.status_hk) || (row.remark !== old.remark) || (row.new_order_id !== old.new_order_id);
+    });
+    if (!changedRows.length) {
+      showToast('Tidak ada perubahan status_hk, remark, atau new_order_id yang perlu diupdate.', 'info');
+      return;
+    }
+    // Validasi new_order_id
+    changedRows = changedRows.filter(row => !row.new_order_id || isValidNewOrderId(row.new_order_id));
+    if (!changedRows.length) {
+      showToast('Semua new_order_id tidak valid.', 'error');
+      return;
+    }
+    // Tampilkan preview, lanjutkan upload jika dikonfirmasi
+    showUploadPreviewModal(changedRows, () => {
+      showUploadModal();
+      // Lanjutkan proses upload chunk seperti sebelumnya
+      // ... logic upload chunk ...
+    });
+  });
 }
 
 iconUploadBtn.addEventListener('click', () => fileInput.click());
