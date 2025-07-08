@@ -1110,10 +1110,75 @@ function handleFile(file) {
       return;
     }
     // Tampilkan preview, lanjutkan upload jika dikonfirmasi
-    showUploadPreviewModal(changedRows, () => {
+    showUploadPreviewModal(changedRows, async () => {
       showUploadModal();
-      // Lanjutkan proses upload chunk seperti sebelumnya
-      // ... logic upload chunk ...
+      // Proses upload chunk dan update progress bar
+      let chunkSize = 100;
+      let chunks = chunkArray(changedRows, chunkSize);
+      let total = changedRows.length, done = 0, fail = 0, errors = [];
+      let orderIdToId = {};
+      if (window.allData && Array.isArray(window.allData)) {
+        window.allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+      } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
+        allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+      }
+      for (let i = 0; i < chunks.length; i++) {
+        const chunk = chunks[i];
+        const withId = [], withOrderId = [];
+        chunk.forEach(row => {
+          const id = orderIdToId[row.order_id];
+          if (id) withId.push({ ...row, id });
+          else withOrderId.push(row);
+        });
+        // Update by id (PUT /api/realtime)
+        for (const row of withId) {
+          try {
+            const body = { id: row.id, status_hk: row.status_hk };
+            if (row.new_order_id) body.new_order_id = row.new_order_id;
+            const res = await fetch('/api/realtime', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body)
+            });
+            const result = await res.json();
+            if (result && result.success) {
+              done++;
+            } else {
+              fail++;
+              errors.push(`order_id ${row.order_id}: ${result && result.error ? result.error : 'Gagal update'}`);
+            }
+          } catch (err) {
+            fail++;
+            errors.push(`order_id ${row.order_id}: ${err.message}`);
+          }
+          updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
+        }
+        // Update by order_id (POST /api/realtime?update-status-hk=1)
+        if (withOrderId.length) {
+          try {
+            const res = await fetch('/api/realtime?update-status-hk=1', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ data: withOrderId })
+            });
+            const result = await res.json();
+            if (result && result.success) {
+              done += result.updated;
+              fail += result.failed;
+              if (result.errors && result.errors.length) errors.push(...result.errors);
+            } else {
+              fail += withOrderId.length;
+              errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
+            }
+          } catch (err) {
+            fail += withOrderId.length;
+            errors.push(`Chunk ${i+1}: ${err}`);
+          }
+        }
+        updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
+      }
+      finishUploadModal(done, fail, errors);
+      setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
     });
   });
 }
