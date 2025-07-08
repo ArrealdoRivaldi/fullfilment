@@ -865,7 +865,35 @@ if (typeof document !== 'undefined') {
     });
 }
 
-// ===== Upload Status HK (xls/csv/json) =====
+// ===== Upload Status HK (xls/csv/json) dengan Modal Popup =====
+const uploadModal = document.getElementById('uploadModal');
+const uploadModalStatus = document.getElementById('uploadModalStatus');
+const uploadModalBar = document.getElementById('uploadModalBar');
+const uploadModalDetail = document.getElementById('uploadModalDetail');
+const uploadModalClose = document.getElementById('uploadModalClose');
+
+function showUploadModal() {
+  uploadModal.classList.remove('hidden');
+  uploadModalStatus.textContent = 'Sedang mengupload data...';
+  uploadModalBar.style.width = '0%';
+  uploadModalBar.classList.add('animate-pulse');
+  uploadModalDetail.textContent = '';
+  uploadModalClose.classList.add('hidden');
+}
+function updateUploadModal(progress, status, detail) {
+  uploadModalBar.style.width = progress + '%';
+  if (status) uploadModalStatus.textContent = status;
+  if (detail !== undefined) uploadModalDetail.innerHTML = detail;
+}
+function finishUploadModal(success, fail, errors) {
+  uploadModalBar.classList.remove('animate-pulse');
+  uploadModalBar.style.width = '100%';
+  uploadModalStatus.innerHTML = `<span class='text-green-600'>Sukses update: ${success} baris</span> <span class='text-red-500 ml-2'>Gagal: ${fail} baris</span>`;
+  uploadModalDetail.innerHTML = errors && errors.length ? `<div class='text-xs text-red-500 mt-1'>${errors.join('<br>')}</div>` : '';
+  uploadModalClose.classList.remove('hidden');
+}
+uploadModalClose.onclick = () => { uploadModal.classList.add('hidden'); location.reload(); };
+
 // SheetJS loader
 function loadSheetJS(cb) {
   if (window.XLSX) return cb();
@@ -973,10 +1001,7 @@ function chunkArray(arr, size) {
 
 startUploadBtn.addEventListener('click', async () => {
   if (!uploadData.length) return;
-  uploadProgress.classList.remove('hidden');
-  uploadProgressBar.style.width = '0%';
-  uploadResult.textContent = '';
-  startUploadBtn.disabled = true;
+  showUploadModal();
   let chunks = chunkArray(uploadData, chunkSize);
   let total = uploadData.length, done = 0, fail = 0, errors = [];
   // Ambil allData dari window/allData global (sudah ada di script)
@@ -1016,7 +1041,7 @@ startUploadBtn.addEventListener('click', async () => {
         fail++;
         errors.push(`order_id ${row.order_id}: ${err.message}`);
       }
-      uploadProgressBar.style.width = `${Math.round(((i+1)/chunks.length)*100)}%`;
+      updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
     }
     // Update by order_id (POST /api/realtime?update-status-hk=1)
     if (withOrderId.length) {
@@ -1040,8 +1065,8 @@ startUploadBtn.addEventListener('click', async () => {
         errors.push(`Chunk ${i+1}: ${err}`);
       }
     }
-    uploadProgressBar.style.width = `${Math.round(((i+1)/chunks.length)*100)}%`;
+    updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
   }
-  uploadResult.innerHTML = `<span class='text-green-600'>Sukses update: ${done} baris</span> <span class='text-red-500 ml-2'>Gagal: ${fail} baris</span>` + (errors.length ? `<div class='text-xs text-red-500 mt-1'>${errors.join('<br>')}</div>` : '');
-  startUploadBtn.disabled = false;
+  finishUploadModal(done, fail, errors);
+  setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
 }); 
