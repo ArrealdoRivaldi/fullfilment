@@ -762,12 +762,14 @@ function addExportButtons() {
             fileInput.className = 'hidden';
             exportButtons.appendChild(fileInput);
         }
-        uploadBtn.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            handleFile(file);
-        });
+        if (iconUploadBtn && fileInput) {
+            iconUploadBtn.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                handleFile(file);
+            });
+        }
     }
 }
 // Search logic
@@ -957,12 +959,12 @@ let uploadData = [];
 let chunkSize = 100;
 
 function resetUploadUI() {
-  selectedFileName.textContent = '';
-  uploadPreview.innerHTML = '';
-  uploadProgress.classList.add('hidden');
-  uploadProgressBar.style.width = '0%';
-  uploadResult.textContent = '';
-  startUploadBtn.disabled = true;
+  if (selectedFileName) selectedFileName.textContent = '';
+  if (uploadPreview) uploadPreview.innerHTML = '';
+  if (uploadProgress) uploadProgress.classList.add('hidden');
+  if (uploadProgressBar) uploadProgressBar.style.width = '0%';
+  if (uploadResult) uploadResult.textContent = '';
+  if (startUploadBtn) startUploadBtn.disabled = true;
   uploadData = [];
 }
 
@@ -1103,13 +1105,14 @@ function handleFile(file) {
   });
 }
 
-iconUploadBtn.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-  // Validasi dan parsing file, lalu langsung showUploadModal()
-  handleFile(file);
-});
+if (iconUploadBtn && fileInput) {
+  iconUploadBtn.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    handleFile(file);
+  });
+}
 
 function chunkArray(arr, size) {
   const out = [];
@@ -1117,77 +1120,79 @@ function chunkArray(arr, size) {
   return out;
 }
 
-startUploadBtn.addEventListener('click', async () => {
-  if (!uploadData.length) return;
-  showUploadModal();
-  let chunks = chunkArray(uploadData, chunkSize);
-  let total = uploadData.length, done = 0, fail = 0, errors = [];
-  // Ambil allData dari window/allData global (sudah ada di script)
-  let orderIdToId = {};
-  if (window.allData && Array.isArray(window.allData)) {
-    window.allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
-  } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
-    allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
-  }
-  for (let i = 0; i < chunks.length; i++) {
-    const chunk = chunks[i];
-    // Bagi: yang ada id dokumen, dan yang tidak
-    const withId = [], withOrderId = [];
-    chunk.forEach(row => {
-      const id = orderIdToId[row.order_id];
-      if (id) withId.push({ ...row, id });
-      else withOrderId.push(row);
-    });
-    // Update by id (PUT /api/realtime)
-    for (const row of withId) {
-      try {
-        const body = { id: row.id, status_hk: row.status_hk };
-        if (row.new_order_id) body.new_order_id = row.new_order_id;
-        const res = await fetch('/api/realtime', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
-        const result = await res.json();
-        if (result && result.success) {
-          done++;
-        } else {
+if (startUploadBtn) {
+  startUploadBtn.addEventListener('click', async () => {
+    if (!uploadData.length) return;
+    showUploadModal();
+    let chunks = chunkArray(uploadData, chunkSize);
+    let total = uploadData.length, done = 0, fail = 0, errors = [];
+    // Ambil allData dari window/allData global (sudah ada di script)
+    let orderIdToId = {};
+    if (window.allData && Array.isArray(window.allData)) {
+      window.allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+    } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
+      allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+    }
+    for (let i = 0; i < chunks.length; i++) {
+      const chunk = chunks[i];
+      // Bagi: yang ada id dokumen, dan yang tidak
+      const withId = [], withOrderId = [];
+      chunk.forEach(row => {
+        const id = orderIdToId[row.order_id];
+        if (id) withId.push({ ...row, id });
+        else withOrderId.push(row);
+      });
+      // Update by id (PUT /api/realtime)
+      for (const row of withId) {
+        try {
+          const body = { id: row.id, status_hk: row.status_hk };
+          if (row.new_order_id) body.new_order_id = row.new_order_id;
+          const res = await fetch('/api/realtime', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          const result = await res.json();
+          if (result && result.success) {
+            done++;
+          } else {
+            fail++;
+            errors.push(`order_id ${row.order_id}: ${result && result.error ? result.error : 'Gagal update'}`);
+          }
+        } catch (err) {
           fail++;
-          errors.push(`order_id ${row.order_id}: ${result && result.error ? result.error : 'Gagal update'}`);
+          errors.push(`order_id ${row.order_id}: ${err.message}`);
         }
-      } catch (err) {
-        fail++;
-        errors.push(`order_id ${row.order_id}: ${err.message}`);
+        updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
+      }
+      // Update by order_id (POST /api/realtime?update-status-hk=1)
+      if (withOrderId.length) {
+        try {
+          const res = await fetch('/api/realtime?update-status-hk=1', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ data: withOrderId })
+          });
+          const result = await res.json();
+          if (result && result.success) {
+            done += result.updated;
+            fail += result.failed;
+            if (result.errors && result.errors.length) errors.push(...result.errors);
+          } else {
+            fail += withOrderId.length;
+            errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
+          }
+        } catch (err) {
+          fail += withOrderId.length;
+          errors.push(`Chunk ${i+1}: ${err}`);
+        }
       }
       updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
     }
-    // Update by order_id (POST /api/realtime?update-status-hk=1)
-    if (withOrderId.length) {
-      try {
-        const res = await fetch('/api/realtime?update-status-hk=1', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ data: withOrderId })
-        });
-        const result = await res.json();
-        if (result && result.success) {
-          done += result.updated;
-          fail += result.failed;
-          if (result.errors && result.errors.length) errors.push(...result.errors);
-        } else {
-          fail += withOrderId.length;
-          errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
-        }
-      } catch (err) {
-        fail += withOrderId.length;
-        errors.push(`Chunk ${i+1}: ${err}`);
-      }
-    }
-    updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
-  }
-  finishUploadModal(done, fail, errors);
-  setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
-}); 
+    finishUploadModal(done, fail, errors);
+    setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
+  });
+}
 
 // ===== Custom Toast/Popup UI =====
 function showToast(msg, type = 'info', duration = 2500) {
