@@ -263,10 +263,16 @@ function renderTableWithPagination(filteredData = null) {
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <div class="flex items-center">
+                    <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                </div>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
                     ? `<div class="flex items-center gap-2">
@@ -277,13 +283,8 @@ function renderTableWithPagination(filteredData = null) {
                     </div>`
                     : '-'
             }</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                <div class="flex items-center">
-                    <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
-                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
-                </div>
-            </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <select class="status-hk-select border rounded px-2 py-1">
                     <option value="">Select Status</option>
@@ -293,9 +294,8 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id"></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
         `;
         tbody.appendChild(row);
@@ -756,10 +756,16 @@ function renderTableWithPagination(filteredData = null) {
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <div class="flex items-center">
+                    <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                </div>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
                     ? `<div class="flex items-center gap-2">
@@ -770,13 +776,8 @@ function renderTableWithPagination(filteredData = null) {
                     </div>`
                     : '-'
             }</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                <div class="flex items-center">
-                    <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
-                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
-                </div>
-            </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <select class="status-hk-select border rounded px-2 py-1">
                     <option value="">Select Status</option>
@@ -786,9 +787,8 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id"></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
         `;
         tbody.appendChild(row);
