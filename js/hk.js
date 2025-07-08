@@ -645,26 +645,27 @@ async function openRemarkModal(docId) {
     historyDiv.querySelectorAll('.delete-remark-btn').forEach(btn => {
         btn.onclick = async function() {
             const idx = parseInt(btn.getAttribute('data-idx'));
-            if (!confirm('Hapus remark ini?')) return;
-            remarks.splice(idx, 1);
-            try {
-                const response = await fetch('/api/realtime', {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: docId, remark: remarks, lastEdited: remarks.length > 0 ? { email: user.email, time: new Date().toISOString() } : null })
-                });
-                const result = await response.json();
-                if (result.success) {
-                    item.remark = remarks;
-                    item.lastEdited = remarks.length > 0 ? { email: user.email, time: new Date().toISOString() } : null;
-                    renderTableWithPagination();
-                    openRemarkModal(docId); // refresh modal
-                } else {
-                    showToast('Hapus remark gagal: ' + (result.error || 'Unknown error'), 'error');
+            showConfirm('Hapus remark ini?', async () => {
+                remarks.splice(idx, 1);
+                try {
+                    const response = await fetch('/api/realtime', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: docId, remark: remarks, lastEdited: remarks.length > 0 ? { email: user.email, time: new Date().toISOString() } : null })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        item.remark = remarks;
+                        item.lastEdited = remarks.length > 0 ? { email: user.email, time: new Date().toISOString() } : null;
+                        renderTableWithPagination();
+                        openRemarkModal(docId); // refresh modal
+                    } else {
+                        showToast('Hapus remark gagal: ' + (result.error || 'Unknown error'), 'error');
+                    }
+                } catch (err) {
+                    showToast('Hapus remark gagal: ' + err.message, 'error');
                 }
-            } catch (err) {
-                showToast('Hapus remark gagal: ' + err.message, 'error');
-            }
+            }, () => {});
         };
     });
     // Close modal
@@ -1172,4 +1173,36 @@ function showToast(msg, type = 'info', duration = 2500) {
     toast.style.opacity = '0';
     toast.style.top = '0px';
   }, duration);
+}
+
+// ===== Custom Confirm Modal =====
+function showConfirm(msg, onYes, onNo) {
+  let modal = document.getElementById('customConfirmModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'customConfirmModal';
+    modal.innerHTML = `
+      <div class="fixed inset-0 z-[9999] flex items-center justify-center bg-black bg-opacity-40">
+        <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-xs animate__animated animate__fadeInDown flex flex-col items-center">
+          <span class="inline-block w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-2"><i class="fa fa-exclamation-triangle text-red-500 text-2xl"></i></span>
+          <div class="font-semibold text-gray-800 text-center mb-2" id="customConfirmMsg"></div>
+          <div class="flex gap-3 mt-2">
+            <button id="customConfirmYes" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">Ya</button>
+            <button id="customConfirmNo" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition">Tidak</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  document.getElementById('customConfirmMsg').textContent = msg;
+  modal.classList.remove('hidden');
+  document.getElementById('customConfirmYes').onclick = () => {
+    modal.classList.add('hidden');
+    if (onYes) onYes();
+  };
+  document.getElementById('customConfirmNo').onclick = () => {
+    modal.classList.add('hidden');
+    if (onNo) onNo();
+  };
 }
