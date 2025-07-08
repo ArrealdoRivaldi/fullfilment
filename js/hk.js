@@ -979,24 +979,66 @@ startUploadBtn.addEventListener('click', async () => {
   startUploadBtn.disabled = true;
   let chunks = chunkArray(uploadData, chunkSize);
   let total = uploadData.length, done = 0, fail = 0, errors = [];
+  // Ambil allData dari window/allData global (sudah ada di script)
+  let orderIdToId = {};
+  if (window.allData && Array.isArray(window.allData)) {
+    window.allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+  } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
+    allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+  }
   for (let i = 0; i < chunks.length; i++) {
     const chunk = chunks[i];
-    try {
-      const res = await fetch('/api/update-status-hk', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({data: chunk})
-      });
-      const result = await res.json();
-      if (result && result.success) {
-        done += chunk.length;
-      } else {
-        fail += chunk.length;
-        errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
+    // Bagi: yang ada id dokumen, dan yang tidak
+    const withId = [], withOrderId = [];
+    chunk.forEach(row => {
+      const id = orderIdToId[row.order_id];
+      if (id) withId.push({ ...row, id });
+      else withOrderId.push(row);
+    });
+    // Update by id (PUT /api/realtime)
+    for (const row of withId) {
+      try {
+        const body = { id: row.id, status_hk: row.status_hk };
+        if (row.new_order_id) body.new_order_id = row.new_order_id;
+        const res = await fetch('/api/realtime', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const result = await res.json();
+        if (result && result.success) {
+          done++;
+        } else {
+          fail++;
+          errors.push(`order_id ${row.order_id}: ${result && result.error ? result.error : 'Gagal update'}`);
+        }
+      } catch (err) {
+        fail++;
+        errors.push(`order_id ${row.order_id}: ${err.message}`);
       }
-    } catch (err) {
-      fail += chunk.length;
-      errors.push(`Chunk ${i+1}: ${err}`);
+      uploadProgressBar.style.width = `${Math.round(((i+1)/chunks.length)*100)}%`;
+    }
+    // Update by order_id (POST /api/realtime?update-status-hk=1)
+    if (withOrderId.length) {
+      try {
+        const res = await fetch('/api/realtime?update-status-hk=1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: withOrderId })
+        });
+        const result = await res.json();
+        if (result && result.success) {
+          done += result.updated;
+          fail += result.failed;
+          if (result.errors && result.errors.length) errors.push(...result.errors);
+        } else {
+          fail += withOrderId.length;
+          errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
+        }
+      } catch (err) {
+        fail += withOrderId.length;
+        errors.push(`Chunk ${i+1}: ${err}`);
+      }
     }
     uploadProgressBar.style.width = `${Math.round(((i+1)/chunks.length)*100)}%`;
   }
