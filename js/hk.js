@@ -731,6 +731,8 @@ function exportFilteredData(type) {
     }
 }
 function addExportButtons() {
+    const exportButtons = document.getElementById('exportButtons');
+    exportButtons.innerHTML = '';
     const btns = [
         {id:'copy', label:'Copy', icon:'<i class="fa fa-copy"></i>', color:'from-blue-400 to-blue-600'},
         {id:'csv', label:'CSV', icon:'<i class="fa fa-file-csv"></i>', color:'from-green-400 to-green-600'},
@@ -742,6 +744,31 @@ function addExportButtons() {
     btns.forEach(b => {
         document.getElementById('export-' + b.id).onclick = () => exportFilteredData(b.id);
     });
+    // Tambahkan tombol upload jika belum ada
+    if (!document.getElementById('iconUploadBtn')) {
+        const uploadBtn = document.createElement('button');
+        uploadBtn.id = 'iconUploadBtn';
+        uploadBtn.className = 'flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-base';
+        uploadBtn.title = 'Upload File';
+        uploadBtn.innerHTML = '<i class="fa fa-upload"></i> <span class="hidden sm:inline">Upload</span>';
+        exportButtons.appendChild(uploadBtn);
+        // Input file (hidden)
+        let fileInput = document.getElementById('fileInput');
+        if (!fileInput) {
+            fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.id = 'fileInput';
+            fileInput.accept = '.csv,.xls,.xlsx,.json';
+            fileInput.className = 'hidden';
+            exportButtons.appendChild(fileInput);
+        }
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            handleFile(file);
+        });
+    }
 }
 // Search logic
 function getFilteredAndSearchedData() {
