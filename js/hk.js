@@ -269,12 +269,10 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
-                    ? `<div class="flex flex-col items-start gap-1">
-                        <span class="text-xs text-gray-500 font-semibold">Long, Lat</span>
-                        <div class="flex items-center gap-1 text-xs text-gray-700">
-                            <span class="coords-text">${item.longitude}, ${item.latitude}</span>
-                            <button class="copy-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy & Open Map" data-coords="${item.latitude},${item.longitude}" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-copy"></i></button>
-                        </div>
+                    ? `<div class="flex items-center gap-2">
+                        <span class="coords-text">${item.longitude}, ${item.latitude}</span>
+                        <button class="open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs" title="Open in Google Maps" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-map-marker-alt"></i></button>
+                        <button class="copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy coordinates" data-coords="${item.longitude}, ${item.latitude}"><i class="fa fa-copy"></i></button>
                         <span class="copy-success-msg hidden text-green-500 text-xs ml-1">Copied!</span>
                     </div>`
                     : '-'
@@ -764,12 +762,10 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
-                    ? `<div class="flex flex-col items-start gap-1">
-                        <span class="text-xs text-gray-500 font-semibold">Long, Lat</span>
-                        <div class="flex items-center gap-1 text-xs text-gray-700">
-                            <span class="coords-text">${item.longitude}, ${item.latitude}</span>
-                            <button class="copy-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy & Open Map" data-coords="${item.latitude},${item.longitude}" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-copy"></i></button>
-                        </div>
+                    ? `<div class="flex items-center gap-2">
+                        <span class="coords-text">${item.longitude}, ${item.latitude}</span>
+                        <button class="open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs" title="Open in Google Maps" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-map-marker-alt"></i></button>
+                        <button class="copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy coordinates" data-coords="${item.longitude}, ${item.latitude}"><i class="fa fa-copy"></i></button>
                         <span class="copy-success-msg hidden text-green-500 text-xs ml-1">Copied!</span>
                     </div>`
                     : '-'
