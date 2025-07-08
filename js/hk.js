@@ -519,6 +519,18 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
         const id = row.dataset.docId;
         const status_hk = row.querySelector('.status-hk-select').value;
         const new_order_id = row.querySelector('.new-order-id').value;
+        // Validasi perubahan dan new_order_id
+        const item = (window.allData || allData || []).find(d => d.id === id);
+        const statusChanged = status_hk && String(status_hk).trim() !== String(item?.status_hk ?? '').trim();
+        const newOrderIdChanged = new_order_id && String(new_order_id).trim() !== String(item?.new_order_id ?? '').trim();
+        if (new_order_id && !isValidNewOrderId(new_order_id)) {
+            alert('New Order ID hanya boleh huruf, angka, strip, dan maksimal 32 karakter!');
+            return;
+        }
+        if (!statusChanged && !newOrderIdChanged) {
+            alert('Tidak ada perubahan status_hk atau new_order_id.');
+            return;
+        }
         try {
             const response = await fetch('/api/realtime', {
                 method: 'PUT',
@@ -940,6 +952,33 @@ function previewTable(data) {
   uploadPreview.innerHTML = html;
 }
 
+function isValidNewOrderId(val) {
+  return typeof val === 'string' && /^[a-zA-Z0-9\-]{0,32}$/.test(val);
+}
+function filterChangedOnly(arr) {
+  // Ambil data lama untuk validasi perubahan
+  let oldMap = {};
+  if (window.allData && Array.isArray(window.allData)) {
+    window.allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d; });
+  } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
+    allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d; });
+  }
+  return arr.filter(row => {
+    if (!row.order_id) return false;
+    const old = oldMap[row.order_id];
+    if (!old) return false;
+    // Validasi new_order_id
+    if (row.new_order_id && !isValidNewOrderId(row.new_order_id)) return false;
+    // Perubahan status_hk
+    const statusChanged = row.status_hk && String(row.status_hk).trim() !== String(old.status_hk ?? '').trim();
+    // Perubahan remark
+    const remarkChanged = row.remark && String(row.remark).trim() !== String(old.remark ?? '').trim();
+    // Perubahan new_order_id
+    const newOrderIdChanged = row.new_order_id && String(row.new_order_id).trim() !== String(old.new_order_id ?? '').trim();
+    return statusChanged || remarkChanged || newOrderIdChanged;
+  });
+}
+
 function handleFile(file) {
   resetUploadUI();
   const allowedExt = ['csv', 'xls', 'xlsx', 'json'];
@@ -953,16 +992,6 @@ function handleFile(file) {
     return;
   }
   selectedFileName.textContent = file.name;
-  // Ambil data lama untuk validasi perubahan
-  let oldMap = {};
-  if (window.allData && Array.isArray(window.allData)) {
-    window.allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d.status_hk; });
-  } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
-    allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d.status_hk; });
-  }
-  function filterChangedOnly(arr) {
-    return arr.filter(row => row.order_id && row.status_hk && oldMap[row.order_id] !== undefined && String(row.status_hk).trim() !== String(oldMap[row.order_id]).trim());
-  }
   if (ext === 'json') {
     const reader = new FileReader();
     reader.onload = e => {
@@ -973,7 +1002,7 @@ function handleFile(file) {
           uploadData = changed;
           previewTable(uploadData);
           startUploadBtn.disabled = !uploadData.length;
-          if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk yang perlu diupdate.</div>`;
+          if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk, remark, atau new_order_id yang perlu diupdate, atau new_order_id tidak valid.</div>`;
         } else throw 'Format JSON harus array';
       } catch (err) {
         uploadPreview.innerHTML = `<span class='text-red-500'>File JSON tidak valid: ${err}</span>`;
@@ -997,7 +1026,7 @@ function handleFile(file) {
         uploadData = changed;
         previewTable(uploadData);
         startUploadBtn.disabled = !uploadData.length;
-        if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk yang perlu diupdate.</div>`;
+        if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk, remark, atau new_order_id yang perlu diupdate, atau new_order_id tidak valid.</div>`;
       };
       reader.readAsBinaryString(file);
     });
