@@ -762,15 +762,27 @@ function addExportButtons() {
             fileInput.className = 'hidden';
             exportButtons.appendChild(fileInput);
         }
-        if (iconUploadBtn && fileInput) {
-            iconUploadBtn.addEventListener('click', () => fileInput.click());
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                handleFile(file);
-            });
-        }
+        // if (iconUploadBtn && fileInput) { // This block is now handled by attachUploadEvents
+        //     iconUploadBtn.addEventListener('click', () => fileInput.click());
+        //     fileInput.addEventListener('change', (e) => {
+        //         const file = e.target.files[0];
+        //         if (!file) return;
+        //         handleFile(file);
+        //     });
+        // }
     }
+}
+function attachUploadEvents() {
+  const iconUploadBtn = document.getElementById('iconUploadBtn');
+  const fileInput = document.getElementById('fileInput');
+  if (iconUploadBtn && fileInput) {
+    iconUploadBtn.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      handleFile(file);
+    };
+  }
 }
 // Search logic
 function getFilteredAndSearchedData() {
@@ -839,6 +851,7 @@ function renderTableWithPagination(filteredData = null) {
 }
 document.addEventListener('DOMContentLoaded', function() {
     addExportButtons();
+    attachUploadEvents(); // Call attachUploadEvents after addExportButtons
     // Search event
     const searchInput = document.getElementById('tableSearch');
     if (searchInput) {
