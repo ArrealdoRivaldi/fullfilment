@@ -1060,12 +1060,18 @@ function handleFile(file) {
   resetUploadUI && resetUploadUI();
   const allowedExt = ['csv', 'xls', 'xlsx', 'json'];
   const ext = file.name.split('.').pop().toLowerCase();
+  const maxSize = 2 * 1024 * 1024; // 2MB
+  const maxRows = 1000;
   if (!allowedExt.includes(ext)) {
     showToast('Format file tidak didukung. Hanya xls, xlsx, csv, json.', 'error');
     return;
   }
   if (fileInput.files.length > 1) {
     showToast('Hanya boleh upload 1 file per proses.', 'error');
+    return;
+  }
+  if (file.size > maxSize) {
+    showToast('Ukuran file maksimal 2MB.', 'error');
     return;
   }
   selectedFileName && (selectedFileName.textContent = file.name);
@@ -1087,6 +1093,10 @@ function handleFile(file) {
       const sheet = workbook.Sheets[workbook.SheetNames[0]];
       rows = XLSX.utils.sheet_to_json(sheet);
     }
+    if (rows.length > maxRows) {
+      showToast('Jumlah baris maksimal 1000. File terlalu besar.', 'error');
+      return;
+    }
     // Validasi perubahan saja
     let changedRows = rows.filter(row => {
       const old = oldMap[row.order_id];
@@ -1103,78 +1113,93 @@ function handleFile(file) {
       showToast('Semua new_order_id tidak valid.', 'error');
       return;
     }
+    // Jika upload > 500 row, tampilkan warning sebelum lanjut
+    if (changedRows.length > 500) {
+      showConfirm(`Anda akan mengupload ${changedRows.length} baris data. Proses bisa memakan waktu lebih lama. Lanjutkan?`, () => {
+        showUploadPreviewModal(changedRows, async () => {
+          showUploadModal();
+          await uploadChunkedRows(changedRows);
+        });
+      }, () => {});
+      return;
+    }
     // Tampilkan preview, lanjutkan upload jika dikonfirmasi
     showUploadPreviewModal(changedRows, async () => {
       showUploadModal();
-      // Proses upload chunk dan update progress bar
-      let chunkSize = 100;
-      let chunks = chunkArray(changedRows, chunkSize);
-      let total = changedRows.length, done = 0, fail = 0, errors = [];
-      let orderIdToId = {};
-      if (window.allData && Array.isArray(window.allData)) {
-        window.allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
-      } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
-        allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
-      }
-      for (let i = 0; i < chunks.length; i++) {
-        const chunk = chunks[i];
-        const withId = [], withOrderId = [];
-        chunk.forEach(row => {
-          const id = orderIdToId[row.order_id];
-          if (id) withId.push({ ...row, id });
-          else withOrderId.push(row);
-        });
-        // Update by id (PUT /api/realtime)
-        for (const row of withId) {
-          try {
-            const body = { id: row.id, status_hk: row.status_hk };
-            if (row.new_order_id) body.new_order_id = row.new_order_id;
-            const res = await fetch('/api/realtime', {
-              method: 'PUT',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(body)
-            });
-            const result = await res.json();
-            if (result && result.success) {
-              done++;
-            } else {
-              fail++;
-              errors.push(`order_id ${row.order_id}: ${result && result.error ? result.error : 'Gagal update'}`);
-            }
-          } catch (err) {
-            fail++;
-            errors.push(`order_id ${row.order_id}: ${err.message}`);
-          }
-          updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
-        }
-        // Update by order_id (POST /api/realtime?update-status-hk=1)
-        if (withOrderId.length) {
-          try {
-            const res = await fetch('/api/realtime?update-status-hk=1', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ data: withOrderId })
-            });
-            const result = await res.json();
-            if (result && result.success) {
-              done += result.updated;
-              fail += result.failed;
-              if (result.errors && result.errors.length) errors.push(...result.errors);
-            } else {
-              fail += withOrderId.length;
-              errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
-            }
-          } catch (err) {
-            fail += withOrderId.length;
-            errors.push(`Chunk ${i+1}: ${err}`);
-          }
-        }
-        updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
-      }
-      finishUploadModal(done, fail, errors);
-      setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
+      await uploadChunkedRows(changedRows);
     });
   });
+}
+// Improve: uploadChunkedRows untuk upload chunk dan update progress bar
+async function uploadChunkedRows(changedRows) {
+  let chunkSize = 100;
+  let chunks = chunkArray(changedRows, chunkSize);
+  let total = changedRows.length, done = 0, fail = 0, errors = [];
+  let orderIdToId = {};
+  if (window.allData && Array.isArray(window.allData)) {
+    window.allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+  } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
+    allData.forEach(d => { if (d.order_id) orderIdToId[d.order_id] = d.id; });
+  }
+  const estSec = Math.max(2, Math.round(total/100));
+  updateUploadModal(0, `Estimasi waktu upload: ${estSec} detik`, '');
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    const withId = [], withOrderId = [];
+    chunk.forEach(row => {
+      const id = orderIdToId[row.order_id];
+      if (id) withId.push({ ...row, id });
+      else withOrderId.push(row);
+    });
+    // Update by id (PUT /api/realtime)
+    for (const row of withId) {
+      try {
+        const body = { id: row.id, status_hk: row.status_hk };
+        if (row.new_order_id) body.new_order_id = row.new_order_id;
+        const res = await fetch('/api/realtime', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        const result = await res.json();
+        if (result && result.success) {
+          done++;
+        } else {
+          fail++;
+          errors.push(`order_id ${row.order_id}: ${result && result.error ? result.error : 'Gagal update'}`);
+        }
+      } catch (err) {
+        fail++;
+        errors.push(`order_id ${row.order_id}: ${err.message}`);
+      }
+      updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
+    }
+    // Update by order_id (POST /api/realtime?update-status-hk=1)
+    if (withOrderId.length) {
+      try {
+        const res = await fetch('/api/realtime?update-status-hk=1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: withOrderId })
+        });
+        const result = await res.json();
+        if (result && result.success) {
+          done += result.updated;
+          fail += result.failed;
+          if (result.errors && result.errors.length) errors.push(...result.errors);
+        } else {
+          fail += withOrderId.length;
+          errors.push(`Chunk ${i+1}: ${result && result.error ? result.error : 'Gagal update'}`);
+        }
+      } catch (err) {
+        fail += withOrderId.length;
+        errors.push(`Chunk ${i+1}: ${err}`);
+      }
+    }
+    updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
+  }
+  finishUploadModal(done, fail, errors);
+  setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
 }
 
 if (iconUploadBtn && fileInput) {
