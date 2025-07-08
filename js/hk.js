@@ -1101,7 +1101,10 @@ function handleFile(file) {
     let changedRows = rows.filter(row => {
       const old = oldMap[row.order_id];
       if (!old) return true;
-      return (row.status_hk !== old.status_hk) || (row.remark !== old.remark) || (row.new_order_id !== old.new_order_id);
+      // Hanya upload jika status_hk berubah
+      return (row.status_hk && String(row.status_hk).trim() !== String(old.status_hk ?? '').trim())
+        || (row.remark && String(row.remark).trim() !== String(old.remark ?? '').trim())
+        || (row.new_order_id && String(row.new_order_id).trim() !== String(old.new_order_id ?? '').trim());
     });
     if (!changedRows.length) {
       showToast('Tidak ada perubahan status_hk, remark, atau new_order_id yang perlu diupdate.', 'info');
@@ -1172,7 +1175,12 @@ async function uploadChunkedRows(changedRows) {
         fail++;
         errors.push(`order_id ${row.order_id}: ${err.message}`);
       }
-      updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
+      // Update progress bar dengan pesan baru
+      if (chunks.length === 1) {
+        updateUploadModal(Math.round(((i+1)/chunks.length)*100), 'Mengupload data...', '');
+      } else {
+        updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload data (${i+1}/${chunks.length})...`, '');
+      }
     }
     // Update by order_id (POST /api/realtime?update-status-hk=1)
     if (withOrderId.length) {
@@ -1196,7 +1204,12 @@ async function uploadChunkedRows(changedRows) {
         errors.push(`Chunk ${i+1}: ${err}`);
       }
     }
-    updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload chunk ${i+1} dari ${chunks.length}...`, '');
+    // Update progress bar dengan pesan baru
+    if (chunks.length === 1) {
+      updateUploadModal(Math.round(((i+1)/chunks.length)*100), 'Mengupload data...', '');
+    } else {
+      updateUploadModal(Math.round(((i+1)/chunks.length)*100), `Mengupload data (${i+1}/${chunks.length})...`, '');
+    }
   }
   finishUploadModal(done, fail, errors);
   setTimeout(() => { uploadModal.classList.add('hidden'); location.reload(); }, 2000);
