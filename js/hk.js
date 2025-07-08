@@ -840,22 +840,26 @@ function convertDMYtoMDY(dmy) {
 // Tambahkan event delegation untuk tombol copy koordinat
 if (typeof document !== 'undefined') {
     document.addEventListener('click', function(e) {
-        if (e.target.closest('.copy-map-btn')) {
-            const btn = e.target.closest('.copy-map-btn');
-            const coords = btn.getAttribute('data-coords');
+        // Tombol buka Google Maps
+        if (e.target.closest('.open-map-btn')) {
+            const btn = e.target.closest('.open-map-btn');
             const mapUrl = btn.getAttribute('data-mapurl');
+            if (mapUrl) {
+                window.open(mapUrl, '_blank');
+            }
+        }
+        // Tombol copy koordinat
+        if (e.target.closest('.copy-coords-btn')) {
+            const btn = e.target.closest('.copy-coords-btn');
+            const coords = btn.getAttribute('data-coords');
             if (coords) {
                 navigator.clipboard.writeText(coords).then(() => {
-                    // Tampilkan pesan sukses
-                    const msg = btn.parentElement.parentElement.querySelector('.copy-success-msg');
+                    const msg = btn.parentElement.querySelector('.copy-success-msg');
                     if (msg) {
                         msg.classList.remove('hidden');
                         setTimeout(() => msg.classList.add('hidden'), 1200);
                     }
                 });
-            }
-            if (mapUrl) {
-                window.open(mapUrl, '_blank');
             }
         }
     });
