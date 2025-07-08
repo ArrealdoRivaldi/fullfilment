@@ -942,17 +942,38 @@ function previewTable(data) {
 
 function handleFile(file) {
   resetUploadUI();
-  selectedFileName.textContent = file.name;
+  const allowedExt = ['csv', 'xls', 'xlsx', 'json'];
   const ext = file.name.split('.').pop().toLowerCase();
+  if (!allowedExt.includes(ext)) {
+    uploadPreview.innerHTML = `<span class='text-red-500'>Format file tidak didukung. Hanya xls, xlsx, csv, json.</span>`;
+    return;
+  }
+  if (fileInput.files.length > 1) {
+    uploadPreview.innerHTML = `<span class='text-red-500'>Hanya boleh upload 1 file per proses.</span>`;
+    return;
+  }
+  selectedFileName.textContent = file.name;
+  // Ambil data lama untuk validasi perubahan
+  let oldMap = {};
+  if (window.allData && Array.isArray(window.allData)) {
+    window.allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d.status_hk; });
+  } else if (typeof allData !== 'undefined' && Array.isArray(allData)) {
+    allData.forEach(d => { if (d.order_id) oldMap[d.order_id] = d.status_hk; });
+  }
+  function filterChangedOnly(arr) {
+    return arr.filter(row => row.order_id && row.status_hk && oldMap[row.order_id] !== undefined && String(row.status_hk).trim() !== String(oldMap[row.order_id]).trim());
+  }
   if (ext === 'json') {
     const reader = new FileReader();
     reader.onload = e => {
       try {
         const json = JSON.parse(e.target.result);
         if (Array.isArray(json)) {
-          uploadData = json.filter(row => row.order_id && row.status_hk);
+          let changed = filterChangedOnly(json);
+          uploadData = changed;
           previewTable(uploadData);
           startUploadBtn.disabled = !uploadData.length;
+          if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk yang perlu diupdate.</div>`;
         } else throw 'Format JSON harus array';
       } catch (err) {
         uploadPreview.innerHTML = `<span class='text-red-500'>File JSON tidak valid: ${err}</span>`;
@@ -972,14 +993,14 @@ function handleFile(file) {
         }
         const ws = wb.Sheets[wb.SheetNames[0]];
         const arr = XLSX.utils.sheet_to_json(ws, {defval: ''});
-        uploadData = arr.filter(row => row.order_id && row.status_hk);
+        let changed = filterChangedOnly(arr);
+        uploadData = changed;
         previewTable(uploadData);
         startUploadBtn.disabled = !uploadData.length;
+        if (!uploadData.length) uploadPreview.innerHTML += `<div class='text-orange-500 mt-2'>Tidak ada perubahan status_hk yang perlu diupdate.</div>`;
       };
       reader.readAsBinaryString(file);
     });
-  } else {
-    uploadPreview.innerHTML = `<span class='text-red-500'>Format file tidak didukung.</span>`;
   }
 }
 
@@ -987,10 +1008,13 @@ uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.cl
 uploadArea.addEventListener('dragleave', e => { e.preventDefault(); uploadArea.classList.remove('bg-blue-100'); });
 uploadArea.addEventListener('drop', e => {
   e.preventDefault(); uploadArea.classList.remove('bg-blue-100');
-  if (e.dataTransfer.files && e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  if (e.dataTransfer.files && e.dataTransfer.files.length === 1) handleFile(e.dataTransfer.files[0]);
+  else uploadPreview.innerHTML = `<span class='text-red-500'>Hanya boleh upload 1 file per proses.</span>`;
 });
 fileInput.addEventListener('change', e => {
   if (e.target.files && e.target.files[0]) handleFile(e.target.files[0]);
+  // Reset file input agar bisa upload file yang sama lagi jika perlu
+  e.target.value = '';
 });
 
 function chunkArray(arr, size) {
