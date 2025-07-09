@@ -9,8 +9,7 @@ const statusHKOptions = [
     { value: "PT3", label: "PT3" },
     { value: "Reorder", label: "Reorder" },
     { value: "Revoke", label: "Revoke" },
-    { value: "Offering Orbit", label: "Offering Orbit" },
-    { value: "UNSC", label: "UNSC" }
+    { value: "Offering Orbit", label: "Offering Orbit" }
 ];
 let userNop = null;
 let filteredByNopData = [];
@@ -93,13 +92,6 @@ function initializeFilters(data) {
     optNotYet.value = 'notyet';
     optNotYet.textContent = 'Not Yet';
     statusHKSelect.appendChild(optNotYet);
-    // Tambahkan semua opsi dari statusHKOptions
-    statusHKOptions.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt.value;
-        option.textContent = opt.label;
-        statusHKSelect.appendChild(option);
-    });
 }
 function hitungAgingHari(provi_ts) {
     try {
