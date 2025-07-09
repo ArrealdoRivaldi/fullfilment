@@ -9,7 +9,8 @@ const statusHKOptions = [
     { value: "PT3", label: "PT3" },
     { value: "Reorder", label: "Reorder" },
     { value: "Revoke", label: "Revoke" },
-    { value: "Offering Orbit", label: "Offering Orbit" }
+    { value: "Offering Orbit", label: "Offering Orbit" },
+    { value: "UNSC", label: "UNSC" } // kategori baru
 ];
 let userNop = null;
 let filteredByNopData = [];
