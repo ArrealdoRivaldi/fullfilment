@@ -159,14 +159,13 @@ function filterData() {
         let start = parseMDYInput(convertDMYtoMDY(startDate));
         let end = parseMDYInput(convertDMYtoMDY(endDate));
         if (end) end.setHours(23,59,59,999);
-        if (start || end) {
-            console.log('provi_ts:', item.provi_ts, 'parsed:', itemDate, 'start:', start, 'end:', end);
-        }
         let statusHKMatch = true;
         if (statusHK === 'done') {
             statusHKMatch = !!(item.status_hk && item.status_hk.trim() !== '');
         } else if (statusHK === 'notyet') {
             statusHKMatch = !(item.status_hk && item.status_hk.trim() !== '');
+        } else if (statusHK) {
+            statusHKMatch = (item.status_hk && item.status_hk.trim() === statusHK);
         }
         let agingMatch = true;
         if (agingFallout) {
@@ -183,9 +182,6 @@ function filterData() {
             (!start || itemDate >= start) &&
             (!end || itemDate <= end) &&
             agingMatch;
-        if ((start || end) && lolos) {
-            console.log('LOLOS FILTER:', item);
-        }
         return lolos;
     });
 }
