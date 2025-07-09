@@ -33,10 +33,15 @@ function formatDate(dateStr) {
                 return `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
             }
         }
-        return 'Invalid Date';
+        if (typeof dateStr === 'object' && dateStr instanceof Date) {
+            if (!isNaN(dateStr.getTime())) {
+                return `${dateStr.getDate().toString().padStart(2, '0')}-${(dateStr.getMonth() + 1).toString().padStart(2, '0')}-${dateStr.getFullYear()}`;
+            }
+        }
+        return '';
     } catch (e) {
         console.error('Error formatting date:', dateStr, e);
-        return 'Format Error';
+        return '';
     }
 }
 function truncateText(text, maxLength = 50) {
@@ -89,29 +94,40 @@ function initializeFilters(data) {
     statusHKSelect.appendChild(optNotYet);
 }
 function hitungAgingHari(provi_ts) {
-    let proviDate;
-    if (typeof provi_ts === 'object' && provi_ts !== null && typeof provi_ts.seconds === 'number') {
-        proviDate = new Date(provi_ts.seconds * 1000);
-    } else if (typeof provi_ts === 'string' && provi_ts.trim() !== '') {
-        proviDate = new Date(provi_ts);
-    } else {
-        proviDate = new Date(provi_ts);
+    try {
+        let proviDate;
+        if (typeof provi_ts === 'object' && provi_ts !== null && typeof provi_ts.seconds === 'number') {
+            proviDate = new Date(provi_ts.seconds * 1000);
+        } else if (typeof provi_ts === 'string' && provi_ts.trim() !== '') {
+            proviDate = new Date(provi_ts);
+        } else {
+            proviDate = new Date(provi_ts);
+        }
+        if (isNaN(proviDate.getTime())) return null;
+        let now = new Date();
+        // Set jam ke 00:00:00 agar hanya beda tanggal
+        proviDate.setHours(0,0,0,0);
+        now.setHours(0,0,0,0);
+        let diffMs = now - proviDate;
+        let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        return diffHari;
+    } catch (error) {
+        console.error('Error in hitungAgingHari:', error, 'provi_ts:', provi_ts);
+        return null;
     }
-    if (isNaN(proviDate.getTime())) return null;
-    let now = new Date();
-    // Set jam ke 00:00:00 agar hanya beda tanggal
-    proviDate.setHours(0,0,0,0);
-    now.setHours(0,0,0,0);
-    let diffMs = now - proviDate;
-    let diffHari = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    return diffHari;
 }
 function mapAging(hari) {
-    if (hari <= 3) return '1-3 hari';
-    else if (hari <= 7) return '4-7 hari';
-    else if (hari <= 14) return '8-14 hari';
-    else if (hari <= 30) return '14-30 hari';
-    else return '> 30 Hari';
+    try {
+        if (hari === null || hari === undefined || isNaN(hari)) return '';
+        if (hari <= 3) return '1-3 hari';
+        else if (hari <= 7) return '4-7 hari';
+        else if (hari <= 14) return '8-14 hari';
+        else if (hari <= 30) return '14-30 hari';
+        else return '> 30 Hari';
+    } catch (error) {
+        console.error('Error in mapAging:', error, 'hari:', hari);
+        return '';
+    }
 }
 function parseMDYInput(str) {
     if (!str) return null;
@@ -697,37 +713,111 @@ if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
 
 // ===== EXPORT BUTTONS & SEARCH =====
 function exportFilteredData(type) {
-    const filteredData = getFilteredAndSearchedData();
-    const headers = [
-        'No', 'Order ID', 'Provi ts', 'Branch', 'WOK', 'STO', 'Fallout Reason', 'Symptom', 'Status HK', 'Remark', 'Status PS', 'Aging Fallout', 'New Order id'
-    ];
-    const rows = filteredData.map((item, idx) => [
-        idx + 1,
-        item.order_id || '',
-        formatDate(item.provi_ts),
-        item.branch || '',
-        item.wok || '',
-        item.sto_co || '',
-        item.fallout_reason || '',
-        item.symptom || '',
-        item.status_hk || '',
-        (item.remark && item.remark.length > 0) ? item.remark.map(r => r.text).join(' | ') : '',
-        item.status_ps || '',
-        (() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })(),
-        item.new_order_id || ''
-    ]);
-    if (type === 'copy') {
-        const text = [headers, ...rows].map(r => r.join('\t')).join('\n');
-        navigator.clipboard.writeText(text).then(() => showToast('Data copied!', 'success'));
-    } else if (type === 'csv') {
-        const csv = [headers, ...rows].map(r => r.map(v => '"' + (v||'').toString().replace(/"/g,'""') + '"').join(',')).join('\n');
-        const blob = new Blob([csv], {type: 'text/csv'});
-        saveAs(blob, 'export-housekeeping.csv');
-    } else if (type === 'excel') {
-        let xls = '<table><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>' +
-            rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join('') + '</tr>').join('') + '</table>';
-        const blob = new Blob([xls], {type: 'application/vnd.ms-excel'});
-        saveAs(blob, 'export-housekeeping.xls');
+    try {
+        console.log('Export started, type:', type);
+        const filteredData = getFilteredAndSearchedData();
+        console.log('Filtered data length:', filteredData ? filteredData.length : 'null');
+        
+        if (!filteredData || filteredData.length === 0) {
+            showToast('No data to export!', 'warning');
+            return;
+        }
+        
+        const headers = [
+            'No', 'Order ID', 'Provi ts', 'Branch', 'WOK', 'STO', 'Fallout Reason', 'Symptom', 'Status HK', 'Remark', 'Status PS', 'Aging Fallout', 'New Order id'
+        ];
+        
+        const rows = filteredData.map((item, idx) => [
+            idx + 1,
+            item.order_id || '',
+            formatDate(item.provi_ts),
+            item.branch || '',
+            item.wok || '',
+            item.sto_co || '',
+            item.fallout_reason || '',
+            item.symptom || '',
+            item.status_hk || '',
+            (item.remark && item.remark.length > 0) ? item.remark.map(r => r.text).join(' | ') : '',
+            item.status_ps || '',
+            (() => { 
+                const hari = hitungAgingHari(item.provi_ts); 
+                return hari !== null ? mapAging(hari) : ''; 
+            })(),
+            item.new_order_id || ''
+        ]);
+        
+        console.log('Export type:', type, 'Rows prepared:', rows.length);
+        
+        if (type === 'copy') {
+            const text = [headers, ...rows].map(r => r.join('\t')).join('\n');
+            console.log('Copy text length:', text.length);
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Data copied to clipboard!', 'success');
+                }).catch(err => {
+                    console.error('Failed to copy to clipboard:', err);
+                    showToast('Failed to copy to clipboard', 'error');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('Data copied to clipboard!', 'success');
+                } catch (err) {
+                    console.error('Fallback copy failed:', err);
+                    showToast('Failed to copy to clipboard', 'error');
+                }
+                document.body.removeChild(textArea);
+            }
+        } else if (type === 'csv') {
+            const csv = [headers, ...rows].map(r => 
+                r.map(v => '"' + (v||'').toString().replace(/"/g,'""') + '"').join(',')
+            ).join('\n');
+            const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+            console.log('CSV blob size:', blob.size);
+            if (typeof saveAs !== 'undefined') {
+                saveAs(blob, `export-housekeeping-${new Date().toISOString().split('T')[0]}.csv`);
+                showToast('CSV file downloaded!', 'success');
+            } else {
+                // Fallback for when FileSaver.js is not available
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `export-housekeeping-${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('CSV file downloaded!', 'success');
+            }
+        } else if (type === 'excel') {
+            let xls = '<table><tr>' + headers.map(h => '<th>' + h + '</th>').join('') + '</tr>' +
+                rows.map(r => '<tr>' + r.map(c => '<td>' + (c || '').toString().replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</td>').join('') + '</tr>').join('') + '</table>';
+            const blob = new Blob([xls], {type: 'application/vnd.ms-excel'});
+            console.log('Excel blob size:', blob.size);
+            if (typeof saveAs !== 'undefined') {
+                saveAs(blob, `export-housekeeping-${new Date().toISOString().split('T')[0]}.xls`);
+                showToast('Excel file downloaded!', 'success');
+            } else {
+                // Fallback for when FileSaver.js is not available
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `export-housekeeping-${new Date().toISOString().split('T')[0]}.xls`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('Excel file downloaded!', 'success');
+            }
+        }
+    } catch (error) {
+        console.error('Export error:', error);
+        showToast('Export failed: ' + error.message, 'error');
     }
 }
 function addExportButtons() {
@@ -763,6 +853,8 @@ function addExportButtons() {
     btn.id = 'export-' + b.id;
     btn.className = `flex items-center gap-2 px-4 py-2 rounded text-white bg-gradient-to-r ${b.color} hover:opacity-90 transition text-base`;
     btn.innerHTML = `${b.icon} <span>${b.label}</span>`;
+    // Add click event listener for export functionality
+    btn.addEventListener('click', () => exportFilteredData(b.id));
     exportButtons.appendChild(btn);
   });
 }
@@ -780,15 +872,26 @@ function attachUploadEvents() {
 }
 // Search logic
 function getFilteredAndSearchedData() {
+    console.log('getFilteredAndSearchedData called');
+    console.log('filteredByNopData length:', filteredByNopData ? filteredByNopData.length : 'null');
+    
     const filtered = filterData();
+    console.log('filterData result length:', filtered ? filtered.length : 'null');
+    
     const q = (document.getElementById('tableSearch')?.value || '').toLowerCase();
+    console.log('Search query:', q);
+    
     if (!q) return filtered;
-    return filtered.filter(item => {
+    
+    const searchResult = filtered.filter(item => {
         return [
             item.order_id, item.provi_ts, item.branch, item.wok, item.sto_co, item.fallout_reason, item.symptom, item.status_hk, item.status_ps, item.new_order_id,
             (item.remark && item.remark.length > 0 ? item.remark.map(r => r.text).join(' | ') : '')
         ].some(val => (val ? val.toString().toLowerCase().includes(q) : false));
     });
+    
+    console.log('Search result length:', searchResult.length);
+    return searchResult;
 }
 // Override renderTableWithPagination to use search
 function renderTableWithPagination(filteredData = null) {
