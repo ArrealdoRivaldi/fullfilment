@@ -78,6 +78,8 @@ module.exports = async (req, res) => {
       const { id, ...updateData } = body;
       if (typeof id === 'undefined') return res.status(400).json({ error: 'Missing id' });
       updateData.update_ts = new Date().toISOString();
+      // Only update pic_dept if provided
+      if (typeof updateData.pic_dept === 'undefined') delete updateData.pic_dept;
       await db.ref(id).update(updateData);
       res.status(200).json({ success: true });
     } catch (error) {
@@ -105,7 +107,9 @@ module.exports = async (req, res) => {
         const key = Object.keys(allData).find(k => allData[k] && allData[k].order_id == row.order_id);
         if (key) {
           try {
-            await db.ref(key).update({ status_hk: row.status_hk, update_ts: new Date().toISOString() });
+            const updateObj = { status_hk: row.status_hk, update_ts: new Date().toISOString() };
+            if (typeof row.pic_dept !== 'undefined') updateObj.pic_dept = row.pic_dept;
+            await db.ref(key).update(updateObj);
             updated++;
           } catch (e) {
             failed++;

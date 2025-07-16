@@ -4,13 +4,15 @@ let allData = [];
 let currentPage = 1;
 let pageSize = 50;
 const statusHKOptions = [
-    { value: "Cancel", label: "Cancel" },
-    { value: "PT2", label: "PT2" },
-    { value: "PT3", label: "PT3" },
-    { value: "Reorder", label: "Reorder" },
-    { value: "Revoke", label: "Revoke" },
-    { value: "Offering Orbit", label: "Offering Orbit" },
-    { value: "UNSC", label: "UNSC" } // kategori baru
+    { value: "Revoke", label: "Revoke", pic: "TIF-FBB" },
+    { value: "Reorder to PS", label: "Reorder to PS", pic: "TA" },
+    { value: "UNSC", label: "UNSC", pic: "TIF-FBB" },
+    { value: "Expand ODP", label: "Expand ODP", pic: "TIF - Daman" },
+    { value: "Tanam Tiang", label: "Tanam Tiang", pic: "TA" },
+    { value: "Offering Orbit", label: "Offering Orbit", pic: "Tsel - Branch" },
+    { value: "PT2", label: "PT2", pic: "Tsel - Project" },
+    { value: "PT3", label: "PT3", pic: "Tsel - Project" },
+    { value: "Cancel", label: "Cancel", pic: "Tsel - Branch" },
 ];
 let userNop = null;
 let filteredByNopData = [];
@@ -280,6 +282,7 @@ function renderTableWithPagination(filteredData = null) {
     pageData.forEach((item, index) => {
         const row = document.createElement('tr');
         row.dataset.docId = item.id;
+        const picDept = getPicDept(item.status_hk);
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
@@ -311,6 +314,7 @@ function renderTableWithPagination(filteredData = null) {
                     ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                 </select>
             </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
             </td>
@@ -539,6 +543,7 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
         const id = row.dataset.docId;
         const status_hk = row.querySelector('.status-hk-select').value;
         const new_order_id = row.querySelector('.new-order-id').value;
+        const pic_dept = getPicDept(status_hk);
         // Validasi perubahan dan new_order_id
         const item = (window.allData || allData || []).find(d => d.id === id);
         const statusChanged = status_hk && String(status_hk).trim() !== String(item?.status_hk ?? '').trim();
@@ -555,7 +560,7 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
             const response = await fetch('/api/realtime', {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id, status_hk, new_order_id })
+                body: JSON.stringify({ id, status_hk, new_order_id, pic_dept })
             });
             const result = await response.json();
             if (result.success) {
@@ -908,6 +913,7 @@ function renderTableWithPagination(filteredData = null) {
     pageData.forEach((item, index) => {
         const row = document.createElement('tr');
         row.dataset.docId = item.id;
+        const picDept = getPicDept(item.status_hk);
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
@@ -939,6 +945,7 @@ function renderTableWithPagination(filteredData = null) {
                     ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                 </select>
             </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
             </td>
@@ -1290,6 +1297,7 @@ async function uploadChunkedRows(changedRows) {
       try {
         const body = { id: row.id, status_hk: row.status_hk };
         if (row.new_order_id) body.new_order_id = row.new_order_id;
+        body.pic_dept = getPicDept(row.status_hk);
         const res = await fetch('/api/realtime', {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -1388,6 +1396,7 @@ if (startUploadBtn) {
         try {
           const body = { id: row.id, status_hk: row.status_hk };
           if (row.new_order_id) body.new_order_id = row.new_order_id;
+          body.pic_dept = getPicDept(row.status_hk);
           const res = await fetch('/api/realtime', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -1515,4 +1524,9 @@ function showConfirm(msg, onYes, onNo) {
     modal.classList.add('hidden');
     if (onNo) onNo();
   };
+}
+
+function getPicDept(statusHK) {
+    const found = statusHKOptions.find(opt => opt.value === statusHK);
+    return found ? found.pic : '';
 }
