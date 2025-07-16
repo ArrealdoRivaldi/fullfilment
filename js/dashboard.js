@@ -209,6 +209,44 @@ function formatDateTimeMDY(dateInput) {
     return `${mm}/${dd}/${yyyy} ${hh}:${min}`;
 }
 
+// Add mapping for Status HK to PIC Dept (should match hk.js)
+const statusHKToPicDept = {
+  'Revoke': 'TIF-FBB',
+  'Reorder to PS': 'TA',
+  'UNSC': 'TIF-FBB',
+  'Expand ODP': 'TIF - Daman',
+  'Tanam Tiang': 'TA',
+  'Offering Orbit': 'Tsel - Branch',
+  'PT2': 'Tsel - Project',
+  'PT3': 'Tsel - Project',
+  'Cancel': 'Tsel - Branch'
+};
+
+function getPicDept(statusHK) {
+  return statusHKToPicDept[statusHK] || '';
+}
+
+function renderTablePicDept(data) {
+  const tbody = document.getElementById('tablePicDept');
+  if (!tbody) return;
+  const group = {};
+  data.forEach(d => {
+    const pic = getPicDept(d.status_hk?.trim());
+    if (!pic) return;
+    if (!group[pic]) group[pic] = { total: 0 };
+    if (d.status_ps === 'PS') group[pic].total++;
+  });
+  let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
+  let html = `<tr><th>PIC Dept</th><th>Total PS</th></tr>`;
+  let grandTotal = 0;
+  sortedGroups.forEach(([pic, val]) => {
+    html += `<tr><td>${pic}</td><td>${val.total}</td></tr>`;
+    grandTotal += val.total;
+  });
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th></tr>`;
+  tbody.innerHTML = html;
+}
+
 function renderTableSymptom(data) {
   const tbody = document.getElementById('tableSymptom');
   if (!tbody) return;
@@ -216,25 +254,25 @@ function renderTableSymptom(data) {
   data.forEach(d => {
     let key = (d.symptom || 'Unknown').trim();
     if (key === '') key = 'Unknown';
-    if (!group[key]) group[key] = { total: 0, ps: 0, lastProvi: null };
+    if (!group[key]) group[key] = { total: 0, hk: 0, ps: 0 };
     group[key].total++;
+    if (d.status_hk && d.status_hk.trim() !== '') group[key].hk++;
     if (d.status_ps === 'PS') group[key].ps++;
-    // Simpan tanggal terakhir untuk contoh
-    if (!group[key].lastProvi || new Date(d.provi_ts) > new Date(group[key].lastProvi)) {
-      group[key].lastProvi = d.provi_ts;
-    }
   });
   let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-  let html = `<tr><th>Symptom</th><th>Total</th><th>PS</th><th>Acv</th><th>Last Provi Date</th></tr>`;
-  let grandTotal = 0, grandPs = 0;
+  let html = `<tr><th>Symptom</th><th>Total</th><th>HK</th><th>Ach HK</th><th>PS</th><th>Ach PS</th></tr>`;
+  let grandTotal = 0, grandHK = 0, grandPS = 0;
   sortedGroups.forEach(([symptom, val]) => {
-    const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
-    html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td><td>${formatDateTimeMDY(val.lastProvi)}</td></tr>`;
+    const achHK = val.total > 0 ? ((val.hk / val.total) * 100).toFixed(2) + '%' : '-';
+    const achPS = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+    html += `<tr><td>${symptom}</td><td>${val.total}</td><td>${val.hk}</td><td>${achHK}</td><td>${val.ps}</td><td>${achPS}</td></tr>`;
     grandTotal += val.total;
-    grandPs += val.ps;
+    grandHK += val.hk;
+    grandPS += val.ps;
   });
-  const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
-  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th><th>-</th></tr>`;
+  const grandAchHK = grandTotal > 0 ? ((grandHK / grandTotal) * 100).toFixed(2) + '%' : '-';
+  const grandAchPS = grandTotal > 0 ? ((grandPS / grandTotal) * 100).toFixed(2) + '%' : '-';
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandHK}</th><th>${grandAchHK}</th><th>${grandPS}</th><th>${grandAchPS}</th></tr>`;
   tbody.innerHTML = html;
 }
 
@@ -245,21 +283,25 @@ function renderTableNop(data) {
   data.forEach(d => {
     let key = (d.branch || 'Unknown').trim();
     if (key === '') key = 'Unknown';
-    if (!group[key]) group[key] = { total: 0, ps: 0 };
+    if (!group[key]) group[key] = { total: 0, hk: 0, ps: 0 };
     group[key].total++;
+    if (d.status_hk && d.status_hk.trim() !== '') group[key].hk++;
     if (d.status_ps === 'PS') group[key].ps++;
   });
   let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-  let html = `<tr><th>NOP</th><th>Total Fallout</th><th>PS</th><th>Acv</th></tr>`;
-  let grandTotal = 0, grandPs = 0;
+  let html = `<tr><th>NOP</th><th>Total Fallout</th><th>HK</th><th>Ach HK</th><th>PS</th><th>Ach PS</th></tr>`;
+  let grandTotal = 0, grandHK = 0, grandPS = 0;
   sortedGroups.forEach(([branch, val]) => {
-    const acv = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
-    html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.ps}</td><td>${acv}</td></tr>`;
+    const achHK = val.total > 0 ? ((val.hk / val.total) * 100).toFixed(2) + '%' : '-';
+    const achPS = val.total > 0 ? ((val.ps / val.total) * 100).toFixed(2) + '%' : '-';
+    html += `<tr><td>${branch}</td><td>${val.total}</td><td>${val.hk}</td><td>${achHK}</td><td>${val.ps}</td><td>${achPS}</td></tr>`;
     grandTotal += val.total;
-    grandPs += val.ps;
+    grandHK += val.hk;
+    grandPS += val.ps;
   });
-  const grandAcv = grandTotal > 0 ? ((grandPs / grandTotal) * 100).toFixed(2) + '%' : '-';
-  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandAcv}</th></tr>`;
+  const grandAchHK = grandTotal > 0 ? ((grandHK / grandTotal) * 100).toFixed(2) + '%' : '-';
+  const grandAchPS = grandTotal > 0 ? ((grandPS / grandTotal) * 100).toFixed(2) + '%' : '-';
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandHK}</th><th>${grandAchHK}</th><th>${grandPS}</th><th>${grandAchPS}</th></tr>`;
   tbody.innerHTML = html;
 }
 
@@ -270,23 +312,19 @@ function renderTableHK(data) {
   data.forEach(d => {
     let key = d.status_hk?.trim();
     if (!key) return;
-    if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0, stay: 0 };
+    if (!group[key]) group[key] = { total: 0, ps: 0 };
     group[key].total++;
     if (d.status_ps === 'PS') group[key].ps++;
-    else if (d.status_ps === 'Cancel') group[key].cancel++;
-    else group[key].stay++;
   });
   let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-  let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th><th>Cancel</th><th>Stay</th></tr>`;
-  let grandTotal = 0, grandPs = 0, grandCancel = 0, grandStay = 0;
+  let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th></tr>`;
+  let grandTotal = 0, grandPs = 0;
   sortedGroups.forEach(([hk, val]) => {
-    html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td><td>${val.stay}</td></tr>`;
+    html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
     grandTotal += val.total;
     grandPs += val.ps;
-    grandCancel += val.cancel;
-    grandStay += val.stay;
   });
-  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandCancel}</th><th>${grandStay}</th></tr>`;
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th></tr>`;
   tbody.innerHTML = html;
 }
 
@@ -426,16 +464,21 @@ function renderDashboard(data) {
     document.getElementById('tableSymptom').innerHTML = '';
     document.getElementById('tableNop').innerHTML = '';
     document.getElementById('tableHK').innerHTML = '';
+    document.getElementById('tablePicDept').innerHTML = '';
     document.getElementById('branchFilter').innerHTML = '<option value="">All Branch</option>';
     return;
   }
   renderBranchFilter(allData);
+  // Baris 1
   renderPieHK(data);
-  renderBarTrend(data);
-  renderProgressSymptom(data);
+  renderTableHK(data);
+  renderTablePicDept(data);
+  // Baris 2
   renderTableSymptom(data);
   renderTableNop(data);
-  renderTableHK(data);
+  // Baris 3
+  renderBarTrend(data);
+  // Baris 4
   renderTableAgingSymptom(data);
 }
 
