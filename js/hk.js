@@ -405,27 +405,51 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     userNop = await waitForUserNop();
     await fetchLastUpdated();
-    try {
+    // Cek cache sessionStorage
+    const cacheKey = `hkData_${userNop}`;
+    const cacheStr = sessionStorage.getItem(cacheKey);
+    let cacheObj = null;
+    if (cacheStr) {
+      try { cacheObj = JSON.parse(cacheStr); } catch {}
+    }
+    const now = Date.now();
+    if (cacheObj && cacheObj.data && cacheObj.expiry > now) {
+      allData = cacheObj.data;
+      function filterByNopUser(data) {
+        if (!userNop) return [];
+        if (userNop.trim().toLowerCase() === 'kalimantan') {
+          return data;
+        }
+        return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+      }
+      filteredByNopData = filterByNopUser(allData);
+      initializeFilters(filteredByNopData);
+      renderTableWithPagination(filteredByNopData);
+      bindFilterEvents();
+    } else {
+      try {
         const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
         const response = await fetch(`/api/realtime${nopParam}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
         allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-        // Filter by NOP user
+        // Simpan ke cache 5 menit
+        sessionStorage.setItem(cacheKey, JSON.stringify({ data: allData, expiry: now + 5 * 60 * 1000 }));
         function filterByNopUser(data) {
-            if (!userNop) return [];
-            if (userNop.trim().toLowerCase() === 'kalimantan') {
-                return data;
-            }
-            return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+          if (!userNop) return [];
+          if (userNop.trim().toLowerCase() === 'kalimantan') {
+            return data;
+          }
+          return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
         }
         filteredByNopData = filterByNopUser(allData);
         initializeFilters(filteredByNopData);
         renderTableWithPagination(filteredByNopData);
         bindFilterEvents();
-    } catch (error) {
+      } catch (error) {
         console.error('Error fetching data:', error);
+      }
     }
     updateActiveFilters();
 
@@ -964,10 +988,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Search event
     const searchInput = document.getElementById('tableSearch');
     if (searchInput) {
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener('input', debounce(function() {
             currentPage = 1;
             renderTableWithPagination();
-        });
+        }, 300));
     }
 });
 
@@ -1530,4 +1554,13 @@ function showConfirm(msg, onYes, onNo) {
 function getPicDept(statusHK) {
     const found = statusHKOptions.find(opt => opt.value === statusHK);
     return found ? found.pic : '';
+}
+
+// Debounce helper
+function debounce(fn, delay) {
+  let timer = null;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
 }
