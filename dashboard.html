@@ -164,29 +164,20 @@
         <!-- END Header Mobile Responsive -->
         
         <!-- Sidebar -->
-        <aside class="menu-sidebar d-none d-lg-block" style="box-shadow: 0 2px 12px 0 #0001; border-radius: 16px; margin: 24px 0 24px 24px; min-width:220px; max-width:240px; background:#fff; height:calc(100vh - 48px); display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative;">
-            <div class="logo" style="padding: 24px 0 8px 0; display: flex; flex-direction: column; align-items: center;">
+        <aside class="menu-sidebar d-none d-lg-block">
+            <div class="logo">
                 <a href="#">
-                    <img src="/images/icon/logo.png" alt="FBB" style="height:48px; margin-bottom:8px;">
+                    <img src="/images/icon/logo.png" alt="FBB">
                 </a>
             </div>
-            <div class="menu-sidebar__content" style="overflow:visible; box-shadow:none; background:none; padding:0; width:100%;">
-              <nav class="navbar-sidebar" style="width:100%;">
-                  <ul class="list-unstyled navbar__list" style="padding: 0 16px; width:100%; display:flex; flex-direction:column; gap:12px; align-items:flex-start;">
-                      <li style="width:100%;">
-                        <a class="js-arrow" href="/dashboard.html" style="display:flex;align-items:center;padding:10px 12px;border-radius:8px;gap:10px;font-weight:500;color:#222;width:100%;transition:background 0.2s;">
-                          <i class="fas fa-tachometer-alt"></i> Dashboard
-                        </a>
+            <div class="menu-sidebar__content js-scrollbar1">
+              <nav class="navbar-sidebar">
+                  <ul class="list-unstyled navbar__list">
+                      <li>
+                        <a class="js-arrow" href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                       </li>
-                      <li style="width:100%;">
-                        <a class="js-arrow" href="/hk/" style="display:flex;align-items:center;padding:10px 12px;border-radius:8px;gap:10px;font-weight:500;color:#222;width:100%;transition:background 0.2s;">
-                          <i class="fas fa-tools"></i> Tool House Keeping
-                        </a>
-                      </li>
-                      <li style="width:100%;">
-                        <a class="js-arrow" href="#" style="display:flex;align-items:center;padding:10px 12px;border-radius:8px;gap:10px;font-weight:500;color:#222;width:100%;transition:background 0.2s;">
-                          <img src="/images/icon/penthouse.png" alt="Penthouse" style="height:20px;width:20px;object-fit:contain;margin-right:8px;"> Identitas
-                        </a>
+                      <li>
+                        <a class="js-arrow" href="/hk/"><i class="fas fa-tools"></i> Tool House Keeping</a>
                       </li>
                   </ul>
               </nav>
@@ -198,7 +189,7 @@
             <!-- Headbar Menu (moved here) -->
             <div class="w-full bg-white shadow px-4 sm:px-8 py-3 z-10" style="position:sticky;top:0;">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                  <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight text-center sm:text-left">Dashboard</h1>
+                  <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 tracking-tight text-center sm:text-left">Fullfilment FBB Dashboard</h1>
                   <span class="text-xs sm:text-sm text-gray-400 flex items-center justify-center gap-1"><i class="fa fa-thumbtack text-pink-500"></i> Last Updated: <span id="lastUpdated">-</span></span>
                 </div>
             </div>
