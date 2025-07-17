@@ -234,10 +234,10 @@ function renderTablePicDept(data) {
     const pic = getPicDept(d.status_hk?.trim());
     if (!pic) return;
     if (!group[pic]) group[pic] = { total: 0 };
-    if (d.status_ps === 'PS') group[pic].total++;
+    if (d.status_ps !== 'PS' && d.status_ps !== 'Cancel') group[pic].total++;
   });
   let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-  let html = `<tr><th>PIC Dept</th><th>Total PS</th></tr>`;
+  let html = `<tr><th>PIC Dept</th><th>Total HK</th></tr>`;
   let grandTotal = 0;
   sortedGroups.forEach(([pic, val]) => {
     html += `<tr><td>${pic}</td><td>${val.total}</td></tr>`;
