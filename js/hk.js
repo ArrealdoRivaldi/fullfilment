@@ -592,15 +592,15 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
             const result = await response.json();
             if (result.success) {
                 showToast('Update berhasil!', 'success');
-                sessionStorage.removeItem(`hkData_${userNop}`);
-                if (!userNop) userNop = await waitForUserNop();
-                await new Promise(res => setTimeout(res, 500)); // Delay untuk propagasi data
+                sessionStorage.removeItem(`hkData_${userNop}`); // Hapus cache agar fetch ambil data baru
+                // Fetch ulang data dari server, update allData, render tabel
                 const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
                 const response2 = await fetch(`/api/realtime${nopParam}`);
                 const data2 = await response2.json();
                 const dataArray2 = (data2 && typeof data2 === 'object') ? (Array.isArray(data2) ? data2 : Object.values(data2)) : [];
                 allData = dataArray2.map((item, idx) => ({ id: idx.toString(), ...item }));
-                renderTableWithPagination(allData);
+                filteredByNopData = filterByNopUser(allData);
+                renderTableWithPagination();
             } else {
                 showToast('Update gagal: ' + (result.error || 'Unknown error'), 'error');
             }
@@ -1572,13 +1572,4 @@ function debounce(fn, delay) {
     clearTimeout(timer);
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
-}
-
-function filterByNopUser(data) {
-  if (!userNop) return [];
-  const userNopNorm = userNop.trim().toLowerCase();
-  if (userNopNorm === 'kalimantan') {
-      return data;
-  }
-  return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
 }
