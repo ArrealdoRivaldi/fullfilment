@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     setTimeout(() => tryGet(++retry), 100);
                 } else {
                     resolve(null);
-                }
+                } 
             };
             tryGet();
         });
