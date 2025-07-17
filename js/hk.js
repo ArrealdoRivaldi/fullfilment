@@ -592,8 +592,9 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
             const result = await response.json();
             if (result.success) {
                 showToast('Update berhasil!', 'success');
+                sessionStorage.removeItem(`hkData_${userNop}`); // Hapus cache agar reload ambil data baru
                 location.reload();
-                fetchLastUpdated();
+                //fetchLastUpdated(); // Tidak perlu, reload sudah cukup
             } else {
                 showToast('Update gagal: ' + (result.error || 'Unknown error'), 'error');
             }
