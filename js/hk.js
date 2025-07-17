@@ -592,9 +592,15 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
             const result = await response.json();
             if (result.success) {
                 showToast('Update berhasil!', 'success');
-                sessionStorage.removeItem(`hkData_${userNop}`); // Hapus cache agar reload ambil data baru
-                location.reload();
-                //fetchLastUpdated(); // Tidak perlu, reload sudah cukup
+                sessionStorage.removeItem(`hkData_${userNop}`); // Hapus cache agar fetch ambil data baru
+                // Fetch ulang data dari server, update allData, render tabel
+                const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
+                const response2 = await fetch(`/api/realtime${nopParam}`);
+                const data2 = await response2.json();
+                const dataArray2 = (data2 && typeof data2 === 'object') ? (Array.isArray(data2) ? data2 : Object.values(data2)) : [];
+                allData = dataArray2.map((item, idx) => ({ id: idx.toString(), ...item }));
+                filteredByNopData = filterByNopUser(allData);
+                renderTableWithPagination();
             } else {
                 showToast('Update gagal: ' + (result.error || 'Unknown error'), 'error');
             }
