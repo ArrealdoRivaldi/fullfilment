@@ -530,7 +530,8 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
   userNop = await waitForUserNop();
   try {
-    const response = await fetch('/api/realtime');
+    const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
+    const response = await fetch(`/api/realtime${nopParam}`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
     const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];

@@ -62,7 +62,18 @@ module.exports = async (req, res) => {
           res.status(500).json({ error: 'Data not found or invalid format' });
           return;
         }
-        res.status(200).json(data);
+        // Filter by NOP if provided
+        const nop = (query.nop || '').trim().toLowerCase();
+        let filteredData = data;
+        if (nop && nop !== 'kalimantan') {
+          filteredData = {};
+          Object.entries(data).forEach(([key, item]) => {
+            if ((item.branch || '').trim().toLowerCase() === nop) {
+              filteredData[key] = item;
+            }
+          });
+        }
+        res.status(200).json(filteredData);
       }, (error) => {
         console.error('Firebase error:', error);
         res.status(500).json({ error: error.message });
