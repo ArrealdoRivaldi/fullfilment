@@ -594,13 +594,13 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
                 showToast('Update berhasil!', 'success');
                 sessionStorage.removeItem(`hkData_${userNop}`);
                 if (!userNop) userNop = await waitForUserNop();
+                await new Promise(res => setTimeout(res, 500)); // Delay untuk propagasi data
                 const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
                 const response2 = await fetch(`/api/realtime${nopParam}`);
                 const data2 = await response2.json();
                 const dataArray2 = (data2 && typeof data2 === 'object') ? (Array.isArray(data2) ? data2 : Object.values(data2)) : [];
                 allData = dataArray2.map((item, idx) => ({ id: idx.toString(), ...item }));
-                filteredByNopData = filterByNopUser(allData);
-                renderTableWithPagination();
+                renderTableWithPagination(allData);
             } else {
                 showToast('Update gagal: ' + (result.error || 'Unknown error'), 'error');
             }
