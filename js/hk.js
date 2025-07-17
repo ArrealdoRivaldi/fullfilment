@@ -417,10 +417,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       allData = cacheObj.data;
       function filterByNopUser(data) {
         if (!userNop) return [];
-        if (userNop.trim().toLowerCase() === 'kalimantan') {
-          return data;
+        const userNopNorm = userNop.trim().toLowerCase();
+        if (userNopNorm === 'kalimantan') {
+            return data;
         }
-        return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+        return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
       }
       filteredByNopData = filterByNopUser(allData);
       initializeFilters(filteredByNopData);
@@ -438,10 +439,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         sessionStorage.setItem(cacheKey, JSON.stringify({ data: allData, expiry: now + 5 * 60 * 1000 }));
         function filterByNopUser(data) {
           if (!userNop) return [];
-          if (userNop.trim().toLowerCase() === 'kalimantan') {
-            return data;
+          const userNopNorm = userNop.trim().toLowerCase();
+          if (userNopNorm === 'kalimantan') {
+              return data;
           }
-          return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+          return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
         }
         filteredByNopData = filterByNopUser(allData);
         initializeFilters(filteredByNopData);
