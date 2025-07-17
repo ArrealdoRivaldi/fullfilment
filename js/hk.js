@@ -1573,3 +1573,12 @@ function debounce(fn, delay) {
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
 }
+
+function filterByNopUser(data) {
+  if (!userNop) return [];
+  const userNopNorm = userNop.trim().toLowerCase();
+  if (userNopNorm === 'kalimantan') {
+      return data;
+  }
+  return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
+}
