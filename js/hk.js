@@ -596,7 +596,9 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
                     allData = dataArray2.map((item, idx) => ({ id: idx.toString(), ...item }));
                     sessionStorage.setItem(`hkData_${userNop}`, JSON.stringify({ data: allData, expiry: Date.now() + 5 * 60 * 1000 }));
                     filteredByNopData = filterByNopUser(allData);
-                    renderTableWithPagination();
+                    console.log('Data terbaru:', allData);
+                    console.log('Data yang akan dirender:', filteredByNopData);
+                    renderTableWithPagination(filteredByNopData);
                 }, 1000); // delay 1 detik
             } else {
                 showToast('Update gagal: ' + (result.error || 'Unknown error'), 'error');
