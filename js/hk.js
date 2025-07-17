@@ -1180,7 +1180,7 @@ function showUploadPreviewModal(data, onConfirm) {
           </div>
         </div>
       </div>
-    `;
+    `; 
     document.body.appendChild(modal);
   }
   // Isi preview
