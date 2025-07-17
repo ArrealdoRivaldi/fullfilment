@@ -1501,5 +1501,8 @@ filterIds.forEach(id => {
   const el = document.getElementById(id);
   if (el) el.value = '';
 });
+// Kosongkan input search
+const searchInput = document.getElementById('tableSearch');
+if (searchInput) searchInput.value = '';
 renderTableWithPagination(filteredByNopData);
 // ... existing code ...
