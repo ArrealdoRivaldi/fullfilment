@@ -17,6 +17,16 @@ const statusHKOptions = [
 let userNop = null;
 let filteredByNopData = [];
 
+// Fungsi filterByNopUser global
+function filterByNopUser(data) {
+    if (!userNop) return [];
+    const userNopNorm = userNop.trim().toLowerCase();
+    if (userNopNorm === 'kalimantan') {
+        return data;
+    }
+    return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
+}
+
 function pad2(n) {
     return n < 10 ? '0' + n : n;
 }
@@ -415,14 +425,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const now = Date.now();
     if (cacheObj && cacheObj.data && cacheObj.expiry > now) {
       allData = cacheObj.data;
-      function filterByNopUser(data) {
-        if (!userNop) return [];
-        const userNopNorm = userNop.trim().toLowerCase();
-        if (userNopNorm === 'kalimantan') {
-            return data;
-        }
-        return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
-      }
       filteredByNopData = filterByNopUser(allData);
       initializeFilters(filteredByNopData);
       renderTableWithPagination(filteredByNopData);
@@ -437,14 +439,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
         // Simpan ke cache 5 menit
         sessionStorage.setItem(cacheKey, JSON.stringify({ data: allData, expiry: now + 5 * 60 * 1000 }));
-        function filterByNopUser(data) {
-          if (!userNop) return [];
-          const userNopNorm = userNop.trim().toLowerCase();
-          if (userNopNorm === 'kalimantan') {
-              return data;
-          }
-          return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
-        }
         filteredByNopData = filterByNopUser(allData);
         initializeFilters(filteredByNopData);
         renderTableWithPagination(filteredByNopData);
