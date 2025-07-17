@@ -592,8 +592,8 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
             const result = await response.json();
             if (result.success) {
                 showToast('Update berhasil!', 'success');
-                sessionStorage.removeItem(`hkData_${userNop}`); // Hapus cache agar fetch ambil data baru
-                // Fetch ulang data dari server, update allData, render tabel
+                sessionStorage.removeItem(`hkData_${userNop}`);
+                if (!userNop) userNop = await waitForUserNop();
                 const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
                 const response2 = await fetch(`/api/realtime${nopParam}`);
                 const data2 = await response2.json();
