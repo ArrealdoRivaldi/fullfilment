@@ -1570,3 +1570,17 @@ function debounce(fn, delay) {
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
 }
+
+// ... existing code ...
+filteredByNopData = filterByNopUser(allData);
+// Reset semua filter UI ke default
+const filterIds = [
+  'branchFilter', 'wokFilter', 'sto_coFilter', 'startDate', 'endDate',
+  'statusHKFilter', 'symptomFilter', 'statusPSFilter', 'agingFalloutFilter'
+];
+filterIds.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.value = '';
+});
+renderTableWithPagination(filteredByNopData);
+// ... existing code ...
