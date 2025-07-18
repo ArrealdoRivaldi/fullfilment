@@ -34,6 +34,13 @@ function filterData(data, branch, startDate, endDate) {
 
 // Fungsi filter berdasarkan NOP user
 function filterByBranchUser(data) {
+  // Deteksi role guest dari sessionStorage
+  let userRole = null;
+  try {
+    const user = JSON.parse(sessionStorage.getItem('fbb_user') || '{}');
+    userRole = user.role;
+  } catch (e) {}
+  if (userRole === 'guest') return data; // Guest bisa lihat semua data
   if (!userBranch) return [];
   if (userBranch.trim().toLowerCase() === 'kalimantan') {
     return data;
