@@ -191,6 +191,8 @@
         }
         // Simpan ke sessionStorage
         sessionStorage.setItem('fbb_user', JSON.stringify(guestData));
+        // Anonymous sign-in agar lolos auth-guard
+        await window._firebase.auth.signInAnonymously();
         setStatus('Login sukses! Mengarahkan...', 'green');
         setTimeout(() => {
           window.location.href = '/dashboard.html';
