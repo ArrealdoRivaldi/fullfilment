@@ -312,19 +312,21 @@ function renderTableHK(data) {
   data.forEach(d => {
     let key = d.status_hk?.trim();
     if (!key) return;
-    if (!group[key]) group[key] = { total: 0, ps: 0 };
+    if (!group[key]) group[key] = { total: 0, ps: 0, cancel: 0 };
     group[key].total++;
     if (d.status_ps === 'PS') group[key].ps++;
+    if (d.status_ps === 'Cancel') group[key].cancel++;
   });
   let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-  let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th></tr>`;
-  let grandTotal = 0, grandPs = 0;
+  let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th><th>Cancel</th></tr>`;
+  let grandTotal = 0, grandPs = 0, grandCancel = 0;
   sortedGroups.forEach(([hk, val]) => {
-    html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td></tr>`;
+    html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td></tr>`;
     grandTotal += val.total;
     grandPs += val.ps;
+    grandCancel += val.cancel;
   });
-  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th></tr>`;
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandCancel}</th></tr>`;
   tbody.innerHTML = html;
 }
 
