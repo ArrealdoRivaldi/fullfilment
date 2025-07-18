@@ -453,7 +453,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Sembunyikan filter branch jika userBranch bukan 'kalimantan'
     const branchFilter = document.getElementById('branchFilter');
     const activeFilters = document.getElementById('activeFilters');
-    if (userBranch && userBranch.trim().toLowerCase() !== 'kalimantan') {
+    let userRole = null;
+    try {
+      const user = JSON.parse(sessionStorage.getItem('fbb_user') || '{}');
+      userRole = user.role;
+    } catch (e) {}
+    if (userRole !== 'guest' && userBranch && userBranch.trim().toLowerCase() !== 'kalimantan') {
         if (branchFilter && branchFilter.parentElement) branchFilter.parentElement.style.display = 'none';
         // Sembunyikan chip branch di filter aktif jika ada
         if (activeFilters) {

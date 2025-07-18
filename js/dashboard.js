@@ -555,18 +555,31 @@ document.addEventListener('DOMContentLoaded', async function() {
   // Sembunyikan filter branch jika userBranch bukan 'kalimantan'
   const branchFilter = document.getElementById('branchFilter');
   const activeFilters = document.getElementById('activeFilters');
-  if (userBranch && userBranch.trim().toLowerCase() !== 'kalimantan') {
-    if (branchFilter) branchFilter.style.display = 'none';
+  let userRole = null;
+  try {
+    const user = JSON.parse(sessionStorage.getItem('fbb_user') || '{}');
+    userRole = user.role;
+  } catch (e) {}
+  if (userRole !== 'guest' && userBranch && userBranch.trim().toLowerCase() !== 'kalimantan') {
+    if (branchFilter && branchFilter.parentElement) branchFilter.parentElement.style.display = 'none';
     // Sembunyikan chip branch di filter aktif jika ada
     if (activeFilters) {
-      const chips = activeFilters.querySelectorAll('span');
-      chips.forEach(chip => {
-        if (chip.textContent.includes('Branch')) chip.style.display = 'none';
-      });
+        const chips = activeFilters.querySelectorAll('span');
+        chips.forEach(chip => {
+            if (chip.textContent.includes('Branch')) chip.style.display = 'none';
+        });
     }
-  } else {
-    if (branchFilter) branchFilter.style.display = '';
-  }
+    // Ubah grid filter jadi 2 kolom agar rapi
+    const filterGrid1 = document.getElementById('filterGrid1');
+    if (filterGrid1) filterGrid1.classList.remove('md:grid-cols-3');
+    if (filterGrid1) filterGrid1.classList.add('md:grid-cols-2');
+} else {
+    if (branchFilter && branchFilter.parentElement) branchFilter.parentElement.style.display = '';
+    // Kembalikan grid filter ke 3 kolom
+    const filterGrid1 = document.getElementById('filterGrid1');
+    if (filterGrid1) filterGrid1.classList.remove('md:grid-cols-2');
+    if (filterGrid1) filterGrid1.classList.add('md:grid-cols-3');
+}
 });
 
 // ===================== LAST UPDATED =====================
