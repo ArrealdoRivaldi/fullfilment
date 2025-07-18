@@ -186,11 +186,12 @@
           name: 'Guest User',
           uid: user.uid
         };
-        // Cek apakah user guest sudah ada di Firestore berdasarkan UID
-        const querySnapshot = await window._firebase.firestore.collection('login').where('uid', '==', user.uid).get();
-        if (querySnapshot.empty) {
-          // Tambahkan user guest ke Firestore
-          await window._firebase.firestore.collection('login').add(guestData);
+        // Cek apakah user guest sudah ada di Firestore berdasarkan UID (docId)
+        const docRef = window._firebase.firestore.collection('login').doc(user.uid);
+        const docSnap = await docRef.get();
+        if (!docSnap.exists) {
+          // Tambahkan user guest ke Firestore dengan docId = uid
+          await docRef.set(guestData);
         }
         // Simpan ke sessionStorage
         sessionStorage.setItem('fbb_user', JSON.stringify(guestData));
