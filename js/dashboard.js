@@ -318,15 +318,17 @@ function renderTableHK(data) {
     if (d.status_ps === 'Cancel') group[key].cancel++;
   });
   let sortedGroups = Object.entries(group).sort(([, a], [, b]) => b.total - a.total);
-  let html = `<tr><th>House Keeping Status</th><th>Total</th><th>PS</th><th>Cancel</th></tr>`;
-  let grandTotal = 0, grandPs = 0, grandCancel = 0;
+  let html = `<tr><th>Result</th><th>Total</th><th>Open</th><th>Cancel</th></tr>`;
+  let grandTotal = 0, grandPs = 0, grandCancel = 0, grandOpen = 0;
   sortedGroups.forEach(([hk, val]) => {
-    html += `<tr><td>${hk}</td><td>${val.total}</td><td>${val.ps}</td><td>${val.cancel}</td></tr>`;
+    const open = val.total - val.ps - val.cancel;
+    html += `<tr><td>${hk}</td><td>${val.total}</td><td>${open}</td><td>${val.cancel}</td></tr>`;
     grandTotal += val.total;
     grandPs += val.ps;
     grandCancel += val.cancel;
+    grandOpen += open;
   });
-  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandPs}</th><th>${grandCancel}</th></tr>`;
+  html += `<tr><th>Grand Total</th><th>${grandTotal}</th><th>${grandOpen}</th><th>${grandCancel}</th></tr>`;
   tbody.innerHTML = html;
 }
 
