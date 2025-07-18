@@ -14,8 +14,8 @@ const statusHKOptions = [
     { value: "PT3", label: "PT3", pic: "Tsel - Project" },
     { value: "Cancel", label: "Cancel", pic: "Tsel - Branch" },
 ];
-let userNop = null;
-let filteredByNopData = [];
+let userBranch = null;
+let filteredByBranchData = [];
 
 function pad2(n) {
     return n < 10 ? '0' + n : n;
@@ -161,7 +161,7 @@ function parseMDYInput(str) {
     return new Date(`${mm}/${dd}/${yyyy}`);
 }
 function filterData() {
-    // Always filter from filteredByNopData
+    // Always filter from filteredByBranchData
     const branch = document.getElementById('branchFilter').value;
     const wok = document.getElementById('wokFilter').value;
     const sto = document.getElementById('sto_coFilter').value;
@@ -172,7 +172,7 @@ function filterData() {
     const statusPS = document.getElementById('statusPSFilter').value;
     const agingFallout = document.getElementById('agingFalloutFilter').value;
     const picDept = document.getElementById('picDeptFilter').value;
-    return filteredByNopData.filter(item => {
+    return filteredByBranchData.filter(item => {
         let itemDate;
         if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
             itemDate = new Date(item.provi_ts.seconds * 1000);
@@ -396,24 +396,24 @@ function bindFilterEvents() {
         });
         currentPage = 1;
         updateActiveFilters();
-        renderTableWithPagination(filteredByNopData);
+        renderTableWithPagination(filteredByBranchData);
         fetchLastUpdated();
     });
 }
 
 // MENU LOGIC (Unified for mobile & sidebar, improved)
 document.addEventListener('DOMContentLoaded', async () => {
-    // Tunggu sampai userNop tersedia di DOM
-    function getUserNopFromDOM() {
-        const el = document.getElementById('user-nop');
+    // Tunggu sampai userBranch tersedia di DOM
+    function getUserBranchFromDOM() {
+        const el = document.getElementById('user-branch');
         return el ? el.textContent.trim() : null;
     }
-    function waitForUserNop(retry = 0) {
+    function waitForUserBranch(retry = 0) {
         return new Promise(resolve => {
             const tryGet = () => {
-                const nop = getUserNopFromDOM();
-                if (nop && nop !== '-') {
-                    resolve(nop);
+                const branch = getUserBranchFromDOM();
+                if (branch && branch !== '-') {
+                    resolve(branch);
                 } else if (retry < 30) {
                     setTimeout(() => tryGet(++retry), 100);
                 } else {
@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             tryGet();
         });
     }
-    userNop = await waitForUserNop();
+    userBranch = await waitForUserBranch();
     await fetchLastUpdated();
     try {
         const response = await fetch('/api/realtime');
@@ -431,27 +431,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         const data = await response.json();
         const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
         allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-        // Filter by NOP user
-        function filterByNopUser(data) {
-            if (!userNop) return [];
-            if (userNop.trim().toLowerCase() === 'kalimantan') {
+        // Filter by branch user
+        function filterByBranchUser(data) {
+            if (!userBranch) return [];
+            if (userBranch.trim().toLowerCase() === 'kalimantan') {
                 return data;
             }
-            return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+            return data.filter(d => (d.branch || '').trim().toLowerCase() === userBranch.trim().toLowerCase());
         }
-        filteredByNopData = filterByNopUser(allData);
-        initializeFilters(filteredByNopData);
-        renderTableWithPagination(filteredByNopData);
+        filteredByBranchData = filterByBranchUser(allData);
+        initializeFilters(filteredByBranchData);
+        renderTableWithPagination(filteredByBranchData);
         bindFilterEvents();
     } catch (error) {
         console.error('Error fetching data:', error);
     }
     updateActiveFilters();
 
-    // Sembunyikan filter branch jika userNop bukan 'kalimantan'
+    // Sembunyikan filter branch jika userBranch bukan 'kalimantan'
     const branchFilter = document.getElementById('branchFilter');
     const activeFilters = document.getElementById('activeFilters');
-    if (userNop && userNop.trim().toLowerCase() !== 'kalimantan') {
+    if (userBranch && userBranch.trim().toLowerCase() !== 'kalimantan') {
         if (branchFilter && branchFilter.parentElement) branchFilter.parentElement.style.display = 'none';
         // Sembunyikan chip branch di filter aktif jika ada
         if (activeFilters) {
@@ -902,7 +902,7 @@ function attachUploadEvents() {
 // Search logic
 function getFilteredAndSearchedData() {
     console.log('getFilteredAndSearchedData called');
-    console.log('filteredByNopData length:', filteredByNopData ? filteredByNopData.length : 'null');
+    console.log('filteredByBranchData length:', filteredByBranchData ? filteredByBranchData.length : 'null');
     
     const filtered = filterData();
     console.log('filterData result length:', filtered ? filtered.length : 'null');
