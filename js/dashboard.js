@@ -33,12 +33,12 @@ function filterData(data, branch, startDate, endDate) {
 }
 
 // Fungsi filter berdasarkan NOP user
-function filterByNopUser(data) {
-  if (!userNop) return [];
-  if (userNop.trim().toLowerCase() === 'kalimantan') {
+function filterByBranchUser(data) {
+  if (!userBranch) return [];
+  if (userBranch.trim().toLowerCase() === 'kalimantan') {
     return data;
   }
-  return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+  return data.filter(d => (d.branch || '').trim().toLowerCase() === userBranch.trim().toLowerCase());
 }
 
 // ===================== CHARTS =====================
@@ -498,7 +498,7 @@ window.applyFilters = function() {
   window.lastAgingStartDate = startDate;
   window.lastAgingEndDate = endDate;
   // Terapkan filter NOP user terlebih dahulu
-  const baseData = filterByNopUser(allData);
+  const baseData = filterByBranchUser(allData);
   const filtered = filterData(baseData, branch, startDate, endDate);
   renderDashboard(filtered);
 };
@@ -512,17 +512,17 @@ document.getElementById('resetFilters').onclick = function() {
 
 // ===================== DATA FETCH =====================
 document.addEventListener('DOMContentLoaded', async function() {
-  // Tunggu sampai userNop tersedia di DOM
-  function getUserNopFromDOM() {
-    const el = document.getElementById('user-nop');
+  // Tunggu sampai userBranch tersedia di DOM
+  function getUserBranchFromDOM() {
+    const el = document.getElementById('user-branch');
     return el ? el.textContent.trim() : null;
   }
-  function waitForUserNop(retry = 0) {
+  function waitForUserBranch(retry = 0) {
     return new Promise(resolve => {
       const tryGet = () => {
-        const nop = getUserNopFromDOM();
-        if (nop && nop !== '-') {
-          resolve(nop);
+        const branch = getUserBranchFromDOM();
+        if (branch && branch !== '-') {
+          resolve(branch);
         } else if (retry < 30) {
           setTimeout(() => tryGet(++retry), 100);
         } else {
@@ -532,23 +532,23 @@ document.addEventListener('DOMContentLoaded', async function() {
       tryGet();
     });
   }
-  userNop = await waitForUserNop();
+  userBranch = await waitForUserBranch();
   try {
     const response = await fetch('/api/realtime');
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
     const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
     allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-    // Terapkan filter NOP user sebelum renderDashboard
-    filteredByNopData = filterByNopUser(allData);
-    renderDashboard(filteredByNopData);
+    // Terapkan filter branch user sebelum renderDashboard
+    filteredByBranchData = filterByBranchUser(allData);
+    renderDashboard(filteredByBranchData);
   } catch (error) {
     // Error handling: bisa tampilkan pesan error di halaman jika perlu
   }
-  // Sembunyikan filter branch jika userNop bukan 'kalimantan'
+  // Sembunyikan filter branch jika userBranch bukan 'kalimantan'
   const branchFilter = document.getElementById('branchFilter');
   const activeFilters = document.getElementById('activeFilters');
-  if (userNop && userNop.trim().toLowerCase() !== 'kalimantan') {
+  if (userBranch && userBranch.trim().toLowerCase() !== 'kalimantan') {
     if (branchFilter) branchFilter.style.display = 'none';
     // Sembunyikan chip branch di filter aktif jika ada
     if (activeFilters) {
