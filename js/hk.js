@@ -434,6 +434,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
         // Filter by branch user
         function filterByBranchUser(data) {
+            if (isGuestUser()) return data; // Guest bisa lihat semua data
             if (!userBranch) return [];
             if (userBranch.trim().toLowerCase() === 'kalimantan') {
                 return data;
