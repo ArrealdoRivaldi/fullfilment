@@ -396,7 +396,7 @@ function bindFilterEvents() {
         });
         currentPage = 1;
         updateActiveFilters();
-        renderTableWithPagination(allData);
+        renderTableWithPagination(filteredByNopData);
         fetchLastUpdated();
     });
 }
