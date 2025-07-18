@@ -186,12 +186,16 @@
           name: 'Guest User',
           uid: user.uid
         };
-        // Cek apakah user guest sudah ada di Firestore berdasarkan UID (docId)
+        // Debug log
+        console.log('UID:', user.uid);
+        console.log('guestData:', guestData);
         const docRef = window._firebase.firestore.collection('login').doc(user.uid);
         const docSnap = await docRef.get();
         if (!docSnap.exists) {
-          // Tambahkan user guest ke Firestore dengan docId = uid
           await docRef.set(guestData);
+          console.log('Guest data written to Firestore');
+        } else {
+          console.log('Guest data already exists');
         }
         // Simpan ke sessionStorage
         sessionStorage.setItem('fbb_user', JSON.stringify(guestData));
@@ -203,6 +207,7 @@
         setStatus('Gagal login guest: ' + err.message, '#e53e3e');
         guestBtn.disabled = false;
         guestBtn.setAttribute('aria-busy', 'false');
+        console.error('Guest login error:', err);
       }
     };
   </script>
