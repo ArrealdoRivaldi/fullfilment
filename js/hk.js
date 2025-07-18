@@ -299,6 +299,7 @@ function renderTableWithPagination(filteredData = null) {
     const startIdx = (currentPage - 1) * pageSize;
     const endIdx = startIdx + pageSize;
     const pageData = data.slice(startIdx, endIdx);
+    const guest = isGuestUser();
     pageData.forEach((item, index) => {
         const row = document.createElement('tr');
         row.dataset.docId = item.id;
@@ -316,7 +317,7 @@ function renderTableWithPagination(filteredData = null) {
                 </div>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">$${
                 item.latitude && item.longitude
                     ? `<div class="flex items-center gap-2">
                         <span class="coords-text">${item.longitude}, ${item.latitude}</span>
@@ -329,18 +330,18 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                <select class="status-hk-select border rounded px-2 py-1">
+                <select class="status-hk-select border rounded px-2 py-1" ${guest ? 'disabled' : ''}>
                     <option value="">Select Status</option>
                     ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                 </select>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
+                <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}" ${guest ? 'disabled title="Guest tidak bisa edit remark"' : ''}>Detail</button>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id"></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id" ${guest ? 'disabled' : ''}></td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" ${guest ? 'disabled title="Guest tidak bisa update data"' : ''}>Update</button></td>
         `;
         tbody.appendChild(row);
     });
@@ -553,6 +554,12 @@ document.getElementById('closeModal').addEventListener('click', () => {
     document.getElementById('falloutModal').classList.add('hidden');
 });
 document.getElementById('dataTableBody').addEventListener('click', async (e) => {
+    if (isGuestUser()) {
+        if (e.target.classList.contains('update-btn') || e.target.classList.contains('remark-detail-btn')) {
+            showToast('Guest hanya bisa melihat dan export data, tidak bisa update.', 'info');
+            return;
+        }
+    }
     if (e.target.classList.contains('details-btn')) {
         const details = e.target.dataset.fallout;
         document.getElementById('falloutDetails').textContent = details;
@@ -930,6 +937,7 @@ function renderTableWithPagination(filteredData = null) {
     const startIdx = (currentPage - 1) * pageSize;
     const endIdx = startIdx + pageSize;
     const pageData = data.slice(startIdx, endIdx);
+    const guest = isGuestUser();
     pageData.forEach((item, index) => {
         const row = document.createElement('tr');
         row.dataset.docId = item.id;
@@ -947,7 +955,7 @@ function renderTableWithPagination(filteredData = null) {
                 </div>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">$${
                 item.latitude && item.longitude
                     ? `<div class="flex items-center gap-2">
                         <span class="coords-text">${item.longitude}, ${item.latitude}</span>
@@ -960,18 +968,18 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                <select class="status-hk-select border rounded px-2 py-1">
+                <select class="status-hk-select border rounded px-2 py-1" ${guest ? 'disabled' : ''}>
                     <option value="">Select Status</option>
                     ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                 </select>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
-                <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
+                <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}" ${guest ? 'disabled title="Guest tidak bisa edit remark"' : ''}>Detail</button>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id"></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id" ${guest ? 'disabled' : ''}></td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" ${guest ? 'disabled title="Guest tidak bisa update data"' : ''}>Update</button></td>
         `;
         tbody.appendChild(row);
     });
@@ -1549,4 +1557,12 @@ function showConfirm(msg, onYes, onNo) {
 function getPicDept(statusHK) {
     const found = statusHKOptions.find(opt => opt.value === statusHK);
     return found ? found.pic : '';
+}
+
+// Tambahkan helper untuk cek apakah user guest
+function isGuestUser() {
+  try {
+    const user = JSON.parse(sessionStorage.getItem('fbb_user'));
+    return user && user.role === 'guest';
+  } catch (e) { return false; }
 }

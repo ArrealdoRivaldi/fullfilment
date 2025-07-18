@@ -96,6 +96,9 @@
     <button class="login-btn" id="loginGoogle" aria-label="Login dengan Google" aria-busy="false">
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" style="width:22px;"> <span>Login dengan Google</span>
     </button>
+    <button class="login-btn" id="loginGuest" aria-label="Login sebagai Guest" style="background:#6b7280;margin-top:10px;">
+      <i class="fa fa-user-secret"></i> <span>Login sebagai Guest</span>
+    </button>
     <div class="status" id="loginStatus" aria-live="polite"></div>
   </div>
 
@@ -165,6 +168,39 @@
         loginInProgress = false;
       }
     });
+
+    // Tombol login Guest
+    const guestBtn = document.getElementById('loginGuest');
+    guestBtn.onclick = async function() {
+      setStatus('Login sebagai Guest...', '#333', true);
+      guestBtn.setAttribute('aria-busy', 'true');
+      guestBtn.disabled = true;
+      const guestEmail = 'guest@guest.local';
+      const guestData = {
+        email: guestEmail,
+        role: 'guest',
+        branch: 'kalimantan',
+        name: 'Guest User'
+      };
+      try {
+        // Cek apakah user guest sudah ada di Firestore
+        const querySnapshot = await window._firebase.firestore.collection('login').where('email', '==', guestEmail).get();
+        if (querySnapshot.empty) {
+          // Tambahkan user guest ke Firestore
+          await window._firebase.firestore.collection('login').add(guestData);
+        }
+        // Simpan ke sessionStorage
+        sessionStorage.setItem('fbb_user', JSON.stringify(guestData));
+        setStatus('Login sukses! Mengarahkan...', 'green');
+        setTimeout(() => {
+          window.location.href = '/dashboard.html';
+        }, 1000);
+      } catch (err) {
+        setStatus('Gagal login guest: ' + err.message, '#e53e3e');
+        guestBtn.disabled = false;
+        guestBtn.setAttribute('aria-busy', 'false');
+      }
+    };
   </script>
 </body>
 </html> 
