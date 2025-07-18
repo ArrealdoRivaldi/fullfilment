@@ -96,9 +96,6 @@
     <button class="login-btn" id="loginGoogle" aria-label="Login dengan Google" aria-busy="false">
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" style="width:22px;"> <span>Login dengan Google</span>
     </button>
-    <button class="login-btn" id="loginGuest" aria-label="Login sebagai Guest" style="background:#6b7280;margin-top:10px;">
-      <i class="fa fa-user-secret"></i> <span>Login sebagai Guest</span>
-    </button>
     <div class="status" id="loginStatus" aria-live="polite"></div>
   </div>
 
@@ -168,48 +165,6 @@
         loginInProgress = false;
       }
     });
-
-    // Tombol login Guest
-    const guestBtn = document.getElementById('loginGuest');
-    guestBtn.onclick = async function() {
-      setStatus('Login sebagai Guest...', '#333', true);
-      guestBtn.setAttribute('aria-busy', 'true');
-      guestBtn.disabled = true;
-      try {
-        // Anonymous sign-in agar lolos auth-guard
-        await window._firebase.auth.signInAnonymously();
-        const user = window._firebase.auth.currentUser;
-        const guestData = {
-          email: 'guest@guest.local',
-          role: 'guest',
-          branch: 'kalimantan',
-          name: 'Guest User',
-          uid: user.uid
-        };
-        // Debug log
-        console.log('UID:', user.uid);
-        console.log('guestData:', guestData);
-        const docRef = window._firebase.firestore.collection('login').doc(user.uid);
-        const docSnap = await docRef.get();
-        if (!docSnap.exists) {
-          await docRef.set(guestData);
-          console.log('Guest data written to Firestore');
-        } else {
-          console.log('Guest data already exists');
-        }
-        // Simpan ke sessionStorage
-        sessionStorage.setItem('fbb_user', JSON.stringify(guestData));
-        setStatus('Login sukses! Mengarahkan...', 'green');
-        setTimeout(() => {
-          window.location.href = '/dashboard.html';
-        }, 1000);
-      } catch (err) {
-        setStatus('Gagal login guest: ' + err.message, '#e53e3e');
-        guestBtn.disabled = false;
-        guestBtn.setAttribute('aria-busy', 'false');
-        console.error('Guest login error:', err);
-      }
-    };
   </script>
 </body>
 </html> 
