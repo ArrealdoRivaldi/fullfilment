@@ -14,27 +14,28 @@
         window.location.href = '/index.html';
         return;
       }
-      // Check user access in Firestore
       try {
-        let querySnapshot;
+        let data;
         if (user.isAnonymous) {
-          querySnapshot = await firestore.collection('login').where('uid', '==', user.uid).get();
-        } else {
-          querySnapshot = await firestore.collection('login').where('email', '==', user.email).get();
-        }
-        if (!querySnapshot.empty) {
-          const data = querySnapshot.docs[0].data();
-          // Simpan informasi user ke sessionStorage, termasuk branch
-          sessionStorage.setItem('fbb_user', JSON.stringify({
-            email: data.email,
-            role: data.role,
-            branch: data.branch // tambahkan branch
-          }));
-          // Show user info in navbar
+          // Guest user: role = 'guest'
+          data = { email: 'guest', role: 'guest', branch: 'all' };
+          sessionStorage.setItem('fbb_user', JSON.stringify(data));
           showUserInfo(user, data);
         } else {
-          await auth.signOut();
-          window.location.href = '/index.html';
+          let querySnapshot;
+          querySnapshot = await firestore.collection('login').where('email', '==', user.email).get();
+          if (!querySnapshot.empty) {
+            data = querySnapshot.docs[0].data();
+            sessionStorage.setItem('fbb_user', JSON.stringify({
+              email: data.email,
+              role: data.role,
+              branch: data.branch
+            }));
+            showUserInfo(user, data);
+          } else {
+            await auth.signOut();
+            window.location.href = '/index.html';
+          }
         }
       } catch (err) {
         alert('Error: ' + err.message);

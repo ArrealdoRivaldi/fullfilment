@@ -96,6 +96,9 @@
     <button class="login-btn" id="loginGoogle" aria-label="Login dengan Google" aria-busy="false">
       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" style="width:22px;"> <span>Login dengan Google</span>
     </button>
+    <button class="login-btn" id="loginGuest" aria-label="Login sebagai Guest" aria-busy="false" style="background:#4b5563;margin-top:8px;">
+      <i class="fa fa-user-secret"></i> <span>Login sebagai Guest</span>
+    </button>
     <div class="status" id="loginStatus" aria-live="polite"></div>
   </div>
 
@@ -119,21 +122,29 @@
       if (!user) return;
       setStatus('Memeriksa akses...', '#333', true);
       try {
-        const querySnapshot = await window._firebase.firestore.collection('login').where('email', '==', user.email).get();
-        if (!querySnapshot.empty) {
-          const data = querySnapshot.docs[0].data();
-          sessionStorage.setItem('fbb_user', JSON.stringify({
-            email: data.email,
-            role: data.role
-          }));
-          setStatus('Login sukses! Mengarahkan...', 'green');
-          setTimeout(() => {
-            window.location.href = '/dashboard.html';
-          }, 1000);
+        let data;
+        if (user.isAnonymous) {
+          // Guest user: role = 'guest'
+          data = { email: 'guest', role: 'guest', branch: 'all' };
         } else {
-          await window._firebase.auth.signOut();
-          setStatus('Akses ditolak: Email tidak terdaftar.', '#e53e3e');
+          const querySnapshot = await window._firebase.firestore.collection('login').where('email', '==', user.email).get();
+          if (!querySnapshot.empty) {
+            data = querySnapshot.docs[0].data();
+          } else {
+            await window._firebase.auth.signOut();
+            setStatus('Akses ditolak: Email tidak terdaftar.', '#e53e3e');
+            return;
+          }
         }
+        sessionStorage.setItem('fbb_user', JSON.stringify({
+          email: data.email,
+          role: data.role,
+          branch: data.branch
+        }));
+        setStatus('Login sukses! Mengarahkan...', 'green');
+        setTimeout(() => {
+          window.location.href = '/dashboard.html';
+        }, 1000);
       } catch (err) {
         setStatus('Terjadi error: ' + err.message, '#e53e3e');
       }
@@ -155,6 +166,19 @@
           loginBtn.disabled = false;
           loginBtn.setAttribute('aria-busy', 'false');
           loginInProgress = false;
+        });
+    };
+    // Tombol login Guest
+    const loginGuestBtn = document.getElementById('loginGuest');
+    loginGuestBtn.onclick = function() {
+      setStatus('Login sebagai Guest...', '#333', true);
+      loginGuestBtn.setAttribute('aria-busy', 'true');
+      loginGuestBtn.disabled = true;
+      window._firebase.auth.signInAnonymously()
+        .catch((error) => {
+          setStatus(error.message, '#e53e3e');
+          loginGuestBtn.disabled = false;
+          loginGuestBtn.setAttribute('aria-busy', 'false');
         });
     };
     // Reset tombol jika user logout atau reload
