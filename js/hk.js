@@ -506,6 +506,7 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
                 sessionStorage.removeItem(`hkData_${userNop}`); // Hapus cache agar fetch ambil data baru
                 // Tambahkan delay sebelum fetch ulang data dari server
                 setTimeout(async () => {
+                    console.log('Mulai fetch data terbaru setelah update...');
                     const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
                     const response2 = await fetch(`/api/realtime${nopParam}`);
                     const data2 = await response2.json();
@@ -515,6 +516,20 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
                     filteredByNopData = filterByNopUser(allData);
                     console.log('Data terbaru:', allData);
                     console.log('Data yang akan dirender:', filteredByNopData);
+                    // Reset semua filter UI ke default
+                    const filterIds = [
+                      'branchFilter', 'wokFilter', 'sto_coFilter', 'startDate', 'endDate',
+                      'statusHKFilter', 'symptomFilter', 'statusPSFilter', 'agingFalloutFilter'
+                    ];
+                    filterIds.forEach(id => {
+                      const el = document.getElementById(id);
+                      if (el) el.value = '';
+                    });
+                    // Kosongkan input search
+                    const searchInput = document.getElementById('tableSearch');
+                    if (searchInput) searchInput.value = '';
+                    // Render tabel dengan data terbaru
+                    console.log('Memanggil renderTableWithPagination dengan data terbaru...');
                     renderTableWithPagination(filteredByNopData);
                 }, 1000); // delay 1 detik
             } else {
@@ -674,7 +689,8 @@ if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
 function exportFilteredData(type) {
     try {
         console.log('Export started, type:', type);
-        const filteredData = getFilteredAndSearchedData();
+        // Gunakan data terbaru yang sudah ada
+        const filteredData = filteredByNopData || [];
         console.log('Filtered data length:', filteredData ? filteredData.length : 'null');
         
         if (!filteredData || filteredData.length === 0) {
@@ -829,54 +845,42 @@ function attachUploadEvents() {
     };
   }
 }
-// Search logic
-function getFilteredAndSearchedData() {
-    console.log('getFilteredAndSearchedData called');
-    console.log('filteredByNopData length:', filteredByNopData ? filteredByNopData.length : 'null');
-    
-    const filtered = filterData();
-    console.log('filterData result length:', filtered ? filtered.length : 'null');
-    
-    const q = (document.getElementById('tableSearch')?.value || '').toLowerCase();
-    console.log('Search query:', q);
-    
-    if (!q) return filtered;
-    
-    const searchResult = filtered.filter(item => {
-        return [
-            item.order_id, item.provi_ts, item.branch, item.wok, item.sto_co, item.fallout_reason, item.symptom, item.status_hk, item.status_ps, item.new_order_id,
-            (item.remark && item.remark.length > 0 ? item.remark.map(r => r.text).join(' | ') : '')
-        ].some(val => (val ? val.toString().toLowerCase().includes(q) : false));
-    });
-    
-    console.log('Search result length:', searchResult.length);
-    return searchResult;
-}
+// Search logic sudah dipindah ke event handler yang lebih baik
 // Override renderTableWithPagination to use search
 function renderTableWithPagination(filteredData = null) {
+    console.log('Render tabel dipanggil dengan data:', filteredData ? filteredData.length : 'null');
     const tbody = document.getElementById('dataTableBody');
+    if (!tbody) {
+        console.error('Element tbody dengan id dataTableBody tidak ditemukan!');
+        return;
+    }
     tbody.innerHTML = '';
-    const data = filteredData || getFilteredAndSearchedData();
+    
+    // Selalu gunakan data yang dikirim sebagai parameter, bukan hasil filter
+    const data = filteredData || filterData();
+    console.log('Data yang akan dirender:', data.length);
+    
     const startIdx = (currentPage - 1) * pageSize;
     const endIdx = startIdx + pageSize;
     const pageData = data.slice(startIdx, endIdx);
+    
     pageData.forEach((item, index) => {
         const row = document.createElement('tr');
         row.dataset.docId = item.id;
         const picDept = getPicDept(item.status_hk);
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id || ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch || ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok || ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co || ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <div class="flex items-center">
                     <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
-                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason || ''}">Details</button>
                 </div>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom || ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
                     ? `<div class="flex items-center gap-2">
@@ -887,7 +891,7 @@ function renderTableWithPagination(filteredData = null) {
                     </div>`
                     : '-'
             }</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts) || ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <select class="status-hk-select border rounded px-2 py-1">
@@ -895,7 +899,7 @@ function renderTableWithPagination(filteredData = null) {
                     ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                 </select>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept || ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
             </td>
@@ -906,16 +910,32 @@ function renderTableWithPagination(filteredData = null) {
         tbody.appendChild(row);
     });
     renderPagination(data.length, data);
+    console.log('Render tabel selesai');
 }
 document.addEventListener('DOMContentLoaded', function() {
     addExportButtons();
     attachUploadEvents(); // Call attachUploadEvents after addExportButtons
-    // Search event
+    // Search event - perbaiki agar tidak mengganggu data terbaru
     const searchInput = document.getElementById('tableSearch');
     if (searchInput) {
         searchInput.addEventListener('input', debounce(function() {
             currentPage = 1;
-            renderTableWithPagination();
+            // Gunakan data terbaru yang sudah ada, bukan fetch ulang
+            const searchQuery = searchInput.value.toLowerCase();
+            if (searchQuery) {
+                const searchResult = filteredByNopData.filter(item => {
+                    return [
+                        item.order_id, item.provi_ts, item.branch, item.wok, item.sto_co, 
+                        item.fallout_reason, item.symptom, item.status_hk, item.status_ps, 
+                        item.new_order_id,
+                        (item.remark && item.remark.length > 0 ? item.remark.map(r => r.text).join(' | ') : '')
+                    ].some(val => (val ? val.toString().toLowerCase().includes(searchQuery) : false));
+                });
+                renderTableWithPagination(searchResult);
+            } else {
+                // Jika search kosong, tampilkan semua data terbaru
+                renderTableWithPagination(filteredByNopData);
+            }
         }, 300));
     }
 });
