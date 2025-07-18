@@ -506,15 +506,6 @@ document.getElementById('resetFilters').onclick = function() {
   applyFilters();
 };
 
-// Debounce helper
-function debounce(fn, delay) {
-  let timer = null;
-  return function(...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn.apply(this, args), delay);
-  };
-}
-
 // ===================== DATA FETCH =====================
 document.addEventListener('DOMContentLoaded', async function() {
   // Tunggu sampai userNop tersedia di DOM
@@ -538,33 +529,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     });
   }
   userNop = await waitForUserNop();
-  // Cek cache sessionStorage
-  const cacheKey = `dashboardData_${userNop}`;
-  const cacheStr = sessionStorage.getItem(cacheKey);
-  let cacheObj = null;
-  if (cacheStr) {
-    try { cacheObj = JSON.parse(cacheStr); } catch {}
-  }
-  const now = Date.now();
-  if (cacheObj && cacheObj.data && cacheObj.expiry > now) {
-    allData = cacheObj.data;
+  try {
+    const response = await fetch('/api/realtime');
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
+    const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
+    allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
+    // Terapkan filter NOP user sebelum renderDashboard
     filteredByNopData = filterByNopUser(allData);
     renderDashboard(filteredByNopData);
-  } else {
-    try {
-      const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
-      const response = await fetch(`/api/realtime${nopParam}`);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      const data = await response.json();
-      const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
-      allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-      // Simpan ke cache 5 menit
-      sessionStorage.setItem(cacheKey, JSON.stringify({ data: allData, expiry: now + 5 * 60 * 1000 }));
-      filteredByNopData = filterByNopUser(allData);
-      renderDashboard(filteredByNopData);
-    } catch (error) {
-      // Error handling: bisa tampilkan pesan error di halaman jika perlu
-    }
+  } catch (error) {
+    // Error handling: bisa tampilkan pesan error di halaman jika perlu
   }
   // Sembunyikan filter branch jika userNop bukan 'kalimantan'
   const branchFilter = document.getElementById('branchFilter');

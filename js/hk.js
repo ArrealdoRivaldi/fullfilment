@@ -17,16 +17,6 @@ const statusHKOptions = [
 let userNop = null;
 let filteredByNopData = [];
 
-// Fungsi filterByNopUser global
-function filterByNopUser(data) {
-    if (!userNop) return [];
-    const userNopNorm = userNop.trim().toLowerCase();
-    if (userNopNorm === 'kalimantan') {
-        return data;
-    }
-    return data.filter(d => ((d.branch || '').trim().toLowerCase() === userNopNorm));
-}
-
 function pad2(n) {
     return n < 10 ? '0' + n : n;
 }
@@ -253,6 +243,89 @@ function applyFiltersWithChips() {
     currentPage = 1;
     renderTableWithPagination(filteredData);
 }
+function renderPagination(totalItems, filteredData) {
+    const totalPages = Math.ceil(totalItems / pageSize);
+    const pagination = document.getElementById('pagination');
+    if (!pagination) return;
+    let pageOptions = '';
+    for (let i = 1; i <= totalPages; i++) {
+        pageOptions += `<option value="${i}" ${i === currentPage ? 'selected' : ''}>${i}</option>`;
+    }
+    const pageSizes = [10, 25, 50, 100, 200];
+    let sizeOptions = '';
+    for (let size of pageSizes) {
+        sizeOptions += `<option value="${size}" ${size === pageSize ? 'selected' : ''}>${size}</option>`;
+    }
+    pagination.innerHTML = `
+        <span class="mr-2">${totalItems} Total Data</span>
+        <button id="prevPage" ${currentPage === 1 ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 mr-1">&larr;</button>
+        <label>Page <select id="pageSelect" class="border rounded px-2 py-1 mx-1">${pageOptions}</select> of ${totalPages}</label>
+        <button id="nextPage" ${currentPage === totalPages ? 'disabled' : ''} class="px-2 py-1 border rounded bg-gray-100 ml-1">&rarr;</button>
+        <label class="ml-4">Show <select id="sizeSelect" class="border rounded px-2 py-1 mx-1">${sizeOptions}</select></label>
+    `;
+    document.getElementById('prevPage').onclick = () => { if (currentPage > 1) { currentPage--; renderTableWithPagination(filteredData); } };
+    document.getElementById('nextPage').onclick = () => { if (currentPage < totalPages) { currentPage++; renderTableWithPagination(filteredData); } };
+    document.getElementById('pageSelect').onchange = (e) => { currentPage = parseInt(e.target.value); renderTableWithPagination(filteredData); };
+    document.getElementById('sizeSelect').onchange = (e) => {
+        pageSize = parseInt(e.target.value);
+        currentPage = 1;
+        renderTableWithPagination(filteredData);
+    };
+}
+function renderTableWithPagination(filteredData = null) {
+    const tbody = document.getElementById('dataTableBody');
+    tbody.innerHTML = '';
+    const data = filteredData || filterData();
+    const startIdx = (currentPage - 1) * pageSize;
+    const endIdx = startIdx + pageSize;
+    const pageData = data.slice(startIdx, endIdx);
+    pageData.forEach((item, index) => {
+        const row = document.createElement('tr');
+        row.dataset.docId = item.id;
+        const picDept = getPicDept(item.status_hk);
+        row.innerHTML = `
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <div class="flex items-center">
+                    <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
+                </div>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${
+                item.latitude && item.longitude
+                    ? `<div class="flex items-center gap-2">
+                        <span class="coords-text">${item.longitude}, ${item.latitude}</span>
+                        <button class="open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs" title="Open in Google Maps" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-map-marker-alt"></i></button>
+                        <button class="copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy coordinates" data-coords="${item.longitude}, ${item.latitude}"><i class="fa fa-copy"></i></button>
+                        <span class="copy-success-msg hidden text-green-500 text-xs ml-1">Copied!</span>
+                    </div>`
+                    : '-'
+            }</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <select class="status-hk-select border rounded px-2 py-1">
+                    <option value="">Select Status</option>
+                    ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
+                </select>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">
+                <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
+            </td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id"></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">Update</button></td>
+        `;
+        tbody.appendChild(row);
+    });
+    renderPagination(data.length, data);
+}
 
 // LAST UPDATED
 async function fetchLastUpdated() {
@@ -325,44 +398,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                     setTimeout(() => tryGet(++retry), 100);
                 } else {
                     resolve(null);
-                } 
+                }
             };
             tryGet();
         });
     }
     userNop = await waitForUserNop();
     await fetchLastUpdated();
-    // Cek cache sessionStorage
-    const cacheKey = `hkData_${userNop}`;
-    const cacheStr = sessionStorage.getItem(cacheKey);
-    let cacheObj = null;
-    if (cacheStr) {
-      try { cacheObj = JSON.parse(cacheStr); } catch {}
-    }
-    const now = Date.now();
-    if (cacheObj && cacheObj.data && cacheObj.expiry > now) {
-      allData = cacheObj.data;
-      filteredByNopData = filterByNopUser(allData);
-      initializeFilters(filteredByNopData);
-      renderTableWithPagination(filteredByNopData);
-      bindFilterEvents();
-    } else {
-      try {
-        const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
-        const response = await fetch(`/api/realtime${nopParam}`);
+    try {
+        const response = await fetch('/api/realtime');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         const dataArray = (data && typeof data === 'object') ? (Array.isArray(data) ? data : Object.values(data)) : [];
         allData = dataArray.map((item, idx) => ({ id: idx.toString(), ...item }));
-        // Simpan ke cache 5 menit
-        sessionStorage.setItem(cacheKey, JSON.stringify({ data: allData, expiry: now + 5 * 60 * 1000 }));
+        // Filter by NOP user
+        function filterByNopUser(data) {
+            if (!userNop) return [];
+            if (userNop.trim().toLowerCase() === 'kalimantan') {
+                return data;
+            }
+            return data.filter(d => (d.branch || '').trim().toLowerCase() === userNop.trim().toLowerCase());
+        }
         filteredByNopData = filterByNopUser(allData);
         initializeFilters(filteredByNopData);
         renderTableWithPagination(filteredByNopData);
         bindFilterEvents();
-      } catch (error) {
+    } catch (error) {
         console.error('Error fetching data:', error);
-      }
     }
     updateActiveFilters();
 
@@ -503,35 +565,8 @@ document.getElementById('dataTableBody').addEventListener('click', async (e) => 
             const result = await response.json();
             if (result.success) {
                 showToast('Update berhasil!', 'success');
-                sessionStorage.removeItem(`hkData_${userNop}`); // Hapus cache agar fetch ambil data baru
-                // Tambahkan delay sebelum fetch ulang data dari server
-                setTimeout(async () => {
-                    console.log('Mulai fetch data terbaru setelah update...');
-                    const nopParam = userNop ? `?nop=${encodeURIComponent(userNop)}` : '';
-                    const response2 = await fetch(`/api/realtime${nopParam}`);
-                    const data2 = await response2.json();
-                    const dataArray2 = (data2 && typeof data2 === 'object') ? (Array.isArray(data2) ? data2 : Object.values(data2)) : [];
-                    allData = dataArray2.map((item, idx) => ({ id: idx.toString(), ...item }));
-                    sessionStorage.setItem(`hkData_${userNop}`, JSON.stringify({ data: allData, expiry: Date.now() + 5 * 60 * 1000 }));
-                    filteredByNopData = filterByNopUser(allData);
-                    console.log('Data terbaru:', allData);
-                    console.log('Data yang akan dirender:', filteredByNopData);
-                    // Reset semua filter UI ke default
-                    const filterIds = [
-                      'branchFilter', 'wokFilter', 'sto_coFilter', 'startDate', 'endDate',
-                      'statusHKFilter', 'symptomFilter', 'statusPSFilter', 'agingFalloutFilter'
-                    ];
-                    filterIds.forEach(id => {
-                      const el = document.getElementById(id);
-                      if (el) el.value = '';
-                    });
-                    // Kosongkan input search
-                    const searchInput = document.getElementById('tableSearch');
-                    if (searchInput) searchInput.value = '';
-                    // Render tabel dengan data terbaru
-                    console.log('Memanggil renderTableWithPagination dengan data terbaru...');
-                    renderTableWithPagination(filteredByNopData);
-                }, 1000); // delay 1 detik
+                location.reload();
+                fetchLastUpdated();
             } else {
                 showToast('Update gagal: ' + (result.error || 'Unknown error'), 'error');
             }
@@ -689,8 +724,7 @@ if (window.location.pathname !== '/hk/' && window.location.pathname !== '/hk') {
 function exportFilteredData(type) {
     try {
         console.log('Export started, type:', type);
-        // Gunakan data terbaru yang sudah ada
-        const filteredData = filteredByNopData || [];
+        const filteredData = getFilteredAndSearchedData();
         console.log('Filtered data length:', filteredData ? filteredData.length : 'null');
         
         if (!filteredData || filteredData.length === 0) {
@@ -845,42 +879,54 @@ function attachUploadEvents() {
     };
   }
 }
-// Search logic sudah dipindah ke event handler yang lebih baik
+// Search logic
+function getFilteredAndSearchedData() {
+    console.log('getFilteredAndSearchedData called');
+    console.log('filteredByNopData length:', filteredByNopData ? filteredByNopData.length : 'null');
+    
+    const filtered = filterData();
+    console.log('filterData result length:', filtered ? filtered.length : 'null');
+    
+    const q = (document.getElementById('tableSearch')?.value || '').toLowerCase();
+    console.log('Search query:', q);
+    
+    if (!q) return filtered;
+    
+    const searchResult = filtered.filter(item => {
+        return [
+            item.order_id, item.provi_ts, item.branch, item.wok, item.sto_co, item.fallout_reason, item.symptom, item.status_hk, item.status_ps, item.new_order_id,
+            (item.remark && item.remark.length > 0 ? item.remark.map(r => r.text).join(' | ') : '')
+        ].some(val => (val ? val.toString().toLowerCase().includes(q) : false));
+    });
+    
+    console.log('Search result length:', searchResult.length);
+    return searchResult;
+}
 // Override renderTableWithPagination to use search
 function renderTableWithPagination(filteredData = null) {
-    console.log('Render tabel dipanggil dengan data:', filteredData ? filteredData.length : 'null');
     const tbody = document.getElementById('dataTableBody');
-    if (!tbody) {
-        console.error('Element tbody dengan id dataTableBody tidak ditemukan!');
-        return;
-    }
     tbody.innerHTML = '';
-    
-    // Selalu gunakan data yang dikirim sebagai parameter, bukan hasil filter
-    const data = filteredData || filterData();
-    console.log('Data yang akan dirender:', data.length);
-    
+    const data = filteredData || getFilteredAndSearchedData();
     const startIdx = (currentPage - 1) * pageSize;
     const endIdx = startIdx + pageSize;
     const pageData = data.slice(startIdx, endIdx);
-    
     pageData.forEach((item, index) => {
         const row = document.createElement('tr');
         row.dataset.docId = item.id;
         const picDept = getPicDept(item.status_hk);
         row.innerHTML = `
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${startIdx + index + 1}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id || ''}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch || ''}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok || ''}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co || ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.order_id}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.branch}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.wok}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.sto_co}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <div class="flex items-center">
                     <span>${item.fallout_reason && item.fallout_reason.length > 20 ? item.fallout_reason.substring(0, 20) + '...' : (item.fallout_reason || '')}</span>
-                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason || ''}">Details</button>
+                    <button class="ml-2 text-blue-600 hover:text-blue-800 details-btn" data-fallout="${item.fallout_reason}">Details</button>
                 </div>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom || ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${
                 item.latitude && item.longitude
                     ? `<div class="flex items-center gap-2">
@@ -891,7 +937,7 @@ function renderTableWithPagination(filteredData = null) {
                     </div>`
                     : '-'
             }</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts) || ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${formatDateTimeMDY(item.provi_ts)}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${(() => { const hari = hitungAgingHari(item.provi_ts); return mapAging(hari) })()}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <select class="status-hk-select border rounded px-2 py-1">
@@ -899,7 +945,7 @@ function renderTableWithPagination(filteredData = null) {
                     ${statusHKOptions.map(opt => `<option value="${opt.value}" ${item.status_hk && item.status_hk.trim() === opt.value ? 'selected' : ''}>${opt.label}</option>`).join('')}
                 </select>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept || ''}</td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${picDept}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}">Detail</button>
             </td>
@@ -910,33 +956,17 @@ function renderTableWithPagination(filteredData = null) {
         tbody.appendChild(row);
     });
     renderPagination(data.length, data);
-    console.log('Render tabel selesai');
 }
 document.addEventListener('DOMContentLoaded', function() {
     addExportButtons();
     attachUploadEvents(); // Call attachUploadEvents after addExportButtons
-    // Search event - perbaiki agar tidak mengganggu data terbaru
+    // Search event
     const searchInput = document.getElementById('tableSearch');
     if (searchInput) {
-        searchInput.addEventListener('input', debounce(function() {
+        searchInput.addEventListener('input', function() {
             currentPage = 1;
-            // Gunakan data terbaru yang sudah ada, bukan fetch ulang
-            const searchQuery = searchInput.value.toLowerCase();
-            if (searchQuery) {
-                const searchResult = filteredByNopData.filter(item => {
-                    return [
-                        item.order_id, item.provi_ts, item.branch, item.wok, item.sto_co, 
-                        item.fallout_reason, item.symptom, item.status_hk, item.status_ps, 
-                        item.new_order_id,
-                        (item.remark && item.remark.length > 0 ? item.remark.map(r => r.text).join(' | ') : '')
-                    ].some(val => (val ? val.toString().toLowerCase().includes(searchQuery) : false));
-                });
-                renderTableWithPagination(searchResult);
-            } else {
-                // Jika search kosong, tampilkan semua data terbaru
-                renderTableWithPagination(filteredByNopData);
-            }
-        }, 300));
+            renderTableWithPagination();
+        });
     }
 });
 
@@ -1123,7 +1153,7 @@ function showUploadPreviewModal(data, onConfirm) {
           </div>
         </div>
       </div>
-    `; 
+    `;
     document.body.appendChild(modal);
   }
   // Isi preview
@@ -1500,29 +1530,3 @@ function getPicDept(statusHK) {
     const found = statusHKOptions.find(opt => opt.value === statusHK);
     return found ? found.pic : '';
 }
-
-// Debounce helper
-function debounce(fn, delay) {
-  let timer = null;
-  return function(...args) {
-    clearTimeout(timer);
-    timer = setTimeout(() => fn.apply(this, args), delay);
-  };
-}
-
-// ... existing code ...
-filteredByNopData = filterByNopUser(allData);
-// Reset semua filter UI ke default
-const filterIds = [
-  'branchFilter', 'wokFilter', 'sto_coFilter', 'startDate', 'endDate',
-  'statusHKFilter', 'symptomFilter', 'statusPSFilter', 'agingFalloutFilter'
-];
-filterIds.forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.value = '';
-});
-// Kosongkan input search
-const searchInput = document.getElementById('tableSearch');
-if (searchInput) searchInput.value = '';
-renderTableWithPagination(filteredByNopData);
-// ... existing code ...
