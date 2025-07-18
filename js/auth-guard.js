@@ -16,7 +16,12 @@
       }
       // Check user access in Firestore
       try {
-        const querySnapshot = await firestore.collection('login').where('email', '==', user.email).get();
+        let querySnapshot;
+        if (user.isAnonymous) {
+          querySnapshot = await firestore.collection('login').where('uid', '==', user.uid).get();
+        } else {
+          querySnapshot = await firestore.collection('login').where('email', '==', user.email).get();
+        }
         if (!querySnapshot.empty) {
           const data = querySnapshot.docs[0].data();
           // Simpan informasi user ke sessionStorage, termasuk branch

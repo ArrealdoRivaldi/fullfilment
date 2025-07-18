@@ -175,24 +175,25 @@
       setStatus('Login sebagai Guest...', '#333', true);
       guestBtn.setAttribute('aria-busy', 'true');
       guestBtn.disabled = true;
-      const guestEmail = 'guest@guest.local';
-      const guestData = {
-        email: guestEmail,
-        role: 'guest',
-        branch: 'kalimantan',
-        name: 'Guest User'
-      };
       try {
-        // Cek apakah user guest sudah ada di Firestore
-        const querySnapshot = await window._firebase.firestore.collection('login').where('email', '==', guestEmail).get();
+        // Anonymous sign-in agar lolos auth-guard
+        await window._firebase.auth.signInAnonymously();
+        const user = window._firebase.auth.currentUser;
+        const guestData = {
+          email: 'guest@guest.local',
+          role: 'guest',
+          branch: 'kalimantan',
+          name: 'Guest User',
+          uid: user.uid
+        };
+        // Cek apakah user guest sudah ada di Firestore berdasarkan UID
+        const querySnapshot = await window._firebase.firestore.collection('login').where('uid', '==', user.uid).get();
         if (querySnapshot.empty) {
           // Tambahkan user guest ke Firestore
           await window._firebase.firestore.collection('login').add(guestData);
         }
         // Simpan ke sessionStorage
         sessionStorage.setItem('fbb_user', JSON.stringify(guestData));
-        // Anonymous sign-in agar lolos auth-guard
-        await window._firebase.auth.signInAnonymously();
         setStatus('Login sukses! Mengarahkan...', 'green');
         setTimeout(() => {
           window.location.href = '/dashboard.html';
