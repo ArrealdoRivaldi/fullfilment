@@ -60,6 +60,7 @@ function initializeFilters(data) {
         sto_co: new Set(),
         symptom: new Set(),
         status_ps: new Set(),
+        pic_dept: new Set(),
     };
     data.forEach(item => {
         filters.branch.add(item.branch);
@@ -67,6 +68,7 @@ function initializeFilters(data) {
         filters.sto_co.add(item.sto_co);
         filters.symptom.add(item.symptom);
         filters.status_ps.add(item.status_ps);
+        if (item.pic_dept) filters.pic_dept.add(item.pic_dept);
     });
     ['branch', 'wok', 'sto_co', 'symptom', 'status_ps'].forEach(filter => {
         const select = document.getElementById(`${filter === 'status_ps' ? 'statusPS' : filter}Filter`);
@@ -81,6 +83,19 @@ function initializeFilters(data) {
             }
         });
     });
+    // PIC Dept
+    const picDeptSelect = document.getElementById('picDeptFilter');
+    if (picDeptSelect) {
+        picDeptSelect.innerHTML = '<option value="">All</option>';
+        [...filters.pic_dept].sort().forEach(value => {
+            if (value) {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                picDeptSelect.appendChild(option);
+            }
+        });
+    }
     const statusHKSelect = document.getElementById('statusHKFilter');
     statusHKSelect.innerHTML = '';
     const optAll = document.createElement('option');
@@ -156,6 +171,7 @@ function filterData() {
     const symptom = document.getElementById('symptomFilter').value;
     const statusPS = document.getElementById('statusPSFilter').value;
     const agingFallout = document.getElementById('agingFalloutFilter').value;
+    const picDept = document.getElementById('picDeptFilter').value;
     return filteredByNopData.filter(item => {
         let itemDate;
         if (typeof item.provi_ts === 'object' && item.provi_ts.seconds) {
@@ -187,6 +203,7 @@ function filterData() {
             (!sto || item.sto_co === sto) &&
             (!symptom || item.symptom === symptom) &&
             (!statusPS || item.status_ps === statusPS) &&
+            (!picDept || item.pic_dept === picDept) &&
             statusHKMatch &&
             (!start || itemDate >= start) &&
             (!end || itemDate <= end) &&
@@ -204,6 +221,7 @@ function updateActiveFilters() {
     const symptom = document.getElementById('symptomFilter').value;
     const statusPS = document.getElementById('statusPSFilter').value;
     const agingFallout = document.getElementById('agingFalloutFilter').value;
+    const picDept = document.getElementById('picDeptFilter').value;
     const container = document.getElementById('activeFilters');
     container.innerHTML = '';
     function addChip(icon, text, color, type) {
@@ -221,6 +239,7 @@ function updateActiveFilters() {
     if (symptom) addChip('fa-stethoscope', symptom, 'teal', 'symptom');
     if (statusPS) addChip('fa-tasks', statusPS, 'indigo', 'statusPS');
     if (agingFallout) addChip('fa-hourglass-half', `Aging: ${agingFallout}`, 'gray', 'agingFallout');
+    if (picDept) addChip('fa-user', picDept, 'pink', 'picDept');
 }
 function removeFilter(type) {
     if (type === 'branch') document.getElementById('branchFilter').value = '';
@@ -232,6 +251,7 @@ function removeFilter(type) {
     if (type === 'symptom') document.getElementById('symptomFilter').value = '';
     if (type === 'statusPS') document.getElementById('statusPSFilter').value = '';
     if (type === 'agingFallout') document.getElementById('agingFalloutFilter').value = '';
+    if (type === 'picDept') document.getElementById('picDeptFilter').value = '';
     applyFiltersWithChips();
 }
 function applyFiltersWithChips() {
