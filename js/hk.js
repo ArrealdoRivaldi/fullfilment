@@ -317,13 +317,13 @@ function renderTableWithPagination(filteredData = null) {
                 </div>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">$${
-                (typeof item.latitude === 'number' && typeof item.longitude === 'number' && !isNaN(item.latitude) && !isNaN(item.longitude))
-                    ? `<div class="flex items-center gap-2">
-                        <span class="coords-text">${item.longitude}, ${item.latitude}</span>
-                        <button class="open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs" title="Open in Google Maps" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-map-marker-alt"></i></button>
-                        <button class="copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy coordinates" data-coords="${item.longitude}, ${item.latitude}"><i class="fa fa-copy"></i></button>
-                        <span class="copy-success-msg hidden text-green-500 text-xs ml-1">Copied!</span>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${
+                (item.latitude && item.longitude && !isNaN(Number(item.latitude)) && !isNaN(Number(item.longitude)))
+                    ? `<div class=\"flex items-center gap-2\">
+                        <span class=\"coords-text\">${item.longitude}, ${item.latitude}</span>
+                        <button class=\"open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs\" title=\"Open in Google Maps\" data-mapurl=\"https://www.google.com/maps?q=${item.latitude},${item.longitude}\"><i class=\"fa fa-map-marker-alt\"></i></button>
+                        <button class=\"copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs\" title=\"Copy coordinates\" data-coords=\"${item.longitude}, ${item.latitude}\"><i class=\"fa fa-copy\"></i></button>
+                        <span class=\"copy-success-msg hidden text-green-500 text-xs ml-1\">Copied!</span>
                     </div>`
                     : '-'
             }</td>
@@ -961,13 +961,13 @@ function renderTableWithPagination(filteredData = null) {
                 </div>
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900">$${
-                (typeof item.latitude === 'number' && typeof item.longitude === 'number' && !isNaN(item.latitude) && !isNaN(item.longitude))
-                    ? `<div class="flex items-center gap-2">
-                        <span class="coords-text">${item.longitude}, ${item.latitude}</span>
-                        <button class="open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs" title="Open in Google Maps" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-map-marker-alt"></i></button>
-                        <button class="copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs" title="Copy coordinates" data-coords="${item.longitude}, ${item.latitude}"><i class="fa fa-copy"></i></button>
-                        <span class="copy-success-msg hidden text-green-500 text-xs ml-1">Copied!</span>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900">${
+                (item.latitude && item.longitude && !isNaN(Number(item.latitude)) && !isNaN(Number(item.longitude)))
+                    ? `<div class=\"flex items-center gap-2\">
+                        <span class=\"coords-text\">${item.longitude}, ${item.latitude}</span>
+                        <button class=\"open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs\" title=\"Open in Google Maps\" data-mapurl=\"https://www.google.com/maps?q=${item.latitude},${item.longitude}\"><i class=\"fa fa-map-marker-alt\"></i></button>
+                        <button class=\"copy-coords-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-gray-300 border text-gray-700 text-xs\" title=\"Copy coordinates\" data-coords=\"${item.longitude}, ${item.latitude}\"><i class=\"fa fa-copy\"></i></button>
+                        <span class=\"copy-success-msg hidden text-green-500 text-xs ml-1\">Copied!</span>
                     </div>`
                     : '-'
             }</td>
