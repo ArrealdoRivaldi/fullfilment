@@ -318,7 +318,7 @@ function renderTableWithPagination(filteredData = null) {
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">$${
-                item.latitude && item.longitude
+                (typeof item.latitude === 'number' && typeof item.longitude === 'number' && !isNaN(item.latitude) && !isNaN(item.longitude))
                     ? `<div class="flex items-center gap-2">
                         <span class="coords-text">${item.longitude}, ${item.latitude}</span>
                         <button class="open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs" title="Open in Google Maps" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-map-marker-alt"></i></button>
@@ -339,7 +339,7 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}" ${guest ? 'disabled title="Guest tidak bisa edit remark"' : ''}>Detail</button>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id" ${guest ? 'disabled' : ''}></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><label for="new-order-id-${item.id}" class="sr-only">New Order id</label><input type="text" id="new-order-id-${item.id}" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id" ${guest ? 'disabled' : ''}></td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" ${guest ? 'disabled title="Guest tidak bisa update data"' : ''}>Update</button></td>
         `;
@@ -962,7 +962,7 @@ function renderTableWithPagination(filteredData = null) {
             </td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.symptom}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">$${
-                item.latitude && item.longitude
+                (typeof item.latitude === 'number' && typeof item.longitude === 'number' && !isNaN(item.latitude) && !isNaN(item.longitude))
                     ? `<div class="flex items-center gap-2">
                         <span class="coords-text">${item.longitude}, ${item.latitude}</span>
                         <button class="open-map-btn px-1 py-0.5 bg-gray-200 rounded hover:bg-blue-200 border text-blue-600 text-xs" title="Open in Google Maps" data-mapurl="https://www.google.com/maps?q=${item.latitude},${item.longitude}"><i class="fa fa-map-marker-alt"></i></button>
@@ -983,7 +983,7 @@ function renderTableWithPagination(filteredData = null) {
             <td class="px-2 py-2 border border-gray-300 text-gray-900">
                 <button class="remark-detail-btn px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600" data-doc-id="${item.id}" ${guest ? 'disabled title="Guest tidak bisa edit remark"' : ''}>Detail</button>
             </td>
-            <td class="px-2 py-2 border border-gray-300 text-gray-900"><input type="text" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id" ${guest ? 'disabled' : ''}></td>
+            <td class="px-2 py-2 border border-gray-300 text-gray-900"><label for="new-order-id-${item.id}" class="sr-only">New Order id</label><input type="text" id="new-order-id-${item.id}" class="new-order-id border rounded px-2 py-1" value="${item.new_order_id ? item.new_order_id : ''}" placeholder="New Order id" ${guest ? 'disabled' : ''}></td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900">${item.status_ps ? item.status_ps : ''}</td>
             <td class="px-2 py-2 border border-gray-300 text-gray-900"><button class="update-btn px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600" ${guest ? 'disabled title="Guest tidak bisa update data"' : ''}>Update</button></td>
         `;

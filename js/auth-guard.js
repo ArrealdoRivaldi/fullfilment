@@ -24,17 +24,17 @@
         } else {
           let querySnapshot;
           querySnapshot = await firestore.collection('login').where('email', '==', user.email).get();
-          if (!querySnapshot.empty) {
+        if (!querySnapshot.empty) {
             data = querySnapshot.docs[0].data();
-            sessionStorage.setItem('fbb_user', JSON.stringify({
-              email: data.email,
-              role: data.role,
+          sessionStorage.setItem('fbb_user', JSON.stringify({
+            email: data.email,
+            role: data.role,
               branch: data.branch
-            }));
-            showUserInfo(user, data);
-          } else {
-            await auth.signOut();
-            window.location.href = '/index.html';
+          }));
+          showUserInfo(user, data);
+        } else {
+          await auth.signOut();
+          window.location.href = '/index.html';
           }
         }
       } catch (err) {

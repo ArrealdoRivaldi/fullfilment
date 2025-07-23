@@ -127,8 +127,8 @@
           // Guest user: role = 'guest'
           data = { email: 'guest', role: 'guest', branch: 'all' };
         } else {
-          const querySnapshot = await window._firebase.firestore.collection('login').where('email', '==', user.email).get();
-          if (!querySnapshot.empty) {
+        const querySnapshot = await window._firebase.firestore.collection('login').where('email', '==', user.email).get();
+        if (!querySnapshot.empty) {
             data = querySnapshot.docs[0].data();
           } else {
             await window._firebase.auth.signOut();
@@ -136,15 +136,15 @@
             return;
           }
         }
-        sessionStorage.setItem('fbb_user', JSON.stringify({
-          email: data.email,
+          sessionStorage.setItem('fbb_user', JSON.stringify({
+            email: data.email,
           role: data.role,
           branch: data.branch
-        }));
-        setStatus('Login sukses! Mengarahkan...', 'green');
-        setTimeout(() => {
-          window.location.href = '/dashboard.html';
-        }, 1000);
+          }));
+          setStatus('Login sukses! Mengarahkan...', 'green');
+          setTimeout(() => {
+            window.location.href = '/dashboard.html';
+          }, 1000);
       } catch (err) {
         setStatus('Terjadi error: ' + err.message, '#e53e3e');
       }
