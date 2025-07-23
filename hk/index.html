@@ -110,64 +110,64 @@
                         <div id="activeFilters" class="flex flex-wrap gap-2 mb-2"></div>
                         <div id="filterGrid1" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Branch</label>
-                                <select id="branchFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700" for="branchFilter">Branch</label>
+                                <select id="branchFilter" name="branchFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">All</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">WOK</label>
-                                <select id="wokFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700" for="wokFilter">WOK</label>
+                                <select id="wokFilter" name="wokFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">All</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">STO</label>
-                                <select id="sto_coFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="">All</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Start Date</label>
-                                <input type="text" id="startDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 date-mdy" placeholder="MM/DD/YYYY">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">End Date</label>
-                                <input type="text" id="endDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 date-mdy" placeholder="MM/DD/YYYY">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Status HK</label>
-                                <select id="statusHKFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700" for="sto_coFilter">STO</label>
+                                <select id="sto_coFilter" name="sto_coFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">All</option>
                                 </select>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Symptom</label>
-                                <select id="symptomFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="">All</option>
-                                </select>
+                                <label class="block text-sm font-medium text-gray-700" for="startDate">Start Date</label>
+                                <input type="text" id="startDate" name="startDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 date-mdy" placeholder="MM/DD/YYYY">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Status PS</label>
-                                <select id="statusPSFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                                    <option value="">All</option>
-                                </select>
+                                <label class="block text-sm font-medium text-gray-700" for="endDate">End Date</label>
+                                <input type="text" id="endDate" name="endDate" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 date-mdy" placeholder="MM/DD/YYYY">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">PIC Dept</label>
-                                <select id="picDeptFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700" for="statusHKFilter">Status HK</label>
+                                <select id="statusHKFilter" name="statusHKFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">All</option>
                                 </select>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Aging Fallout</label>
-                                <select id="agingFalloutFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                <label class="block text-sm font-medium text-gray-700" for="symptomFilter">Symptom</label>
+                                <select id="symptomFilter" name="symptomFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="statusPSFilter">Status PS</label>
+                                <select id="statusPSFilter" name="statusPSFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="picDeptFilter">PIC Dept</label>
+                                <select id="picDeptFilter" name="picDeptFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700" for="agingFalloutFilter">Aging Fallout</label>
+                                <select id="agingFalloutFilter" name="agingFalloutFilter" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                     <option value="">All</option>
                                     <option value="1-3 hari">1-3 hari</option>
                                     <option value="4-7 hari">4-7 hari</option>
@@ -187,12 +187,14 @@
 
                     <!-- Search & Export Controls -->
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-                      <input id="tableSearch" type="text" placeholder="Search data..." class="w-full sm:w-64 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm" />
+                      <label for="tableSearch" class="sr-only">Search data</label>
+                      <input id="tableSearch" name="tableSearch" type="text" placeholder="Search data..." class="w-full sm:w-64 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm" />
                       <div id="exportButtons" class="flex flex-wrap gap-2 mt-2 sm:mt-0">
                         <button id="iconUploadBtn" class="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition text-base" title="Upload File">
                           <i class="fa fa-upload"></i> <span class="hidden sm:inline">Upload</span>
                         </button>
-                        <input type="file" id="fileInput" accept=".csv,.xls,.xlsx,.json" class="hidden" />
+                        <label for="fileInput" class="sr-only">Upload file</label>
+                        <input type="file" id="fileInput" name="fileInput" accept=".csv,.xls,.xlsx,.json" class="hidden" />
                         <!-- Export buttons (Copy, CSV, Excel) akan diisi JS -->
                       </div>
                     </div>
@@ -270,7 +272,8 @@
                                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-2">Remark History</h3>
                                 <div id="remarkHistory" class="mt-2 px-2 py-2 text-left max-h-60 overflow-y-auto border rounded bg-gray-50 text-sm text-gray-700"></div>
                                 <div class="mt-4">
-                                    <textarea id="remarkInput" class="w-full border rounded p-2" rows="3" placeholder="Tambah remark baru..."></textarea>
+                                    <label for="remarkInput" class="sr-only">Tambah remark baru</label>
+                                    <textarea id="remarkInput" name="remarkInput" class="w-full border rounded p-2" rows="3" placeholder="Tambah remark baru..."></textarea>
                                 </div>
                                 <div class="flex justify-between items-center mt-3">
                                     <span id="lastEditedInfo" class="text-xs text-gray-400"></span>
